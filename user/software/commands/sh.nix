@@ -17,7 +17,7 @@
     trash = "gio trash";
     e = "${userSettings.editor}";
     rollback = "sudo nixos-rebuild switch --flake /home/${userSettings.username}/${systemSettings.flakePath}#${userSettings.username} --rollback";
-    flake = "bash -c 'sudo nixos-rebuild switch --flake /home/${userSettings.username}/${systemSettings.flakePath}#${userSettings.username} |& nom'";
+    flake = "printf '\n';bash -c 'sudo nixos-rebuild switch --flake /home/${userSettings.username}/${systemSettings.flakePath}#${userSettings.username} |& nom';printf '\n'";
   }; 
 in {
   programs.fish = {

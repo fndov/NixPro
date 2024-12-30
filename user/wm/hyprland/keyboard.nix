@@ -16,8 +16,8 @@
       "SUPER,Return,exec,${userSettings.terminal}"
 
       # Volume and Media Control.
-      ",XF86AudioRaiseVolume, exec, -unmute pamixer -i 3" 
-      ",XF86AudioLowerVolume, exec, --unmute pamixer -d 3"
+      ",XF86AudioRaiseVolume, exec, pamixer --unmute -i 3" 
+      ",XF86AudioLowerVolume, exec, pamixer --unmute -d 3"
       ",XF86AudioMicMute, exec, pamixer --default-source -m"
       ",XF86AudioMute, exec, pamixer -t"
       ",XF86AudioPlay, exec, playerctl play-pause"
