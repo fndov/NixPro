@@ -1,0 +1,82 @@
+{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland-plugins.inputs.hyprland.follows = "hyprland";
+    hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
+    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
+
+    catppuccin.url = "github:catppuccin/nix"; # Archived.
+
+    # https://github.com/niksingh710/nsearch
+    nsearch.url = "github:niksingh710/nsearch";
+    nsearch.inputs.nixpkgs.follows = "nixpkgs";
+
+    # https://ghostty.org/docs/install/binary#nix-flake
+    ghostty.url = "github:ghostty-org/ghostty";
+  };
+
+  outputs = inputs@{ self, nixpkgs, home-manager, hyprland, catppuccin, ghostty, ... }: let
+
+    systemSettings = {          # System settings.
+      bootMode = "uefi";        # uefi, bios.
+      grubDevice = "/dev/sda";  # /dev/sda, /dev/nvme0n1.
+      bootMountPath = "/boot";  # mount path for efi boot partition; only used for uefi boot mode
+      system = "x86_64-linux";  # x86_64-linux, aarch64-linux.
+      profile = "personal";     # personal, work, server, vm, wsl.
+      flakePath = ".nixpro";    # /home/user/flakePath/NixPro
+      hostname = "Phantom";      # Anything.
+      gpu = "nvidia";            # nvidia, amd, intel.
+    };
+
+    userSettings = {            # User settings.
+      username = "miyu";        # Anything.
+      terminal = "ghostty";     # alacritty, kitty.
+      shell = "fish";           # bash, zsh, fish, nushell.
+      editor = "micro";         # vim, neovim, micro.
+      browser = "firefox";      # firefox, chromium.
+      font = "JetBrainsMono Nerd Font";
+      fontPkg = "nerdfonts";
+    };
+
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+      overlays = [ inputs.hyprpanel.overlay ];
+    };
+
+    system = systemSettings.system;
+
+  in {
+    nixosConfigurations.${userSettings.username} = nixpkgs.lib.nixosSystem {
+      specialArgs = { inherit inputs pkgs system systemSettings userSettings; };
+      modules = [
+        ./profile/${systemSettings.profile}/configuration.nix
+        ./system/hardware/${systemSettings.gpu}.nix
+        ./system/hardware/hardware.nix
+
+        { environment.systemPackages = [
+          ghostty.packages.x86_64-linux.default
+        ]; }
+
+          home-manager.nixosModules.home-manager {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = { inherit inputs systemSettings userSettings; };
+          home-manager.users.${userSettings.username} = {
+            imports = [
+
+              ./profile/${systemSettings.profile}/home.nix
+              catppuccin.homeManagerModules.catppuccin
+
+            ];
+          };
+        }
+      ];
+    };
+  };
+}

@@ -1,0 +1,54 @@
+alt catppuccin mocha - vscode
+catppuccin something - firefox
+
+minimal install from nix.iso
+clone it to the machine
+cp nixos/hardware.nix to NixPro/system/hardware.nix
+set grub device in NixPro/system/boot.nix # should make this a var
+
+nix-shell -p git --run "sudo nixos-rebuild switch --flake /home/miyu/NixPro#miyu"
+nix-shell -p git --run "nix run home-manager/master --extra-experimental-features nix-command --extra-experimental-features flakes -- switch --flake /home/miyu/NixPro#miyu"
+
+sudo nixos-rebuild switch --flake /home/miyu/NixPro#miyu
+home-manager switch --flake /home/miyu/NixPro#miyu
+
+sudo nixos-rebuild switch --flake /home/miyu/NixPro#miyu && home-manager switch --flake /home/miyu/NixPro#miyu
+
+export IP_SUFFIX=123
+
+#!/bin/bash
+# Variables
+LOCAL_DIR="$HOME/Downloads/NixPro"
+IP_SUFFIX=${IP_SUFFIX:-213}  # Default to 213 if IP_SUFFIX is not set
+REMOTE_HOST="192.168.122.$IP_SUFFIX"
+REMOTE_DIR="~/NixPro"
+USERNAME="miyu"
+PASSWORD="u"
+DELAY=1 # Sync interval in seconds
+
+# Ensure LOCAL_DIR exists
+if [ ! -d "$LOCAL_DIR" ]; then
+ echo "Local directory $LOCAL_DIR does not exist. Exiting."
+ exit 1
+fi
+
+# Infinite loop to sync files
+while true; do
+ echo "Syncing $LOCAL_DIR to $REMOTE_HOST:$REMOTE_DIR ..."
+ 
+ # Sync everything except flake.lock and .git
+ sshpass -p "$PASSWORD" rsync -av --delete --exclude "flake.lock" --exclude ".git" "$LOCAL_DIR/" "$USERNAME@$REMOTE_HOST:$REMOTE_DIR/"
+ 
+ # Sync flake.lock separately if it exists
+ if [ -f "$LOCAL_DIR/flake.lock" ]; then
+   sshpass -p "$PASSWORD" rsync -av "$LOCAL_DIR/flake.lock" "$USERNAME@$REMOTE_HOST:$REMOTE_DIR/"
+ fi
+ 
+ if [ $? -eq 0 ]; then
+   echo "Sync successful."
+ else
+   echo "Sync failed. Retrying in $DELAY seconds."
+ fi
+ 
+ sleep $DELAY
+done
