@@ -5,11 +5,6 @@
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-plugins.inputs.hyprland.follows = "hyprland";
-    hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
-    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
-
     catppuccin.url = "github:catppuccin/nix"; # Archived.
 
     # https://github.com/niksingh710/nsearch
@@ -20,7 +15,7 @@
     ghostty.url = "github:ghostty-org/ghostty";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, hyprland, catppuccin, ghostty, ... }: let
+  outputs = inputs@{ self, nixpkgs, home-manager, catppuccin, ghostty, ... }: let
 
     systemSettings = {          # System settings.
       bootMode = "uefi";        # uefi, bios.
@@ -46,7 +41,6 @@
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
-      overlays = [ inputs.hyprpanel.overlay ];
     };
 
     system = systemSettings.system;
