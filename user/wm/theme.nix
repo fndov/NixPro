@@ -2,10 +2,6 @@
   dconf.enable = true;
   dconf.settings = { "org/gnome/desktop/interface" = { color-scheme = "prefer-dark"; }; };
   
-  # catppuccin.gtk.tweaks = [ "rimless" ];
-  # catppuccin.gtk.size = "compact";
-  # catppuccin.gtk.enable = true;
-
   gtk = { 
     enable = true;
     font.name = userSettings.font;

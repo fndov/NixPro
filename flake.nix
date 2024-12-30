@@ -1,11 +1,12 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    # https://nixos.wiki/wiki/Nix_channels
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    # https://nix-community.github.io/home-manager/
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    catppuccin.url = "github:catppuccin/nix"; # Archived.
 
     # https://github.com/niksingh710/nsearch
     nsearch.url = "github:niksingh710/nsearch";
@@ -15,7 +16,7 @@
     ghostty.url = "github:ghostty-org/ghostty";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, catppuccin, ghostty, ... }: let
+  outputs = inputs@{ self, nixpkgs, home-manager, ghostty, ... }: let
 
     systemSettings = {          # System settings.
       bootMode = "uefi";        # uefi, bios.
@@ -63,10 +64,7 @@
           home-manager.extraSpecialArgs = { inherit inputs systemSettings userSettings; };
           home-manager.users.${userSettings.username} = {
             imports = [
-
               ./profile/${systemSettings.profile}/home.nix
-              catppuccin.homeManagerModules.catppuccin
-
             ];
           };
         }
