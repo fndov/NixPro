@@ -5,18 +5,18 @@
 
   imports = [
     # ./gamemode.nix        # Game mode.
-    # ./idle.nix            # Idle.
-    # ./waybar.nix          # Top bar.
-    # ./numbat.nix          # Calculator.
-    ./keyboard.nix        # Keyboard.
-    ./launcher.nix        # App launcher.
-    ./gammastep.nix       # Nightlight.
-    ./screenshot.nix      # Screenshot.
-    ./bottom.nix          # System Moniton.
-    ./cursor.nix          # Cursor.
-    ./lock.nix            # Lock screen.
-    ./notification.nix    # Notifications.
-    ./packages.nix        # Dependency.
+    # ./timeout.nix         # Idle.
+    # ./calculator.nix      # Calculator.
+    ./task-bar.nix          # Top bar.
+    ./keyboard.nix          # Keyboard.
+    ./launcher.nix          # App launcher.
+    ./nightlight.nix        # Nightlight.
+    ./screenshot.nix        # Screenshot.
+    ./bottom.nix           # System Monitor.
+    ./cursor.nix           # Cursor.
+    ./lock-screen.nix      # Lock screen.
+    ./notification.nix     # Notifications.
+    ./dependencies.nix     # Dependency.
     ./polkitagent.nix     # Wayland security.
     ./wallpaper.nix       # Wallpaper.
     .././theme.nix        # App themes.
