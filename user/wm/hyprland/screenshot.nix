@@ -1,4 +1,4 @@
-{ pkgs, userSettings, ... }: {
+{ pkgs, ... }: {
   home.packages = [
     pkgs.slurp
     pkgs.grim
