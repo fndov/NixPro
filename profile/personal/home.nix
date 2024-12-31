@@ -1,26 +1,26 @@
 { userSettings, ... }: {
   # You should delete ~/.config/* because HM intends to manage it.
   imports = [
-    ../../user/wm/hyprland/hyprland.nix # Window manager.
+    ../../user/wm/hyprland/hyprland.nix           # Window manager.
     (../.. + "/user/software/apps/terminal"+("/"+userSettings.terminal)+".nix") # Terminal.
-    ../../user/software/commands/sh.nix # Shell.
-    ../../user/software/commands/cli.nix # Command line interface.
-    ../../user/software/commands/git.nix # Git settings.
-    ../../user/software/apps/browser/firefox.nix # Browser.
-    (../.. + "/user/software/apps/browser"+("/"+userSettings.browser)+".nix") # Terminal.
-    ../../user/software/apps/collection.nix # Collection of apps.
-    ../../user/software/development/android.nix
-    ../../user/software/development/cc.nix
-    ../../user/software/development/gd.nix
-    ../../user/software/development/hs.nix
-    ../../user/software/development/rs.nix
-    ../../user/software/development/c.nix
-    ../../user/software/development/py-pkgs.nix
-    # ../../user/software/development/go.nix
-    # ../../user/software/development/zig.nix
+    ../../user/software/commands/sh.nix           # Shell.
+    ../../user/software/commands/cli.nix          # Command line interface.
+    ../../user/software/commands/git.nix          # Git settings.
+    ../../user/software/apps/browser/firefox.nix  # Browser.
+    (../.. + "/user/software/apps/browser"+("/"+userSettings.browser)+".nix") # Browser.
+    ../../user/software/apps/collection.nix       # Collection of apps.
+    ../../user/software/development/android.nix   # Android development.
+    ../../user/software/development/cc.nix        # C/C++ development.
+    ../../user/software/development/gd.nix        # Game development. 
+    ../../user/software/development/hs.nix        # Haskell development.
+    ../../user/software/development/rs.nix        # Rust development.
+    ../../user/software/development/c.nix         # C development.
+    ../../user/software/development/py-pkgs.nix   # Python packages.
+    ../../user/software/development/go.nix        # Go development.
+    ../../user/software/development/zig.nix       # Zig development.
   ];
   programs.home-manager.enable = true;
-  home.stateVersion = "24.11"; # Please read the comment before changing.
+  home.stateVersion = "24.11";                    # Please read the comment before changing.
 
   xdg.enable = true;
   xdg.mime.enable = true;
