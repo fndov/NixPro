@@ -3,8 +3,8 @@
     # Managed ../../system/hardware/hardware.nix
     # Managed ../../system/hardware/amd.nix
     # Managed ../../system/hardware/nvidia.nix
-    ../../system/hardware/bluetooth.nix
-    ../../system/hardware/usbmuxd.nix
+    # ../../system/hardware/bluetooth.nix
+    # ../../system/hardware/usbmuxd.nix # Broken on latest version.
     ../../system/hardware/memory.nix
     ../../system/hardware/kernel.nix
     ../../system/hardware/network.nix
@@ -19,13 +19,14 @@
     ../../system/software/vm.nix
     ../../system/wm/login.nix
   ];
+  # System settings.
   nix.settings.trusted-users = [ "@wheel" ];
   nix.settings.substituters = [ "https://hyprland.cachix.org" ];
   nix.settings.trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
   nix.extraOptions = "experimental-features = nix-command flakes";
   system.stateVersion = "24.11"; # Please read the comment before changing.
 
-
+  # Boot settings.
   boot.plymouth.enable = true;
   boot.loader.timeout = 1;
   # boot.loader.grub.useOSProber = true;

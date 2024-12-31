@@ -4,10 +4,12 @@
   services.udiskie.tray = "always";
 
   imports = [
+    # ./gamemode.nix        # Game mode.
+    # ./idle.nix            # Idle.
+    # ./waybar.nix          # Top bar.
+    # ./numbat.nix          # Calculator.
     ./keyboard.nix        # Keyboard.
     ./launcher.nix        # App launcher.
-    # ./waybar.nix          # Top bar.
-    # ./idle.nix            # Idle.
     ./gammastep.nix       # Nightlight.
     ./screenshot.nix      # Screenshot.
     ./bottom.nix          # System Moniton.
@@ -17,7 +19,6 @@
     ./packages.nix        # Dependency.
     ./polkitagent.nix     # Wayland security.
     ./wallpaper.nix       # Wallpaper.
-    # ./gamemode.nix        # Game mode.
     .././theme.nix        # App themes.
     .././clipboard.nix    # Clipboard.
     .././fonts.nix        # Fonts.

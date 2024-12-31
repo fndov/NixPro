@@ -2,7 +2,7 @@
   # Installed in Root space, waiting for HM option.
   home.packages = with pkgs; [
     # ghostty
-    nerdfonts # For CaskaydiaCove Nerd Font.
+    userSettings.fontPkg # For CaskaydiaCove Nerd Font.
   ];
   wayland.windowManager.hyprland.settings.exec-once = [ "ghostty --initial-window=false" ];
   home.file."/home/${userSettings.username}/.config/ghostty/config".text = ''

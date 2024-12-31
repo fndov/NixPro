@@ -20,7 +20,7 @@
     telegram-desktop
     kwrited
     obsidian
-    unityhub
+    # unityhub
     zed-editor
     # mpv
     # lutris

@@ -1,11 +1,11 @@
 { pkgs, userSettings, lib, ... }: {
   dconf.enable = true;
   dconf.settings = { "org/gnome/desktop/interface" = { color-scheme = "prefer-dark"; }; };
-  
-  gtk = { 
+
+  gtk = {
     enable = true;
     font.name = userSettings.font;
-    font.package = pkgs.${userSettings.fontPkg};
+    font.package = userSettings.fontPkg;
     font.size = 11;
     iconTheme.name = "Papirus-Dark";
     iconTheme.package = pkgs.papirus-icon-theme;

@@ -1,6 +1,4 @@
-{ pkgs, inputs, ... }:
-
-{
+{ pkgs, inputs, ... }: {
   home.packages = with pkgs; [
     # Essential:
     appimage-run
@@ -13,7 +11,7 @@
     eza
     timg
     htop
-
+    nixd
     inputs.nsearch.packages.${pkgs.system}.default
 
     # System utils:
@@ -23,7 +21,7 @@
     # bloodhound
     # carapace
     # corefonts
-    # dialog 
+    # dialog
     # discordchatexporter-cli
     # dmidecode
     # egl-wayland
@@ -46,7 +44,6 @@
     # nftables
     # nil
     # nix-prefetch-github
-    # nixd
     # nixfmt-classic
     # nixpkgs-review
     # nmap
@@ -59,7 +56,6 @@
     # tmux
     # tmuxPlugins.tmux-floax
     # yazi
-    # nixd
     # usbutils
     aria2
     bat

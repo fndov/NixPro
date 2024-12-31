@@ -1,7 +1,7 @@
 { pkgs, userSettings, ... }: {
   home.packages = with pkgs; [
     intel-one-mono
-    nerdfonts
+    userSettings.fontPkg
     jetbrains-mono
     source-han-sans-japanese
     source-han-serif-japanese
