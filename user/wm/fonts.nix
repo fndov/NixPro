@@ -15,7 +15,7 @@
     powerline-fonts
     powerline-symbols
   ];
-  # Setting font messes with powerline cli.
+  # Breaks powerline prompt.
   # fonts.fontconfig.defaultFonts = {
   #   monospace = [ userSettings.font ];
   #   sansSerif = [ userSettings.font ];

@@ -2,7 +2,8 @@
   # Installed in Root space, waiting for HM option.
   home.packages = with pkgs; [
     # ghostty
-    userSettings.fontPkg # For CaskaydiaCove Nerd Font.
+    userSettings.fontPkg # For CaskaydiaCove Nerd Font. & Jetbrains.
+    (nerdfonts.override { fonts = [ "ZedMono" ]; })
   ];
   wayland.windowManager.hyprland.settings.exec-once = [ "ghostty --initial-window=false" ];
   home.file."/home/${userSettings.username}/.config/ghostty/config".text = ''
@@ -32,7 +33,8 @@
     selection-foreground = d0d0d0
     # Font.
     font-size = 16
-    font-family = CaskaydiaCove Nerd Font
+    # font-family = CaskaydiaCove Nerd Font
+    # font-family = ZedMono Nerd Font
     # Transparent.
     background-opacity = 0.8
     # Disable exit Message.

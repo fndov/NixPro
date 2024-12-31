@@ -3,10 +3,5 @@
     pkgs.slurp
     pkgs.grim
   ];
-  wayland.windowManager.hyprland.settings = {
-    bind = [
-      ",Print,exec,grim -g \"\$(slurp)\""
-    ];
-    # grim -g "$(slurp)"
-  };
+  wayland.windowManager.hyprland.settings.bind = [ ",Print,exec,grim -g \"\$(slurp)\"" ];
 }

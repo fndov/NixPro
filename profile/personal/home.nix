@@ -9,6 +9,15 @@
     ../../user/software/apps/browser/firefox.nix # Browser.
     (../.. + "/user/software/apps/browser"+("/"+userSettings.browser)+".nix") # Terminal.
     ../../user/software/apps/collection.nix # Collection of apps.
+    ../../user/software/development/android.nix
+    ../../user/software/development/cc.nix
+    ../../user/software/development/gd.nix
+    ../../user/software/development/hs.nix
+    ../../user/software/development/rs.nix
+    ../../user/software/development/c.nix
+    ../../user/software/development/py-pkgs.nix
+    # ../../user/software/development/go.nix
+    # ../../user/software/development/zig.nix
   ];
   programs.home-manager.enable = true;
   home.stateVersion = "24.11"; # Please read the comment before changing.

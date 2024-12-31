@@ -1,3 +1,1 @@
-{ pkgs, ... }: {
-  home.packages = [ pkgs.wl-clip-persist ];
-}
+{ pkgs, ... }: { home.packages = [ pkgs.wl-clip-persist ]; }

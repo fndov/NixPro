@@ -1,3 +1,3 @@
 { ... }: {
-# https://nixos.wiki/wiki/Intel_Graphics
+  # https://nixos.wiki/wiki/Intel_Graphics
 }

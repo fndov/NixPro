@@ -1,24 +1,16 @@
 { pkgs, inputs, ... }: {
   home.packages = with pkgs; [
     # Essential:
-    appimage-run
-    zoxide
-    ripgrep
-    fd
-    micro
-    atuin
+    # appimage-run
     git
-    eza
     timg
-    htop
     nixd
+    nil
     inputs.nsearch.packages.${pkgs.system}.default
 
     # System utils:
     # aircrack-ng
     # ascii-image-converter
-    # bash
-    # bloodhound
     # carapace
     # corefonts
     # dialog
@@ -27,9 +19,7 @@
     # egl-wayland
     # exif
     # fastgame
-    # fish
     # flatpak
-    # gdu
     # gophish
     # hashcat
     # helix
@@ -37,12 +27,9 @@
     # jre
     # kubectl
     # lolcat
-    # masscan
     # mat2
-    # metasploit
     # nethogs
     # nftables
-    # nil
     # nix-prefetch-github
     # nixfmt-classic
     # nixpkgs-review
@@ -53,57 +40,43 @@
     # ssh-chat
     # sshs
     # streamlink
-    # tmux
-    # tmuxPlugins.tmux-floax
-    # yazi
-    # usbutils
+    # tmux # I hate tmux.
+    raylib
+    usbutils
     aria2
     bat
-    cargo
     cava
     cowsay
     curl
-    disfetch
     fastfetch
     fzf
     gamemode
     gamescope
-    gcc
-    gdu
+    # gdu
     glib
     glibc
-    gping
+    # gping
     hwinfo
-    ifuse
+    # ifuse
     killall
-    libnotify
-    linuxPackages.nvidia_x11
-    lolcat
+    # libnotify
+    # lolcat
     mangohud
-    mesa
-    neovide
-    neovim
     nixfmt-classic
     numbat
     nvtopPackages.full
     openssh
     p7zip
     pciutils
-    protonplus
-    protontricks
-    protonup
-    python312
-    scc
+    # protonplus
+    # protontricks
+    # protonup
+    # scc
     twitch-dl
     unrar
     unzip
-    vulkan-tools
+    # vulkan-tools
     wine
-    winetricks
-    xdg-desktop-portal
-    xdg-desktop-portal-gtk
-    xdg-desktop-portal-hyprland
-    xdg-utils
     yazi
     yt-dlp
     zip

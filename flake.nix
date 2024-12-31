@@ -1,11 +1,11 @@
 {
   inputs = {
     # https://nixos.wiki/wiki/Nix_channels
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # https://nix-community.github.io/home-manager/
-    # home-manager.url = "github:nix-community/home-manager/release-24.11";
-    home-manager.url = "github:nix-community/home-manager"; # Latest release.
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
+    # home-manager.url = "github:nix-community/home-manager"; # Latest release.
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     # https://github.com/niksingh710/nsearch
     nsearch.url = "github:niksingh710/nsearch";
@@ -33,8 +33,8 @@
       shell = "fish";           # bash, zsh, fish, nushell.
       editor = "micro";         # vim, neovim, micro.
       browser = "firefox";      # firefox, chromium.
-      font = "JetBrainsMono Nerd Font";
-      fontPkg = pkgs.nerd-fonts.jetbrains-mono;
+      font = "Noto Mono";
+      fontPkg = pkgs.noto-fonts;
     };
 
     pkgs = import nixpkgs {

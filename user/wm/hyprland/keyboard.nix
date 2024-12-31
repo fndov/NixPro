@@ -5,25 +5,15 @@
     brightnessctl
   ];
   wayland.windowManager.hyprland.settings = {
-    
+
     bindm = [
       "SUPER,mouse:272,movewindow"
       "SUPER,mouse:273,resizewindow"
     ];
-    
+
     bind = [
       # Terminal.
       "SUPER,Return,exec,${userSettings.terminal}"
-
-      # Volume and Media Control.
-      ",XF86AudioRaiseVolume, exec, pamixer --unmute -i 3" 
-      ",XF86AudioLowerVolume, exec, pamixer --unmute -d 3"
-      ",XF86AudioMicMute, exec, pamixer --default-source -m"
-      ",XF86AudioMute, exec, pamixer -t"
-      ",XF86AudioPlay, exec, playerctl play-pause"
-      ",XF86AudioPause, exec, playerctl play-pause"
-      ",XF86AudioNext, exec, playerctl next"
-      ",XF86AudioPrev, exec, playerctl previous"
 
       # Common.
       "SUPER,q,killactive"
@@ -54,13 +44,23 @@
       "CTRLALT,Delete,exec,hyprctl kill"
       "SUPERSHIFT,K,exec,hyprctl kill"
 
+      # Volume and Media Control.
+      ",XF86AudioRaiseVolume, exec, pamixer --unmute -i 3"
+      ",XF86AudioLowerVolume, exec, pamixer --unmute -d 3"
+      ",XF86AudioMicMute, exec, pamixer --default-source -m"
+      ",XF86AudioMute, exec, pamixer -t"
+      ",XF86AudioPlay, exec, playerctl play-pause"
+      ",XF86AudioPause, exec, playerctl play-pause"
+      ",XF86AudioNext, exec, playerctl next"
+      ",XF86AudioPrev, exec, playerctl previous"
+
       # Brightness Control.
       ",XF86MonBrightnessDown,exec,brightnessctl set 3%-"
       ",XF86MonBrightnessUp,exec,brightnessctl set +3%"
 
       ",XF86AudioLowerVolume,exec,pamixer -d 2"
       ",XF86AudioRaiseVolume,exec,pamixer -i 2"
-      
+
       "SUPER,1,workspace,1"
       "SUPER,2,workspace,2"
       "SUPER,3,workspace,3"

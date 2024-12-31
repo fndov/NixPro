@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-{
-  # Python packages.
+{ pkgs, ... }: {
   home.packages = with pkgs.python3Packages; [
     cffi
     dbus-python

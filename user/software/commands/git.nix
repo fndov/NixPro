@@ -1,3 +1,1 @@
-{ pkgs, ... }: {
-  home.packages = [ pkgs.git ];
-}
+{ pkgs, ... }: { home.packages = [ pkgs.git ]; }

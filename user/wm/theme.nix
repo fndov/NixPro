@@ -1,20 +1,21 @@
-{ pkgs, userSettings, lib, ... }: {
+{ pkgs, userSettings, ... }: {
   dconf.enable = true;
   dconf.settings = { "org/gnome/desktop/interface" = { color-scheme = "prefer-dark"; }; };
 
   gtk = {
     enable = true;
     font.name = userSettings.font;
-    font.package = userSettings.fontPkg;
     font.size = 11;
+    font.package = userSettings.fontPkg;
     iconTheme.name = "Papirus-Dark";
     iconTheme.package = pkgs.papirus-icon-theme;
   };
 
+  home.packages = [ pkgs.libsForQt5.qtstyleplugin-kvantum ];
   qt = {
     enable = true;
-    platformTheme.name = "kvantum";
     style.name = "kvantum";
+    platformTheme.name = "qtct";
   };
 }
 

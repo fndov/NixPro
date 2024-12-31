@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   # Set your timezone.
   time.timeZone = "America/Chicago";
   i18n = {

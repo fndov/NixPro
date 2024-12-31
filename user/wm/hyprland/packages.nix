@@ -1,5 +1,4 @@
 { pkgs, ... }: {
-  # Hyprland WM.
   home.packages = with pkgs; [
     # Important.
     networkmanagerapplet
