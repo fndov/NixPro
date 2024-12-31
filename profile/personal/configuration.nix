@@ -7,7 +7,7 @@
     # Managed ../../system/hardware/amd.nix
     # Managed ../../system/hardware/nvidia.nix
     # Managed ../../system/hardware/intel.nix
-    ../../system/hardware/usbmuxd.nix # Broken on latest version.
+    ../../system/hardware/usbmuxd.nix # Broken on latest version: Tue Dec 31 02:48:19 PM CST 2024
     ../../system/hardware/bluetooth.nix
     ../../system/security/printing.nix
     ../../system/security/firewall.nix
@@ -23,7 +23,7 @@
     ../../system/software/vm.nix
     ../../system/wm/login.nix
   ];
-  # System settings.
+  # Extra NixOS settings.
   nix.settings.trusted-users = [ "@wheel" ];
   nix.settings.substituters = [ "https://hyprland.cachix.org" ];
   nix.settings.trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];

@@ -7,7 +7,7 @@ let
     ll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2 --long --header --inode --links";
     la = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2 --long --header --inode --links --all";
     ls = "eza --icons";
-    c = "clear";
+    c = "clear;date";
     grep = "rg";
     n = "${userSettings.editor} ~/Documents/note.txt";
     h = "htop";
