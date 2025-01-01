@@ -1,8 +1,9 @@
 { pkgs, ... }: {
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+  boot.kernelPackages = pkgs.
+  # linuxPackages_xanmod_latest;
   # linuxPackages_xanmod;
   # linuxPackages_zen;
-  # linuxPackages_latest;
+  linuxPackages_latest;
   # linuxPackages_hardened;
   boot.blacklistedKernelModules = [ "nouveau" ];
   boot.kernelParams = [

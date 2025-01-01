@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
+    lutris
     wine
     heroic
     mangohud
@@ -20,8 +21,8 @@
     telegram-desktop
     kwrited
     obsidian
-    # unityhub
     zed-editor
+    # unityhub
     # mpv
     # lutris
     # NEW:

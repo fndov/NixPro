@@ -1,14 +1,13 @@
-{ pkgs, userSettings, ... }: {
+{ userSettings, ... }: {
   # Installed in Root space, waiting for HM option.
-  home.packages = with pkgs; [
-    # ghostty
-    userSettings.fontPkg # For CaskaydiaCove Nerd Font. & Jetbrains.
-    (nerdfonts.override { fonts = [ "ZedMono" ]; })
-  ];
   wayland.windowManager.hyprland.settings.exec-once = [ "ghostty --initial-window=false" ];
   home.file."/home/${userSettings.username}/.config/ghostty/config".text = ''
     # Hyprland.
     window-decoration = false
+
+    # Padding.
+    # window-padding-y = 0
+    # window-padding-x = 0
 
     # Catppuccin theme.
     palette = 0=#151515

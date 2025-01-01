@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, ... }: {
   home.packages = with pkgs; [
     # Essential:
     # appimage-run
@@ -6,7 +6,6 @@
     timg
     nixd
     nil
-    inputs.nsearch.packages.${pkgs.system}.default
 
     # System utils:
     # aircrack-ng

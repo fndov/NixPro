@@ -1,19 +1,20 @@
 {
   inputs = {
     # https://nixos.wiki/wiki/Nix_channels
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+
     # https://nix-community.github.io/home-manager/
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
     # home-manager.url = "github:nix-community/home-manager"; # Latest release.
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
     # https://github.com/niksingh710/nsearch
-    nsearch.url = "github:niksingh710/nsearch";
-    nsearch.inputs.nixpkgs.follows = "nixpkgs";
+    nsearch.url = "github:niksingh710/nsearch"; nsearch.inputs.nixpkgs.follows = "nixpkgs";
+
     # https://ghostty.org/docs/install/binary#linux-(official)
     ghostty.url = "github:ghostty-org/ghostty";
   };
-
   outputs = inputs@{ self, nixpkgs, ghostty, home-manager, ... }: let
 
     systemSettings = {          # System settings.
@@ -23,13 +24,13 @@
       system = "x86_64-linux";  # x86_64-linux, aarch64-linux.
       profile = "personal";     # personal, work, server, vm, wsl.
       flakePath = ".nixpro";    # /home/user/flakePath/NixPro
-      hostname = "Phantom";      # Anything.
-      gpu = "nvidia";            # nvidia, amd, intel.
+      hostname = "Phantom";     # Anything.
+      gpu = "nvidia";           # nvidia, amd, intel.
     };
 
     userSettings = {            # User settings.
       username = "miyu";        # Anything.
-      terminal = "ghostty";    # alacritty, ghostty.
+      terminal = "ghostty";     # alacritty, ghostty.
       shell = "fish";           # bash, zsh, fish, nushell.
       editor = "micro";         # vim, neovim, micro.
       browser = "firefox";      # firefox, chromium.
@@ -37,11 +38,7 @@
       fontPkg = pkgs.noto-fonts;
     };
 
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
-
+    pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
     system = systemSettings.system;
 
   in {
@@ -51,7 +48,8 @@
 
         {
           environment.systemPackages = [
-            ghostty.packages.x86_64-linux.default
+            inputs.ghostty.packages.${pkgs.system}.default
+            inputs.nsearch.packages.${pkgs.system}.default
           ];
 
           # NixOS Settings.
@@ -59,6 +57,7 @@
           nix.settings.substituters = [ "https://hyprland.cachix.org" ];
           nix.settings.trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
           nix.extraOptions = "experimental-features = nix-command flakes";
+
           # Boot Settings.
           # boot.loader.grub.useOSProber = true;
           boot.loader.systemd-boot.enable = if (systemSettings.bootMode == "uefi") then true else false;

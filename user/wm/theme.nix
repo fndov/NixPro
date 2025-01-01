@@ -11,12 +11,12 @@
     iconTheme.package = pkgs.papirus-icon-theme;
   };
 
- #  home.packages = [ pkgs.libsForQt5.qt5ct pkgs.libsForQt5.qtstyleplugin-kvantum pkgs.adwaita-qt ];
-#   qt = {
-#    enable = true;
- #   platformTheme.name = "adwaita";
-   #  style.name = "adwaita-dark";
-  # };
+  home.packages = with pkgs; [
+    breeze-gtk
+    breeze-qt5
+    breeze-icons
+  ];
+  qt.enable = true;
 }
 
 # gtk.gtk3.extraConfig = {

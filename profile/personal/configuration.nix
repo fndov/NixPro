@@ -7,9 +7,11 @@
     # Managed ../../system/hardware/amd.nix
     # Managed ../../system/hardware/nvidia.nix
     # Managed ../../system/hardware/intel.nix
+    # ../../system/security/printing.nix
+    # ../../system/security/sshd.nix
+    # ../../system/software/vm.nix
     ../../system/hardware/usbmuxd.nix # Broken on latest version: Tue Dec 31 02:48:19 PM CST 2024
     ../../system/hardware/bluetooth.nix
-    ../../system/security/printing.nix
     ../../system/security/firewall.nix
     ../../system/hardware/memory.nix
     ../../system/hardware/kernel.nix
@@ -19,8 +21,6 @@
     ../../system/security/keyring.nix
     ../../system/security/timezone.nix
     ../../system/security/account/default.nix
-    ../../system/security/sshd.nix
-    ../../system/software/vm.nix
     ../../system/wm/login.nix
   ];
   # Boot settings.
