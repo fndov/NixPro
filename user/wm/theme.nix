@@ -11,11 +11,11 @@
     iconTheme.package = pkgs.papirus-icon-theme;
   };
 
-  home.packages = [ pkgs.libsForQt5.qtstyleplugin-kvantum ];
+  home.packages = [ pkgs.libsForQt5.qt5ct pkgs.libsForQt5.qtstyleplugin-kvantum pkgs.adwaita-qt ];
   qt = {
     enable = true;
-    style.name = "kvantum";
-    platformTheme.name = "qtct";
+    platformTheme.name = "adwaita";
+    style.name = "adwaita-dark";
   };
 }
 

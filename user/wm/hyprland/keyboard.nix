@@ -42,7 +42,7 @@
       # "SUPER,V,exec,wl-copy $(wl-paste | tr '\n' ' ')"
       "SUPERSHIFT,T,exec,screenshot-ocr"
       "CTRLALT,Delete,exec,hyprctl kill"
-      "SUPERSHIFT,K,exec,hyprctl kill"
+      "SUPERSHIFT,Q,exec,hyprctl kill"
 
       # Volume and Media Control.
       ",XF86AudioRaiseVolume, exec, pamixer --unmute -i 3"

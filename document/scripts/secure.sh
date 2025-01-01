@@ -1,2 +1,1 @@
 # Empty.
-echo test
