@@ -6,12 +6,11 @@
     ../../user/software/commands/sh.nix           # Shell.
     ../../user/software/commands/cli.nix          # Command line interface.
     ../../user/software/commands/git.nix          # Git settings.
-    ../../user/software/apps/browser/firefox.nix  # Browser.
     (../.. + "/user/software/apps/browser"+("/"+userSettings.browser)+".nix") # Browser.
     ../../user/software/apps/collection.nix       # Collection of apps.
     ../../user/software/development/android.nix   # Android development.
     ../../user/software/development/cc.nix        # C/C++ development.
-    ../../user/software/development/gd.nix        # Game development. 
+    ../../user/software/development/gd.nix        # Game development.
     ../../user/software/development/hs.nix        # Haskell development.
     ../../user/software/development/rs.nix        # Rust development.
     ../../user/software/development/c.nix         # C development.

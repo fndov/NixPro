@@ -1,7 +1,9 @@
 { pkgs, userSettings, ... }: {
-  home.packages = [ pkgs.waybar pkgs.nerdfonts ];
-  wayland.windowManager.hyprland.settings.exec-once = [ "waybar" ];
-
+  home.packages = [
+    pkgs.waybar
+    pkgs.nerdfonts
+  ];
+  # wayland.windowManager.hyprland.settings.exec-once = [ "waybar" ];
   programs.waybar = {
     enable = true;
     settings = {

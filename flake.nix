@@ -27,7 +27,7 @@
 
     userSettings = {            # User settings.
       username = "miyu";        # Anything.
-      terminal = "alacritty";     # alacritty, ghostty.
+      terminal = "alacritty";    # alacritty, ghostty.
       shell = "fish";           # bash, zsh, fish, nushell.
       editor = "micro";         # vim, neovim, micro.
       browser = "firefox";      # firefox, chromium.
@@ -49,8 +49,6 @@
         ./profile/${systemSettings.profile}/configuration.nix
         ./system/hardware/${systemSettings.gpu}.nix
         ./system/hardware/hardware.nix
-
-
           home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;

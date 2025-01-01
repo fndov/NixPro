@@ -4,24 +4,24 @@
   services.udiskie.tray = "always";
 
   imports = [
-    # ./gamemode.nix        # Game mode.
-    # ./timeout.nix         # Idle.
-    # ./calculator.nix      # Calculator.
-    ./task-bar.nix          # Top bar.
-    ./keyboard.nix          # Keyboard.
-    ./launcher.nix          # App launcher.
-    ./nightlight.nix        # Nightlight.
-    ./screenshot.nix        # Screenshot.
-    ./bottom.nix           # System Monitor.
-    ./cursor.nix           # Cursor.
-    ./lock-screen.nix      # Lock screen.
-    ./notification.nix     # Notifications.
-    ./dependencies.nix     # Dependency.
-    ./polkitagent.nix     # Wayland security.
-    ./wallpaper.nix       # Wallpaper.
-    .././theme.nix        # App themes.
-    .././clipboard.nix    # Clipboard.
-    .././fonts.nix        # Fonts.
+    # ./gamemode.nix         # Game mode.
+    # ./timeout.nix          # Idle.
+    # ./calculator.nix       # Calculator.
+    # ./task-bar.nix         # Top bar.
+    # ./bottom.nix           # System Monitor.
+    ./keyboard.nix           # Keyboard.
+    ./launcher.nix           # App launcher.
+    ./nightlight.nix         # Nightlight.
+    ./screenshot.nix         # Screenshot.
+    ./cursor.nix             # Cursor.
+    ./lock-screen.nix        # Lock screen.
+    ./notification.nix       # Notifications.
+    ./dependencies.nix       # Dependency.
+    ./polkitagent.nix        # Wayland security.
+    ./wallpaper.nix          # Wallpaper.
+    .././theme.nix           # App themes.
+    .././clipboard.nix       # Clipboard.
+    .././fonts.nix           # Fonts.
   ];
 
   wayland.windowManager.hyprland = {

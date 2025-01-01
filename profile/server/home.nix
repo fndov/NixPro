@@ -13,5 +13,6 @@
     # ../../user/software/apps/vscode.nix # Integrated development environment.
   ];
   programs.home-manager.enable = true;
-  home.stateVersion = "24.11"; # Please read the comment before changing.s
+  # home.stateVersion = "24.11"; # Please read the comment before changing.s
+  home.stateVersion = "unstable"; # Please read the comment before changing.s
 }
