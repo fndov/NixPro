@@ -10,11 +10,9 @@
     # https://github.com/niksingh710/nsearch
     nsearch.url = "github:niksingh710/nsearch";
     nsearch.inputs.nixpkgs.follows = "nixpkgs";
-    # https://ghostty.org/docs/install/binary#nix-flake
-    ghostty.url = "github:ghostty-org/ghostty";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ghostty, ... }: let
+  outputs = inputs@{ self, nixpkgs, home-manager, ... }: let
 
     systemSettings = {          # System settings.
       bootMode = "uefi";        # uefi, bios.
@@ -29,7 +27,7 @@
 
     userSettings = {            # User settings.
       username = "miyu";        # Anything.
-      terminal = "ghostty";     # alacritty, kitty.
+      terminal = "alacritty";     # alacritty, ghostty.
       shell = "fish";           # bash, zsh, fish, nushell.
       editor = "micro";         # vim, neovim, micro.
       browser = "firefox";      # firefox, chromium.
@@ -52,10 +50,6 @@
         ./system/hardware/${systemSettings.gpu}.nix
         ./system/hardware/hardware.nix
 
-        # Only until Ghostty is in nixpkgs.
-        { environment.systemPackages = [
-          ghostty.packages.x86_64-linux.default
-        ]; }
 
           home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
