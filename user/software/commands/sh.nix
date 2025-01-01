@@ -2,7 +2,7 @@
 let
   myAliases = {
     cat = "bat --style=plain --pager=never";
-    tree = "eza --color always --icons --hyperlink --group--directories-first --tree";
+    tree = "eza --color always --icons --hyperlink --group-directories-first --tree";
     l = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2";
     ll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2 --long --header --inode --links";
     la = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2 --long --header --inode --links --all";

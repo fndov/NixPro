@@ -10,9 +10,11 @@
     # https://github.com/niksingh710/nsearch
     nsearch.url = "github:niksingh710/nsearch";
     nsearch.inputs.nixpkgs.follows = "nixpkgs";
+    # https://ghostty.org/docs/install/binary#linux-(official)
+    ghostty.url = "github:ghostty-org/ghostty";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }: let
+  outputs = inputs@{ self, nixpkgs, ghostty, home-manager, ... }: let
 
     systemSettings = {          # System settings.
       bootMode = "uefi";        # uefi, bios.
@@ -27,7 +29,7 @@
 
     userSettings = {            # User settings.
       username = "miyu";        # Anything.
-      terminal = "alacritty";    # alacritty, ghostty.
+      terminal = "ghostty";    # alacritty, ghostty.
       shell = "fish";           # bash, zsh, fish, nushell.
       editor = "micro";         # vim, neovim, micro.
       browser = "firefox";      # firefox, chromium.
@@ -46,6 +48,26 @@
     nixosConfigurations.${userSettings.username} = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs pkgs system systemSettings userSettings; };
       modules = [
+
+        {
+          environment.systemPackages = [
+            ghostty.packages.x86_64-linux.default
+          ];
+
+          # NixOS Settings.
+          nix.settings.trusted-users = [ "@wheel" ];
+          nix.settings.substituters = [ "https://hyprland.cachix.org" ];
+          nix.settings.trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+          nix.extraOptions = "experimental-features = nix-command flakes";
+          # Boot Settings.
+          # boot.loader.grub.useOSProber = true;
+          boot.loader.systemd-boot.enable = if (systemSettings.bootMode == "uefi") then true else false;
+          boot.loader.efi.efiSysMountPoint = systemSettings.bootMountPath; # does nothing if running bios rather than uefi
+          boot.loader.efi.canTouchEfiVariables = if (systemSettings.bootMode == "uefi") then true else false;
+          boot.loader.grub.enable = if (systemSettings.bootMode == "uefi") then false else true;
+          boot.loader.grub.device = systemSettings.grubDevice;
+        }
+
         ./profile/${systemSettings.profile}/configuration.nix
         ./system/hardware/${systemSettings.gpu}.nix
         ./system/hardware/hardware.nix

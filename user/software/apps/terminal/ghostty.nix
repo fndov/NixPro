@@ -9,6 +9,7 @@
   home.file."/home/${userSettings.username}/.config/ghostty/config".text = ''
     # Hyprland.
     window-decoration = false
+
     # Catppuccin theme.
     palette = 0=#151515
     palette = 1=#ac4142
@@ -31,20 +32,28 @@
     cursor-color = d0d0d0
     selection-background = 303030
     selection-foreground = d0d0d0
+
     # Font.
     font-size = 16
     # font-family = CaskaydiaCove Nerd Font
     # font-family = ZedMono Nerd Font
+
     # Transparent.
     background-opacity = 0.8
+
     # Disable exit Message.
     confirm-close-surface = false
+
     # Init.
     command = "date;fish"
+
     # Shaders.
     # custom-shader = crt.glsl
     # custom-shader = glitchy.glsl
-    # Perams
+    # custom-shader = mnoise.glsl # Not working.
+    # custom-shader-animation = always
+
+    # Perams.
     gtk-single-instance = true
     quit-after-last-window-closed = false
   '';
