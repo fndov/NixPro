@@ -58,9 +58,11 @@
       ",XF86MonBrightnessDown,exec,brightnessctl set 3%-"
       ",XF86MonBrightnessUp,exec,brightnessctl set +3%"
 
+      # Volume Control.
       ",XF86AudioLowerVolume,exec,pamixer -d 2"
       ",XF86AudioRaiseVolume,exec,pamixer -i 2"
 
+      # Workspace.
       "SUPER,1,workspace,1"
       "SUPER,2,workspace,2"
       "SUPER,3,workspace,3"

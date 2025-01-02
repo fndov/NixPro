@@ -1,13 +1,12 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     # Essential:
-    # appimage-run
     git
     timg
     nixd
     nil
-
     # System utils:
+    # appimage-run
     # aircrack-ng
     # ascii-image-converter
     # carapace
@@ -18,7 +17,6 @@
     # egl-wayland
     # exif
     # fastgame
-    # flatpak
     # gophish
     # hashcat
     # helix
@@ -39,7 +37,13 @@
     # ssh-chat
     # sshs
     # streamlink
+    # scc
     # tmux # I hate tmux.
+    # gping
+    # vulkan-tools
+    # gdu
+    # libnotify
+    # lolcat
     raylib
     usbutils
     aria2
@@ -51,30 +55,22 @@
     fzf
     gamemode
     gamescope
-    # gdu
     glib
     glibc
-    # gping
     hwinfo
-    # ifuse
     killall
-    # libnotify
-    # lolcat
     mangohud
     nixfmt-classic
     numbat
-    nvtopPackages.full
     openssh
     p7zip
     pciutils
-    # protonplus
-    # protontricks
-    # protonup
-    # scc
+    protonplus
+    protontricks
+    protonup
     twitch-dl
     unrar
     unzip
-    # vulkan-tools
     wine
     yazi
     yt-dlp

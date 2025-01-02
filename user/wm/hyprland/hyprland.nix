@@ -5,10 +5,10 @@
 
   imports = [
     # ./gamemode.nix         # Game mode.
-    # ./timeout.nix          # Idle.
     # ./calculator.nix       # Calculator.
     # ./task-bar.nix         # Top bar.
     # ./bottom.nix           # System Monitor.
+    ./timeout.nix            # Idle.
     ./keyboard.nix           # Keyboard.
     ./launcher.nix           # App launcher.
     ./nightlight.nix         # Nightlight.
@@ -34,7 +34,6 @@
       # monitor = "Virtual-1, 1920x1080, 0x0, 1";
 
       exec-once = [
-        "ghostty --initial-window=false"
         "${userSettings.terminal}"
         "nm-applet --indicator"
         "blueman-applet"
@@ -83,10 +82,11 @@
       };
 
       general = {
+        layout = "master";
         border_size = 5;
         resize_on_border = true;
-        gaps_in = 7;
-        gaps_out = 7;
+        gaps_in = 6; # 7;
+        gaps_out = 7; # 7;
         "col.active_border"  = "rgb(48425F)";
         "col.inactive_border" = "0x00000000";
         border_part_of_window = false;
@@ -94,7 +94,7 @@
       };
 
       decoration = {
-        rounding = 8;
+        rounding = 7; # 8;
         active_opacity = 1; # 0.90
         inactive_opacity = 0.95;
         fullscreen_opacity = 1;
@@ -123,14 +123,17 @@
 
       misc = {
         # disable_autoreload = true;
-        disable_hyprland_logo = true;
         # always_follow_on_dnd = true;
         # layers_hog_keyboard_focus = true;
-        # animate_manual_resizes = false;
-        # enable_swallow = true;
-        focus_on_activate = true;
         # new_window_takes_over_fullscreen = 2;
+        # render_ahead_of_time = true; # "Warning: Buggy".
+        # enable_swallow = true;
+        disable_hyprland_logo = true;
+        animate_manual_resizes = true;
+        animate_mouse_windowdragging = true;
+        focus_on_activate = true;
         middle_click_paste = false;
+        close_special_on_empty = true;
       };
 
        windowrulev2 = [
