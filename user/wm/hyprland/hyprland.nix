@@ -25,8 +25,8 @@
   ];
 
   wayland.windowManager.hyprland = {
-    systemd.enable = true;
     enable = true;
+    systemd.enable = true;
     xwayland.enable = true;
 
     settings = {
@@ -83,18 +83,18 @@
 
       general = {
         layout = "master";
-        border_size = 5;
+        border_size = 3;
         resize_on_border = true;
-        gaps_in = 6; # 7;
-        gaps_out = 7; # 7;
-        "col.active_border"  = "rgb(48425F)";
+        gaps_in = 7;
+        gaps_out = 7;
+        "col.active_border"  = "rgb(3b3c47)";
         "col.inactive_border" = "0x00000000";
         border_part_of_window = false;
         no_border_on_floating = false;
       };
 
       decoration = {
-        rounding = 7; # 8;
+        rounding = 8;
         active_opacity = 1; # 0.90
         inactive_opacity = 0.95;
         fullscreen_opacity = 1;
