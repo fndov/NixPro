@@ -4,7 +4,6 @@
   home.file."/home/${userSettings.username}/.config/ghostty/config".text = ''
     # --- Hyprland ---
     window-decoration = false
-    window-padding-balance = true # testing
 
     # --- Appearance ---
     theme = catppuccin-mocha
@@ -16,7 +15,7 @@
     # --- Font ---
     font-size = 16
     # font-family = CaskaydiaCove Nerd Font
-    # font-family = ZedMono Nerd Font
+    font-family = ZedMono Nerd Font
 
     # --- Disable exit Message ---
     confirm-close-surface = false

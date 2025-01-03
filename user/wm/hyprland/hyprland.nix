@@ -126,14 +126,14 @@
         # layers_hog_keyboard_focus = true;
         # new_window_takes_over_fullscreen = 2;
         # render_ahead_of_time = true; # "Warning: Buggy".
-        # enable_swallow = true;
-        # animate_manual_resizes = true;
-        # animate_mouse_windowdragging = true;
+        enable_swallow = true;
+        animate_manual_resizes = true;
+        animate_mouse_windowdragging = true;
         disable_hyprland_logo = true;
         focus_on_activate = true;
         middle_click_paste = false;
         close_special_on_empty = true;
-        vfr = true; # Increase preformance.
+        vfr = true; # Variable frame rate.
       };
 
        windowrulev2 = [

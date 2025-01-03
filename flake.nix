@@ -37,6 +37,7 @@
       browser = "firefox";      # firefox, chromium.
       font = "Noto Mono";
       fontPkg = pkgs.noto-fonts;
+      wallpaperPath = "Media/Pictures/Wallpapers/Catppuccin-mocha"; # Path to wallpapers.
     };
 
     pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
