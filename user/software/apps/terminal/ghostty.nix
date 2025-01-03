@@ -1,5 +1,6 @@
-{ userSettings, ... }: {
+{ userSettings, pkgs, ... }: {
   # Installed in Root space, waiting for HM option.
+  home.packages = [ pkgs.nerdfonts ];
   wayland.windowManager.hyprland.settings.exec-once = [ "ghostty --initial-window=false" ];
   home.file."/home/${userSettings.username}/.config/ghostty/config".text = ''
     # --- Hyprland ---
@@ -14,8 +15,8 @@
 
     # --- Font ---
     font-size = 16
-    # font-family = CaskaydiaCove Nerd Font
-    font-family = ZedMono Nerd Font
+    font-family = CaskaydiaCove Nerd Font
+    # font-family = ZedMono Nerd Font
 
     # --- Disable exit Message ---
     confirm-close-surface = false

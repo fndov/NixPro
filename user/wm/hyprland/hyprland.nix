@@ -17,7 +17,7 @@
     ./notification.nix       # Notifications.
     ./dependencies.nix       # Dependency.
     ./polkitagent.nix        # Wayland security.
-    ./wallpaper.nix          # Wallpaper.
+    ./hyprpaper.nix          # Wallpaper.
     .././theme.nix           # App themes.
     .././clipboard.nix       # Clipboard.
     .././fonts.nix           # Fonts.
@@ -137,8 +137,8 @@
       };
 
        windowrulev2 = [
-         "float, title:^(Picture in picture)$"
-         "pin, title:^(Picture in picture)$ "
+         "float, title:^(Picture-in-Picture)$"
+         "pin, title:^(Picture-in-Picture)$"
        ];
     };
   };

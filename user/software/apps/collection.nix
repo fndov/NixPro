@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ userSettings, pkgs, ... }: {
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
     # Essential:
@@ -31,4 +31,10 @@
     enable = true;
     startInBackground = true;
   };
+  wayland.windowManager.hyprland.settings.exec-once = [
+    "[workspace 2 silent] ${userSettings.terminal}"
+    "[workspace 2 silent] firefox"
+    # "[workspace 3 silent] ${userSettings.terminal} ncmpcpp"
+    "[workspace 9 silent] ${userSettings.terminal} btm"
+  ];
 }

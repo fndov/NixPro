@@ -3,15 +3,12 @@
     # https://nixos.wiki/wiki/Nix_channels
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-
     # https://nix-community.github.io/home-manager/
     # home-manager.url = "github:nix-community/home-manager"; # Latest release.
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
     # https://github.com/niksingh710/nsearch
     nsearch.url = "github:niksingh710/nsearch"; nsearch.inputs.nixpkgs.follows = "nixpkgs";
-
     # https://ghostty.org/docs/install/binary#linux-(official)
     ghostty.url = "github:ghostty-org/ghostty";
   };
