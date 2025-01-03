@@ -7,7 +7,7 @@
     libreoffice-fresh
     openboard
     foliate
-    gnome.gnome-calendar
+    gnome-calendar
     # xournalpp
     # newsflash
     # mate.atril
@@ -22,13 +22,10 @@
     # tenacity
     # rosegarden
     # ardour
-    # gnome.cheese
     # audio-recorder
     # libmediainfo
     # mediainfo
     # movit
-    # gnome.seahorse
-    # gnome.gnome-maps
     # libresprite
     # openvpn
     # texliveSmall

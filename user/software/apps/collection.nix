@@ -13,7 +13,7 @@
     baobab
     blender
     chatterino2
-    godot_4s
+    godot_4
     kcalc
     kdenlive
     krita
