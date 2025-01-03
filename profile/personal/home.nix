@@ -1,13 +1,13 @@
 { userSettings, ... }: {
-  # You should delete ~/.config/* because HM intends to manage it.
   imports = [
+    ../../user/software/commands/sh.nix           # Shell.
+    ../../user/software/commands/cli.nix          # utils.
+    ../../user/software/commands/extra.nix        # Non-essential utils.
     ../../user/wm/hyprland/hyprland.nix           # Window manager.
     (../.. + "/user/software/apps/terminal"+("/"+userSettings.terminal)+".nix") # Terminal.
-    ../../user/software/commands/sh.nix           # Shell.
-    ../../user/software/commands/cli.nix          # Command line interface.
-    ../../user/software/commands/git.nix          # Git settings.
-    (../.. + "/user/software/apps/browser"+("/"+userSettings.browser)+".nix") # Browser.
     ../../user/software/apps/collection.nix       # Collection of apps.
+    ../../user/software/apps/extra.nix            # Collection non-essential apps.
+    (../.. + "/user/software/apps/browser"+("/"+userSettings.browser)+".nix") # Browser.
     ../../user/software/development/android.nix   # Android development.
     ../../user/software/development/cc.nix        # C/C++ development.
     ../../user/software/development/gd.nix        # Game development.
@@ -19,7 +19,7 @@
     ../../user/software/development/zig.nix       # Zig development.
   ];
   programs.home-manager.enable = true;
-  home.stateVersion = "24.11";                    # Please read the comment before changing.
+  home.stateVersion = "24.11"; # Please read the comment before changing.
 
   xdg.enable = true;
   xdg.mime.enable = true;

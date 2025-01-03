@@ -24,12 +24,13 @@
       system = "x86_64-linux";  # x86_64-linux, aarch64-linux.
       profile = "personal";     # personal, work, server, vm, wsl.
       flakePath = ".nixpro";    # /home/user/flakePath/NixPro
-      hostname = "Phantom";     # Anything.
+      hostname = "NixPro";     # Anything.
       gpu = "nvidia";           # nvidia, amd, intel.
     };
 
     userSettings = {            # User settings.
       username = "miyu";        # Anything.
+      email = "tommybice1@gmail.com"; # Anything.
       terminal = "ghostty";     # alacritty, ghostty.
       shell = "fish";           # bash, zsh, fish, nushell.
       editor = "micro";         # vim, neovim, micro.

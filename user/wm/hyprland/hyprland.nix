@@ -2,12 +2,11 @@
   services.blueman-applet.enable = true;
   services.udiskie.enable = true;
   services.udiskie.tray = "always";
-
   imports = [
     # ./gamemode.nix         # Game mode.
     # ./calculator.nix       # Calculator.
-    # ./task-bar.nix         # Top bar.
     # ./bottom.nix           # System Monitor.
+    ./task-bar.nix           # Top bar.
     ./timeout.nix            # Idle.
     ./keyboard.nix           # Keyboard.
     ./launcher.nix           # App launcher.
@@ -30,14 +29,12 @@
     xwayland.enable = true;
 
     settings = {
-      # For VM's.
-      # monitor = "Virtual-1, 1920x1080, 0x0, 1";
+      # monitor = "Virtual-1, 1920x1080, 0x0, 1"; # For VM's.
 
       exec-once = [
-        "${userSettings.terminal}"
+        "gnome-keyring-daemon --start --components=secrets"
         "nm-applet --indicator"
         "blueman-applet"
-        "gnome-keyring-daemon --start --components=secrets"
       ];
 
       env = [
@@ -73,7 +70,7 @@
         workspace_swipe_distance = 170;
         workspace_swipe_fingers = 3;
         workspace_swipe_cancel_ratio = 0.2;
-        #workspace_swipe_min_speed_to_force = 1
+        # workspace_swipe_min_speed_to_force = 1
         workspace_swipe_direction_lock = true;
         workspace_swipe_direction_lock_threshold = 100;
         workspace_swipe_create_new = true;
@@ -89,15 +86,17 @@
         gaps_out = 7;
         "col.active_border"  = "rgb(3b3c47)";
         "col.inactive_border" = "0x00000000";
-        border_part_of_window = false;
-        no_border_on_floating = false;
+        border_part_of_window = true; # false;
+        no_border_on_floating = true; # false;
       };
 
       decoration = {
         rounding = 8;
-        active_opacity = 1; # 0.90
-        inactive_opacity = 0.95;
+        active_opacity = 1;
+        inactive_opacity = 1;
         fullscreen_opacity = 1;
+        dim_inactive = true;
+        dim_strength = 0.2;
 
         blur = {
           enabled = true;
@@ -128,12 +127,13 @@
         # new_window_takes_over_fullscreen = 2;
         # render_ahead_of_time = true; # "Warning: Buggy".
         # enable_swallow = true;
+        # animate_manual_resizes = true;
+        # animate_mouse_windowdragging = true;
         disable_hyprland_logo = true;
-        animate_manual_resizes = true;
-        animate_mouse_windowdragging = true;
         focus_on_activate = true;
         middle_click_paste = false;
         close_special_on_empty = true;
+        vfr = true; # Increase preformance.
       };
 
        windowrulev2 = [

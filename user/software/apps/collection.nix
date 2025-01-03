@@ -1,8 +1,8 @@
 { pkgs, ... }: {
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
+    # Essential:
     lutris
-    wine
     heroic
     mangohud
     authenticator
@@ -13,7 +13,7 @@
     baobab
     blender
     chatterino2
-    godot_4
+    godot_4s
     kcalc
     kdenlive
     krita
@@ -22,44 +22,13 @@
     kwrited
     obsidian
     zed-editor
-    # unityhub
-    # mpv
-    # lutris
-    # NEW:
-    # Apps:
-    # aseprite
-    # beaver-notes
-    # davinci-resolve
-    # handbrake
-    # helvum
-    # jetbrains-toolbox
-    # jetbrains.aqua
-    # jetbrains.clion
-    # jetbrains.datagrip
-    # jetbrains.dataspell
-    # jetbrains.goland
-    # jetbrains.idea-ultimate
-    # jetbrains.phpstorm
-    # jetbrains.pycharm-community
-    # jetbrains.pycharm-professional
-    # jetbrains.rider
-    # jetbrains.ruby-mine
-    # jetbrains.rust-rover
-    # jetbrains.webstorm
-    # k3b
-    # kaddressbook
-    # kontact
-    # korganizer
-    # mission-center
-    # mpv
-    # remembrance
-    # steam
-    # veracrypt
-    # zen-browser
-    # portmaster
-    # upscayl
-    # tor-browser-bundle-bin
-    # qbittorrent
-    # isoimagewriter
+    gimp
+    ffmpeg
+    lollypop
+    # kdenlive
   ];
+  services.nextcloud-client = {
+    enable = true;
+    startInBackground = true;
+  };
 }

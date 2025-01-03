@@ -1,7 +1,16 @@
-{ config, pkgs, ... }: {
-  environment.systemPackages = [ pkgs.virt-manager pkgs.distrobox ];
+{ pkgs, ... }: {
+  environment.systemPackages = with pkgs; [
+    virt-manager
+    distrobox
+    qemu
+    uefi-run
+    lxc
+    swtpm
+    dosfstools
+
+    # kubectl
+  ];
   programs.virt-manager.enable = true;
-  users.groups.libvirtd.members = [ "miyu" ];
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
   virtualisation.podman.enable = true;

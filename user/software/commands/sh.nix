@@ -22,7 +22,6 @@ let
 in {
   home.packages = with pkgs; [
     micro
-    # userSettings.terminal
     bat
     eza
     ripgrep

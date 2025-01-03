@@ -1,7 +1,8 @@
 { pkgs, ... }: {
   home.packages = [ pkgs.hypridle ];
+  wayland.windowManager.hyprland.settings.exec-once = [ "hypridle" ];
   home.file.".config/hypr/hypridle.conf".text = ''
-    # Unconfigured.
+    # Default configuration.
     general {
         lock_cmd = notify-send "lock!"          # dbus/sysd lock command (loginctl lock-session)
         unlock_cmd = notify-send "unlock!"      # same as above, but unlock

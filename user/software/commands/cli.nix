@@ -1,79 +1,29 @@
-{ pkgs, ... }: {
+{ pkgs, userSettings, ... }: {
   home.packages = with pkgs; [
-    # Essential:
-    git
+    # Essential utils:
     timg
     nixd
     nil
-    # System utils:
-    # appimage-run
-    # aircrack-ng
-    # ascii-image-converter
-    # carapace
-    # corefonts
-    # dialog
-    # discordchatexporter-cli
-    # dmidecode
-    # egl-wayland
-    # exif
-    # fastgame
-    # gophish
-    # hashcat
-    # helix
-    # icu
-    # jre
-    # kubectl
-    # lolcat
-    # mat2
-    # nethogs
-    # nftables
-    # nix-prefetch-github
-    # nixfmt-classic
-    # nixpkgs-review
-    # nmap
-    # raylib
-    # scc
-    # spacevim
-    # ssh-chat
-    # sshs
-    # streamlink
-    # scc
-    # tmux # I hate tmux.
-    # gping
-    # vulkan-tools
-    # gdu
-    # libnotify
-    # lolcat
-    raylib
-    usbutils
-    aria2
-    bat
-    cava
-    cowsay
-    curl
-    fastfetch
-    fzf
-    gamemode
-    gamescope
+    nixfmt-classic
+    syncthing
+    zip
     glib
     glibc
+    usbutils
     hwinfo
-    killall
-    mangohud
-    nixfmt-classic
-    numbat
     openssh
-    p7zip
     pciutils
-    protonplus
-    protontricks
-    protonup
-    twitch-dl
-    unrar
-    unzip
-    wine
-    yazi
-    yt-dlp
-    zip
+    curl
+    git
   ];
+  programs.git.enable = true;
+  programs.git.userName = userSettings.name;
+  programs.git.userEmail = userSettings.email;
+  programs.git.extraConfig = {
+    # init.defaultBranch = "main";
+    safe.directory = [
+      ("/home/" + userSettings.username + "/.nixpro")
+      ("/home/" + userSettings.username + "/.nixpro/.git")
+    ];
+  };
 }
