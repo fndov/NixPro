@@ -5,7 +5,7 @@
   imports = [
     # ./gamemode.nix         # Game mode.
     # ./calculator.nix       # Calculator.
-    # ./bottom.nix           # System Monitor.
+    ./bottom.nix             # System Monitor.
     ./task-bar.nix           # Top bar.
     ./timeout.nix            # Idle.
     ./keyboard.nix           # Keyboard.
