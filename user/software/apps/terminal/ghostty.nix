@@ -15,7 +15,7 @@
 
     # --- Font ---
     font-size = 16
-    font-family = CaskaydiaCove Nerd Font
+    # font-family = CaskaydiaCove Nerd Font
     # font-family = ZedMono Nerd Font
 
     # --- Disable exit Message ---

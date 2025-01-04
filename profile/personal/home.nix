@@ -3,7 +3,7 @@
     ../../user/software/commands/sh.nix           # Shell.
     ../../user/software/commands/cli.nix          # utils.
     ../../user/software/commands/extra.nix        # Non-essential utils.
-    ../../user/wm/hyprland/hyprland.nix           # Window manager.
+    ../../user/wm/hyprland/settings/hyprland.nix  # Window manager.
     (../.. + "/user/software/apps/terminal"+("/"+userSettings.terminal)+".nix") # Terminal.
     ../../user/software/apps/collection.nix       # Collection of apps.
     ../../user/software/apps/extra.nix            # Collection non-essential apps.

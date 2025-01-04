@@ -3,24 +3,9 @@
   services.udiskie.enable = true;
   services.udiskie.tray = "always";
   imports = [
-    # ./gamemode.nix         # Game mode.
-    # ./calculator.nix       # Calculator.
-    ./bottom.nix             # System Monitor.
-    ./task-bar.nix           # Top bar.
-    ./timeout.nix            # Idle.
-    ./keyboard.nix           # Keyboard.
-    ./launcher.nix           # App launcher.
-    ./nightlight.nix         # Nightlight.
-    ./screenshot.nix         # Screenshot.
-    ./cursor.nix             # Cursor.
-    ./lock-screen.nix        # Lock screen.
-    ./notification.nix       # Notifications.
-    ./dependencies.nix       # Dependency.
-    ./polkitagent.nix        # Wayland security.
-    ./hyprpaper.nix          # Wallpaper.
-    .././theme.nix           # App themes.
-    .././clipboard.nix       # Clipboard.
-    .././fonts.nix           # Fonts.
+    .././settings
+    .././features
+    .././extra
   ];
 
   wayland.windowManager.hyprland = {
@@ -38,9 +23,10 @@
       ];
 
       env = [
-	    "BROWSER,${userSettings.browser}"
-	    "EDITOR,${userSettings.editor}"
-	    "TERMINAL,${userSettings.terminal}"
+        "MOZ_ENABLE_WAYLAND,1" # Testing.
+	      "BROWSER,${userSettings.browser}"
+	      "EDITOR,${userSettings.editor}"
+	      "TERMINAL,${userSettings.terminal}"
         "XDG_CURRENT_DESKTOP,Hyprland"
         "XDG_SESSION_DESKTOP,Hyprland"
         # "WLR_DRM_DEVICES,/dev/dri/card2:/dev/dri/card1"
@@ -121,11 +107,6 @@
       };
 
       misc = {
-        # disable_autoreload = true;
-        # always_follow_on_dnd = true;
-        # layers_hog_keyboard_focus = true;
-        # new_window_takes_over_fullscreen = 2;
-        # render_ahead_of_time = true; # "Warning: Buggy".
         enable_swallow = true;
         animate_manual_resizes = true;
         animate_mouse_windowdragging = true;

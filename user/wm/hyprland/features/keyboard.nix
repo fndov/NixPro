@@ -12,8 +12,10 @@
     ];
 
     bind = [
-      # Terminal.
+      # Apps.
       "SUPER,Return,exec,${userSettings.terminal}"
+      "SUPER,B,exec,hyprctl dispatch exec '[float] ${userSettings.terminal} -e btm'"
+      "SUPER,n,exec,hyprctl dispatch exec '[float] ${userSettings.terminal} -e numbat'"
 
       # Common.
       "SUPER,q,killactive"

@@ -13,6 +13,7 @@
     gamemode
     gamescope
     fastfetch
+    bottom
     # aria2
     # killall
     # cava
