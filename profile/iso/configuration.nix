@@ -11,8 +11,8 @@
     ../../system/security/firewall.nix
     ../../system/software/vm.nix
     ../../system/hardware/boot.nix
-    ../../system/security/keyring.nix
-    ../../system/security/timezone.nix */
+    ../../system/security/keyring.nix */
+    ../../system/security/timezone.nix
     ../../system/hardware/automount.nix
     ../../system/hardware/usbmuxd.nix
 
@@ -21,17 +21,13 @@
     ../../system/hardware/kernel.nix
     ../../system/wm/login.nix
   ];
-
   networking.wireless.enable = false;
   networking.networkmanager.enable = true; 
-
+  
   isoImage.squashfsCompression = "lz4"; # Fast.
   # isoImage.squashfsCompression = "xz -Xdict-size 100%"; # Small. 
-  
   services.earlyoom.enable = true;
-  
-  # sservices.getty.autologinUser = lib.mkForce "miyu";
-
+  # services.getty.autologinUser = lib.mkForce "miyu";
   system.stateVersion = settings.system.version;
 } /* 
 
