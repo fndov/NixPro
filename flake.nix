@@ -11,10 +11,10 @@
     https://github.com/niksingh710/nsearch
     https://github.com/Gerg-L/spicetify-nix */
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nsearch.url = "github:niksingh710/nsearch";
     nsearch.inputs.nixpkgs.follows = "nixpkgs";
@@ -23,14 +23,14 @@
   };
   outputs = inputs@{ self, nixpkgs, ... }: let
     settings = {    
-      profile = "microsoft";
+      profile = "image";
       system = {
         bootMode = "uefi";
         grubDevice = "/dev/sda";
         bootMountPath = "/boot";
-        arch = "x86_64-linux";
+        architecture = "x86_64-linux";
         flakePath = ".nixpro";
-        version = "24.05";
+        version = "24.11";
         gpu = "intel";
       };
       user = {
@@ -42,6 +42,9 @@
         browser = "firefox";
       };
       desktop = {
+        type = "wm";
+        wm = "hyprland";
+        de = "plasma";
         font = "Noto Mono";
         fontPkg = pkgs.noto-fonts;
         wallpaperPath = "Media/Pictures/Wallpapers/Catppuccin-mocha";
@@ -50,7 +53,7 @@
       };
     };
     pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
-    system = settings.system.arch;
+    system = settings.system.architecture;
   in {
     nixosConfigurations.${settings.user.name} = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs pkgs system settings; };
@@ -62,7 +65,7 @@
           else if settings.profile == "server" then "NixPro-Server" 
           else if settings.profile == "standalone" then "NixPro" 
           else if settings.profile == "virtual-machine" then "NixPro-VM"
-          else if settings.profile == "iso" then "NixPro-ISO"
+          else if settings.profile == "image" then "NixPro-Image"
           else "NixPro";
           environment.systemPackages = [ inputs.nsearch.packages.${pkgs.system}.default ];
           nix.settings.trusted-users = [ "@wheel" ];
@@ -70,7 +73,7 @@
           nix.settings.substituters = [ "https://hyprland.cachix.org" ];
           nix.settings.trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
         }
-        ./system/hardware/hardware.nix # Will need to be pre-set for an ISO.
+        ./system/hardware/hardware.nix # Will need to be pre-set for an Image.
         ./profile/${settings.profile}/configuration.nix
         ./system/hardware/${settings.system.gpu}.nix
         ./system/security/account/default.nix

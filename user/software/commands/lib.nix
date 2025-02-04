@@ -4,14 +4,11 @@
   profiles = {
 
     apple = {
-      # macOS-specific configuration
+      # NixPro-Apple specific configuration.
     };
 
-    iso = {
-      # macOS-specific configuration
-    };
-
-    microsoft = {
+    image = {
+      # NixPro-Image specific configuration.
       home.packages = with pkgs; [ 
         (writeShellScriptBin "nixgu" '' # Rebuild Switch.
     	  echo "nixsw | Switch configuration"
@@ -77,10 +74,79 @@
           sudo nix-env --list-generations --profile /nix/var/nix/profiles/system | wc -l
         '')
        ];
-      # microsoft-specific configuration
+    };
+
+    microsoft = {
+      # NixPro-WSL specific configuration.
+      home.packages = with pkgs; [ 
+        (writeShellScriptBin "nixgu" '' # Rebuild Switch.
+    	  echo "nixsw | Switch configuration"
+	      echo "nixup | Upgrade system"
+    	  echo "nixdr | Dry run"
+	      echo "nixts | Test build"
+    	  echo "nixbo | Boot loader"
+	      echo "nixrl | Rollback"
+    	  echo "nixgx | Garbage collect"
+	      echo "nixop | Optimise system"
+       	  echo "nixar | Archive system"
+    	  echo "nixtr | Troubleshoot"
+	      echo "nixls | List generations"
+        '')        
+        (writeShellScriptBin "nixsw" '' # Rebuild Switch.
+          echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}'
+          sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}
+        '')
+        (writeShellScriptBin "nixbo" '' # Rebuild Boot.
+          echo '# sudo nixos-rebuild test --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}'
+          sudo nixos-rebuild test --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}
+        '')
+        (writeShellScriptBin "nixts" '' # Rebuild Test.
+          echo '# sudo nixos-rebuild test --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}'
+          sudo nixos-rebuild test --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}
+        '')
+        (writeShellScriptBin "nixdr" '' # Nix Dry-Activate.
+          echo '# sudo nixos-rebuild dry-run --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}'
+          sudo nixos-rebuild dry-run --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}
+        '')
+        (writeShellScriptBin "nixrl" '' # Rebuild Rollback.
+          echo '# sudo nixos-rebuild switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name} --rollback'
+          sudo nixos-rebuild switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name} --rollback
+        '')
+        (writeShellScriptBin "nixup" '' # Rebuild Update.
+        echo '# sudo nix flake update /home/${settings.user.name}/${settings.system.flakePath}'
+          sudo nix flake update /home/${settings.user.name}/${settings.system.flakePath}
+        echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}'
+          sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}
+        '')
+        (writeShellScriptBin "nixar" '' # Nix Archive.
+          echo '# nix flake archive /home/${settings.user.name}/${settings.system.flakePath}'
+          nix flake archive /home/${settings.user.name}/${settings.system.flakePath}
+        '')
+        (writeShellScriptBin "nixtr" '' # Nix Troubleshoot.
+          echo '# journalctl -xe --unit home-manager-${settings.user.name}'
+          journalctl -xe --unit home-manager-${settings.user.name}
+        '')
+        (writeShellScriptBin "nixgc" '' # Nix Garbage collect.
+          echo '# sudo nix-collect-garbage --delete-older-than 30d'
+          sudo nix-collect-garbage --delete-older-than 30d
+          echo '# nix-collect-garbage --delete-older-than 30d'
+          nix-collect-garbage --delete-older-than 30d
+        '')
+        (writeShellScriptBin "nixop" '' # Nix Optimise.
+          echo '# sudo nix-store --optimise'
+          sudo nix-store --optimise
+          echo '# nix-store --optimise'
+          nix-store --optimise
+        '')
+        (writeShellScriptBin "nixls" '' # Nix List generations.
+          echo '# sudo nix-env --list-generations --profile /nix/var/nix/profiles/system | wc -l'
+          sudo nix-env --list-generations --profile /nix/var/nix/profiles/system | wc -l
+        '')
+       ];
     };
 
     server = {
+      # NixPro-Server specific configuration.
       home.packages = with pkgs; [ 
         (writeShellScriptBin "nixgu" '' # Rebuild Switch.
     	  echo "nixsw | Switch configuration"
@@ -148,10 +214,10 @@
           sudo nix-env --list-generations --profile /nix/var/nix/profiles/system | wc -l
         '')
        ];
-      # server-specific configuration
     };
 
     standalone = {
+      # NixPro specific configuration.
       wayland.windowManager.hyprland.settings.bind = [ "SUPER,L,exec,nixmu" ];
       
       home.packages = with pkgs; [ 
@@ -326,11 +392,10 @@ List generations" | rofi -dmenu -i | xargs -I {} sh -c "
           esac"
         '')
       ];
-      # standalone-specific configuration
     };
 
     virtual-machine = {
-      # virtual-machine-specific configuration
+      # NixPro-VM specific configuration.
     };
   };
 in {
@@ -341,12 +406,12 @@ in {
   };
 
   config = lib.mkMerge [
-    # base configuration (common to all profiles)
+    # base configuration. (common to all profiles)
     {
 
     }
 
-    # profile-specific overrides
+    # profile-specific overrides.
     (lib.mkIf (builtins.hasAttr settings.profile profiles) 
       (builtins.getAttr settings.profile profiles))
   ];

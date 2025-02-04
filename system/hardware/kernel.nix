@@ -5,7 +5,7 @@
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernelPackages = pkgs.linuxPackages_hardened; */
 
-  boot.kernelPackages = if settings.profile == "iso" 
+  boot.kernelPackages = if settings.profile == "image" 
     then pkgs.linuxPackages_xanmod_latest
     else pkgs.linuxPackages;
 

@@ -3,21 +3,21 @@
   services.udiskie.enable = true;
   services.udiskie.tray = "always";
   imports = [ /* Hyprland */
-    .././extra/theme.nix
-    .././features/cursor.nix
-    .././features/wallpaper.nix
-    .././features/keyboard.nix
-    .././features/launcher.nix
-    .././features/lock-screen.nix
-    .././features/nightlight.nix
-    .././features/notification.nix
-    .././features/screenshot.nix
-    .././features/task-bar.nix
-    .././features/timeout.nix
-    .././settings/animation.nix
-    .././settings/dependencies.nix
-    .././settings/polkitagent.nix
-    .././settings/rules.nix
+    ./extra/theme.nix # paths may be wrong to a change.
+    ./features/cursor.nix
+    ./features/wallpaper.nix
+    ./features/keyboard.nix
+    ./features/launcher.nix
+    ./features/lock-screen.nix
+    ./features/nightlight.nix
+    ./features/notification.nix
+    ./features/screenshot.nix
+    ./features/task-bar.nix
+    ./features/timeout.nix
+    ./settings/animation.nix
+    ./settings/dependencies.nix
+    ./settings/polkitagent.nix
+    ./settings/rules.nix
   ];
   wayland.windowManager.hyprland = {
     enable = true;

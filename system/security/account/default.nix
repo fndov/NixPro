@@ -2,7 +2,7 @@
   isMicrosoftFish = (settings.profile == "microsoft") && (settings.user.shell == "fish"); 
 in {
   users.users.root = 
-    if settings.profile == "iso" then {
+    if settings.profile == "image" then {
       initialPassword = "password";
       initialHashedPassword = null;
       hashedPassword = null;

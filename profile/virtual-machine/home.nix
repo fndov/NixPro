@@ -1,24 +1,28 @@
 { settings, ... }: {
   imports = [
-    ../../user/software/commands/sh.nix           # Shell.
-    ../../user/software/commands/cli.nix          # utils.
-    ../../user/software/commands/lib.nix          # NixPro Library.
-    ../../user/software/commands/extra.nix        # Non-essential utils.
-    ../../user/wm/hyprland/settings/hyprland.nix  # Window manager.
-    (../.. + "/user/software/apps/terminal"+("/"+settings.user.terminal)+".nix") # Terminal.
-    ../../user/software/apps/collection.nix         # Collection of apps.
-    # ../../user/software/apps/extra.nix            # Collection non-essential apps.
-    (../.. + "/user/software/apps/browser"+("/"+settings.user.browser)+".nix") # Browser.
-    # ../../user/software/apps/spotify.nix          # Spotify for linux.
-    # ../../user/software/development/android.nix   # Android development.
-    # ../../user/software/development/c.nix         # C development.
-    # ../../user/software/development/cc.nix        # C/C++ development.
-    # ../../user/software/development/gd.nix        # Game development.
-    # ../../user/software/development/hs.nix        # Haskell development.
-    # ../../user/software/development/rs.nix        # Rust development.
-    # ../../user/software/development/py-pkgs.nix   # Python packages.
-    # ../../user/software/development/go.nix        # Go development.
-    # ../../user/software/development/zig.nix       # Zig development.
+    ../../user/software/commands/sh.nix
+    ../../user/software/commands/cli.nix
+    ../../user/software/commands/lib.nix
+    ../../user/software/commands/extra.nix
+    (../.. + "/user/${settings.desktop.type}/${
+      if settings.desktop.type == "wm" 
+      then settings.desktop.wm 
+      else settings.desktop.de
+    }/default.nix")
+    (../.. + "/user/software/apps/terminal"+("/"+settings.user.terminal)+".nix")
+    ../../user/software/apps/collection.nix
+    # ../../user/software/apps/extra.nix
+    (../.. + "/user/software/apps/browser"+("/"+settings.user.browser)+".nix")
+    # ../../user/software/apps/spotify.nix
+    # ../../user/software/development/android.nix
+    # ../../user/software/development/c.nix
+    # ../../user/software/development/cc.nix
+    # ../../user/software/development/gd.nix
+    # ../../user/software/development/hs.nix
+    # ../../user/software/development/rs.nix
+    # ../../user/software/development/py-pkgs.nix
+    # ../../user/software/development/go.nix
+    # ../../user/software/development/zig.nix
   ];
   # VM Specific.
   wayland.windowManager.hyprland.settings = { monitor = "Virtual-1, 1920x1080, 0x0, 1"; };
