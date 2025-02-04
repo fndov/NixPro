@@ -1,0 +1,13 @@
+{ pkgs, settings, ... }: let
+  # Check using `hyprctl monitors`
+  monitor = "eDP-1";
+in {
+  home.packages = [ pkgs.hyprpaper ];
+  wayland.windowManager.hyprland.settings.exec-once = [ "hyprpaper" ];
+  services.hyprpaper.enable = true;
+  
+  # Figure out where shishkin-krestovsky-island.jpg ends up on the ISO, and set that as the wallpaper using that path.
+
+  services.hyprpaper.settings.preload = "/home/${settings.user.name}/${settings.desktop.wallpaperPath}/${settings.desktop.wallpaperName}";
+	services.hyprpaper.settings.wallpaper = "${monitor},/home/${settings.user.name}/${settings.desktop.wallpaperPath}/${settings.desktop.wallpaperName}";
+}

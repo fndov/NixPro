@@ -1,0 +1,52 @@
+vscode - alt catppuccin mocha
+firefox - catppuccin something
+micro - geany
+
+https://nixos.wiki/wiki/WSL
+WSL SWAP is set in the app 'WSL Settings' and not in the configuration.
+wsl --shutdown
+sudo systemctl restart nix-daemon
+
+https://search.nixos.org/packages
+https://search.nixos.org/options
+https://home-manager-options.extranix.com/
+https://github.com/search?q=+language%3ANix&type=code
+https://wiki.hyprland.org/Configuring/Variables/
+
+`nixos-option` options
+`nsearch` packages
+
+/* nix-shell & nix shell */
+nix-shell -p clang clang-tools --command fish --run 'clang++ a.cc -o b.exe'
+> # compiles it
+nix shell nixpkgs#youtube-dl --command youtube-dl --version
+> 2020.11.01.1
+nix shell nixpkgs/nixos-20.03#hello
+
+https://ops.functionalalgebra.com/2016/06/14/nixos-systemd-journald/
+
+    systemSettings = {                # System settings.
+      bootMode = "uefi";              # Options: uefi, bios.
+      grubDevice = "/dev/sda";        # /dev/vda, /dev/nvme0n1.
+      bootMountPath = "/boot";        # Mount path for efi boot partition; only used for uefi boot mode.
+      arch = "x86_64-linux";          # Options: x86_64-linux, aarch64-linux.
+      flakePath = ".nixpro";          # /home/user/flakePath/nixpro
+      profile = "microsoft";          # Options: standalone, server, virtual-machine, apple, microsoft.
+      hostname = "NixPro";
+      gpu = "intel";                  # Options: nvidia, amd, intel.
+    userSettings = {                  # User settings.
+      username = "miyu";              # Username referenced across system.
+      email = "tommybice1@gmail.com"; # Primary email address.
+      terminal = "ghostty";           # Options: alacritty, ghostty.
+      shell = "fish";                 # Options: bash, zsh, fish, nushell.
+      editor = "micro";               # Options: vim, neovim, micro.
+      browser = "firefox";            # Options: firefox, chromium.
+    desktop = {                       # Desktop settings.
+      font = "Noto Mono";             # Font in use.
+      fontPkg = pkgs.noto-fonts;      # Package name for font.
+      wallpaperPath = "Media/Pictures/Wallpapers/Catppuccin-mocha"; # /home/wallpaperPath/
+      wallpaperName = "purpled-night.jpg"; # wallpaperPath/wallpaper
+      animationSpeed = "medium";      # Options: slow, medium, fast.
+
+bash
+while true; do cp -r NixPro/* /home/miyu/.nixpro; sleep 1; done
