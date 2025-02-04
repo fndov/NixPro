@@ -4,7 +4,7 @@ in {
   users.users.root = 
     if settings.profile == "image" then {
       initialPassword = "password";
-      initialHashedPassword = null;
+      initialHashedPassword = lib.mkForce null;
       hashedPassword = null;
       password = null;
       hashedPasswordFile = null;

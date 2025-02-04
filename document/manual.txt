@@ -1,3 +1,5 @@
+The Initial password is "password".
+
 vscode - alt catppuccin mocha
 firefox - catppuccin something
 micro - geany

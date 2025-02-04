@@ -16,7 +16,6 @@
     ../../system/hardware/pipewire.nix
     ../../system/security/keyring.nix
     ../../system/security/timezone.nix
-    ../../system/wm/login.nix
   ];
   
   # networking.wireless.enable = false;

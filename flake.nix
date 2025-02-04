@@ -1,7 +1,7 @@
 /* NixPro - A modular NixOS configuration framework
 - This flake serves as the entry point for system configuration
 - Settings and profile selection are defined here
-- Documentation: https://github.com/your-username/nixpro */
+- Documentation: https://github.com/fndov/NixPro/ */
 {
   description = "NixPro. Started June 19, 2024";
   inputs = { /*
@@ -42,6 +42,7 @@
         browser = "firefox";
       };
       desktop = {
+        enable = true;
         type = "wm";
         wm = "hyprland";
         de = "plasma";
@@ -77,6 +78,7 @@
         ./profile/${settings.profile}/configuration.nix
         ./system/hardware/${settings.system.gpu}.nix
         ./system/security/account/default.nix
+        (if settings.desktop.enable then ./system/wm/login.nix else null)
         inputs.home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true; 

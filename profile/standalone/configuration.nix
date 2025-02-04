@@ -17,7 +17,6 @@
     ../../system/security/keyring.nix
     ../../system/security/timezone.nix
     ../../system/software/gamemode.nix
-    ../../system/wm/login.nix
   ];
 
   # networking.wireless.enable = false;
