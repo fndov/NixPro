@@ -43,7 +43,7 @@
       };
       desktop = {
         enable = true;
-        type = "wm";
+        type = "de";
         wm = "hyprland";
         de = "plasma";
         font = "Noto Mono";
@@ -74,18 +74,22 @@
           nix.settings.substituters = [ "https://hyprland.cachix.org" ];
           nix.settings.trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
         }
+        
         ./system/hardware/hardware.nix # Will need to be pre-set for an Image.
         ./profile/${settings.profile}/configuration.nix
         ./system/hardware/${settings.system.gpu}.nix
         ./system/security/account/default.nix
         (if settings.desktop.enable then ./system/${settings.desktop.type}/default.nix else null)
+
         inputs.home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true; 
           home-manager.backupFileExtension = "hm-backup";
           home-manager.extraSpecialArgs = { inherit inputs settings; };
           home-manager.users.${settings.user.name}.imports = [ 
+            
             ./profile/${settings.profile}/home.nix
+
             (if settings.desktop.enable then (toString ./.) + "/user/${settings.desktop.type}/${
               if settings.desktop.type == "wm" 
               then settings.desktop.wm 

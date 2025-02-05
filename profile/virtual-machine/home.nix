@@ -3,7 +3,6 @@
     ../../user/software/commands/sh.nix
     ../../user/software/commands/cli.nix
     ../../user/software/commands/lib.nix
-    ../../user/software/commands/extra.nix
     (../.. + "/user/software/apps/terminal"+("/"+settings.user.terminal)+".nix")
     ../../user/software/apps/collection.nix
     # ../../user/software/apps/extra.nix

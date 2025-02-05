@@ -3,7 +3,6 @@
     ../../user/software/commands/sh.nix
     ../../user/software/commands/cli.nix
     ../../user/software/commands/lib.nix
-    ../../user/software/commands/extra.nix    
     ../../user/software/development/cc.nix
     # ../../user/software/development/ zig go py-pkgs rs hs c cc android     
   ];
