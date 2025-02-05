@@ -8,13 +8,6 @@
     ../../user/software/commands/sh.nix        
     ../../user/software/commands/cli.nix       
     ../../user/software/commands/lib.nix
-    
-    (../.. + "/user/${settings.desktop.type}/${
-      if settings.desktop.type == "wm" 
-      then settings.desktop.wm 
-      else settings.desktop.de
-    }/default.nix")
-
     (../.. + "/user/software/apps/terminal"+("/"+settings.user.terminal)+".nix") 
     (../.. + "/user/software/apps/browser"+("/"+settings.user.browser)+".nix") /*
     ../../user/software/commands/extra.nix

@@ -12,7 +12,6 @@
     # ../../system/hardware/kernel.nix
     ../../system/hardware/automount.nix
     ../../system/hardware/boot.nix
-    ../../system/hardware/network.nix
     ../../system/hardware/pipewire.nix
     ../../system/security/keyring.nix
     ../../system/security/timezone.nix

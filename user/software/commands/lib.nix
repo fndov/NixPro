@@ -88,9 +88,10 @@
 	      echo "nixrl | Rollback"
     	  echo "nixgx | Garbage collect"
 	      echo "nixop | Optimise system"
-       	  echo "nixar | Archive system"
+       	echo "nixar | Archive system"
     	  echo "nixtr | Troubleshoot"
-	      echo "nixls | List generations"
+	      echo "nixrs"| Restart nix-deamon
+        echo "nixls | List generations"
         '')        
         (writeShellScriptBin "nixsw" '' # Rebuild Switch.
           echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}'
@@ -137,6 +138,10 @@
           sudo nix-store --optimise
           echo '# nix-store --optimise'
           nix-store --optimise
+        '')
+        (writeShellScriptBin "nixrs" '' # Restart nix-deamon.
+          echo '# sudo systemctl restart nix-daemon'
+          sudo systemctl restart nix-daemon
         '')
         (writeShellScriptBin "nixls" '' # Nix List generations.
           echo '# sudo nix-env --list-generations --profile /nix/var/nix/profiles/system | wc -l'

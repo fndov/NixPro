@@ -3,12 +3,7 @@
     ../../user/software/commands/sh.nix        
     ../../user/software/commands/cli.nix       
     ../../user/software/commands/lib.nix       
-    ../../user/software/commands/extra.nix       
-    (../.. + "/user/${settings.desktop.type}/${
-      if settings.desktop.type == "wm" 
-      then settings.desktop.wm 
-      else settings.desktop.de
-    }/default.nix")
+    ../../user/software/commands/extra.nix
     (../.. + "/user/software/apps/terminal"+("/"+settings.user.terminal)+".nix") 
     ../../user/software/apps/collection.nix     
     ../../user/software/apps/extra.nix         

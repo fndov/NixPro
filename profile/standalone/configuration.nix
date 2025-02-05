@@ -9,7 +9,6 @@
     ../../system/hardware/bluetooth.nix
     ../../system/hardware/boot.nix
     ../../system/hardware/memory.nix
-    ../../system/hardware/network.nix
     ../../system/hardware/pipewire.nix
     ../../system/hardware/usbmuxd.nix
     ../../system/security/extra.nix

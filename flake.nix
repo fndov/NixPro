@@ -84,7 +84,14 @@
           home-manager.useUserPackages = true; 
           home-manager.backupFileExtension = "hm-backup";
           home-manager.extraSpecialArgs = { inherit inputs settings; };
-          home-manager.users.${settings.user.name}.imports = [ ./profile/${settings.profile}/home.nix ];
+          home-manager.users.${settings.user.name}.imports = [ 
+            ./profile/${settings.profile}/home.nix
+            (if settings.desktop.enable then (toString ./.) + "/user/${settings.desktop.type}/${
+              if settings.desktop.type == "wm" 
+              then settings.desktop.wm 
+              else settings.desktop.de
+            }/default.nix" else null)
+          ];
         }
       ];
     };
