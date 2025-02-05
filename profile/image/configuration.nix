@@ -1,10 +1,5 @@
-/* NixPro-Image Configuration
-- All modules must fit within available RAM
-- Avoid heavy modules like vm.nix
-- Keep system packages minimal
-- Consider compression settings carefully */
 { config, lib, pkgs, settings, modulesPath, ... }: {
-  imports = [ /* Configuration */
+  imports = [ 
     (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
     ../../system/hardware/automount.nix
     ../../system/hardware/usbmuxd.nix
@@ -12,6 +7,7 @@
     ../../system/hardware/memory.nix
     ../../system/hardware/kernel.nix
   ];
+
   isoImage.isoName = lib.mkForce (builtins.replaceStrings ["--" "-linux"] ["-" ""] "nixpro-${settings.system.version}-${
     if settings.desktop.enable
     then if settings.desktop.type == "wm" 
@@ -21,20 +17,20 @@
   }-${settings.system.architecture}.iso");
   
   isoImage = {
-    squashfsCompression = 
-    "lz4"; # Fast.
+    squashfsCompression = "lz4"; # Fast.
     # "xz -Xdict-size 100%"; # Small.
     
-    contents = [
-      {
-        source = lib.cleanSource ../../.;
-        target = "/home/${settings.user.name}/.nixpro";
-        # user = settings.user.name;
-        # group = "users";
-        # mode = "0700";
-      }
-    ];
+  contents = [
+    {
+    source = lib.cleanSource /home/miyu/.nixpro;
+    target = "/home/${settings.user.name}/.nixpro";
+    user = settings.user.name;
+    group = "users";
+    mode = "0700";
+    }
+];
   };
+
   # Save space.
   hardware.enableAllFirmware = lib.mkForce false;
   hardware.enableRedistributableFirmware = lib.mkForce false;

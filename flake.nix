@@ -30,7 +30,7 @@
         bootMountPath = "/boot";
         architecture = "x86_64-linux";
         flakePath = ".nixpro";
-        version = "24.05";
+        version = "24.11";
         gpu = "intel";
       };
       user = {
@@ -42,8 +42,8 @@
         browser = "firefox";
       };
       desktop = {
-        enable = true;
-        type = "de";
+        enable = false;
+        type = "wm";
         wm = "hyprland";
         de = "plasma";
         font = "Noto Mono";

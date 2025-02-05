@@ -19,7 +19,7 @@
 	      echo "nixrl | Rollback"
     	  echo "nixgx | Garbage collect"
 	      echo "nixop | Optimise system"
-       	  echo "nixar | Archive system"
+       	echo "nixar | Archive system"
     	  echo "nixtr | Troubleshoot"
 	      echo "nixls | List generations"
         '')        
@@ -58,10 +58,10 @@
           journalctl -xe --unit home-manager-${settings.user.name}
         '')
         (writeShellScriptBin "nixgc" '' # Nix Garbage collect.
-          echo '# sudo nix-collect-garbage --delete-older-than 30d'
-          sudo nix-collect-garbage --delete-older-than 30d
-          echo '# nix-collect-garbage --delete-older-than 30d'
-          nix-collect-garbage --delete-older-than 30d
+          echo '# sudo nix-collect-garbage'
+          sudo nix-collect-garbage
+          echo '# nix-collect-garbage'
+          nix-collect-garbage
         '')
         (writeShellScriptBin "nixop" '' # Nix Optimise.
           echo '# sudo nix-store --optimise'
