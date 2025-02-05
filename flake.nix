@@ -78,7 +78,7 @@
         ./profile/${settings.profile}/configuration.nix
         ./system/hardware/${settings.system.gpu}.nix
         ./system/security/account/default.nix
-        (if settings.desktop.enable then ./system/wm/login.nix else null)
+        (if settings.desktop.enable then ./system/${settings.desktop.type}/default.nix else null)
         inputs.home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true; 
