@@ -42,13 +42,13 @@
     "i915.fastboot=1"
     "raid=noautodetect"
     "noapic" */
-  ]; /*
-  services.thermald.enable = true;
+  ];
+  services.thermald.enable = false;
   services.auto-cpufreq = {
     enable = true;
     settings = {
       charger = { governor = "performance"; turbo = "always"; };
       battery = { governor = "performance"; turbo = "always"; };
     };
-  }; */
+  };
 }

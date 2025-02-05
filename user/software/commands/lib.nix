@@ -90,8 +90,9 @@
 	      echo "nixop | Optimise system"
        	echo "nixar | Archive system"
     	  echo "nixtr | Troubleshoot"
-	      echo "nixrs"| Restart nix-deamon
+	      echo "nixrs | Restart nix-deamon"
         echo "nixls | List generations"
+        echo "nixim | Build Image"
         '')        
         (writeShellScriptBin "nixsw" '' # Rebuild Switch.
           echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}'
@@ -126,6 +127,10 @@
         (writeShellScriptBin "nixtr" '' # Nix Troubleshoot.
           echo '# journalctl -xe --unit home-manager-${settings.user.name}'
           journalctl -xe --unit home-manager-${settings.user.name}
+        '')
+        (writeShellScriptBin "nixim" '' # Build Image.
+          echo '# nix build /home/${settings.user.name}/${settings.system.flakePath}#nixosConfigurations.${settings.user.name}.config.system.build.isoImage'
+          nix build /home/${settings.user.name}/${settings.system.flakePath}#nixosConfigurations.${settings.user.name}.config.system.build.isoImage
         '')
         (writeShellScriptBin "nixgc" '' # Nix Garbage collect.
           echo '# sudo nix-collect-garbage --delete-older-than 30d'

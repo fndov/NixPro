@@ -12,7 +12,7 @@
     ../../system/hardware/memory.nix
     ../../system/hardware/kernel.nix
   ];
-  isoImage.isoName = lib.mkForce (builtins.replaceStrings ["--" "-linux"] ["-" ""] "NixPro-${settings.system.version}-${
+  isoImage.isoName = lib.mkForce (builtins.replaceStrings ["--" "-linux"] ["-" ""] "nixpro-${settings.system.version}-${
     if settings.desktop.enable
     then if settings.desktop.type == "wm" 
          then settings.desktop.wm 
@@ -21,10 +21,13 @@
   }-${settings.system.architecture}.iso");
   
   isoImage = {
-    squashfsCompression = "lz4"; # Fast.
+    squashfsCompression = 
+    "lz4"; # Fast.
+    # "xz -Xdict-size 100%"; # Small.
+    
     contents = [
       {
-        source = lib.cleanSource ../../.;  # From profile/image/configuration.nix
+        source = lib.cleanSource ../../.;
         target = "/home/${settings.user.name}/.nixpro";
         # user = settings.user.name;
         # group = "users";
@@ -57,5 +60,15 @@ git init
 git add flake.nix OR git add .
 nix build .#nixosConfigurations.miyu.config.system.build.isoImage
 ls result/iso/
+
+
+When in the image
+
+sudo nixos-generate-config
+cp -f /etc/nixos/hardware-configuration.nix ~/.nixpro/system/hardware/hardware.nix
+
+Run software faster with
+
+nice -n -20 <program>
 
 */

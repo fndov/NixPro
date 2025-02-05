@@ -30,7 +30,7 @@
         bootMountPath = "/boot";
         architecture = "x86_64-linux";
         flakePath = ".nixpro";
-        version = "24.11";
+        version = "24.05";
         gpu = "intel";
       };
       user = {
@@ -79,7 +79,7 @@
         ./profile/${settings.profile}/configuration.nix
         ./system/hardware/${settings.system.gpu}.nix
         ./system/security/account/default.nix
-        (if settings.desktop.enable then ./system/${settings.desktop.type}/default.nix else null)
+        (if settings.desktop.enable then ./system/${settings.desktop.type}/default.nix else {})
 
         inputs.home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
@@ -94,7 +94,7 @@
               if settings.desktop.type == "wm" 
               then settings.desktop.wm 
               else settings.desktop.de
-            }/default.nix" else null)
+            }/default.nix" else {})
           ];
         }
       ];

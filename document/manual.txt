@@ -52,3 +52,5 @@ https://ops.functionalalgebra.com/2016/06/14/nixos-systemd-journald/
 
 bash
 while true; do cp -r NixPro/* /home/miyu/.nixpro; sleep 1; done
+
+idea: define the profile setting in the build command
