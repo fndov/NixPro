@@ -11,10 +11,10 @@
     https://github.com/niksingh710/nsearch
     https://github.com/Gerg-L/spicetify-nix */
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nsearch.url = "github:niksingh710/nsearch";
     nsearch.inputs.nixpkgs.follows = "nixpkgs";
@@ -25,6 +25,7 @@
     settings = {    
       profile = "image";
       system = {
+        networking = true;
         automation = false;
         security = false;
         sshd = false;
@@ -33,7 +34,7 @@
         bootMountPath = "/boot";
         architecture = "x86_64-linux";
         flakePath = ".nixpro";
-        version = "24.05";
+        version = "24.11";
         gpu = "intel";
       };
       user = {
@@ -72,8 +73,7 @@
         ./system/driver/${settings.system.gpu}.nix
         ./system/compose/default.nix
         ./profile/${settings.profile}/configuration.nix
-        ./system/de/default.nix
-        ./system/wm/default.nix
+        ./system/${settings.desktop.type}/default.nix
 
         inputs.home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;

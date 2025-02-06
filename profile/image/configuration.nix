@@ -1,8 +1,8 @@
 { config, lib, pkgs, settings, modulesPath, ... }: {
   imports = [ 
     (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
-    ../../system/hardware/pipewire.nix
-    ../../system/hardware/memory.nix
+    ../../system/driver/pipewire.nix
+    ../../system/driver/memory.nix
   ];
 
   isoImage.isoName = lib.mkForce (builtins.replaceStrings ["--" "-linux"] ["-" ""] "nixpro-${settings.system.version}-${
@@ -31,38 +31,14 @@
   # hardware.enableAllFirmware = lib.mkForce false;
   # hardware.enableRedistributableFirmware = lib.mkForce false;
   # systemd.services.NetworkManager-wait-online.enable = false;
-  services.earlyroom.enable = true;
-  services.earlyroom.enableNotifications = true;
-  services.earlyroom.freeMemThreshold = 10;
-  services.earlyroom.freeMemKillThreshold = 10;
-  services.earlyroom.freeSwapThreshold = 10;
-  services.earlyroom.freeSwapKillThreshold = 10;
-  
-  /* Networking. */
-  environment.systemPackages = [ pkgs.networkmanager ];
-  networking.wireless.enable = lib.mkForce false;
-  networking.networkmanager.enable = true;
-  services = {
-    udev.packages = [ pkgs.networkmanager ];
-    dbus.enable = true;
-    resolved.enable = true;
+  services.earlyoom = { 
+    enable = true;
+    enableNotifications = true;
+    freeMemThreshold = 10;
+    freeMemKillThreshold = 10;
+    freeSwapThreshold = 10;
+    freeSwapKillThreshold = 10;
   };
 
   system.stateVersion = settings.system.version;
-} /* 
-
-Build the ISO with:
-
-nixim
-
-
-When in the image:
-
-sudo nixos-generate-config
-cp -f /etc/nixos/hardware-configuration.nix ~/.nixpro/system/hardware/hardware.nix
-
-Run software faster with
-
-nice -n -20 <program>
-
-*/
+}
