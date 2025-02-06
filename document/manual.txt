@@ -54,3 +54,9 @@ bash
 while true; do cp -r NixPro/* /home/miyu/.nixpro; sleep 1; done
 
 idea: define the profile setting in the build command
+
+
+How does NixPro work?
+set settings in flake
+in profile home.nix add imports from user/ and options to the file
+in profile configuration.nix add imports from system/ and options to the file

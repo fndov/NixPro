@@ -23,8 +23,11 @@
   };
   outputs = inputs@{ self, nixpkgs, ... }: let
     settings = {    
-      profile = "microsoft";
+      profile = "image";
       system = {
+        automation = false;
+        security = false;
+        sshd = false;
         bootMode = "uefi";
         grubDevice = "/dev/sda";
         bootMountPath = "/boot";
@@ -42,7 +45,7 @@
         browser = "firefox";
       };
       desktop = {
-        enable = false;
+        enable = true;
         type = "de";
         wm = "hyprland";
         de = "plasma";
@@ -60,33 +63,24 @@
       specialArgs = { inherit inputs pkgs system settings; };
       modules = [
         {
-          networking.hostName = 
-          if settings.profile == "apple" then "NixPro-ARM"
-          else if settings.profile == "microsoft" then "NixPro-WSL" 
-          else if settings.profile == "server" then "NixPro-Server" 
-          else if settings.profile == "standalone" then "NixPro" 
-          else if settings.profile == "virtual-machine" then "NixPro-VM"
-          else if settings.profile == "image" then "NixPro-Image"
-          else "NixPro";
           environment.systemPackages = [ inputs.nsearch.packages.${pkgs.system}.default ];
-          nix.settings.trusted-users = [ "@wheel" ];
-          nix.extraOptions = "experimental-features = nix-command flakes";
           nix.settings.substituters = [ "https://hyprland.cachix.org" ];
           nix.settings.trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
         }
-        
-        ./system/hardware/hardware.nix # Will need to be pre-set for an Image.
+
+        ./system/driver/hardware.nix # Will need to be pre-set for an Image.
+        ./system/driver/${settings.system.gpu}.nix
+        ./system/compose/default.nix
         ./profile/${settings.profile}/configuration.nix
-        ./system/hardware/${settings.system.gpu}.nix
-        ./system/security/account/default.nix
-        (if settings.desktop.enable then ./system/${settings.desktop.type}/default.nix else {})
+        ./system/de/default.nix
+        ./system/wm/default.nix
 
         inputs.home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true; 
           home-manager.backupFileExtension = "hm-backup";
           home-manager.extraSpecialArgs = { inherit inputs settings; };
-          home-manager.users.${settings.user.name}.imports = [ 
+          home-manager.users.${settings.user.name}.imports = [
             
             ./profile/${settings.profile}/home.nix
 
@@ -95,6 +89,7 @@
               then settings.desktop.wm 
               else settings.desktop.de
             }/default.nix" else {})
+
           ];
         }
       ];

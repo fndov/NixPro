@@ -7,9 +7,8 @@
 
   boot.kernelPackages = if settings.profile == "standalone"
     then pkgs.linuxPackages_xanmod_latest
-  else pkgs.linuxPackages;
+  else {};
   
-
   boot.blacklistedKernelModules = [ "nouveau" ];
 
   boot.kernelParams = [
@@ -44,7 +43,7 @@
     "raid=noautodetect"
     "noapic" */
   ];
-  services.thermald.enable = false;
+  # services.thermald.enable = true;
   services.auto-cpufreq = {
     enable = true;
     settings = {

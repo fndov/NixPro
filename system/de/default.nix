@@ -1,5 +1,7 @@
 { pkgs, settings, ... }: 
-if settings.desktop.wm == "plasma" then {
+if settings.desktop.type != "de" || settings.desktop.enable != true then
+  {}
+else if settings.desktop.wm == "plasma" then {
   services.xserver.enable = true;
   services.desktopManager.plasma6.enable = true;
   services.displayManager.ly.enable = true;

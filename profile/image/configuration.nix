@@ -16,24 +16,29 @@
   isoImage = {
     squashfsCompression = "lz4"; # Fast.
     # "xz -Xdict-size 100%"; # Small.
-    
-  contents = [
-    {
-    source = lib.cleanSource ../../../../../home/${settings.user.name}/${settings.system.flakePath}; # Impure.
-    target = "/home/${settings.user.name}/.nixpro";
-    user = settings.user.name;
-    group = "users";
-    mode = "0700";
-    }
-];
+    contents = [
+      {
+        source = lib.cleanSource ../../../../../home/${settings.user.name}/${settings.system.flakePath}; # Impure, but it's fine.
+        target = "/home/${settings.user.name}/.nixpro";
+        user = settings.user.name;
+        group = "users";
+        mode = "0700";
+      }
+    ];
   };
 
-  # Save space.
+  /* Save space. */
   # hardware.enableAllFirmware = lib.mkForce false;
   # hardware.enableRedistributableFirmware = lib.mkForce false;
   # systemd.services.NetworkManager-wait-online.enable = false;
+  services.earlyroom.enable = true;
+  services.earlyroom.enableNotifications = true;
+  services.earlyroom.freeMemThreshold = 10;
+  services.earlyroom.freeMemKillThreshold = 10;
+  services.earlyroom.freeSwapThreshold = 10;
+  services.earlyroom.freeSwapKillThreshold = 10;
   
-  # Networking.
+  /* Networking. */
   environment.systemPackages = [ pkgs.networkmanager ];
   networking.wireless.enable = lib.mkForce false;
   networking.networkmanager.enable = true;
@@ -48,13 +53,10 @@
 
 Build the ISO with:
 
-git init
-git add flake.nix OR git add .
-nix build .#nixosConfigurations.miyu.config.system.build.isoImage
-ls result/iso/
+nixim
 
 
-When in the image
+When in the image:
 
 sudo nixos-generate-config
 cp -f /etc/nixos/hardware-configuration.nix ~/.nixpro/system/hardware/hardware.nix

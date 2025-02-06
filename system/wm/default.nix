@@ -1,5 +1,7 @@
 { pkgs, settings, ... }: 
-if settings.desktop.wm == "hyprland" then {
+if settings.desktop.type != "wm" || settings.desktop.enable != true then
+  {}
+else if settings.desktop.wm == "hyprland" then {
   programs.hyprland.enable = true;
   programs.hyprland.xwayland = { enable = true; };
   programs.hyprland.portalPackage = pkgs.xdg-desktop-portal-hyprland;
