@@ -39,16 +39,25 @@ in {
       }
       else {}
     )
+    (
+      if settings.profile == "image" 
+      then {
+        users.users.nixos.initialPassword = lib.mkForce "password";
+        users.users.nixos.hashedPassword = lib.mkForce null;
+        users.users.root.hashedPassword = lib.mkForce null;
+      }
+      else {}
+    )
+    (
+      if (settings.profile == "image" || settings.profile == "standalone")
+      then {
+        systemd.services.NetworkManager-wait-online.enable = false;
+      }
+      else {}
+    )
     {
       /* Account. */
-      users.users.root =
-        if settings.profile == "image"
-        then {
-          # initialPassword = "password";
-        }
-        else {
-          initialPassword = "password";
-        };
+      users.users.root.initialPassword = lib.mkForce "password";
 
       users.users.${settings.user.name} = {
         isNormalUser = true;

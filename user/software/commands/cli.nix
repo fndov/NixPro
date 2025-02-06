@@ -21,6 +21,8 @@
     numbat
     ffmpeg 
     fastfetch
+    nmon
+    glances
     gdu /*
     unstable.wine
     bottom

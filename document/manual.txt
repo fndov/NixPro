@@ -90,6 +90,8 @@ When in the image:
 sudo nixos-generate-config
 cp -f /etc/nixos/hardware-configuration.nix ~/.nixpro/system/hardware/hardware.nix
 
+as soon as im in a wm look into the boot errors and solve by creating more nix code.
+
 Run software faster with
 
 nice -n -20 <program>

@@ -33,8 +33,9 @@
     "fastboot"
     "preempt=full"
     "idle=nomwait"
-    /*
+    "page_alloc.shuffle=1"
 
+    /*
        "noatime"
        "nodiratime"
        "nofail"
@@ -50,7 +51,6 @@
        "threadirqs"
 
        "transparent_hugepage=always"
-       "page_alloc.shuffle=1"
 
        "i915.fastboot=1"
        "raid=noautodetect"
@@ -59,7 +59,7 @@
   ];
   # services.thermald.enable = true;
   services.auto-cpufreq = {
-    enable = true;
+    enable = if settings.desktop.enable != true || settings.desktop.de != "plasma" then true else false; # Plasma has it's own cpu clock manager.
     settings = {
       charger = { governor = "performance"; turbo = "always"; };
       battery = { governor = "performance"; turbo = "always"; };

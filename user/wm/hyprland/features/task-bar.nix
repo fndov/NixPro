@@ -1,7 +1,7 @@
 { pkgs, settings, ... }: {
   home.packages = with pkgs; [
     waybar
-    nerdfonts
+    nerdfonts # Huge file size.
     networkmanagerapplet
   ];
   # wayland.windowManager.hyprland.settings.exec-once = [ "waybar" ];
