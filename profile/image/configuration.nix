@@ -19,8 +19,8 @@
     # "xz -Xdict-size 100%"; # Small.
     contents = [
       {
-        source = lib.cleanSource ../../../../../home/${settings.user.name}/${settings.system.flakePath}; # Impure, but it's fine.
-        target = "../home/${settings.user.name}/.nixpro"; # Fixes that? I added ".."
+        source = lib.cleanSource /home/${settings.user.name}/${settings.system.flakePath}; # Impure, but it's fine.
+        target = "/home/${settings.user.name}/.nixpro"; # Fixes that? I added ".."
         user = settings.user.name;
         group = "users";
         mode = "0777";
@@ -44,6 +44,7 @@
   /* Save space. */
   # hardware.enableAllFirmware = lib.mkForce false;
   # hardware.enableRedistributableFirmware = lib.mkForce false;
+  documentation.enable = false;
 
   services.getty.autologinUser = lib.mkForce "${settings.user.name}";
   boot.hardwareScan = true;
