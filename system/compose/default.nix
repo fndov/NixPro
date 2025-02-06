@@ -1,60 +1,76 @@
-{ lib, inputs, pkgs, settings, ... }: let
-  isMicrosoftFish = (settings.profile == "microsoft") && (settings.user.shell == "fish"); 
+{ lib, inputs, pkgs, settings, ... }:
+let
+  isMicrosoftFish = (settings.profile == "microsoft") && (settings.user.shell == "fish");
 in {
   config = lib.mkMerge [
     {
       /* Commen. */
-      networking.hostName = 
-      if settings.profile == "apple" then "NixPro-ARM"
-      else if settings.profile == "microsoft" then "NixPro-WSL" 
-      else if settings.profile == "server" then "NixPro-Server" 
-      else if settings.profile == "standalone" then "NixPro" 
-      else if settings.profile == "virtual-machine" then "NixPro-VM"
-      else if settings.profile == "image" then "NixPro-Image"
-      else "NixPro";
+      networking.hostName =
+        if settings.profile == "apple"
+        then "NixPro-ARM"
+        else if settings.profile == "microsoft"
+        then "NixPro-WSL"
+        else if settings.profile == "server"
+        then "NixPro-Server"
+        else if settings.profile == "standalone"
+        then "NixPro"
+        else if settings.profile == "virtual-machine"
+        then "NixPro-VM"
+        else if settings.profile == "image"
+        then "NixPro-Image"
+        else "NixPro";
       nix.settings.trusted-users = [ "@wheel" ];
+      nix.settings.warn-dirty = false;
       nix.extraOptions = "experimental-features = nix-command flakes";
-
-      (if (settings.profile == "virtual-machine-standalone" || settings.profile == "server") then {
+    }
+    (
+      if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "standalone")
+      then {
         boot.loader.grub.useOSProber = true;
-        boot.loader.systemd-boot.enable = if (settings.system.bootMode == "uefi") then true else false;
-        boot.loader.efi.efiSysMountPoint = settings.system.bootMountPath; # does nothing if running bios rather than uefi
-        boot.loader.efi.canTouchEfiVariables = if (settings.system.bootMode == "uefi") then true else false;
-        boot.loader.grub.enable = if (settings.system.bootMode == "uefi") then false else true;
+        boot.loader.systemd-boot.enable =
+          if (settings.system.bootMode == "uefi") then true else false;
+        boot.loader.efi.efiSysMountPoint =
+          settings.system.bootMountPath; # does nothing if running bios rather than uefi
+        boot.loader.efi.canTouchEfiVariables =
+          if (settings.system.bootMode == "uefi") then true else false;
+        boot.loader.grub.enable =
+          if (settings.system.bootMode == "uefi") then false else true;
         boot.loader.grub.device = settings.system.grubDevice;
-      } else {})
-
+      }
+      else {}
+    )
+    {
       /* Account. */
-      users.users.root = 
-        if settings.profile == "image" then {
-          initialPassword = "password";
-          # other settings if needed.
-        } else {
+      users.users.root =
+        if settings.profile == "image"
+        then {
+          # initialPassword = "password";
+        }
+        else {
           initialPassword = "password";
         };
 
       users.users.${settings.user.name} = {
         isNormalUser = true;
         description = settings.user.name;
-        extraGroups = [ "networkmanager" "wheel" "qemu-libvirtd" "libvirtd" "kvm" "docker" ];
+        extraGroups =
+          [ "networkmanager" "wheel" "qemu-libvirtd" "libvirtd" "kvm" "docker" ];
         uid = 1000;
         shell = lib.mkIf isMicrosoftFish pkgs.fish;
         initialPassword = "password";
       };
+      users.mutableUsers = false;
+
       programs.fish.enable = lib.mkIf isMicrosoftFish true;
       security.sudo.wheelNeedsPassword = false;
     }
-    
+
     /* Settings. */
     (lib.mkIf settings.system.automation {
       system.autoUpgrade = {
         enable = true;
         flake = inputs.self.outPath;
-        flags = [
-          "--update-input"
-          "nixpkgs"
-          "-L"
-        ];
+        flags = [ "--update-input" "nixpkgs" "-L" ];
         dates = "02:00";
         randomizedDelaySec = "45min";
       };
@@ -101,7 +117,8 @@ in {
 
     (lib.mkIf settings.system.networking {
       environment.systemPackages = [ pkgs.networkmanager ];
-      networking.wireless.enable = if settings.profile == "image" then lib.mkForce false else true;
+      networking.wireless.enable =
+        if settings.profile == "image" then lib.mkForce false else true;
       networking.networkmanager.enable = true;
       services = {
         udev.packages = [ pkgs.networkmanager ];

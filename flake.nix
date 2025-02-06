@@ -1,12 +1,12 @@
 {
   description = "NixPro. Modular configuration framework started June 19, 2024";
   inputs = {
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nixos-wsl.url = "github:nix-community/NixOS-WSL";
-    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nsearch.url = "github:niksingh710/nsearch";
     nsearch.inputs.nixpkgs.follows = "nixpkgs";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
@@ -24,7 +24,7 @@
         bootMountPath = "/boot";
         flakePath = ".nixpro";
         networking = true;
-        automation = false;
+        automation = true;
         timezone = true;
         security = false;
         sshd = false;
@@ -44,7 +44,7 @@
       
       desktop = {
         enable = true;
-        type = "de";
+        type = "wm";
         wm = "hyprland";
         de = "plasma";
         font = "Noto Mono";
@@ -64,6 +64,7 @@
           environment.systemPackages = [ inputs.nsearch.packages.${pkgs.system}.default ];
           nix.settings.substituters = [ "https://hyprland.cachix.org" ];
           nix.settings.trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+
         }
         ./system/driver/hardware.nix # Will need to be pre-set for an Image.
         ./system/driver/${settings.system.gpu}.nix

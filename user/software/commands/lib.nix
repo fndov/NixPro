@@ -31,10 +31,11 @@
           echo settings.system.grubDevice ${settings.system.grubDevice}
           echo settings.system.bootMountPath ${settings.system.bootMountPath}
           echo settings.system.flakePath ${settings.system.flakePath}
-          echo settings.system.networking ${settings.system.networking}
-          echo settings.system.automation ${settings.system.automation}
-          echo settings.system.security ${settings.system.security}
-          echo settings.system.sshd ${settings.system.sshd}
+          echo settings.system.networking todo
+          echo settings.system.automation todo
+          echo settings.system.timezone todo
+          echo settings.system.security todo
+          echo settings.system.sshd todo
           echo settings.system.gpu ${settings.system.gpu}
           echo settings.profile ${settings.profile}
           echo settings.user.name ${settings.user.name}
@@ -132,10 +133,11 @@
           echo settings.system.grubDevice ${settings.system.grubDevice}
           echo settings.system.bootMountPath ${settings.system.bootMountPath}
           echo settings.system.flakePath ${settings.system.flakePath}
-          echo settings.system.networking ${settings.system.networking}
-          echo settings.system.automation ${settings.system.automation}
-          echo settings.system.security ${settings.system.security}
-          echo settings.system.sshd ${settings.system.sshd}
+          echo settings.system.networking todo
+          echo settings.system.automation todo
+          echo settings.system.timezone todo
+          echo settings.system.security todo
+          echo settings.system.sshd todo
           echo settings.system.gpu ${settings.system.gpu}
           echo settings.profile ${settings.profile}
           echo settings.user.name ${settings.user.name}
@@ -239,10 +241,11 @@
           echo settings.system.grubDevice ${settings.system.grubDevice}
           echo settings.system.bootMountPath ${settings.system.bootMountPath}
           echo settings.system.flakePath ${settings.system.flakePath}
-          echo settings.system.networking ${settings.system.networking}
-          echo settings.system.automation ${settings.system.automation}
-          echo settings.system.security ${settings.system.security}
-          echo settings.system.sshd ${settings.system.sshd}
+          echo settings.system.networking todo
+          echo settings.system.automation todo
+          echo settings.system.timezone todo
+          echo settings.system.security todo
+          echo settings.system.sshd todo
           echo settings.system.gpu ${settings.system.gpu}
           echo settings.profile ${settings.profile}
           echo settings.user.name ${settings.user.name}

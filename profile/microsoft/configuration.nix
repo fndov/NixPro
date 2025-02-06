@@ -5,7 +5,6 @@
 { inputs, settings, ... }: {
   imports = [ /* Configuration */
     inputs.nixos-wsl.nixosModules.default
-    ../../system/compose/timezone.nix
   ];
   wsl.enable = true;
   wsl.defaultUser = settings.user.name;
