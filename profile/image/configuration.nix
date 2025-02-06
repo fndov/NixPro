@@ -1,11 +1,8 @@
 { config, lib, pkgs, settings, modulesPath, ... }: {
   imports = [ 
     (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
-    ../../system/hardware/automount.nix
-    ../../system/hardware/usbmuxd.nix
     ../../system/hardware/pipewire.nix
     ../../system/hardware/memory.nix
-    ../../system/hardware/kernel.nix
   ];
 
   isoImage.isoName = lib.mkForce (builtins.replaceStrings ["--" "-linux"] ["-" ""] "nixpro-${settings.system.version}-${
@@ -22,7 +19,7 @@
     
   contents = [
     {
-    source = lib.cleanSource /home/miyu/.nixpro;
+    source = lib.cleanSource ../../../../../home/${settings.user.name}/${settings.system.flakePath}; # Impure.
     target = "/home/${settings.user.name}/.nixpro";
     user = settings.user.name;
     group = "users";
@@ -32,10 +29,9 @@
   };
 
   # Save space.
-  hardware.enableAllFirmware = lib.mkForce false;
-  hardware.enableRedistributableFirmware = lib.mkForce false;
-  systemd.services.NetworkManager-wait-online.enable = false;
-  services.earlyoom.enable = true;
+  # hardware.enableAllFirmware = lib.mkForce false;
+  # hardware.enableRedistributableFirmware = lib.mkForce false;
+  # systemd.services.NetworkManager-wait-online.enable = false;
   
   # Networking.
   environment.systemPackages = [ pkgs.networkmanager ];

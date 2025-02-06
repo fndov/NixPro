@@ -22,7 +22,33 @@
        	echo "nixar | Archive system"
     	  echo "nixtr | Troubleshoot"
 	      echo "nixls | List generations"
+        echo "nixst | List all settings"
         '')        
+        (writeShellScriptBin "nixst" '' # List all settings.
+          echo settings.profile ${settings.profile}
+          echo settings.system.bootMode ${settings.system.bootMode}
+          echo settings.system.grubDevice ${settings.system.grubDevice}
+          echo settings.system.bootMountPath ${settings.system.bootMountPath}
+          echo settings.system.architecture ${settings.system.architecture}
+          echo settings.system.flakePath ${settings.system.flakePath}
+          echo settings.system.version ${settings.system.version}
+          echo settings.system.gpu ${settings.system.gpu}
+          echo settings.user.name ${settings.user.name}
+          echo settings.user.email ${settings.user.email}
+          echo settings.user.terminal ${settings.user.terminal}
+          echo settings.user.shell ${settings.user.shell}
+          echo settings.user.editor ${settings.user.editor}
+          echo settings.user.browser ${settings.user.browser}
+          echo settings.desktop.enable todo
+          echo settings.desktop.type ${settings.desktop.type}
+          echo settings.desktop.wm ${settings.desktop.wm}
+          echo settings.desktop.de ${settings.desktop.de}
+          echo settings.desktop.font ${settings.desktop.font}
+          echo settings.desktop.fontPkg ${settings.desktop.fontPkg}
+          echo settings.desktop.wallpaperPath ${settings.desktop.wallpaperPath}
+          echo settings.desktop.wallpaperName ${settings.desktop.wallpaperName}
+          echo settings.desktop.animationSpeed ${settings.desktop.animationSpeed}
+        '')
         (writeShellScriptBin "nixsw" '' # Rebuild Switch.
           echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}'
           sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}
@@ -93,7 +119,33 @@
 	      echo "nixrs | Restart nix-deamon"
         echo "nixls | List generations"
         echo "nixim | Build Image"
+        echo "nixst | List all settings"
         '')        
+        (writeShellScriptBin "nixst" '' # List all settings.
+          echo settings.profile ${settings.profile}
+          echo settings.system.bootMode ${settings.system.bootMode}
+          echo settings.system.grubDevice ${settings.system.grubDevice}
+          echo settings.system.bootMountPath ${settings.system.bootMountPath}
+          echo settings.system.architecture ${settings.system.architecture}
+          echo settings.system.flakePath ${settings.system.flakePath}
+          echo settings.system.version ${settings.system.version}
+          echo settings.system.gpu ${settings.system.gpu}
+          echo settings.user.name ${settings.user.name}
+          echo settings.user.email ${settings.user.email}
+          echo settings.user.terminal ${settings.user.terminal}
+          echo settings.user.shell ${settings.user.shell}
+          echo settings.user.editor ${settings.user.editor}
+          echo settings.user.browser ${settings.user.browser}
+          echo settings.desktop.enable todo
+          echo settings.desktop.type ${settings.desktop.type}
+          echo settings.desktop.wm ${settings.desktop.wm}
+          echo settings.desktop.de ${settings.desktop.de}
+          echo settings.desktop.font ${settings.desktop.font}
+          echo settings.desktop.fontPkg ${settings.desktop.fontPkg}
+          echo settings.desktop.wallpaperPath ${settings.desktop.wallpaperPath}
+          echo settings.desktop.wallpaperName ${settings.desktop.wallpaperName}
+          echo settings.desktop.animationSpeed ${settings.desktop.animationSpeed}
+        '')
         (writeShellScriptBin "nixsw" '' # Rebuild Switch.
           echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}'
           sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}
@@ -129,8 +181,8 @@
           journalctl -xe --unit home-manager-${settings.user.name}
         '')
         (writeShellScriptBin "nixim" '' # Build Image.
-          echo '# nix build /home/${settings.user.name}/${settings.system.flakePath}#nixosConfigurations.${settings.user.name}.config.system.build.isoImage'
-          nix build /home/${settings.user.name}/${settings.system.flakePath}#nixosConfigurations.${settings.user.name}.config.system.build.isoImage
+          echo '# nix build /home/${settings.user.name}/${settings.system.flakePath}#nixosConfigurations.${settings.user.name}.config.system.build.isoImage --impure'
+          nix build /home/${settings.user.name}/${settings.system.flakePath}#nixosConfigurations.${settings.user.name}.config.system.build.isoImage --impure
         '')
         (writeShellScriptBin "nixgc" '' # Nix Garbage collect.
           echo '# sudo nix-collect-garbage --delete-older-than 30d'
@@ -167,7 +219,7 @@
 	      echo "nixrl | Rollback"
     	  echo "nixgx | Garbage collect"
 	      echo "nixop | Optimise system"
-       	  echo "nixar | Archive system"
+       	echo "nixar | Archive system"
     	  echo "nixtr | Troubleshoot"
 	      echo "nixls | List generations"
         '')        

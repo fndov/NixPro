@@ -11,10 +11,10 @@
     https://github.com/niksingh710/nsearch
     https://github.com/Gerg-L/spicetify-nix */
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
+    home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nsearch.url = "github:niksingh710/nsearch";
     nsearch.inputs.nixpkgs.follows = "nixpkgs";
@@ -23,14 +23,14 @@
   };
   outputs = inputs@{ self, nixpkgs, ... }: let
     settings = {    
-      profile = "image";
+      profile = "microsoft";
       system = {
         bootMode = "uefi";
         grubDevice = "/dev/sda";
         bootMountPath = "/boot";
         architecture = "x86_64-linux";
         flakePath = ".nixpro";
-        version = "24.11";
+        version = "24.05";
         gpu = "intel";
       };
       user = {
@@ -43,7 +43,7 @@
       };
       desktop = {
         enable = false;
-        type = "wm";
+        type = "de";
         wm = "hyprland";
         de = "plasma";
         font = "Noto Mono";

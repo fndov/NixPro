@@ -15,12 +15,13 @@
     curl
     git
     sshpass
-    wget
+    # wget
     # Extra.
     libnotify
     numbat
     ffmpeg 
-    fastfetch /*
+    fastfetch
+    gdu /*
     unstable.wine
     bottom
     protonplus

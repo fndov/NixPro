@@ -5,9 +5,10 @@
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernelPackages = pkgs.linuxPackages_hardened; */
 
-  boot.kernelPackages = if settings.profile == "image" 
+  boot.kernelPackages = if settings.profile == "standalone"
     then pkgs.linuxPackages_xanmod_latest
-    else pkgs.linuxPackages;
+  else pkgs.linuxPackages;
+  
 
   boot.blacklistedKernelModules = [ "nouveau" ];
 
