@@ -28,7 +28,19 @@
     ];
   };
 
-  boot = {
+  systemd.services.auto-init = {
+      description = "Run custom initialization commands at boot";
+      serviceConfig.Type = "oneshot";
+      script = ''
+        nixos-generate-config
+        mkdir -p /home/miyu/.nixpro  
+        cp -rp /iso/home/miyu/.nixpro /home/miyu/.nixpro
+      '';
+      wantedBy = [ "multi-user.target" ];
+    };
+  }
+
+  boot.initrd = {
     availableKernelModules = [ "sdhci_pci" "nvme" "btrfs" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
     includeDefaultModules = true;
     kernelModules = [ ];

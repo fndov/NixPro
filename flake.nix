@@ -24,7 +24,7 @@
         bootMountPath = "/boot";
         flakePath = ".nixpro";
         networking = true;
-        automation = true;
+        automation = false;
         timezone = true;
         security = false;
         sshd = false;
@@ -64,7 +64,6 @@
           environment.systemPackages = [ inputs.nsearch.packages.${pkgs.system}.default ];
           nix.settings.substituters = [ "https://hyprland.cachix.org" ];
           nix.settings.trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
-
         }
         ./system/driver/hardware.nix # Will need to be pre-set for an Image.
         ./system/driver/${settings.system.gpu}.nix
@@ -73,7 +72,7 @@
         ./system/${settings.desktop.type}/default.nix
         inputs.home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true; 
+          home-manager.useUserPackages = false; 
           home-manager.backupFileExtension = "hm-backup";
           home-manager.extraSpecialArgs = { inherit inputs settings; };
           home-manager.users.${settings.user.name}.imports = [
@@ -89,3 +88,5 @@
     };
   };
 }
+
+
