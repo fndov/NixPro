@@ -53,10 +53,8 @@ https://ops.functionalalgebra.com/2016/06/14/nixos-systemd-journald/
 bash
 while true; do cp -r NixPro/* /home/miyu/.nixpro; sleep 1; done
 
-Idea: define the profile setting in the build command
-
-
-
+Idea: 
+define the profile setting in the build command
 
 How does NixPro work?
 
@@ -71,14 +69,6 @@ flake.nix
   - SYS ./profile/${settings.profile}/configuration.nix
   - SYS ./system/${settings.desktop.type}/default.nix
   - HM  ./profile/${settings.profile}/home.nix
-
-flake.nix
-  - SYS ./system/driver/hardware.nix
-  - SYS ./system/driver/gpu.nix
-  - SYS ./system/compose/default.nix
-  - SYS ./profile/profile/configuration.nix
-  - SYS ./system/type/default.nix
-  - HM  ./profile/profile/home.nix
 
 flake.nix image
   - SYS ./system/driver/hardware.nix
@@ -95,9 +85,6 @@ flake.nix image
     - HM ../../user/software/apps/terminal/ghostty.nix
     - HM ../../user/software/apps/browser/firefox.nix
 
-
-
-
 When in the image:
 
 sudo nixos-generate-config
@@ -106,32 +93,3 @@ cp -f /etc/nixos/hardware-configuration.nix ~/.nixpro/system/hardware/hardware.n
 Run software faster with
 
 nice -n -20 <program>
-
-
-
-
-
- miyu  NixPro-WSL  ~  $  nixst
-settings.profile image
-settings.system.bootMode uefi
-settings.system.grubDevice /dev/sda
-settings.system.bootMountPath /boot
-settings.system.architecture x86_64-linux
-settings.system.flakePath .nixpro
-settings.system.version 24.11
-settings.system.gpu intel
-settings.user.name miyu
-settings.user.email tommybice1@gmail.com
-settings.user.terminal ghostty
-settings.user.shell fish
-settings.user.editor micro
-settings.user.browser firefox
-settings.desktop.enable true
-settings.desktop.type de
-settings.desktop.wm hyprland
-settings.desktop.de plasma
-settings.desktop.font Noto Mono
-settings.desktop.fontPkg /nix/store/k2ww85i7mw4znc0wb9ziq77cam11j7r2-noto-fonts-24.3.1
-settings.desktop.wallpaperPath Media/Pictures/Wallpapers/Catppuccin-mocha
-settings.desktop.wallpaperName purpled-night.jpg
-settings.desktop.animationSpeed medium

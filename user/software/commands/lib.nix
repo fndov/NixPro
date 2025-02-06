@@ -25,14 +25,18 @@
         echo "nixst | List all settings"
         '')        
         (writeShellScriptBin "nixst" '' # List all settings.
-          echo settings.profile ${settings.profile}
+          echo settings.system.version ${settings.system.version}
+          echo settings.system.architecture ${settings.system.architecture}
           echo settings.system.bootMode ${settings.system.bootMode}
           echo settings.system.grubDevice ${settings.system.grubDevice}
           echo settings.system.bootMountPath ${settings.system.bootMountPath}
-          echo settings.system.architecture ${settings.system.architecture}
           echo settings.system.flakePath ${settings.system.flakePath}
-          echo settings.system.version ${settings.system.version}
+          echo settings.system.networking ${settings.system.networking}
+          echo settings.system.automation ${settings.system.automation}
+          echo settings.system.security ${settings.system.security}
+          echo settings.system.sshd ${settings.system.sshd}
           echo settings.system.gpu ${settings.system.gpu}
+          echo settings.profile ${settings.profile}
           echo settings.user.name ${settings.user.name}
           echo settings.user.email ${settings.user.email}
           echo settings.user.terminal ${settings.user.terminal}
@@ -122,14 +126,18 @@
         echo "nixst | List all settings"
         '')        
         (writeShellScriptBin "nixst" '' # List all settings.
-          echo settings.profile ${settings.profile}
+          echo settings.system.version ${settings.system.version}
+          echo settings.system.architecture ${settings.system.architecture}
           echo settings.system.bootMode ${settings.system.bootMode}
           echo settings.system.grubDevice ${settings.system.grubDevice}
           echo settings.system.bootMountPath ${settings.system.bootMountPath}
-          echo settings.system.architecture ${settings.system.architecture}
           echo settings.system.flakePath ${settings.system.flakePath}
-          echo settings.system.version ${settings.system.version}
+          echo settings.system.networking ${settings.system.networking}
+          echo settings.system.automation ${settings.system.automation}
+          echo settings.system.security ${settings.system.security}
+          echo settings.system.sshd ${settings.system.sshd}
           echo settings.system.gpu ${settings.system.gpu}
+          echo settings.profile ${settings.profile}
           echo settings.user.name ${settings.user.name}
           echo settings.user.email ${settings.user.email}
           echo settings.user.terminal ${settings.user.terminal}
@@ -225,14 +233,18 @@
         echo "nixst | List all settings"
         '')        
         (writeShellScriptBin "nixst" '' # List all settings.
-          echo settings.profile ${settings.profile}
+          echo settings.system.version ${settings.system.version}
+          echo settings.system.architecture ${settings.system.architecture}
           echo settings.system.bootMode ${settings.system.bootMode}
           echo settings.system.grubDevice ${settings.system.grubDevice}
           echo settings.system.bootMountPath ${settings.system.bootMountPath}
-          echo settings.system.architecture ${settings.system.architecture}
           echo settings.system.flakePath ${settings.system.flakePath}
-          echo settings.system.version ${settings.system.version}
+          echo settings.system.networking ${settings.system.networking}
+          echo settings.system.automation ${settings.system.automation}
+          echo settings.system.security ${settings.system.security}
+          echo settings.system.sshd ${settings.system.sshd}
           echo settings.system.gpu ${settings.system.gpu}
+          echo settings.profile ${settings.profile}
           echo settings.user.name ${settings.user.name}
           echo settings.user.email ${settings.user.email}
           echo settings.user.terminal ${settings.user.terminal}

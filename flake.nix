@@ -1,15 +1,6 @@
-/* NixPro - A modular NixOS configuration framework
-- This flake serves as the entry point for system configuration
-- Settings and profile selection are defined here
-- Documentation: https://github.com/fndov/NixPro/ */
 {
-  description = "NixPro. Started June 19, 2024";
-  inputs = { /*
-    https://nixos.wiki/wiki/Nix_channels
-    https://nix-community.github.io/NixOS-WSL/
-    https://nix-community.github.io/home-manager/
-    https://github.com/niksingh710/nsearch
-    https://github.com/Gerg-L/spicetify-nix */
+  description = "NixPro. Modular configuration framework started June 19, 2024";
+  inputs = {
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
@@ -22,21 +13,26 @@
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = inputs@{ self, nixpkgs, ... }: let
+    
     settings = {    
-      profile = "image";
+    
       system = {
-        networking = true;
-        automation = false;
-        security = false;
-        sshd = false;
+        version = "24.11";
+        architecture = "x86_64-linux";
         bootMode = "uefi";
         grubDevice = "/dev/sda";
         bootMountPath = "/boot";
-        architecture = "x86_64-linux";
         flakePath = ".nixpro";
-        version = "24.11";
+        networking = true;
+        automation = false;
+        timezone = true;
+        security = false;
+        sshd = false;
         gpu = "intel";
       };
+      
+      profile = "image";
+
       user = {
         name = "miyu";
         email = "tommybice1@gmail.com";
@@ -45,6 +41,7 @@
         editor = "micro";
         browser = "firefox";
       };
+      
       desktop = {
         enable = true;
         type = "de";
@@ -68,28 +65,23 @@
           nix.settings.substituters = [ "https://hyprland.cachix.org" ];
           nix.settings.trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
         }
-
         ./system/driver/hardware.nix # Will need to be pre-set for an Image.
         ./system/driver/${settings.system.gpu}.nix
         ./system/compose/default.nix
         ./profile/${settings.profile}/configuration.nix
         ./system/${settings.desktop.type}/default.nix
-
         inputs.home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true; 
           home-manager.backupFileExtension = "hm-backup";
           home-manager.extraSpecialArgs = { inherit inputs settings; };
           home-manager.users.${settings.user.name}.imports = [
-            
             ./profile/${settings.profile}/home.nix
-
             (if settings.desktop.enable then (toString ./.) + "/user/${settings.desktop.type}/${
               if settings.desktop.type == "wm" 
               then settings.desktop.wm 
               else settings.desktop.de
             }/default.nix" else {})
-
           ];
         }
       ];

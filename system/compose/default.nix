@@ -3,6 +3,7 @@
 in {
   config = lib.mkMerge [
     {
+      /* Commen. */
       networking.hostName = 
       if settings.profile == "apple" then "NixPro-ARM"
       else if settings.profile == "microsoft" then "NixPro-WSL" 
@@ -14,10 +15,20 @@ in {
       nix.settings.trusted-users = [ "@wheel" ];
       nix.extraOptions = "experimental-features = nix-command flakes";
 
+      (if (settings.profile == "virtual-machine-standalone" || settings.profile == "server") then {
+        boot.loader.grub.useOSProber = true;
+        boot.loader.systemd-boot.enable = if (settings.system.bootMode == "uefi") then true else false;
+        boot.loader.efi.efiSysMountPoint = settings.system.bootMountPath; # does nothing if running bios rather than uefi
+        boot.loader.efi.canTouchEfiVariables = if (settings.system.bootMode == "uefi") then true else false;
+        boot.loader.grub.enable = if (settings.system.bootMode == "uefi") then false else true;
+        boot.loader.grub.device = settings.system.grubDevice;
+      } else {})
+
       /* Account. */
       users.users.root = 
         if settings.profile == "image" then {
           initialPassword = "password";
+          # other settings if needed.
         } else {
           initialPassword = "password";
         };
@@ -33,6 +44,8 @@ in {
       programs.fish.enable = lib.mkIf isMicrosoftFish true;
       security.sudo.wheelNeedsPassword = false;
     }
+    
+    /* Settings. */
     (lib.mkIf settings.system.automation {
       system.autoUpgrade = {
         enable = true;
@@ -65,6 +78,7 @@ in {
         };
       };
     })
+
     (lib.mkIf settings.system.security {
       security = {
         auditd.enable = false;
@@ -73,6 +87,7 @@ in {
       };
       networking.firewall.enable = true;
     })
+
     (lib.mkIf settings.system.sshd {
       services.openssh = {
         enable = true;
@@ -83,6 +98,7 @@ in {
         };
       };
     })
+
     (lib.mkIf settings.system.networking {
       environment.systemPackages = [ pkgs.networkmanager ];
       networking.wireless.enable = if settings.profile == "image" then lib.mkForce false else true;
@@ -91,6 +107,24 @@ in {
         udev.packages = [ pkgs.networkmanager ];
         dbus.enable = true;
         resolved.enable = true;
+      };
+    })
+
+    (lib.mkIf settings.system.timezone {
+      time.timeZone = "America/Chicago";
+      i18n = {
+        defaultLocale = "en_US.UTF-8";
+        extraLocaleSettings = {
+          LC_ADDRESS = "en_US.UTF-8";
+          LC_IDENTIFICATION = "en_US.UTF-8";
+          LC_MEASUREMENT = "en_US.UTF-8";
+          LC_MONETARY = "en_US.UTF-8";
+          LC_NAME = "en_US.UTF-8";
+          LC_NUMERIC = "en_US.UTF-8";
+          LC_PAPER = "en_US.UTF-8";
+          LC_TELEPHONE = "en_US.UTF-8";
+          LC_TIME = "en_US.UTF-8";
+        };
       };
     })
   ];

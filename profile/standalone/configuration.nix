@@ -3,23 +3,16 @@
 - and in the NixOS manual (accessible by running `nixos-help`). */
 { ... }: {
   imports = [ /* Configuration */
-    ../../system/software/vm.nix
-    ../../system/hardware/kernel.nix
-    ../../system/hardware/automount.nix
-    ../../system/hardware/bluetooth.nix
-    ../../system/hardware/boot.nix
-    ../../system/hardware/memory.nix
-    ../../system/hardware/pipewire.nix
-    ../../system/hardware/usbmuxd.nix
-    ../../system/security/extra.nix
-    ../../system/security/firewall.nix
-    ../../system/security/keyring.nix
-    ../../system/security/timezone.nix
-    ../../system/software/gamemode.nix
+    ../../system/compose/vm.nix
+    ../../system/driver/kernel.nix
+    ../../system/driver/automount.nix
+    ../../system/driver/bluetooth.nix
+    ../../system/driver/memory.nix
+    ../../system/driver/pipewire.nix
+    ../../system/driver/usbmuxd.nix
+    ../../system/compose/keyring.nix
+    ../../system/compose/gamemode.nix
   ];
-
-  # networking.wireless.enable = false;
-  networking.networkmanager.enable = true; 
 
   boot.plymouth.enable = true;
   boot.loader.timeout = 1;

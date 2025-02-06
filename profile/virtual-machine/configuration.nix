@@ -3,16 +3,13 @@
 - and in the NixOS manual (accessible by running `nixos-help`). */
 { ... }: {
   imports = [ /* Configuration */
-    # ../../system/hardware/bluetooth.nix
-    # ../../system/hardware/memory.nix
-    # ../../system/hardware/usbmuxd.nix
-    # ../../system/security/extra.nix
-    # ../../system/security/firewall.nix
-    # ../../system/software/vm.nix
-    # ../../system/hardware/kernel.nix
-    ../../system/hardware/automount.nix
-    ../../system/hardware/boot.nix
-    ../../system/hardware/pipewire.nix
+    # ../../system/driver/bluetooth.nix
+    # ../../system/driver/memory.nix
+    # ../../system/driver/usbmuxd.nix
+    # ../../system/compose/vm.nix
+    # ../../system/driver/kernel.nix
+    ../../system/driver/automount.nix
+    ../../system/driver/pipewire.nix
     ../../system/security/keyring.nix
     ../../system/security/timezone.nix
   ];
