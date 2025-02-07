@@ -44,8 +44,9 @@
   
       sudo nixos-generate-config
       cp -rp /iso/home/miyu/.nixpro /home/miyu/
+      sudo rm -rf /iso/home/miyu/.nixpro
+      sudo rm -rf /home/nixos/
       cp -f /etc/nixos/hardware.nix /home/miyu/.nixpro/system/driver/hardware.nix
-  
       chown -R miyu:users /home/miyu/.nixpro # Ensure correct ownership
   
       echo "auto-init service completed."
@@ -53,13 +54,8 @@
     wantedBy = [ "multi-user.target" ];
   };
 
-  environment.systemPackages = [ fontconfig ];-
-  hardware = { 
-    # enableAllFirmware = lib.mkForce false;
-    # enableRedistributableFirmware = lib.mkForce false;
-    opengl.dirSupport = true;
-    opengl.driSupport = false;
-  };
+  environment.systemPackages = with pkgs; [ fontconfig ];
+  hardware.graphics.enable = true;
   
   documentation.enable = false;
 
