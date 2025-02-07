@@ -1,7 +1,7 @@
 { settings, ... }: {
   zramSwap.enable = builtins.elem settings.profile [ "image" "standalone" "virtual-machine" "server" ];
-  zramSwap.memoryPercent = if settings.profile == "image" then 95 else 40;
-  zramSwap.algorithm = "lzo";
+  zramSwap.memoryPercent = if settings.profile == "image" then 100 else 40;
+  zramSwap.algorithm = "zstd";
   # zramSwap.priority = 5; # Not sure if disk data will be cleared from memory and lost.
   boot.kernel.sysctl =
     if settings.profile == "image"
@@ -12,13 +12,14 @@
     else {
       # boot.kernel.sysctl."vm.dirty_ratio" = 10; # Move cache to disk at 10% dirty pages
     };
-  services.earlyoom = { 
+  services.earlyoom = {
     enable = if settings.profile == "image" then true else false;
     enableNotifications = true;
-    freeMemThreshold = 10;
-    freeMemKillThreshold = 10;
-    freeSwapThreshold = 10;
-    freeSwapKillThreshold = 10;
+    reportInterval = 3600;
+    freeMemThreshold = 5;
+    freeMemKillThreshold = 5;
+    freeSwapThreshold = 5;
+    freeSwapKillThreshold = 5;
   };
   /*
   swapDevices = [

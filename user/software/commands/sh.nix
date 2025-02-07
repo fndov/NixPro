@@ -29,6 +29,7 @@ in {
     glib
     glibc
     htop
+    intel-gpu-tools
     mako
     micro
     nix-output-monitor

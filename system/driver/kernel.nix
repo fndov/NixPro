@@ -35,6 +35,8 @@
     "idle=nomwait"
     "page_alloc.shuffle=1"
 
+    "ascpi_osi=Linux"
+
     /*
        "noatime"
        "nodiratime"

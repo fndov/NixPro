@@ -3,7 +3,7 @@
   services.udiskie.enable = true;
   services.udiskie.tray = "always";
   imports = [ /* Hyprland */
-    ./extra/theme.nix # paths may be wrong to a change.
+    ./extra/theme.nix 
     ./features/cursor.nix
     ./features/wallpaper.nix
     ./features/keyboard.nix
@@ -12,7 +12,7 @@
     ./features/nightlight.nix
     ./features/notification.nix
     ./features/screenshot.nix
-    ./features/task-bar.nix
+    # ./features/task-bar.nix
     ./features/timeout.nix
     ./settings/animation.nix
     ./settings/dependencies.nix

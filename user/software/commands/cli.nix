@@ -14,16 +14,15 @@
     pciutils
     curl
     git
-    sshpass
     # wget
     # Extra.
+    sshpass
     libnotify
     numbat
-    ffmpeg 
     fastfetch
-    nmon
     glances
     gdu /*
+    # ffmpeg 
     unstable.wine
     bottom
     protonplus

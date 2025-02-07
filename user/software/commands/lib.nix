@@ -511,13 +511,10 @@ in {
     default = "standalone";
     description = "System configuration profile";
   };
-
   config = lib.mkMerge [
     # base configuration. (common to all profiles)
     {
-
     }
-
     # profile-specific overrides.
     (lib.mkIf (builtins.hasAttr settings.profile profiles) 
       (builtins.getAttr settings.profile profiles))

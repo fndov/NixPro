@@ -15,35 +15,52 @@
     }-${settings.system.architecture}.iso");
 
     squashfsCompression = 
-    "lz4"; # Fast.
-    # "xz -Xdict-size 100%"; # Small.
+    "zstd"; /* Fast, size can be twice as much as xz. */
+    # "xz -Xdict-size 100%"; /* Small, slow to decompress to decompress. */
     contents = [
       {
         source = lib.cleanSource /home/${settings.user.name}/${settings.system.flakePath}; # Impure, but it's fine.
-        target = "/home/${settings.user.name}/.nixpro"; # Fixes that? I added ".."
+        target = "/home/${settings.user.name}/.nixpro";
         user = settings.user.name;
         group = "users";
         mode = "0777";
       }
     ];
   };
-
   systemd.services.auto-init = {
     description = "Run custom initialization commands at boot";
-    serviceConfig.Type = "oneshot";
+    serviceConfig = {
+      Type = "oneshot";
+      User = "miyu";
+      Group = "users";
+      UMask = "0002";
+    };
     script = ''
-      nixos-generate-config
-      cp -rp /iso/home/miyu/.nixpro /home/miyu/.nixpro
+      #! /bin/bash
+      set -e  # Exit immediately if a command exits with a non-zero status.
+      echo "Running auto-init service..."
+  
+      mkdir -p /home/miyu/.nixpro
+  
+      sudo nixos-generate-config
+      cp -rp /iso/home/miyu/.nixpro /home/miyu/
       cp -f /etc/nixos/hardware.nix /home/miyu/.nixpro/system/driver/hardware.nix
+  
+      chown -R miyu:users /home/miyu/.nixpro # Ensure correct ownership
+  
+      echo "auto-init service completed."
     '';
     wantedBy = [ "multi-user.target" ];
   };
 
-  services.devmon.enable = true;
-  environment.systemPackages = [ pkgs.calamares-nixos ];
-  /* Save space. */
-  # hardware.enableAllFirmware = lib.mkForce false;
-  # hardware.enableRedistributableFirmware = lib.mkForce false;
+  environment.systemPackages = [ fontconfig ];-
+  hardware = { 
+    # enableAllFirmware = lib.mkForce false;
+    # enableRedistributableFirmware = lib.mkForce false;
+    opengl.dirSupport = true;
+    opengl.driSupport = false;
+  };
+  
   documentation.enable = false;
 
   services.getty.autologinUser = lib.mkForce "${settings.user.name}";
