@@ -31,14 +31,12 @@
     "no_timer_check"
     "nowatchdog"
     "fastboot"
-    "preempt=full"
     "idle=nomwait"
     "page_alloc.shuffle=1"
-
     "ascpi_osi=Linux"
-
+    "noatime"
     /*
-       "noatime"
+       "preempt=full"
        "nodiratime"
        "nofail"
        "x-systemd.device-timeout=5s"

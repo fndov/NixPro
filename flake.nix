@@ -44,7 +44,7 @@
       
       desktop = {
         enable = true;
-        type = "wm";
+        type = "de";
         wm = "hyprland";
         de = "plasma";
         font = "Noto Mono";

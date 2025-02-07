@@ -4,6 +4,7 @@
     ../../system/driver/pipewire.nix
     ../../system/driver/memory.nix
     ../../system/driver/kernel.nix
+    ../../system/driver/usbmuxd.nix
   ];
   isoImage = {
     isoName = lib.mkForce (builtins.replaceStrings ["--" "-linux"] ["-" ""] "nixpro-${settings.system.version}-${
@@ -14,9 +15,7 @@
       else ""
     }-${settings.system.architecture}.iso");
 
-    squashfsCompression = 
-    "zstd"; /* Fast, size can be twice as much as xz. */
-    # "xz -Xdict-size 100%"; /* Small, slow to decompress to decompress. */
+    squashfsCompression = "zstd";
     contents = [
       {
         source = lib.cleanSource /home/${settings.user.name}/${settings.system.flakePath}; # Impure, but it's fine.
@@ -27,38 +26,9 @@
       }
     ];
   };
-  systemd.services.auto-init = {
-    description = "Run custom initialization commands at boot";
-    serviceConfig = {
-      Type = "oneshot";
-      User = "miyu";
-      Group = "users";
-      UMask = "0002";
-    };
-    script = ''
-      #! /bin/bash
-      set -e  # Exit immediately if a command exits with a non-zero status.
-      echo "Running auto-init service..."
-  
-      mkdir -p /home/miyu/.nixpro
-  
-      sudo nixos-generate-config
-      cp -rp /iso/home/miyu/.nixpro /home/miyu/
-      sudo rm -rf /iso/home/miyu/.nixpro
-      sudo rm -rf /home/nixos/
-      cp -f /etc/nixos/hardware.nix /home/miyu/.nixpro/system/driver/hardware.nix
-      chown -R miyu:users /home/miyu/.nixpro # Ensure correct ownership
-  
-      echo "auto-init service completed."
-    '';
-    wantedBy = [ "multi-user.target" ];
-  };
-
-  environment.systemPackages = with pkgs; [ fontconfig ];
+  systemd.services.NetworkManager-wait-online.enable = false;
   hardware.graphics.enable = true;
-  
   documentation.enable = false;
-
   services.getty.autologinUser = lib.mkForce "${settings.user.name}";
   boot.hardwareScan = true;
   system.stateVersion = settings.system.version;

@@ -49,9 +49,11 @@ in {
       else {}
     )
     (
-      if (settings.profile == "image" || settings.profile == "standalone")
+      if (settings.desktop == "hyprland" || settings.desktop == true)
       then {
-        systemd.services.NetworkManager-wait-online.enable = false;
+        services.devmon.enable = true;
+        services.gvfs.enable = true;
+        services.udisks2.enable = true;
       }
       else {}
     )
