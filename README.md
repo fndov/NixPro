@@ -1,4 +1,4 @@
-![preview](https://github.com/user-attachments/assets/3d00a279-4f7d-4904-aa2d-146451d51ae2)
+![20250209_07h26m10s_grim](https://github.com/user-attachments/assets/ae88eaf3-4a37-4be4-8e4f-5a6e35249113)
 ### Install command:
 ```
 nix-shell -p git
