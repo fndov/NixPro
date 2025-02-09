@@ -1,8 +1,6 @@
 { pkgs, ... }: {
-  qt = {
-    enable = true;
-    platformTheme.name = "gtk";
-  };
+  qt.enable = true;
+  qt.platformTheme.name = "gtk";
   gtk = {
     enable = true;
     iconTheme = {
@@ -13,22 +11,14 @@
       name = "Papirus-Dark";
     };
     theme = {
-        name = "catppuccin-macchiato-mauve-compact";
-        package = pkgs.catppuccin-gtk.override {
-          accents = ["mauve"];
-          variant = "macchiato";
-          size = "compact";
-        };
+      name = "catppuccin-macchiato-mauve-compact";
+      package = pkgs.catppuccin-gtk.override {
+        accents =  ["mauve" ];
+        variant = "macchiato";
+        size = "compact";
+      };
     };
-    gtk3.extraConfig = {
-      Settings = ''
-        gtk-application-prefer-dark-theme=1
-      '';
-    };
-    gtk4.extraConfig = {
-      Settings = ''
-        gtk-application-prefer-dark-theme=1
-      '';
-    };
+    gtk3.extraConfig.Settings = ''gtk-application-prefer-dark-theme=1'';
+    gtk4.extraConfig.Settings = ''gtk-application-prefer-dark-theme=1'';
   };
 }
