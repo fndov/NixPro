@@ -10,6 +10,9 @@ in {
       services.displayManager.ly.enable = true;
       xdg.portal.enable = true;
       xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal pkgs.xdg-desktop-portal-gtk ];
+      services.udisks2.enable = true;
+      services.devmon.enable = true;
+      services.gvfs.enable = true;
     } else {})
     (if settings.desktop.wm == "sway" then {
     } else {})

@@ -1,10 +1,9 @@
-{ lib, inputs, pkgs, settings, ... }:
-let
+{ lib, inputs, pkgs, settings, ... }: let
   isMicrosoftFish = (settings.profile == "microsoft") && (settings.user.shell == "fish");
 in {
   config = lib.mkMerge [
+    /* Commen, here instead of flake.nix for clarity. */ 
     {
-      /* Commen. */
       networking.hostName =
         if settings.profile == "apple"
         then "NixPro-ARM"
@@ -22,7 +21,26 @@ in {
       nix.settings.trusted-users = [ "@wheel" ];
       nix.settings.warn-dirty = false;
       nix.extraOptions = "experimental-features = nix-command flakes";
+      documentation.enable = false;
+
+      system.stateVersion = settings.system.version;
+      home-manager.users.${settings.user.name} = { programs.home-manager.enable = true; home.stateVersion = settings.system.version; };
+
+      users.users.root.initialPassword = lib.mkForce "password";
+      users.users.${settings.user.name} = {
+        isNormalUser = true;
+        description = settings.user.name;
+        extraGroups = [ "networkmanager" "wheel" "qemu-libvirtd" "libvirtd" "kvm" "docker" ];
+        uid = 1000;
+        shell = lib.mkIf isMicrosoftFish pkgs.fish;
+        initialPassword = "password";
+      };
+      users.mutableUsers = false;
+      programs.fish.enable = lib.mkIf isMicrosoftFish true;
+      security.sudo.wheelNeedsPassword = false;
     }
+
+    /* Conditional and DRY profiles. */
     (
       if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "standalone")
       then {
@@ -40,43 +58,15 @@ in {
       else {}
     )
     (
-      if settings.profile == "image" 
+      if (settings.desktop.enable == true || settings.desktop.type == "wm"|| settings.desktop == "hyprland" || settings.profile == "image")
       then {
-        users.users.nixos.initialPassword = lib.mkForce "password";
-        users.users.nixos.hashedPassword = lib.mkForce null;
-        users.users.root.hashedPassword = lib.mkForce null;
+        home-manager.users.${settings.user.name}.wayland.windowManager.hyprland.settings.exec-once = 
+          [ "cp -r /iso/home/${settings.user.name}/${settings.system.flakePath} /home/${settings.user.name} & systemctl restart NetworkManager" ];
       }
       else {}
     )
-    (
-      if (settings.desktop == "hyprland" || settings.desktop == true)
-      then {
-        services.devmon.enable = true;
-        services.gvfs.enable = true;
-        services.udisks2.enable = true;
-      }
-      else {}
-    )
-    {
-      /* Account. */
-      users.users.root.initialPassword = lib.mkForce "password";
 
-      users.users.${settings.user.name} = {
-        isNormalUser = true;
-        description = settings.user.name;
-        extraGroups =
-          [ "networkmanager" "wheel" "qemu-libvirtd" "libvirtd" "kvm" "docker" ];
-        uid = 1000;
-        shell = lib.mkIf isMicrosoftFish pkgs.fish;
-        initialPassword = "password";
-      };
-      users.mutableUsers = false;
-
-      programs.fish.enable = lib.mkIf isMicrosoftFish true;
-      security.sudo.wheelNeedsPassword = false;
-    }
-
-    /* Settings. */
+    /* Flake settings. */
     (lib.mkIf settings.system.automation {
       system.autoUpgrade = {
         enable = true;

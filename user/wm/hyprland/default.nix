@@ -21,7 +21,7 @@
   ];
   wayland.windowManager.hyprland = {
     enable = true;
-    systemd.enable = true;
+    systemd.enable = false;
     xwayland.enable = true;
 
     settings = {
@@ -86,7 +86,8 @@
         no_border_on_floating = false;
       }; 
 
-      /* master = {
+      /*
+      master = {
         allow_small_split = true;
         always_center_master = true;
         drop_at_cursor = true;
@@ -96,7 +97,8 @@
         new_status = "master";
         orientation = "center";
         smart_resizing = true;
-      }; */
+      };
+      */
 
       decoration = {
         rounding = 7;

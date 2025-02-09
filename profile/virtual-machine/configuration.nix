@@ -15,7 +15,6 @@ Edit this Configuration file to define what should be installed on
     ../../system/security/keyring.nix
     ../../system/security/timezone.nix
   ];
-  
   # networking.wireless.enable = false;
   networking.networkmanager.enable = true; 
 
@@ -30,5 +29,4 @@ Edit this Configuration file to define what should be installed on
     };
   };
   boot.loader.timeout = 1;
-  system.stateVersion = settings.system.version;
 }

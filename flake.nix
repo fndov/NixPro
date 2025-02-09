@@ -44,7 +44,7 @@
       
       desktop = {
         enable = true;
-        type = "de";
+        type = "wm";
         wm = "hyprland";
         de = "plasma";
         font = "Noto Mono";
@@ -65,7 +65,7 @@
           nix.settings.substituters = [ "https://hyprland.cachix.org" ];
           nix.settings.trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
         }
-        ./system/driver/hardware.nix # Will need to be pre-set for an Image.
+        ./system/driver/hardware.nix
         ./system/driver/${settings.system.gpu}.nix
         ./system/compose/default.nix
         ./profile/${settings.profile}/configuration.nix

@@ -19,11 +19,6 @@
     # ../../user/software/development/zig.nix
   ];
   wayland.windowManager.hyprland.settings = { monitor = "Virtual-1, 1920x1080, 0x0, 1"; };
-
-  # Default.
-  programs.home-manager.enable = true;
-  home.stateVersion = settings.system.version;
-
   xdg.enable = true;
   xdg.mime.enable = true;
   xdg.mimeApps.enable = true;

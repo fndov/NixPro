@@ -6,9 +6,6 @@
     ../../user/software/development/cc.nix
     # ../../user/software/development/ zig go py-pkgs rs hs c cc android     
   ];
-  programs.home-manager.enable = true;
-  home.stateVersion = settings.system.version;
-
   # https://github.com/sonowz/vscode-remote-wsl-nixos/tree/master
   home.file.".vscode-server/server-env-setup".text = ''
     # This shell script is run before checking for vscode version updates.

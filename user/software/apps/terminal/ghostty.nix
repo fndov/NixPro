@@ -1,6 +1,8 @@
-{ pkgs, settings, ... }: {
+{ pkgs, inputs, settings, ... }: let
+  unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; }; 
+in {
   home.packages = with pkgs; [
-    ghostty
+    unstable.ghostty
     nerdfonts
   ];
   wayland.windowManager.hyprland.settings.exec-once = [ "ghostty --initial-window=false" ];

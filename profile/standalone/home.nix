@@ -16,9 +16,6 @@
     ../../user/software/development/go.nix        
     ../../user/software/development/zig.nix      
   ];
-  programs.home-manager.enable = true;
-  home.stateVersion = settings.system.version;
-
   xdg.enable = true;
   xdg.mime.enable = true;
   xdg.mimeApps.enable = true;

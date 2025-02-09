@@ -14,14 +14,14 @@
     pciutils
     curl
     git
-    # wget
     # Extra.
     sshpass
     libnotify
     numbat
-    fastfetch
+    fastfetch /*
+    gdu
     glances
-    gdu /*
+    wget
     # ffmpeg 
     unstable.wine
     bottom
