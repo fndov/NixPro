@@ -4,7 +4,6 @@
     ../../system/driver/pipewire.nix
     ../../system/driver/memory.nix
     ../../system/driver/kernel.nix
-    ../../system/driver/usbmuxd.nix
   ];
   isoImage = {
     isoName = lib.mkForce (builtins.replaceStrings ["--" "-linux"] ["-" ""] "nixpro-${settings.system.version}-${

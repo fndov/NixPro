@@ -1,7 +1,9 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    networkmanagerapplet
-    papirus-icon-theme /* Bloat
+    nautilus
+    swayimg
+    networkmanagerapplet /* Bloat
+    papirus-icon-theme 
     fnott
     fuzzel
     gsettings-desktop-schemas

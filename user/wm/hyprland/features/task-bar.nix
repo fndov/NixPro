@@ -4,7 +4,7 @@
     nerdfonts # Huge file size.
     networkmanagerapplet
   ];
-  # wayland.windowManager.hyprland.settings.exec-once = [ "waybar" ];
+  wayland.windowManager.hyprland.settings.exec-once = [ "waybar" ];
   programs.waybar = {
     enable = true;
     settings = {

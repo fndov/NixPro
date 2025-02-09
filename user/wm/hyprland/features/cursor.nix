@@ -1,22 +1,37 @@
-{ pkgs, ... }: let
-  cursorSize = 27;
-  cursorSizeStr = toString cursorSize;
+{ pkgs, ... }:
+let
+  cursorSize      = 27;
+  cursorSizeStr   = toString cursorSize;
+  cursorThemeName = "catppuccin-mocha-dark-cursors";
 in {
-  gtk.cursorTheme.name = "catppuccin-mocha-dark-cursors";
-  gtk.cursorTheme.package = pkgs.catppuccin-cursors.mochaDark;
-  gtk.cursorTheme.size = cursorSize;
-
-  home.pointerCursor = {
-    gtk.enable = true;
-    x11.enable = true;
-    name = "catppuccin-mocha-dark-cursors";
+  gtk.cursorTheme = {
+    name = cursorThemeName;
     package = pkgs.catppuccin-cursors.mochaDark;
     size = cursorSize;
   };
 
+  home.pointerCursor = {
+    gtk.enable = true;
+    x11.enable = true;
+    name = cursorThemeName;
+    package = pkgs.catppuccin-cursors.mochaDark;
+    size = cursorSize;
+  };
+
+  home.sessionVariables = {
+    XCURSOR_THEME = cursorThemeName;
+    XCURSOR_SIZE  = cursorSizeStr;
+    # QT_QPA_PLATFORMTHEME = "gtk2";
+  };
+
   wayland.windowManager.hyprland.settings = {
-    env = [ "XCURSOR_SIZE=${cursorSizeStr}" ];
-    exec-once = [ "hyprctl setcursor catppuccin-mocha-dark-cursors ${cursorSizeStr}" ];
+    env = [
+      "XCURSOR_SIZE=${cursorSizeStr}"
+      "XCURSOR_THEME=${cursorThemeName}"
+    ];
+    exec-once = [
+      "hyprctl setcursor ${cursorThemeName} ${cursorSizeStr}"
+    ];
     cursor = {
       no_warps = false;
       inactive_timeout = 7;

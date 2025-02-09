@@ -2,7 +2,7 @@ The Initial password is "password".
 
 vscode - alt catppuccin mocha
 firefox - catppuccin something
-micro - geany
+micro - ctl + e:set colorscheme twilight
 
 https://nixos.wiki/wiki/WSL
 WSL SWAP is set in the app 'WSL Settings' and not in the configuration.
@@ -84,11 +84,6 @@ flake.nix image
     - HM ../../user/software/commands/lib.nix
     - HM ../../user/software/apps/terminal/ghostty.nix
     - HM ../../user/software/apps/browser/firefox.nix
-
-When in the image:
-
-sudo nixos-generate-config
-cp -f /etc/nixos/hardware-configuration.nix ~/.nixpro/system/hardware/hardware.nix
 
 as soon as im in a wm look into the boot errors and solve by creating more nix code.
 

@@ -25,5 +25,4 @@
       ../../user/software/development/zig.nix 
     */
   ];
-  home.packages = with pkgs; [ swapview ];
 }

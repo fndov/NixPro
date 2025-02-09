@@ -13,7 +13,7 @@
     textColor = "#cdd6f4";
   };
   home.packages = with pkgs; [
-    (writeShellScriptBin "hour-notification" '' # Send a notification of the time every hour to display the time.
+    (writeShellScriptBin "time-notice" '' # Send a notification of the time every hour to display the time.
         while true; do
             # Get the current date in the desired format
             date_string=$(date "+%A, %B %d, %I:%M %p %Z %Y")
@@ -34,5 +34,5 @@
         done
     '')
   ];
-  wayland.windowManager.hyprland.settings.exec-once = [ "hour-notification" ];
+  wayland.windowManager.hyprland.settings.exec-once = [ "pkill time-notice && time-notice" ];
 }

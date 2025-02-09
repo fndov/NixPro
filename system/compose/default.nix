@@ -61,7 +61,7 @@ in {
       if (settings.desktop.enable == true || settings.desktop.type == "wm"|| settings.desktop == "hyprland" || settings.profile == "image")
       then {
         home-manager.users.${settings.user.name}.wayland.windowManager.hyprland.settings.exec-once = 
-          [ "cp -r /iso/home/${settings.user.name}/${settings.system.flakePath} /home/${settings.user.name} & systemctl restart NetworkManager" ];
+          [ "cp -r /iso/home/${settings.user.name}/${settings.system.flakePath} /home/${settings.user.name} & sudo systemctl restart NetworkManager & ${settings.user.terminal} -e 'sleep 1;nmtui' & sudo rm -rf /home/nixos/ & sudo nixos-generate-config && cp /etc/nixos/hardware.nix /iso/home/${settings.user.name}/${settings.system.flakePath} && cp /etc/nixos/hardware.nix /home/${settings.user.name}/${settings.system.flakePath}/system/driver/hardware.nix & notify-send 'Welcome to Hyprland by NixPro!'" ];
       }
       else {}
     )

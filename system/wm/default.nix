@@ -8,11 +8,23 @@ in {
       programs.hyprland.portalPackage = pkgs.xdg-desktop-portal-hyprland;
       environment.sessionVariables.NIXOS_OZONE_WL = "1";
       services.displayManager.ly.enable = true;
+
       xdg.portal.enable = true;
       xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal pkgs.xdg-desktop-portal-gtk ];
       services.udisks2.enable = true;
       services.devmon.enable = true;
       services.gvfs.enable = true;
+
+      fonts = {
+        enableDefaultPackages = true;
+        fontconfig.enable = true;
+        packages = with pkgs; [ "${settings.desktop.fontPkg}" ];
+        fontconfig.defaultFonts = {
+          monospace = [ "${settings.desktop.font} Mono"];
+          sansSerif = ["${settings.desktop.font} Sans"];
+          serif = ["${settings.desktop.font} Serif"];
+        };
+      };
     } else {})
     (if settings.desktop.wm == "sway" then {
     } else {})

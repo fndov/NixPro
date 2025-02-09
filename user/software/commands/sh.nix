@@ -19,8 +19,8 @@
     e = if settings.user.editor == "micro" 
       then "${settings.user.editor} --ruler false" 
     else settings.user.editor;
-    };
-in {
+    }; 
+in { 
   home.packages = with pkgs; [
     bat
     eza
