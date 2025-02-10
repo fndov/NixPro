@@ -1,8 +1,6 @@
-{ lib, inputs, pkgs, settings, ... }: let
-  isMicrosoftFish = (settings.profile == "microsoft") && (settings.user.shell == "fish");
-in {
+{ lib, inputs, pkgs, settings, ... }: {
   config = lib.mkMerge [
-    /* Commen, here instead of flake.nix for clarity. */ 
+    /* Commen, here instead of flake.nix for clarity. */
     {
       networking.hostName =
         if settings.profile == "apple"
@@ -18,26 +16,44 @@ in {
         else if settings.profile == "image"
         then "NixPro-Image"
         else "NixPro";
+
       nix.settings.trusted-users = [ "@wheel" ];
       nix.settings.warn-dirty = false;
       nix.extraOptions = "experimental-features = nix-command flakes";
-      documentation.enable = false;
+      
+      documentation.enable = lib.mkForce false;
+      documentation.doc.enable = lib.mkForce false;
+      documentation.info.enable = lib.mkForce false;
+      documentation.man.enable = lib.mkForce false;
+      documentation.nixos.enable = lib.mkForce false;
 
-      system.stateVersion = settings.system.version;
-      home-manager.users.${settings.user.name} = { programs.home-manager.enable = true; home.stateVersion = settings.system.version; };
+      programs.command-not-found.enable = if settings.profile == "image" then false else true;
+      programs.nano.enable = builtins.elem settings.profile [ "standalone" "server" ];
+      programs.fish.enable = if settings.profile == "microsoft" || settings.user.shell == "fish" then true else false;
 
       users.users.root.initialPassword = lib.mkForce "password";
+      users.mutableUsers = false;
+      security.sudo.wheelNeedsPassword = false;
       users.users.${settings.user.name} = {
         isNormalUser = true;
         description = settings.user.name;
         extraGroups = [ "networkmanager" "wheel" "qemu-libvirtd" "libvirtd" "kvm" "docker" ];
         uid = 1000;
-        shell = lib.mkIf isMicrosoftFish pkgs.fish;
+        shell = if settings.profile == "microsoft" || settings.user.shell == "fish" then pkgs.fish else pkgs.bash;
         initialPassword = "password";
       };
-      users.mutableUsers = false;
-      programs.fish.enable = lib.mkIf isMicrosoftFish true;
-      security.sudo.wheelNeedsPassword = false;
+
+      home-manager = {
+        users.${settings.user.name} = {
+          programs.home-manager.enable = true;
+          home.stateVersion = settings.system.version;
+        };
+        extraSpecialArgs = { inherit inputs settings; };
+        useGlobalPkgs = true;
+        useUserPackages = false;
+        backupFileExtension = "hm-backup";
+      };
+      system.stateVersion = settings.system.version;
     }
 
     /* Conditional and DRY profiles. */
@@ -60,8 +76,15 @@ in {
     (
       if (settings.desktop.enable == true || settings.desktop.type == "wm"|| settings.desktop == "hyprland" || settings.profile == "image")
       then {
-        home-manager.users.${settings.user.name}.wayland.windowManager.hyprland.settings.exec-once = 
-          [ "cp -r /iso/home/${settings.user.name}/${settings.system.flakePath} /home/${settings.user.name} & sudo systemctl restart NetworkManager & ${settings.user.terminal} -e 'sleep 1;nmtui' & sudo rm -rf /home/nixos/ & sudo nixos-generate-config && cp /etc/nixos/hardware.nix /iso/home/${settings.user.name}/${settings.system.flakePath} && cp /etc/nixos/hardware.nix /home/${settings.user.name}/${settings.system.flakePath}/system/driver/hardware.nix & notify-send 'Welcome to Hyprland by NixPro!'" ];
+        home-manager.users.${settings.user.name}.wayland.windowManager.hyprland.settings.exec-once =
+        [
+          "cp -r /iso/home/${settings.user.name}/${settings.system.flakePath} /home/${settings.user.name}"
+          "sudo systemctl restart NetworkManager"
+          "${settings.user.terminal} -e 'sleep 1;nmtui'"
+          "sudo rm -rf /home/nixos/"
+          "sudo nixos-generate-config && cp /etc/nixos/hardware.nix /iso/home/${settings.user.name}/${settings.system.flakePath} && cp /etc/nixos/hardware.nix /home/${settings.user.name}/${settings.system.flakePath}/system/driver/hardware.nix"
+          "notify-send 'Welcome to Hyprland by NixPro!'" 
+        ];
       }
       else {}
     )
@@ -75,6 +98,7 @@ in {
         dates = "02:00";
         randomizedDelaySec = "45min";
       };
+
       nix = {
         settings = {
           auto-optimise-store = true;
@@ -84,11 +108,13 @@ in {
             "https://nix-community.cachix.org"
           ];
         };
+
         gc = {
           automatic = true;
           dates = "weekly";
           options = "--delete-older-than 30d";
         };
+
         optimise = {
           automatic = true;
           dates = [ "weekly" ];
@@ -97,10 +123,27 @@ in {
     })
 
     (lib.mkIf settings.system.security {
+      # boot.kernelPackages = pkgs.linuxPackages_hardened;
+      
+      boot.kernelParams = [
+        # Don't merge slabs
+        "slab_nomerge"
+
+        # Overwrite free'd pages
+        "page_poison=1"
+
+        # Enable page allocator randomization
+        "page_alloc.shuffle=1"
+        
+        # Disable debugfs
+        "debugfs=off"
+      ];
+
       security = {
-        auditd.enable = false;
-        audit.enable = false;
+        auditd.enable = true;
+        audit.enable = true;
         protectKernelImage = true;
+        lockKernelModules = true;
       };
       networking.firewall.enable = true;
     })
@@ -118,8 +161,9 @@ in {
 
     (lib.mkIf settings.system.networking {
       environment.systemPackages = [ pkgs.networkmanager ];
-      networking.wireless.enable =
-        if settings.profile == "image" then lib.mkForce false else true;
+
+      networking.wireless.enable = if settings.profile == "image" then lib.mkForce false else false;
+      
       networking.networkmanager.enable = true;
       services = {
         udev.packages = [ pkgs.networkmanager ];

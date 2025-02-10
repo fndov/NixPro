@@ -1,23 +1,17 @@
-/* 
-Edit this Configuration file to define what should be installed on
-- your system. Help is available in the configuration.nix(5) man page
-- and in the NixOS manual (accessible by running `nixos-help`). 
+/*
+  Edit this Configuration file to define what should be installed on
+  - your system. Help is available in the configuration.nix(5) man page
+  - and in the NixOS manual (accessible by running `nixos-help`).
 */
 { ... }: {
   imports = [ /* Configuration */
-    # ../../system/driver/bluetooth.nix
-    # ../../system/driver/memory.nix
-    # ../../system/driver/usbmuxd.nix
-    # ../../system/compose/vm.nix
-    # ../../system/driver/kernel.nix
+    ../../system/driver/memory.nix
+    ../../system/driver/kernel.nix
     ../../system/driver/automount.nix
     ../../system/driver/pipewire.nix
     ../../system/security/keyring.nix
     ../../system/security/timezone.nix
   ];
-  # networking.wireless.enable = false;
-  networking.networkmanager.enable = true; 
-
   services.openssh = {
     enable = true;
      ports = [ 22 ];

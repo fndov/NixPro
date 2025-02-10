@@ -5,7 +5,6 @@
     ../../user/software/commands/lib.nix
     (../.. + "/user/software/apps/terminal"+("/"+settings.user.terminal)+".nix")
     ../../user/software/apps/collection.nix
-    # ../../user/software/apps/extra.nix
     (../.. + "/user/software/apps/browser"+("/"+settings.user.browser)+".nix")
     # ../../user/software/apps/spotify.nix
     # ../../user/software/development/android.nix

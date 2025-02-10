@@ -1,5 +1,5 @@
-{ config, lib, pkgs, settings, modulesPath, ... }: {
-  imports = [ 
+{ lib, settings, modulesPath, ... }: {
+  imports = [
     (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
     ../../system/driver/pipewire.nix
     ../../system/driver/memory.nix
@@ -8,8 +8,8 @@
   isoImage = {
     isoName = lib.mkForce (builtins.replaceStrings ["--" "-linux"] ["-" ""] "nixpro-${settings.system.version}-${
       if settings.desktop.enable
-        then if settings.desktop.type == "wm" 
-          then settings.desktop.wm 
+        then if settings.desktop.type == "wm"
+          then settings.desktop.wm
         else settings.desktop.de
       else ""
     }-${settings.system.architecture}.iso");
@@ -24,12 +24,12 @@
       }
     ];
   };
-  
+  boot.kernelParams = if settings.system.security == false then [ "page_alloc.shuffle=0" ] else [ ];
   users.users.root.hashedPassword = lib.mkForce null;
   users.users.nixos = { _module = {}; };
-
+  services.openssh.enable = lib.mkForce false;
   systemd.services.NetworkManager-wait-online.enable = false;
   hardware.graphics.enable = true;
   services.getty.autologinUser = lib.mkForce "${settings.user.name}";
-  boot.hardwareScan = true;
+  services.getty.helpLine = lib.mkForce "";
 }

@@ -1,9 +1,9 @@
 { settings, ... }: {
-  services.blueman-applet.enable = true;
+  services.blueman-applet.enable = if settings.profile != "image" then false else true;
   services.udiskie.enable = true;
   services.udiskie.tray = "always";
   imports = [ /* Hyprland */
-    ./features/theme.nix 
+    ./features/theme.nix
     ./features/cursor.nix
     ./features/wallpaper.nix
     ./features/keyboard.nix

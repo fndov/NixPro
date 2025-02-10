@@ -9,7 +9,7 @@
 
   boot.kernelPackages =
     (if settings.profile == "image"
-     then pkgs.linuxPackages
+     then pkgs.linuxPackages_xanmod
      else
        (if settings.profile == "server"
         then pkgs.linuxPackages
@@ -28,14 +28,13 @@
     "mitigations=off"
     "init_on_alloc=0"
     "init_on_free=0"
-    "no_timer_check"
     "nowatchdog"
-    "fastboot"
     "idle=nomwait"
-    "page_alloc.shuffle=1"
     "ascpi_osi=Linux"
     "noatime"
+
     /*
+       "fastboot"
        "preempt=full"
        "nodiratime"
        "nofail"

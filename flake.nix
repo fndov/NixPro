@@ -12,10 +12,10 @@
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = inputs@{ self, nixpkgs, ... }: let
-    
-    settings = {    
-    
+  outputs = inputs@{ self, ... }: let
+
+    settings = {
+
       system = {
         version = "24.11";
         architecture = "x86_64-linux";
@@ -30,7 +30,7 @@
         sshd = false;
         gpu = "intel";
       };
-      
+
       profile = "image";
 
       user = {
@@ -41,7 +41,7 @@
         editor = "micro";
         browser = "firefox";
       };
-      
+
       desktop = {
         enable = true;
         type = "wm";
@@ -54,16 +54,16 @@
         animationSpeed = "medium";
       };
     };
-    pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
     system = settings.system.architecture;
+    pkgs = import inputs.nixpkgs { inherit system; };
   in {
-    nixosConfigurations.${settings.user.name} = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.${settings.user.name} = inputs.nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs pkgs system settings; };
       modules = [
-        {
-          environment.systemPackages = [ inputs.nsearch.packages.${pkgs.system}.default ];
+        { /* input options. */
           nix.settings.substituters = [ "https://hyprland.cachix.org" ];
           nix.settings.trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+          environment.systemPackages = [ inputs.nsearch.packages.${pkgs.system}.default ];
         }
         ./system/driver/hardware.nix
         ./system/driver/${settings.system.gpu}.nix
@@ -71,10 +71,6 @@
         ./profile/${settings.profile}/configuration.nix
         ./system/${settings.desktop.type}/default.nix
         inputs.home-manager.nixosModules.home-manager {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = false; 
-          home-manager.backupFileExtension = "hm-backup";
-          home-manager.extraSpecialArgs = { inherit inputs settings; };
           home-manager.users.${settings.user.name}.imports = [
             ./profile/${settings.profile}/home.nix
             ./user/${settings.desktop.type}/${ if settings.desktop.type == "wm" then settings.desktop.wm else settings.desktop.de }/default.nix
@@ -84,5 +80,3 @@
     };
   };
 }
-
-
