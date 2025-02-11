@@ -4,10 +4,9 @@ in {
   config = lib.mkIf cfg (lib.mkMerge [
     (if settings.desktop.wm == "hyprland" then {
       programs.hyprland.enable = true;
-      programs.hyprland.xwayland = { enable = true; };
+      programs.hyprland.xwayland.enable = true;
       programs.hyprland.portalPackage = pkgs.xdg-desktop-portal-hyprland;
       environment.sessionVariables.NIXOS_OZONE_WL = "1";
-      services.displayManager.ly.enable = true;
 
       xdg.portal.enable = true;
       xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal pkgs.xdg-desktop-portal-gtk ];
@@ -23,6 +22,22 @@ in {
           monospace = [ "${settings.desktop.font} Mono"];
           sansSerif = ["${settings.desktop.font} Sans"];
           serif = ["${settings.desktop.font} Serif"];
+        };
+      };
+
+      # services.displayManager.ly.enable = true;
+
+      services.greetd = {
+        enable = true;
+        settings = {
+          initial_session = {
+            command = "${pkgs.hyprland}/bin/Hyprland";
+            user = "${settings.user.name}";
+          };
+          default_session = {
+            command = "${pkgs.ly}/bin/ly";
+            user = "${settings.user.name}";
+          };
         };
       };
     } else {})

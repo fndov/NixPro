@@ -1,6 +1,5 @@
 { config, lib, pkgs, settings, ... }: let  
 
-
   profiles = {
 
     apple = {
@@ -74,11 +73,9 @@
           echo '# sudo nixos-rebuild switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name} --rollback'
           sudo nixos-rebuild switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name} --rollback
         '')
-        (writeShellScriptBin "nixup" '' # Rebuild Update.
-        echo '# sudo nix flake update /home/${settings.user.name}/${settings.system.flakePath}'
-          sudo nix flake update /home/${settings.user.name}/${settings.system.flakePath}
-        echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}'
-          sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}
+        (writeShellScriptBin "nixup" '' # Update Flake.
+          echo '# nix flake update /home/${settings.user.name}/${settings.system.flakePath}'
+          nix flake update /home/${settings.user.name}/${settings.system.flakePath}
         '')
         (writeShellScriptBin "nixar" '' # Nix Archive.
           echo '# nix flake archive /home/${settings.user.name}/${settings.system.flakePath}'

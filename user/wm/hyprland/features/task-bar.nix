@@ -31,7 +31,7 @@
           "format" = " {} ";
           "exec" = ''echo "" '';
           "interval" = "once";
-          "on-click" = "${settings.user.terminal}";
+          "on-click" = "rofi -show drun";
           "tooltip" = false;
         };
         "group/power" = {
@@ -69,11 +69,6 @@
           "format" = "󰐥";
           "tooltip" = false;
           "on-click" = "shutdown now";
-        };
-        "custom/hyprprofileicon" = {
-          "format" = "󱙋";
-          "on-click" = "alacritty -e sh -c btm";
-          "tooltip" = false;
         };
         "custom/hyprprofile" = {
           "format" = " {}";

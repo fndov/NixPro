@@ -7,8 +7,6 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
-    nsearch.url = "github:niksingh710/nsearch";
-    nsearch.inputs.nixpkgs.follows = "nixpkgs";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -47,7 +45,7 @@
         type = "wm";
         wm = "hyprland";
         de = "plasma";
-        font = "Noto Mono";
+        font = "Noto";
         fontPkg = pkgs.noto-fonts;
         wallpaperPath = "Media/Pictures/Wallpapers/Catppuccin-mocha";
         wallpaperName = "purpled-night.jpg";
@@ -63,7 +61,6 @@
         { /* input options. */
           nix.settings.substituters = [ "https://hyprland.cachix.org" ];
           nix.settings.trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
-          environment.systemPackages = [ inputs.nsearch.packages.${pkgs.system}.default ];
         }
         ./system/driver/hardware.nix
         ./system/driver/${settings.system.gpu}.nix

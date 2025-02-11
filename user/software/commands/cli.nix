@@ -1,24 +1,26 @@
-{ pkgs, settings, ... }: {
+{ inputs, pkgs, settings, ... }: let
+  unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; }; 
+in {
   home.packages = with pkgs; [ /* Essential utils */
     nixd
     nil
-    nixfmt-classic
-    syncthing
     zip
     unzip
     glib
     glibc
     usbutils
     hwinfo
-    openssh
     pciutils
     curl
     git
     # Extra.
-    sshpass
     libnotify
     numbat
     fastfetch /*
+    nixfmt-classic
+    syncthing
+    openssh
+    sshpass
     gdu
     glances
     wget

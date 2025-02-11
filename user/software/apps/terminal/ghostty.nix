@@ -3,7 +3,6 @@
 in {
   home.packages = with pkgs; [
     unstable.ghostty
-    nerdfonts
   ];
   wayland.windowManager.hyprland.settings.exec-once = [ "ghostty --initial-window=false" ];
   home.file."/home/${settings.user.name}/.config/ghostty/config".text = ''
@@ -21,6 +20,7 @@ in {
     font-size = 16
     # font-family = CaskaydiaCove Nerd Font
     # font-family = ZedMono Nerd Font
+    font-family = Noto Mono
 
     # --- Disable exit Message ---
     confirm-close-surface = false

@@ -29,13 +29,11 @@ in {
     glib
     glibc
     htop
-    intel-gpu-tools
     mako
     micro
-    nix-output-monitor
     ripgrep
     openssh
-    sshpass
+    libnotify
     yazi
     timg
   ];
@@ -60,4 +58,5 @@ in {
     enableFishIntegration = true;
     enableBashIntegration = true;
   };
+  programs.vim.enable = false;
 }

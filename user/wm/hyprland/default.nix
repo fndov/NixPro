@@ -1,7 +1,8 @@
-{ settings, ... }: {
+{ pkgs, settings, ... }: {
   services.blueman-applet.enable = if settings.profile != "image" then false else true;
   services.udiskie.enable = true;
   services.udiskie.tray = "always";
+  home.packages = [ pkgs.hyprpolkitagent ];
   imports = [ /* Hyprland */
     ./features/theme.nix
     ./features/cursor.nix
@@ -16,7 +17,6 @@
     ./features/timeout.nix
     ./settings/animation.nix
     ./settings/dependencies.nix
-    ./settings/polkitagent.nix
     ./settings/rules.nix
   ];
   wayland.windowManager.hyprland = {
@@ -29,6 +29,7 @@
         "gnome-keyring-daemon --start --components=secrets"
         "nm-applet --indicator"
         "blueman-applet"
+        "systemctl --user start hyprpolkitagent" 
       ];
 
       env = [
