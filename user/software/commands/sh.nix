@@ -58,5 +58,4 @@ in {
     enableFishIntegration = true;
     enableBashIntegration = true;
   };
-  programs.vim.enable = false;
 }

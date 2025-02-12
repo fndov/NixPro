@@ -3,6 +3,7 @@
 in {
   config = lib.mkIf cfg (lib.mkMerge [
     (if settings.desktop.de == "plasma" then {
+      home-manager.users.${settings.user.name}.imports = [ ../../user/de/plasma/default.nix ];
       services.xserver.enable = true;
       services.desktopManager.plasma6.enable = true;
       services.displayManager.ly.enable = true;

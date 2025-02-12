@@ -21,9 +21,9 @@
         grubDevice = "/dev/sda";
         bootMountPath = "/boot";
         flakePath = ".nixpro";
-        networking = false;
+        networking = true;
         automation = false;
-        timezone = false;
+        timezone = true;
         security = false;
         sshd = false;
         gpu = "intel";
@@ -41,7 +41,7 @@
       };
 
       desktop = {
-        enable = false;
+        enable = true;
         type = "wm";
         wm = "hyprland";
         de = "plasma";

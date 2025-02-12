@@ -39,5 +39,4 @@
 
     echo "== '~/.vscode-server/server-env-setup' SCRIPT END =="
   '';
-  gtk.enable = false;
 }
