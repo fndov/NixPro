@@ -5,15 +5,15 @@
 */
 { ... }: {
   imports = [ /* Configuration */
-    ../../system/driver/memory.nix
-    ../../system/driver/kernel.nix
-    ../../system/driver/automount.nix
-    ../../system/driver/pipewire.nix
-    ../../system/security/keyring.nix
-    ../../system/security/timezone.nix
+    # ../../system/driver/memory.nix
+    # ../../system/driver/kernel.nix
+    # ../../system/driver/automount.nix
+    # ../../system/driver/pipewire.nix
+    # ../../system/security/keyring.nix
+    # ../../system/security/timezone.nix
   ];
   services.openssh = {
-    enable = true;
+    enable = false;
      ports = [ 22 ];
      settings = {
       PasswordAuthentication = true;

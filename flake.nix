@@ -23,13 +23,13 @@
         flakePath = ".nixpro";
         networking = false;
         automation = false;
-        timezone = true;
+        timezone = false;
         security = false;
         sshd = false;
         gpu = "intel";
       };
 
-      profile = "microsoft";
+      profile = "image";
 
       user = {
         name = "miyu";
@@ -67,12 +67,7 @@
         ./system/compose/default.nix
         ./profile/${settings.profile}/configuration.nix
         ./system/${settings.desktop.type}/default.nix
-        inputs.home-manager.nixosModules.home-manager {
-          home-manager.users.${settings.user.name}.imports = [
-            ./profile/${settings.profile}/home.nix
-            ./user/${settings.desktop.type}/${ if settings.desktop.type == "wm" then settings.desktop.wm else settings.desktop.de }/default.nix
-          ];
-        }
+        inputs.home-manager.nixosModules.home-manager { home-manager.users.${settings.user.name}.imports = [ ./profile/${settings.profile}/home.nix ]; }
       ];
     };
   };

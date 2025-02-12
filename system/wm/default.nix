@@ -7,6 +7,10 @@ in {
       programs.hyprland.xwayland.enable = true;
       programs.hyprland.portalPackage = pkgs.xdg-desktop-portal-hyprland;
       environment.sessionVariables.NIXOS_OZONE_WL = "1";
+      
+      home-manager.users.${settings.user.name}.imports = [
+        ./user/${settings.desktop.type}/${ if settings.desktop.type == "wm" then settings.desktop.wm else settings.desktop.de }/default.nix
+      ];
 
       xdg.portal.enable = true;
       xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal pkgs.xdg-desktop-portal-gtk ];
@@ -32,10 +36,6 @@ in {
         settings = {
           initial_session = {
             command = "${pkgs.hyprland}/bin/Hyprland";
-            user = "${settings.user.name}";
-          };
-          default_session = {
-            command = "${pkgs.ly}/bin/ly";
             user = "${settings.user.name}";
           };
         };
