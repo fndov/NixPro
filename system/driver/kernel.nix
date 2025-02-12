@@ -17,9 +17,12 @@
           (if settings.profile == "standalone"
            then pkgs.linuxPackages
            else
-             (if settings.profile == "virtual-machine"
+             (if settings.profile == "microsoft"
               then pkgs.linuxPackages
-              else null))));
+              else
+                (if settings.profile == "virtual-machine"
+                 then pkgs.linuxPackages
+                 else null)))));
               
   boot.blacklistedKernelModules = [ "nouveau" ];
 

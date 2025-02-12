@@ -21,7 +21,7 @@
         grubDevice = "/dev/sda";
         bootMountPath = "/boot";
         flakePath = ".nixpro";
-        networking = true;
+        networking = false;
         automation = false;
         timezone = true;
         security = false;
@@ -29,7 +29,7 @@
         gpu = "intel";
       };
 
-      profile = "image";
+      profile = "microsoft";
 
       user = {
         name = "miyu";
@@ -41,7 +41,7 @@
       };
 
       desktop = {
-        enable = true;
+        enable = false;
         type = "wm";
         wm = "hyprland";
         de = "plasma";
