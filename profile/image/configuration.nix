@@ -13,7 +13,7 @@
         else settings.desktop.de
       else ""
     }-${settings.system.architecture}.iso");
-    squashfsCompression = "zstd";
+    squashfsCompression = "zstd -Xcompression-level 22";
     contents = [
       {
         source = lib.cleanSource /home/${settings.user.name}/${settings.system.flakePath}; # Impure.
@@ -24,6 +24,8 @@
       }
     ];
   };
+  nix.settings.keep-outputs = false;
+  nix.settings.keep-derivations = false;
   boot.kernelParams = if settings.system.security == false then [ "page_alloc.shuffle=0" ] else [ ];
   users.users.root.hashedPassword = lib.mkForce null;
   users.users.nixos = { _module = {}; };

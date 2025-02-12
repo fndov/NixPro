@@ -30,6 +30,7 @@
       programs.command-not-found.enable = if settings.profile == "image" then false else true;
       programs.nano.enable = builtins.elem settings.profile [ "standalone" "server" ];
       programs.fish.enable = if settings.profile == "microsoft" || settings.user.shell == "fish" then true else false;
+      programs.vim.enable = false;
 
       users.users.root.initialPassword = lib.mkForce "password";
       users.mutableUsers = false;
@@ -103,10 +104,6 @@
         settings = {
           auto-optimise-store = true;
           sandbox = true;
-          trusted-substituters = [
-            "https://cache.nixos.org"
-            "https://nix-community.cachix.org"
-          ];
         };
 
         gc = {

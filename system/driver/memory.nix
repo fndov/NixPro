@@ -1,7 +1,7 @@
 { settings, ... }: {
   zramSwap.enable = builtins.elem settings.profile [ "image" "standalone" "virtual-machine" "server" ];
   zramSwap.memoryPercent = if settings.profile == "image" then 100 else 40;
-  zramSwap.algorithm = "lzo"; # lzo is small, zstd is fast.
+  zramSwap.algorithm = "zstd -Xcompression-level 22"; # lzo is small, zstd is fast.
   zramSwap.priority = if settings.profile == "image" then 100 else 5; 
   boot.kernel.sysctl = {
     "vm.swappiness" = if settings.profile == "image" then 60 else 40; 
