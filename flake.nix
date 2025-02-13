@@ -12,7 +12,7 @@
   };
   outputs = inputs@{ self, ... }: let
     settings = {
-      profile = "microsoft";
+      profile = "image";
       system = {
         version = "24.11";
         architecture = "x86_64-linux";
@@ -20,7 +20,7 @@
         grubDevice = "/dev/sda";
         bootMountPath = "/boot";
         flakePath = ".nixpro";
-        networking = false;
+        networking = true;
         automation = false;
         timezone = true;
         security = false;
@@ -36,7 +36,7 @@
         browser = "firefox";
       };
       desktop = {
-        enable = false;
+        enable = true;
         type = "wm";
         wm = "hyprland";
         de = "plasma";
@@ -60,8 +60,8 @@
         }
         ./system/compose/default.nix
         ./system/driver/hardware.nix
-        ./system/${settings.desktop.type}/default.nix
         ./profile/${settings.profile}/configuration.nix
+        ./system/${settings.desktop.type}/default.nix
       ];
     };
   };
