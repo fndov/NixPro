@@ -11,9 +11,8 @@
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = inputs@{ self, ... }: let
-
     settings = {
-
+      profile = "microsoft";
       system = {
         version = "24.11";
         architecture = "x86_64-linux";
@@ -21,16 +20,13 @@
         grubDevice = "/dev/sda";
         bootMountPath = "/boot";
         flakePath = ".nixpro";
-        networking = true;
+        networking = false;
         automation = false;
         timezone = true;
         security = false;
         sshd = false;
-        gpu = "intel";
+        gpu = "nvidia";
       };
-
-      profile = "image";
-
       user = {
         name = "miyu";
         email = "tommybice1@gmail.com";
@@ -39,9 +35,8 @@
         editor = "micro";
         browser = "firefox";
       };
-
       desktop = {
-        enable = true;
+        enable = false;
         type = "wm";
         wm = "hyprland";
         de = "plasma";
@@ -58,16 +53,15 @@
     nixosConfigurations.${settings.user.name} = inputs.nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs pkgs system settings; };
       modules = [
-        { /* input options. */
-          nix.settings.substituters = [ "https://hyprland.cachix.org" ];
-          nix.settings.trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+        inputs.home-manager.nixosModules.home-manager { 
+          home-manager.users.${settings.user.name}.imports = [ 
+            ./profile/${settings.profile}/home.nix 
+          ]; 
         }
-        ./system/driver/hardware.nix
-        ./system/driver/${settings.system.gpu}.nix
         ./system/compose/default.nix
-        ./profile/${settings.profile}/configuration.nix
+        ./system/driver/hardware.nix
         ./system/${settings.desktop.type}/default.nix
-        inputs.home-manager.nixosModules.home-manager { home-manager.users.${settings.user.name}.imports = [ ./profile/${settings.profile}/home.nix ]; }
+        ./profile/${settings.profile}/configuration.nix
       ];
     };
   };

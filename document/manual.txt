@@ -63,44 +63,11 @@ in profile home.nix add imports from user/ and options to the file
 in profile configuration.nix add imports from system/ and options to the file
 
 flake.nix
-  - SYS ./system/driver/hardware.nix
-  - SYS ./system/driver/${settings.system.gpu}.nix
-  - SYS ./system/compose/default.nix
-  - SYS ./profile/${settings.profile}/configuration.nix
-  - SYS ./system/${settings.desktop.type}/default.nix
-  - HM  ./profile/${settings.profile}/home.nix
+system/compose/default.nix
+system/driver/hardware.nix
+system/driver/${settings.system.gpu}.nix
+./profile/${settings.profile}/home.nix
 
-flake.nix hyprland image. Sun Feb 9 03:24:08 PM CST 2025.
-  - SYS ./system/driver/hardware.nix
-  - SYS ./system/driver/intel.nix
-  - SYS ./system/compose/default.nix
-  - SYS ./profile/image/configuration.nix
-    - SYS ../../system/driver/pipewire.nix
-    - SYS ../../system/driver/memory.nix
-    - SYS ../../system/driver/kernel.nix
-  - SYS ./system/wm/default.nix
-  - HM  ./profile/image/home.nix
-    - HM ../../user/software/commands/sh.nix  
-    - HM ../../user/software/commands/cli.nix  
-    - HM ../../user/software/commands/lib.nix
-    - HM ../../user/software/apps/termina/ghostty.nix 
-    - HM ../../user/software/apps/browser/firefox.nix
-  - HM  ./user/wm/hyprland/default.nix
-    - HM ./features/theme.nix 
-    - HM ./features/cursor.nix
-    - HM ./features/wallpaper.nix
-    - HM ./features/keyboard.nix
-    - HM ./features/launcher.nix
-    - HM ./features/lock-screen.nix
-    - HM ./features/nightlight.nix
-    - HM ./features/notification.nix
-    - HM ./features/screenshot.nix
-    - HM ./features/task-bar.nix
-    - HM ./features/timeout.nix
-    - HM ./settings/animation.nix
-    - HM ./settings/dependencies.nix
-    - HM ./settings/polkitagent.nix
-    - HM ./settings/rules.nix
 
 as soon as im in a wm look into the boot errors and solve by creating more nix code.
 

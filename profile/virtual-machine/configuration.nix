@@ -4,14 +4,7 @@
   - and in the NixOS manual (accessible by running `nixos-help`).
 */
 { ... }: {
-  imports = [ /* Configuration */
-    # ../../system/driver/memory.nix
-    # ../../system/driver/kernel.nix
-    # ../../system/driver/automount.nix
-    # ../../system/driver/pipewire.nix
-    # ../../system/security/keyring.nix
-    # ../../system/security/timezone.nix
-  ];
+  imports = [ /* Configuration */ ];
   services.openssh = {
     enable = false;
      ports = [ 22 ];

@@ -1,4 +1,4 @@
-{ lib, inputs, pkgs, settings, ... }: {
+{ system, lib, inputs, pkgs, settings, ... }: {
   config = lib.mkMerge [
     /* Commen, here instead of flake.nix for clarity. */
     {

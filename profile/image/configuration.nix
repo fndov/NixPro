@@ -13,7 +13,7 @@
         else settings.desktop.de
       else ""
     }-${settings.system.architecture}.iso");
-    squashfsCompression = "zstd -Xcompression-level 22";
+    squashfsCompression = "zstd"; # -Xcompression-level 22
     contents = [
       {
         source = lib.cleanSource /home/${settings.user.name}/${settings.system.flakePath}; # Impure.

@@ -4,17 +4,7 @@
   - and in the NixOS manual (accessible by running `nixos-help`). 
 */
 { ... }: {
-  imports = [ /* Configuration */
-    ../../system/compose/vm.nix
-    ../../system/driver/kernel.nix
-    ../../system/driver/automount.nix
-    ../../system/driver/bluetooth.nix
-    ../../system/driver/memory.nix
-    ../../system/driver/pipewire.nix
-    ../../system/driver/usbmuxd.nix
-    ../../system/compose/keyring.nix
-    ../../system/compose/gamemode.nix
-  ];
+  imports = [ /* Configuration */ ];
   boot.plymouth.enable = true;
   boot.loader.timeout = 1;
 }
