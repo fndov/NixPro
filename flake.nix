@@ -12,7 +12,13 @@
   };
   outputs = inputs@{ self, ... }: let
     settings = {
-      profile = "image";
+      profile = "microsoft";
+      driver = {
+        networking = false;
+        bluetooth = false;
+        usbmuxd = false;
+        graphics = "intel";
+      };
       system = {
         version = "24.11";
         architecture = "x86_64-linux";
@@ -20,12 +26,10 @@
         grubDevice = "/dev/sda";
         bootMountPath = "/boot";
         flakePath = ".nixpro";
-        networking = true;
         automation = false;
         timezone = true;
         security = false;
         sshd = false;
-        gpu = "nvidia";
       };
       user = {
         name = "miyu";
@@ -36,10 +40,7 @@
         browser = "firefox";
       };
       desktop = {
-        enable = true;
-        type = "wm";
-        wm = "hyprland";
-        de = "plasma";
+        type = null;
         font = "Noto";
         fontPkg = pkgs.noto-fonts;
         wallpaperPath = "Media/Pictures/Wallpapers/Catppuccin-mocha";
@@ -52,17 +53,18 @@
   in {
     nixosConfigurations.${settings.user.name} = inputs.nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs pkgs system settings; };
-      modules = [
-        inputs.home-manager.nixosModules.home-manager { 
-          home-manager.users.${settings.user.name}.imports = [ 
-            ./profile/${settings.profile}/home.nix 
-          ]; 
+      modules = [ ./module/system/hardware.nix
+        inputs.home-manager.nixosModules.home-manager {
+          home-manager.users.${settings.user.name} = {
+            imports = [ 
+              ./compose/home.nix 
+              ./profile/${settings.profile}/home.nix 
+            ] ++ (if settings.desktop.type != null then [ ./desktop/${settings.desktop.type}/home.nix ] else []);
+          }; 
         }
-        ./system/compose/default.nix
-        ./system/driver/hardware.nix
-        ./profile/${settings.profile}/configuration.nix
-        ./system/${settings.desktop.type}/default.nix
-      ];
+        ./compose/system.nix
+        ./profile/${settings.profile}/system.nix 
+      ] ++ (if settings.desktop.type != null then [ ./desktop/${settings.desktop.type}/system.nix ] else []);
     };
   };
 }
