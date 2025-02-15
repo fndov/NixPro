@@ -53,23 +53,17 @@ https://ops.functionalalgebra.com/2016/06/14/nixos-systemd-journald/
 bash
 while true; do cp -r NixPro/* /home/miyu/.nixpro; sleep 1; done
 
-Idea: 
-define the profile setting in the build command
 
-How does NixPro work?
-
-set settings in flake
-in profile home.nix add imports from user/ and options to the file
-in profile configuration.nix add imports from system/ and options to the file
-
+Import flow:
 flake.nix
-system/compose/default.nix
-system/driver/hardware.nix
-system/driver/${settings.system.gpu}.nix
-./profile/${settings.profile}/home.nix
+- modules/system/hardware.nix
+- compose/home.nix
+- compose/system.nix
+- profile/option/home.nix
+- profile/option/system.nix
+- desktop/option/home.nix
+- desktop/option/system.nix
 
-
-as soon as im in a wm look into the boot errors and solve by creating more nix code.
 
 Run software faster with
 

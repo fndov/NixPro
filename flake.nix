@@ -12,12 +12,12 @@
   };
   outputs = inputs@{ self, ... }: let
     settings = {
-      profile = "microsoft";
+      profile = "image";
       driver = {
-        networking = false;
+        networking = true;
         bluetooth = false;
         usbmuxd = false;
-        graphics = "intel";
+        graphics = null;
       };
       system = {
         version = "24.11";
@@ -40,7 +40,7 @@
         browser = "firefox";
       };
       desktop = {
-        type = null;
+        type = "hyprland";
         font = "Noto";
         fontPkg = pkgs.noto-fonts;
         wallpaperPath = "Media/Pictures/Wallpapers/Catppuccin-mocha";
@@ -53,18 +53,18 @@
   in {
     nixosConfigurations.${settings.user.name} = inputs.nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs pkgs system settings; };
-      modules = [ ./module/system/hardware.nix
+      modules = [ ./modules/system/hardware.nix
         inputs.home-manager.nixosModules.home-manager {
           home-manager.users.${settings.user.name} = {
-            imports = [ 
-              ./compose/home.nix 
-              ./profile/${settings.profile}/home.nix 
-            ] ++ (if settings.desktop.type != null then [ ./desktop/${settings.desktop.type}/home.nix ] else []);
-          }; 
+            imports = [
+              ./compose/home.nix
+              ./profile/${settings.profile}/home.nix
+            ] ++ (if !builtins.isNull settings.desktop.type then [ ./desktop/${settings.desktop.type}/home.nix ] else []);
+          };
         }
         ./compose/system.nix
-        ./profile/${settings.profile}/system.nix 
-      ] ++ (if settings.desktop.type != null then [ ./desktop/${settings.desktop.type}/system.nix ] else []);
+        ./profile/${settings.profile}/system.nix
+      ] ++ (if !builtins.isNull settings.desktop.type then [ ./desktop/${settings.desktop.type}/system.nix ] else []);
     };
   };
 }

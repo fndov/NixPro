@@ -5,9 +5,7 @@
   - Use 'wsl' command for Windows integration 
 */
 { inputs, settings, ... }: {
-  imports = [ /* Configuration */
-    inputs.nixos-wsl.nixosModules.default
-  ];
+  imports = [ inputs.nixos-wsl.nixosModules.default ];
   wsl.enable = true;
   wsl.defaultUser = settings.user.name;
 }

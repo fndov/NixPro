@@ -1,1 +1,1 @@
-{ inputs, settings, ... }:{ }
+{ inputs, settings, ... }: { }

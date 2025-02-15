@@ -163,7 +163,7 @@
           "sudo systemctl restart NetworkManager"
           "${settings.user.terminal} -e 'sleep 1;nmtui'"
           "sudo rm -rf /home/nixos/"
-          "sudo nixos-generate-config && cp /etc/nixos/hardware.nix /iso/home/${settings.user.name}/${settings.system.flakePath} && cp /etc/nixos/hardware.nix /home/${settings.user.name}/${settings.system.flakePath}/system/driver/hardware.nix"
+          "sudo nixos-generate-config && cp /etc/nixos/hardware.nix /home/${settings.user.name}/${settings.system.flakePath}/modules/system/"
           "notify-send 'Welcome to Hyprland by NixPro!'" 
         ];
       }

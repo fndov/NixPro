@@ -7,10 +7,10 @@
 */
 { settings, ... }: {
   imports = [ /* Home-Manager */
-    ../../module/home/commands/sh.nix
-    ../../module/home/commands/cli.nix
-    ../../module/home/commands/lib.nix
-    ../../module/home/apps/${settings.user.terminal}.nix
-    ../../module/home/apps/${settings.user.browser}.nix
+    ../../modules/home/commands/sh.nix
+    ../../modules/home/commands/cli.nix
+    ../../modules/home/commands/lib.nix
+    ../../modules/home/apps/${settings.user.terminal}.nix
+    ../../modules/home/apps/${settings.user.browser}.nix
   ];
 }
