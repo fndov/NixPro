@@ -1,52 +1,51 @@
 ![20250209_07h26m10s_grim](https://github.com/user-attachments/assets/ae88eaf3-4a37-4be4-8e4f-5a6e35249113)
-### Install command:
-```
-nix-shell -p git --run 'git clone https://github.com/fndov/NixPro .nixpro'
-.nixpro/document/scripts/init.sh
-```
-### System Structure
 
-NixPro builds your system configuration by combining modules based on your selected profile.
+NixPro is dynamically composed by `flake.nix`, which defines your structure and imports modules for your complete setup.
 
-1. **Profile Selection**
-   - Open `Flake.nix` to set your system profile & details.
-   - Choose from profiles in the `Profile/` directory:
-     - `Profile/Apple/`
-     - `Profile/Microsoft/`
-     - `Profile/Image/`
-     - `Profile/Standalone/`
-     - `Profile/Server/`
-     - `Profile/Virtual-Machine/`
-   - Each profile contains:
-     - `Configuration.nix` - System settings.
-     - `Home.nix` - Home directory settings.
+---
+#### File Structure Overview
 
-2. **System Composition**
-   - The system is comprised from settings in `Flake.nix` and the selected profile.
-   - The profiles import modules sourced from:
-     - `User/` - Powers WM/DE, Utilities, Apps & Shell.
-     - `System/` - Powers Hardware and Security.
+- **`flake.nix`**  
+  Defines how the system is composed (e.g., selecting your profile, GPU drivers, desktop environment, etc.).
 
-3. **Configuration**
-   - Common changes are made through attribute sets and input contents within `Flake.nix`.
-   - You can append to the system via paths like:
-     - `user/software/apps/collection.nix`
-     - `user/software/commands/sh.nix`
-     - `user/wm/hyprland/default.nix`
+- **`compose/`**  
+  Contains universal settings that apply to every configuration.
+  - **`home.nix`** — Universal home settings.
+  - **`system.nix`** — Universal system settings.
 
-4. **Documentation and Scripts**
-   - The `Document/` directory contains additional information along with scripts for maintenance and setup.
+- **`profile/option/`**  
+  Contains machine-specific settings for various environments (e.g., WSL, virtual machines, Apple Silicon, standalone systems, servers, etc.).
+  - **`home.nix`** — Profile-specific home settings.
+  - **`system.nix`** — Profile-specific system settings.
 
-### Creating your own ISO
+- **`desktop/option/`**  
+  Contains desktop-specific settings for any desktop environment (window managers or desktop environments).  
+  _Optional Subdirectories (for further specialization):_
+  - **`virtual-machine/`**  
+    - **`home.nix`** — Desktop settings for virtual machine environments.
+    - **`system.nix`** — Desktop settings for virtual machine environments.
+  - **`server/`**  
+    - **`home.nix`** — Desktop settings for server environments.
+    - **`system.nix`** — Desktop settings for server environments.
 
-You can produce installation media and ramfs images using the `Image/` profile and running `nixim` to build the ISO, it is automatically named based on options like
-| Version | Desktop | Architecture | Image |
-| :--- | :---: | :---: | :---: |
-| 24.11 | hyprland | x86_64-linux | nixpro-24.11-hyprland-x86_64.iso |
-| 22.05 | plasma | x86_64-linux | nixpro-22.05-plasma-x86_64.iso |
-| 23.11 | sway |  x86_64-linux | nixpro-23.11-sway-x86_64.iso |
+- **`modules/`**  
+  Provides extra features and module clusters (e.g., `modules/system/hardware.nix` for hardware-specific settings).
 
-They can even be used for virtual machines or travel.
+#### Building an ISO
+- Define your Image-specific Profile within `flake.nix`.
+- Run the `nixim` tool to build the ISO image.
+- The output file is automatically named based on version, desktop environment, and architecture.
 
-### Windows Subsystem for Linux
-Simply use the `Microsoft/` profile and you will have access to all the essential utility's.
+| Version | Desktop  | Architecture  | Image                              |
+| :------ | :------: | :-----------: | :---------------------------------: |
+| 24.11   | hyprland | x86_64-linux  | nixpro-24.11-hyprland-x86_64.iso     |
+| 22.05   | plasma   | x86_64-linux  | nixpro-22.05-plasma-x86_64.iso       |
+| 23.11   | sway     | x86_64-linux  | nixpro-23.11-sway-x86_64.iso         |
+
+#### Windows Subsystem for Linux
+- Select the Microsoft-specific profile in `flake.nix`.
+- This will automatically import the essential utilities for WSL.
+
+---
+
+This structure allows the system to be dynamically composed from universal, profile-specific, and desktop-specific modules, making it highly modular and easy to extend or maintain.
