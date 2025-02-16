@@ -39,22 +39,4 @@
 
     echo "== '~/.vscode-server/server-env-setup' SCRIPT END =="
   '';
-
-  xdg.enable = true;
-  xdg.mime.enable = true;
-  xdg.mimeApps.enable = true;
-  xdg.userDirs = {
-    enable = true;
-    createDirectories = true;
-    templates = "/home/${settings.user.name}/Templates";
-    download = "/home/${settings.user.name}/Downloads";
-    documents = "/home/${settings.user.name}/Documents";
-    desktop = null;
-    publicShare = null;
-    extraConfig = {
-      XDG_ARCHIVE_DIR = "/home/${settings.user.name}/Archive";
-      XDG_VM_DIR = "/home/${settings.user.name}/Machines";
-      XDG_ORG_DIR = "/home/${settings.user.name}/Org";
-    };
-  };
 }

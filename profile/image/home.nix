@@ -2,11 +2,10 @@
   NixPro-ISO Home Manager
   - All modules must fit within available RAM
   - Avoid heavy modules like user\software\apps\collection.nix
-  - Keep system packages minimal
-  - Consider compression settings carefully
+  - Keep home packages minimal
 */
 { settings, ... }: {
-  imports = [ /* Home-Manager */
+  imports = [
     ../../modules/home/commands/sh.nix
     ../../modules/home/commands/cli.nix
     ../../modules/home/commands/lib.nix

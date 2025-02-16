@@ -52,7 +52,7 @@
     pkgs = import inputs.nixpkgs { inherit system; };
   in {
     nixosConfigurations.${settings.user.name} = inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs pkgs system settings; };
+      specialArgs = { inherit inputs system settings; };
       modules = [ 
         inputs.home-manager.nixosModules.home-manager {
           home-manager.extraSpecialArgs = { inherit inputs settings; };
