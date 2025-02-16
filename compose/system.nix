@@ -21,7 +21,11 @@
       nix.settings.warn-dirty = false;
       nix.extraOptions = "experimental-features = nix-command flakes";
       system.stateVersion = settings.system.version;
-      
+
+      home-manager.useGlobalPkgs = false;
+      home-manager.useUserPackages = false;
+      home-manager.backupFileExtension = "hm-backup";
+
       documentation.enable = lib.mkForce false;
       documentation.doc.enable = lib.mkForce false;
       documentation.info.enable = lib.mkForce false;
@@ -32,17 +36,6 @@
       programs.nano.enable = builtins.elem settings.profile [ "standalone" "server" ];
       programs.fish.enable = if settings.profile == "microsoft" || settings.user.shell == "fish" then true else false;
       programs.vim.enable = false;
-
-      home-manager = {
-        users.${settings.user.name} = {
-          programs.home-manager.enable = true;
-          home.stateVersion = settings.system.version;
-        };
-        extraSpecialArgs = { inherit inputs settings; };
-        useGlobalPkgs = true;
-        useUserPackages = false;
-        backupFileExtension = "hm-backup";
-      };
 
       /* Account */
       users.users.root.initialPassword = lib.mkForce "password";

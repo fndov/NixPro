@@ -17,7 +17,7 @@
         networking = true;
         bluetooth = false;
         usbmuxd = false;
-        graphics = null;
+        graphics = "intel";
       };
       system = {
         version = "24.11";
@@ -33,7 +33,7 @@
       };
       user = {
         name = "miyu";
-        email = "tommybice1@gmail.com";
+        email = "";
         terminal = "ghostty";
         shell = "fish";
         editor = "micro";
@@ -43,8 +43,8 @@
         type = "hyprland";
         font = "Noto";
         fontPkg = pkgs.noto-fonts;
-        wallpaperPath = "Media/Pictures/Wallpapers/Catppuccin-mocha";
-        wallpaperName = "purpled-night.jpg";
+        wallpaperPath = "";
+        wallpaperName = "";
         animationSpeed = "medium";
       };
     };
@@ -53,8 +53,9 @@
   in {
     nixosConfigurations.${settings.user.name} = inputs.nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs pkgs system settings; };
-      modules = [ ./modules/system/hardware.nix
+      modules = [ 
         inputs.home-manager.nixosModules.home-manager {
+          home-manager.extraSpecialArgs = { inherit inputs settings; };
           home-manager.users.${settings.user.name} = {
             imports = [
               ./compose/home.nix
@@ -62,6 +63,7 @@
             ] ++ (if !builtins.isNull settings.desktop.type then [ ./desktop/${settings.desktop.type}/home.nix ] else []);
           };
         }
+        ./modules/system/hardware.nix
         ./compose/system.nix
         ./profile/${settings.profile}/system.nix
       ] ++ (if !builtins.isNull settings.desktop.type then [ ./desktop/${settings.desktop.type}/system.nix ] else []);

@@ -1,9 +1,9 @@
 { pkgs, settings, ... }: {
-  services.blueman-applet.enable = if settings.profile != "image" then false else true;
+  services.blueman-applet.enable = if settings.driver.bluetooth == true then true else false;
   services.udiskie.enable = true;
   services.udiskie.tray = "always";
   home.packages = [ pkgs.hyprpolkitagent ];
-  imports = [ /* Hyprland */
+  imports = [
     ../../modules/home/hyprland/theme.nix
     ../../modules/home/hyprland/cursor.nix
     ../../modules/home/hyprland/wallpaper.nix
