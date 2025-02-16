@@ -40,7 +40,7 @@
         browser = "firefox";
       };
       desktop = {
-        type = "hyprland";
+        type = "plasma";
         font = "Noto";
         fontPkg = pkgs.noto-fonts;
         wallpaperPath = "";
