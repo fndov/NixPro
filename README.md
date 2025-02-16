@@ -1,4 +1,23 @@
-![20250209_07h26m10s_grim](https://github.com/user-attachments/assets/ae88eaf3-4a37-4be4-8e4f-5a6e35249113)
+![20250216_15h27m05s_grim](https://github.com/user-attachments/assets/ccdf0cb0-3696-4983-a2b9-12e35560baad)
+
+Modular configuration framework started June 19, 2024
+
+---
+```
+┌── flake.nix
+├── compose
+│   ├── home.nix
+│   └── system.nix
+├── profile/option
+│   └── option
+│       ├── home.nix
+│       └── system.nix
+├── desktop/option
+│   └── option
+│       ├── home.nix
+│       └── system.nix
+└── modules
+```
 #### Building an ISO
 - Define your Image-specific Profile in `flake.nix`.
 - Run the `nixim` tool to build the ISO image.
