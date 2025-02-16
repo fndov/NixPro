@@ -1,20 +1,4 @@
 ![20250209_07h26m10s_grim](https://github.com/user-attachments/assets/ae88eaf3-4a37-4be4-8e4f-5a6e35249113)
-```
-flake.nix
-compose
-├── home.nix
-└── system.nix
-profile
-└── option
-    ├── home.nix
-    └── system.nix
-desktop
-└── option
-    ├── home.nix
-    └── system.nix
-modules
-└── option 
-```
 #### Building an ISO
 - Define your Image-specific Profile in `flake.nix`.
 - Run the `nixim` tool to build the ISO image.
