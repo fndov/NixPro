@@ -1,9 +1,4 @@
 ![20250209_07h26m10s_grim](https://github.com/user-attachments/assets/ae88eaf3-4a37-4be4-8e4f-5a6e35249113)
-<<<<<<< HEAD
-=======
-
-Modular configuration framework
->>>>>>> d7c82b249c0161d8dde505252a2f60278162e0a8
 ```
 flake.nix
 compose
