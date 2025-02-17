@@ -22,6 +22,21 @@
       nix.extraOptions = "experimental-features = nix-command flakes";
       system.stateVersion = settings.system.version;
 
+      nixConfig = {
+        extra-trusted-substituters = [
+          "https://cache.nixos.org/"
+          "https://nix-community.cachix.org"
+        ];
+        extra-substituters = [
+          "https://cache.nixos.org/"
+          "https://nix-community.cachix.org"
+        ];
+        extra-trusted-public-keys = [
+          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        ];
+      };
+
       home-manager.useGlobalPkgs = false;
       home-manager.useUserPackages = false;
       home-manager.backupFileExtension = "hm-backup";
@@ -103,10 +118,10 @@
         "idle=nomwait"
         "ascpi_osi=Linux"
         "noatime"
+        "preempt=full"
     
         /*
            "fastboot"
-           "preempt=full"
            "nodiratime"
            "nofail"
            "x-systemd.device-timeout=5s"
@@ -127,7 +142,7 @@
            "noapic"
          */
       ];
-      services.thermald.enable = false;
+      # services.thermald.enable = true;
     }
 
     /* Conditional and DRY profiles. */
@@ -158,14 +173,21 @@
           "sudo rm -rf /home/nixos/"
           "sudo nixos-generate-config && cp /etc/nixos/hardware.nix /home/${settings.user.name}/${settings.system.flakePath}/modules/system/"
           "notify-send 'Welcome to Hyprland by NixPro!'"
-
         ];
+      }
+      else {}
+    )
+    (
+      if (settings.desktop.type == "hyprland" || settings.profile == "virtual-machine")
+      then {
+        home-manager = [ wayland.windowManager.hyprland.settings = { monitor = "Virtual-1, 1920x1080, 0x0, 1"; }; ];
       }
       else {}
     )
     (
       if settings.driver.graphics == "nvidia"
       then {
+        nixpkgs.config.allowUnfree = true;
         environment.systemPackages = [ pkgs.nvtopPackages.full ];
         boot.blacklistedKernelModules = [ "nouveau" ]; # Nouveau sucks. Add "nvidiafb" for GPU passthrough.
         services.xserver.videoDrivers = [ "nvidia" ];

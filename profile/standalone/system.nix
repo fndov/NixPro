@@ -7,6 +7,5 @@
   imports = [ /* Configuration */ ];
   boot.plymouth.enable = true;
   boot.loader.timeout = 1;
-  environment.systemPackages = [ pkgs.gamemode ];
   programs.gamemode.enable = true;
 }

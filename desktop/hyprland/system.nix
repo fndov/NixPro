@@ -42,8 +42,8 @@
         user = "${settings.user.name}";
       };
       default_session = {
-        command = "${pkgs.ly}/bin/ly";
-        user = "${settings.user.name}";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --greeting 'Powered by NixPro' --asterisks --remember --remember-user-session --time -cmd ${session}";
+        user = "greeter";
       };
     };
   };
