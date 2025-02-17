@@ -42,7 +42,7 @@
         user = "${settings.user.name}";
       };
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --greeting 'Powered by NixPro' --asterisks --remember --remember-user-session --time -cmd ${session}";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --greeting 'Powered by NixPro' --asterisks --remember --remember-user-session --time -cmd ${pkgs.hyprland}/bin/Hyprland";
         user = "greeter";
       };
     };

@@ -22,21 +22,6 @@
       nix.extraOptions = "experimental-features = nix-command flakes";
       system.stateVersion = settings.system.version;
 
-      nixConfig = {
-        extra-trusted-substituters = [
-          "https://cache.nixos.org/"
-          "https://nix-community.cachix.org"
-        ];
-        extra-substituters = [
-          "https://cache.nixos.org/"
-          "https://nix-community.cachix.org"
-        ];
-        extra-trusted-public-keys = [
-          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        ];
-      };
-
       home-manager.useGlobalPkgs = false;
       home-manager.useUserPackages = false;
       home-manager.backupFileExtension = "hm-backup";
@@ -147,7 +132,7 @@
 
     /* Conditional and DRY profiles. */
     (
-      if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "standalone")
+      if (settings.profile == "virtual-machine" && settings.profile == "server" && settings.profile == "standalone")
       then {
         boot.loader.grub.useOSProber = true;
         boot.loader.systemd-boot.enable =
@@ -163,7 +148,7 @@
       else {}
     )
     (
-      if (settings.desktop.type == "hyprland" || settings.profile == "image")
+      if (settings.desktop.type == "hyprland" && settings.profile == "image")
       then {
         home-manager.users.${settings.user.name}.wayland.windowManager.hyprland.settings.exec-once =
         [
@@ -178,9 +163,11 @@
       else {}
     )
     (
-      if (settings.desktop.type == "hyprland" || settings.profile == "virtual-machine")
+      if (settings.desktop.type == "hyprland" && settings.profile == "virtual-machine")
       then {
-        home-manager = [ wayland.windowManager.hyprland.settings = { monitor = "Virtual-1, 1920x1080, 0x0, 1"; }; ];
+        home-manager.users.${settings.user.name} = {
+          wayland.windowManager.hyprland.settings.monitor = "Virtual-1, 1920x1080, 0x0, 1";
+        };
       }
       else {}
     )

@@ -24,6 +24,8 @@ nix-shell -p clang clang-tools --command fish --run 'clang++ a.cc -o b.exe'
 nix shell nixpkgs#youtube-dl --command youtube-dl --version
 > 2020.11.01.1
 nix shell nixpkgs/nixos-20.03#hello
+/* opening packages */
+cd $(nix-build '<nixpkgs>' -A intel-gpu-tools --no-out-link)
 
 https://ops.functionalalgebra.com/2016/06/14/nixos-systemd-journald/
 
