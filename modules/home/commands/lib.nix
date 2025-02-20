@@ -21,6 +21,7 @@
        	echo "nixar | Archive system"
     	  echo "nixtr | Troubleshoot"
 	      echo "nixls | List generations"
+        echo "nixpk | Enter package"
         '')        
         (writeShellScriptBin "nixsw" '' # Rebuild Switch.
           echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}'
@@ -70,6 +71,14 @@
           echo '# sudo nix-env --list-generations --profile /nix/var/nix/profiles/system | wc -l'
           sudo nix-env --list-generations --profile /nix/var/nix/profiles/system | wc -l
         '')
+        (pkgs.writeShellScriptBin "nixpk" ''
+          if [ $# -ne 1 ]; then
+            echo "Usage: nixpk <package>"
+            exit 1
+          fi
+          dir=$(nix-build "${pkgs.path}" -A "$1" --no-out-link) || exit 1
+          cd "$dir" && exec $SHELL
+        '')
        ];
     };
 
@@ -90,6 +99,7 @@
 	      echo "nixrs | Restart nix-deamon"
         echo "nixls | List generations"
         echo "nixim | Build Image"
+        echo "nixpk | Enter package"
         '')        
         (writeShellScriptBin "nixsw" '' # Rebuild Switch.
           echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}'
@@ -146,6 +156,14 @@
         (writeShellScriptBin "nixls" '' # Nix List generations.
           echo '# sudo nix-env --list-generations --profile /nix/var/nix/profiles/system | wc -l'
           sudo nix-env --list-generations --profile /nix/var/nix/profiles/system | wc -l
+        '')
+        (pkgs.writeShellScriptBin "nixpk" ''
+          if [ $# -ne 1 ]; then
+            echo "Usage: nixpk <package>"
+            exit 1
+          fi
+          dir=$(nix-build "${pkgs.path}" -A "$1" --no-out-link) || exit 1
+          cd "$dir" && exec $SHELL
         '')
        ];
     };

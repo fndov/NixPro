@@ -20,6 +20,7 @@
       nix.settings.trusted-users = [ "@wheel" ];
       nix.settings.warn-dirty = false;
       nix.extraOptions = "experimental-features = nix-command flakes";
+
       system.stateVersion = settings.system.version;
 
       home-manager.useGlobalPkgs = false;
@@ -36,7 +37,16 @@
       programs.nano.enable = builtins.elem settings.profile [ "standalone" "server" ];
       programs.fish.enable = if settings.profile == "microsoft" || settings.user.shell == "fish" then true else false;
       programs.vim.enable = false;
+      
+      services.gpm.enable = true;
+      
+      /* New */
+      boot.initrd.compressor = "zstd";
+      boot.initrd.compressorArgs = [ "-22" ];
 
+      hardware.ksm.enable = true;
+      hardware.ksm.sleep = 1;
+      
       /* Account */
       users.users.root.initialPassword = lib.mkForce "password";
       users.mutableUsers = false;
@@ -56,9 +66,10 @@
       zramSwap.algorithm = "zstd -Xcompression-level 22"; # lzo is small, zstd is fast.
       zramSwap.priority = if settings.profile == "image" then 100 else 5; 
       boot.kernel.sysctl = {
-        "vm.swappiness" = if settings.profile == "image" then 60 else 40; 
+        "vm.swappiness" = if settings.profile == "image" then 160 else 40; 
         "vm.vfs_cache_pressure" = if settings.profile == "image" then 100 else 100;
-        "vm.dirty_ratio" = if settings.profile == "image" then 50 else 40;
+        "vm.dirty_background_ratio" = 2;
+        "vm.dirty_ratio" = if settings.profile == "image" then 3 else 40;
       };
       services.earlyoom = {
         enable = if settings.profile == "image" then true else false;
@@ -104,7 +115,7 @@
         "ascpi_osi=Linux"
         "noatime"
         "preempt=full"
-    
+        "transparent_hugepage=always"
         /*
            "fastboot"
            "nodiratime"

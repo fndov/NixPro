@@ -5,6 +5,9 @@
     networkmanagerapplet
   ];
   wayland.windowManager.hyprland.settings.exec-once = [ "waybar" ];
+  wayland.windowManager.hyprland.settings.bind = [
+    "SUPER,W,exec,pgrep waybar > /dev/null && pkill waybar || waybar &"
+  ];
   programs.waybar = {
     enable = true;
     settings = {
@@ -53,7 +56,7 @@
         "custom/quit" = {
           "format" = "󰍃";
           "tooltip" = false;
-          "on-click" = "hyprctl dispatch exit";
+          "on-click" = "hyprlock & sleep 1 && systemctl sleep";
         };
         "custom/lock" = {
           "format" = "󰍁";

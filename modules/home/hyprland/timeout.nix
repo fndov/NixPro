@@ -1,4 +1,8 @@
-{
+{ pkgs, ... }:{
+  home.packages = [ pkgs.hypridle ];
+  wayland.windowManager.hyprland.settings.exec-once = [ 
+    "systemctl --user enable --now hypridle.service"
+  ];
   services.hypridle = { # Put the system to rest when not in use.
     enable = true;
 
@@ -31,7 +35,7 @@
 
         # Suspend.
         {
-          timeout = 1800;
+          timeout = 400;
           on-timeout = "pid hyprlock || hyprlock --immediate & systemctl suspend";
         }
       ];

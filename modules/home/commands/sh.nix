@@ -17,8 +17,10 @@
     f = "yazi";
     trash = "gio trash";
     e = if settings.user.editor == "micro" 
-      then "${settings.user.editor} --ruler false" 
+      then "${settings.user.editor} --ruler false -colorscheme geany" 
     else settings.user.editor;
+    cattree = "find . -type f -exec grep -Iq . {} \\; -print | xargs cat";
+    offload = "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia";
     }; 
 in { 
   home.packages = with pkgs; [
@@ -36,10 +38,18 @@ in {
     libnotify
     yazi
     timg
+    fishPlugins.done
   ];
   programs.fish = {
     enable = true;
-    interactiveShellInit = "set fish_greeting;bind \\cH backward-kill-word;bind \\cF nixsw";
+    interactiveShellInit = ''
+      set fish_greeting ""
+      bind \\cH backward-kill-word
+      bind \\cF nixsw
+      function npkg
+        cd (nix-build '<nixpkgs>' -A $argv[1] --no-out-link)
+      end
+    '';
     shellAliases = myAliases;
   };
   programs.bash = {

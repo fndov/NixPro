@@ -12,6 +12,7 @@
       "float,title:^(Select Image)$"
       "float,title:^(Select file)$"
       "float,title:^(Select folder)$"
+      "float,title:^(File Upload)$"
       "float,title:^(Virtual Machine Manager)$"
       "float,title:^(Location)$"
       "float,title:^(Choose Default Install Path)$"
