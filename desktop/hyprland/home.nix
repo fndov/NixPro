@@ -4,6 +4,7 @@
   services.udiskie.tray = "always";
   home.packages = [ pkgs.hyprpolkitagent ];
   imports = [
+    ../../modules/home/hyprland/terminal.nix
     ../../modules/home/hyprland/theme.nix
     ../../modules/home/hyprland/cursor.nix
     ../../modules/home/hyprland/wallpaper.nix

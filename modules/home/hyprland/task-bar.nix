@@ -235,7 +235,7 @@
             "default" = [ " " " " " " ];
           };
           "on-click" =
-            "hyprctl dispatch togglespecialworkspace scratch_pavucontrol; if hyprctl clients | grep pavucontrol; then echo 'scratch_ranger respawn not needed'; else pavucontrol; fi";
+            "playerctl play-pause";
         };
         "pulseaudio#text" = {
           "scroll-step" = 1;
@@ -246,7 +246,7 @@
           "format-source" = "{volume}%";
           "format-source-muted" = "";
           "on-click" =
-            "hyprctl dispatch togglespecialworkspace scratch_pavucontrol; if hyprctl clients | grep pavucontrol; then echo 'scratch_ranger respawn not needed'; else pavucontrol; fi";
+            "playerctl play-pause";
         };
         "group/pulseaudio" = {
           "orientation" = "horizontal";

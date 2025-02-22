@@ -46,9 +46,6 @@ in {
       set fish_greeting ""
       bind \\cH backward-kill-word
       bind \\cF nixsw
-      function npkg
-        cd (nix-build '<nixpkgs>' -A $argv[1] --no-out-link)
-      end
     '';
     shellAliases = myAliases;
   };
