@@ -17,7 +17,6 @@
         networking = true;
         bluetooth = true;
         usbmuxd = true;
-        printing = true;
         graphics = "intel";
       };
       system = {
@@ -30,6 +29,7 @@
         automation = true;
         timezone = true;
         security = false;
+        printing = true;
         sshd = false;
       };
       user = {
