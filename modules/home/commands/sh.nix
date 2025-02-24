@@ -44,8 +44,9 @@ in {
     enable = true;
     interactiveShellInit = ''
       set fish_greeting ""
-      bind \\cH backward-kill-word
-      bind \\cF nixsw
+      # bind \cH backward-kill-word
+      # bind \x7f backward-kill-word
+      bind \cF nixsw
     '';
     shellAliases = myAliases;
   };

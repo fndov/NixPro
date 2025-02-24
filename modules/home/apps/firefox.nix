@@ -9,6 +9,6 @@
   "x-scheme-handler/unknown" = "firefox.desktop";
   };
   home.sessionVariables = {
-    DEFAULT_BROWSER = "${pkgs.firefox}/bin/firefox";
+    DEFAULT_BROWSER = "${pkgs.firefox-bin}/bin/firefox";
   };
 }

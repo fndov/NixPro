@@ -6,9 +6,9 @@ in {
     unstable.lutris
     unstable.zed-editor
     heroic
+    # obsidian
     vscode
     mangohud
-    obsidian
     godot_4
     blender
     authenticator

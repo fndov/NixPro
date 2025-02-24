@@ -1,68 +1,90 @@
-{ pkgs, settings, ... }: let
-  myAliases = {
-    cat = "bat --style=plain --pager=never";
-    tree = "eza --color always --icons --hyperlink --group-directories-first --tree";
-    l = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2";
-    ll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2 --long --header --inode --links";
-    la = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2 --long --header --inode --links --all";
-    ls = "eza --icons";
-    c = "clear";
-    cc = "clear;cd";
-    ccc = "clear;cd /mnt/c/Users/miyu/";
-    grep = "rg";
-    n = "${settings.user.editor} ~/Documents/note.txt";
-    h = "htop";
-    fd = "fd -Lu";
-    fetch = "fastfetch";
-    f = "yazi";
-    trash = "gio trash";
-    e = if settings.user.editor == "micro" 
-      then "${settings.user.editor} --ruler false -colorscheme geany" 
-    else settings.user.editor;
-    cattree = "find . -type f -exec grep -Iq . {} \\; -print | xargs cat";
-    offload = "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia";
-    }; 
-in { 
-  home.packages = with pkgs; [
-    bat
-    eza
-    fastfetch
-    fd
+{ inputs, pkgs, settings, ... }: let
+  unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; }; 
+in {
+  home.packages = with pkgs; [ /* Essential utils */
+    nixd
+    nil
+    zip
+    unzip
     glib
     glibc
-    htop
-    mako
-    micro
-    ripgrep
-    openssh
+    usbutils
+    hwinfo
+    pciutils
+    curl
+    git
+    # Extra.
+    unstable.wine
+    compsize
     libnotify
-    yazi
-    timg
-    fishPlugins.done
+    gdu
+    numbat
+    gamescope
+    protonplus
+    protontricks
+    protonup
+    fastfetch /*
+    nixfmt-classic
+    syncthing
+    openssh
+    sshpass
+    glances
+    wget
+    ffmpeg 
+    bottom
+    gamemode
+    aria2
+    cava
+    cowsay
+    fzf
+    p7zip
+    twitch-dl
+    unrar
+    yt-dlp
+    appimage-run
+    aircrack-ng
+    ascii-image-converter
+    carapace
+    corefonts
+    dialog
+    discordchatexporter-cli
+    dmidecode
+    egl-wayland
+    exif
+    fastgame
+    gophish
+    hashcat
+    helix
+    icu
+    jre
+    lolcat
+    mat2
+    nethogs
+    nftables
+    nix-prefetch-github
+    nixfmt-classic
+    nixpkgs-review
+    raylib
+    scc
+    spacevim
+    ssh-chat
+    sshs
+    streamlink
+    scc
+    tmux
+    gping
+    vulkan-tools
+    gdu
+    lolcat */
   ];
-  programs.fish = {
-    enable = true;
-    interactiveShellInit = ''
-      set fish_greeting ""
-      bind \\cH backward-kill-word
-      bind \\cF nixsw
-    '';
-    shellAliases = myAliases;
-  };
-  programs.bash = {
-    enable = true;
-    enableCompletion = true;
-    shellAliases = myAliases;
-  };
-  programs.powerline-go = { enable = true; };
-  programs.atuin = {
-    enable = true;
-    enableFishIntegration = true;
-    enableBashIntegration = true;
-  };
-  programs.zoxide = {
-    enable = true;
-    enableFishIntegration = true;
-    enableBashIntegration = true;
+  programs.git.enable = true;
+  programs.git.userName = settings.user.name;
+  programs.git.userEmail = settings.user.email;
+  programs.git.extraConfig = {
+    core.editor = settings.user.editor;
+    safe.directory = [
+      ("/home/" + settings.user.name + "/.nixpro")
+      ("/home/" + settings.user.name + "/.nixpro/.git")
+    ];
   };
 }

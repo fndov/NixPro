@@ -55,4 +55,5 @@
       battery = { governor = "performance"; turbo = "always"; };
     };
   };
+  services.thermald.enable = false;
 }

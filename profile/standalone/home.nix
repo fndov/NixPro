@@ -5,7 +5,7 @@
     ../../modules/home/commands/lib.nix
     ../../modules/home/apps/${settings.user.terminal}.nix
     ../../modules/home/apps/${settings.user.browser}.nix
-    ../../modules/home/collection.nix     
-    ../../modules/home/spotify.nix
+    # ../../modules/home/apps/collection.nix     
+    # ../../modules/home/apps/spotify.nix
   ];
 }

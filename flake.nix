@@ -12,11 +12,12 @@
   };
   outputs = inputs@{ self, ... }: let
     settings = {
-      profile = "image";
+      profile = "standalone";
       driver = {
         networking = true;
-        bluetooth = false;
-        usbmuxd = false;
+        bluetooth = true;
+        usbmuxd = true;
+        printing = true;
         graphics = "intel";
       };
       system = {
@@ -26,7 +27,7 @@
         grubDevice = "/dev/sda";
         bootMountPath = "/boot";
         flakePath = ".nixpro";
-        automation = false;
+        automation = true;
         timezone = true;
         security = false;
         sshd = false;

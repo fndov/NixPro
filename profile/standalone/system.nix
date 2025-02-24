@@ -4,8 +4,11 @@
   - and in the NixOS manual (accessible by running `nixos-help`). 
 */
 { ... }: {
-  imports = [ /* Configuration */ ];
+  imports = [ 
+    /* Configuration */
+    ../../modules/system/btrfs.nix
+  ];
+  programs.gamemode.enable = true;
   boot.plymouth.enable = true;
   boot.loader.timeout = 1;
-  programs.gamemode.enable = true;
 }

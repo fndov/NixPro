@@ -34,19 +34,19 @@
       documentation.nixos.enable = lib.mkForce false;
 
       programs.command-not-found.enable = if settings.profile == "image" then false else true;
-      programs.nano.enable = builtins.elem settings.profile [ "standalone" "server" ];
-      programs.fish.enable = if settings.profile == "microsoft" || settings.user.shell == "fish" then true else false;
+      programs.fish.enable = if settings.user.shell == "fish" then true else false;
+      programs.nano.enable = false;
       programs.vim.enable = false;
+      environment.systemPackages = [ pkgs.micro ];
       
       services.gpm.enable = true;
-      
-      /* New */
+
       boot.initrd.compressor = "zstd";
-      boot.initrd.compressorArgs = [ "-22" ];
+      boot.initrd.compressorArgs = [ "-19" ];
 
       hardware.ksm.enable = true;
       hardware.ksm.sleep = 1;
-      
+
       /* Account */
       users.users.root.initialPassword = lib.mkForce "password";
       users.mutableUsers = false;
@@ -66,6 +66,7 @@
       zramSwap.algorithm = "zstd -Xcompression-level 22"; # lzo is small, zstd is fast.
       zramSwap.priority = if settings.profile == "image" then 100 else 5; 
       boot.kernel.sysctl = {
+        "vm.compaction_proactiveness" = 0;
         "vm.swappiness" = if settings.profile == "image" then 160 else 40; 
         "vm.vfs_cache_pressure" = if settings.profile == "image" then 100 else 100;
         "vm.dirty_background_ratio" = 2;
@@ -107,45 +108,65 @@
     
       boot.kernelParams = [
         "quiet"
+        "rd.systemd.show_status=false"
+        "udev.log_level=3"
+        "rd.udev.log_level=3"
+        "udev.log_priority=3"
+        
+        "fastboot"
         "mitigations=off"
+        "noibrs"
+        "noibpb"
+        "nopti"
+        "nospectre_v2"
+        "nospectre_v1"
+        "nowatchdog"
+        "l1tf=off"
+        "nospec_store_bypass_disable"
+        "no_stf_barrier"
+        "mds=off"
+        "tsx=on"
+        "tsx_async_abort=off"
+        "panic=1" 
+        "boot.panic_on_fail"
+        "transparent_hugepage=always"
+        
         "init_on_alloc=0"
         "init_on_free=0"
-        "nowatchdog"
         "idle=nomwait"
         "ascpi_osi=Linux"
-        "noatime"
         "preempt=full"
-        "transparent_hugepage=always"
         /*
-           "fastboot"
-           "nodiratime"
-           "nofail"
-           "x-systemd.device-timeout=5s"
+          "noatime"
+          "nodiratime"
+          "nofail"
+          "x-systemd.device-timeout=5s"
     
-           "splash"
-           "rd.systemd.show_status=0"
-           "rd.udev.log_level=3"
-           "udev.log_priority=3"
-           "intel_pstate=active"
-           "processor.max_cstate=1"
-           "intel_idle.max_cstate=1"
-           "threadirqs"
+          "splash"
+          "rd.systemd.show_status=0"
+          "rd.udev.log_level=3"
+          "udev.log_priority=3"
+          "intel_pstate=active"
+          "processor.max_cstate=1"
+          "intel_idle.max_cstate=1"
+          "threadirqs"
     
-           "transparent_hugepage=always"
-    
-           "i915.fastboot=1"
-           "raid=noautodetect"
-           "noapic"
-         */
+          "i915.fastboot=1"
+          "raid=noautodetect"
+          "noapic"
+        */
       ];
-      # services.thermald.enable = true;
     }
 
     /* Conditional and DRY profiles. */
     (
-      if (settings.profile == "virtual-machine" && settings.profile == "server" && settings.profile == "standalone")
+      if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "standalone")
       then {
         boot.loader.grub.useOSProber = true;
+        boot.loader.systemd-boot.editor = false;
+        systemd.network.wait-online.enable = false;
+        boot.consoleLogLevel = 3;
+        boot.tmp.cleanOnBoot = true;
         boot.loader.systemd-boot.enable =
           if (settings.system.bootMode == "uefi") then true else false;
         boot.loader.efi.efiSysMountPoint =
@@ -158,11 +179,11 @@
       }
       else {}
     )
+
     (
       if (settings.desktop.type == "hyprland" && settings.profile == "image")
       then {
-        home-manager.users.${settings.user.name}.wayland.windowManager.hyprland.settings.exec-once =
-        [
+        home-manager.users.${settings.user.name}.wayland.windowManager.hyprland.settings.exec-once = [
           "cp -r /iso/home/${settings.user.name}/${settings.system.flakePath} /home/${settings.user.name}; chown -R miyu /home/${settings.user.name}/${settings.system.flakePath}; chmod -R 777 /home/${settings.user.name}/${settings.system.flakePath}"
           "sudo systemctl restart NetworkManager"
           "${settings.user.terminal} -e 'sleep 1;nmtui'"
@@ -173,6 +194,7 @@
       }
       else {}
     )
+
     (
       if (settings.desktop.type == "hyprland" && settings.profile == "virtual-machine")
       then {
@@ -182,6 +204,7 @@
       }
       else {}
     )
+
     (
       if settings.driver.graphics == "nvidia"
       then {
@@ -204,7 +227,7 @@
           modesetting.enable = true;
           nvidiaSettings = false;
           open = false;
-          };
+        };
         hardware.nvidia.prime = {
           intelBusId = "PCI:0:2:0";
           nvidiaBusId = "PCI:9:0:0";
@@ -214,12 +237,14 @@
       }
       else {}
     )
+
     (
       if settings.driver.graphics == "amd"
       then {
       }
       else {}
     )
+
     (
       if settings.driver.graphics == "intel"
       then {
@@ -284,6 +309,14 @@
           UseDns = true;
         };
       };
+    })
+
+    (lib.mkIf settings.system.printing {
+      services.printing.enable = true;
+      services.avahi.enable = true;
+      services.avahi.nssmdns4 = true;
+      services.avahi.openFirewall = true;
+      environment.systemPackages = [ pkgs.cups-filters ];
     })
 
     (lib.mkIf settings.driver.bluetooth {
