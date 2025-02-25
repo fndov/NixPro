@@ -54,20 +54,30 @@
   in {
     nixosConfigurations.${settings.user.name} = inputs.nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs system settings; };
-      modules = [ 
+      modules = [ ./modules/system/hardware.nix
         inputs.home-manager.nixosModules.home-manager {
           home-manager.extraSpecialArgs = { inherit inputs settings; };
           home-manager.users.${settings.user.name} = {
             imports = [
               ./compose/home.nix
               ./profile/${settings.profile}/home.nix
-            ] ++ (if !builtins.isNull settings.desktop.type then [ ./desktop/${settings.desktop.type}/home.nix ] else []);
+            ] 
+            ++ (if !builtins.isNull settings.desktop.type then [ 
+              ./desktop/${settings.desktop.type}/home.nix 
+            ] else [])
+            ++ (if !builtins.isNull settings.user.terminal then [
+              ./modules/home/apps/${settings.user.terminal}.nix
+            ] else [])
+            ++ (if !builtins.isNull settings.user.browser then [
+              ./modules/home/apps/${settings.user.browser}.nix
+            ] else []);
           };
         }
-        ./modules/system/hardware.nix
         ./compose/system.nix
         ./profile/${settings.profile}/system.nix
-      ] ++ (if !builtins.isNull settings.desktop.type then [ ./desktop/${settings.desktop.type}/system.nix ] else []);
+      ] ++ (if !builtins.isNull settings.desktop.type then [ 
+        ./desktop/${settings.desktop.type}/system.nix 
+      ] else []);
     };
   };
 }

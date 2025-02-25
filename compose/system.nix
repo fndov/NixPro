@@ -311,7 +311,7 @@
       };
     })
 
-    (lib.mkIf settings.system.printing {
+    (lib.mkIf settings.system.driver.printing {
       services.printing.enable = true;
       services.avahi.enable = true;
       services.avahi.nssmdns4 = true;
