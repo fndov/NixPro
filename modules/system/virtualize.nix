@@ -1,12 +1,14 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }: let
+  unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
+in {
   environment.systemPackages = with pkgs; [
-    virt-manager
-    distrobox
-    qemu
-    uefi-run
-    lxc
-    swtpm
-    dosfstools
+    unstable.virt-manager
+    unstable.distrobox
+    unstable.qemu
+    # uefi-run
+    # lxc
+    # swtpm
+    # dosfstools
     # kubectl
   ];
   programs.virt-manager.enable = true;

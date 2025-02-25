@@ -3,7 +3,7 @@
   programs.hyprland.xwayland.enable = true;
   programs.hyprland.portalPackage = pkgs.xdg-desktop-portal-hyprland;
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
-        
+
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal pkgs.xdg-desktop-portal-gtk ];
   services.udisks2.enable = true;
@@ -13,7 +13,7 @@
   environment.systemPackages = [ pkgs.libsecret ];
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.ly.enableGnomeKeyring = true;
-  
+
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -38,7 +38,7 @@
     enable = true;
     settings = {
       initial_session = {
-        command = "${pkgs.hyprland}/bin/Hyprland";
+        command = "clear; ${pkgs.hyprland}/bin/Hyprland &> /dev/null";
         user = "${settings.user.name}";
       };
       default_session = {
@@ -47,7 +47,7 @@
       };
     };
   };
-  
+
   services.auto-cpufreq = {
     enable = true;
     settings = {

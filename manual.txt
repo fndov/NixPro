@@ -70,3 +70,13 @@ flake.nix
 Run software faster with
 
 nice -n -20 <program>
+
+bees
+btdu
+btrbk
+btrfs-auto-snapshot
+btrfs-heatmap
+btrfs-progs
+btrfs-snap
+btrfs-assistant
+ntfs2btrfs

@@ -38,7 +38,7 @@
       programs.nano.enable = false;
       programs.vim.enable = false;
       environment.systemPackages = [ pkgs.micro ];
-      
+
       services.gpm.enable = true;
 
       boot.initrd.compressor = "zstd";
@@ -48,44 +48,38 @@
       hardware.ksm.sleep = 1;
 
       /* Account */
-      users.users.root.initialPassword = lib.mkForce "password";
       users.mutableUsers = false;
       security.sudo.wheelNeedsPassword = false;
+      users.users.root.initialPassword = lib.mkForce settings.user.password;
       users.users.${settings.user.name} = {
         isNormalUser = true;
+        initialPassword = settings.user.password;
         description = settings.user.name;
         extraGroups = [ "networkmanager" "wheel" "qemu-libvirtd" "libvirtd" "kvm" "docker" ];
         uid = 1000;
         shell = if settings.profile == "microsoft" || settings.user.shell == "fish" then pkgs.fish else pkgs.bash;
-        initialPassword = "password";
       };
 
       /* Memory. */
       zramSwap.enable = builtins.elem settings.profile [ "image" "standalone" "virtual-machine" "server" ];
-      zramSwap.memoryPercent = if settings.profile == "image" then 100 else 40;
+      zramSwap.memoryPercent = 100; # 40
       zramSwap.algorithm = "zstd -Xcompression-level 22"; # lzo is small, zstd is fast.
-      zramSwap.priority = if settings.profile == "image" then 100 else 5; 
+      zramSwap.priority = 3;
       boot.kernel.sysctl = {
         "vm.compaction_proactiveness" = 0;
-        "vm.swappiness" = if settings.profile == "image" then 160 else 40; 
-        "vm.vfs_cache_pressure" = if settings.profile == "image" then 100 else 100;
+        "vm.swappiness" = 160; # 40
+        "vm.vfs_cache_pressure" = 100;
         "vm.dirty_background_ratio" = 2;
-        "vm.dirty_ratio" = if settings.profile == "image" then 3 else 40;
+        "vm.dirty_ratio" = if settings.profile == "image" then 3 else 70;
       };
       services.earlyoom = {
-        enable = if settings.profile == "image" then true else false;
+        enable = if settings.profile == "image" || settings.profile == "virtual-machine" then true else true;
         enableNotifications = true;
         freeMemThreshold = 3;
         freeMemKillThreshold = 3;
         freeSwapThreshold = 3;
         freeSwapKillThreshold = 3;
-      }; 
-      /* 
-        swapDevices = [ {
-          device = "/var/lib/swapfile";
-          size = 32*1024; # Useful for `systemctl hibernate`.
-        } ]; 
-      */
+      };
       /* Kernel. */
       boot.kernelPackages =
         (if settings.profile == "image"
@@ -103,16 +97,16 @@
                 (if settings.profile == "virtual-machine"
                   then pkgs.linuxPackages_latest
                 else null)))));
-                  
+
       boot.blacklistedKernelModules = [ "nouveau" ];
-    
+
       boot.kernelParams = [
         "quiet"
         "rd.systemd.show_status=false"
         "udev.log_level=3"
         "rd.udev.log_level=3"
         "udev.log_priority=3"
-        
+
         "fastboot"
         "mitigations=off"
         "noibrs"
@@ -127,10 +121,10 @@
         "mds=off"
         "tsx=on"
         "tsx_async_abort=off"
-        "panic=1" 
+        "panic=1"
         "boot.panic_on_fail"
         "transparent_hugepage=always"
-        
+
         "init_on_alloc=0"
         "init_on_free=0"
         "idle=nomwait"
@@ -141,7 +135,7 @@
           "nodiratime"
           "nofail"
           "x-systemd.device-timeout=5s"
-    
+
           "splash"
           "rd.systemd.show_status=0"
           "rd.udev.log_level=3"
@@ -150,7 +144,7 @@
           "processor.max_cstate=1"
           "intel_idle.max_cstate=1"
           "threadirqs"
-    
+
           "i915.fastboot=1"
           "raid=noautodetect"
           "noapic"
@@ -176,6 +170,20 @@
         boot.loader.grub.enable =
           if (settings.system.bootMode == "uefi") then false else true;
         boot.loader.grub.device = settings.system.grubDevice;
+      }
+      else {}
+    )
+
+    (
+      if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "standalone")
+      then {
+        swapDevices = [
+          {
+            device = "/var/lib/swapfile";
+            priority = 2;
+            size = 32*1024; # Useful for `systemctl hibernate`.
+          }
+        ];
       }
       else {}
     )
@@ -280,14 +288,14 @@
 
     (lib.mkIf settings.system.security {
       boot.kernelPackages = lib.mkForce pkgs.linuxPackages_hardened;
-      
+
       boot.kernelParams = [
         "slab_nomerge"
 
         "page_poison=1"
 
         "page_alloc.shuffle=1"
-        
+
         "debugfs=off"
       ];
 
@@ -311,7 +319,7 @@
       };
     })
 
-    (lib.mkIf settings.system.driver.printing {
+    (lib.mkIf settings.system.printing {
       services.printing.enable = true;
       services.avahi.enable = true;
       services.avahi.nssmdns4 = true;

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, settings, ... }: let  
+{ lib, pkgs, settings, ... }: let
 
   profiles = {
 
@@ -8,7 +8,7 @@
 
     image = {
       # NixPro-Image specific configuration.
-      home.packages = with pkgs; [ 
+      home.packages = with pkgs; [
         (writeShellScriptBin "nixgu" '' # Nix Guide.
     	  echo "nixsw | Switch configuration"
 	      echo "nixup | Upgrade system"
@@ -22,7 +22,7 @@
     	  echo "nixtr | Troubleshoot"
 	      echo "nixls | List generations"
         echo "nixpk | Enter package"
-        '')        
+        '')
         (writeShellScriptBin "nixsw" '' # Rebuild Switch.
           echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}'
           sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}
@@ -44,8 +44,8 @@
           sudo nixos-rebuild switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name} --rollback
         '')
         (writeShellScriptBin "nixup" '' # Update Flake.
-          echo '# nix flake update /home/${settings.user.name}/${settings.system.flakePath}'
-          nix flake update /home/${settings.user.name}/${settings.system.flakePath}
+          echo '# nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}'
+          nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}
         '')
         (writeShellScriptBin "nixar" '' # Nix Archive.
           echo '# nix flake archive /home/${settings.user.name}/${settings.system.flakePath}'
@@ -84,7 +84,7 @@
 
     microsoft = {
       # NixPro-WSL specific configuration.
-      home.packages = with pkgs; [ 
+      home.packages = with pkgs; [
         (writeShellScriptBin "nixgu" '' # Nix Guide.
     	  echo "nixsw | Switch configuration"
 	      echo "nixup | Upgrade system"
@@ -100,7 +100,7 @@
         echo "nixls | List generations"
         echo "nixim | Build Image"
         echo "nixpk | Enter package"
-        '')        
+        '')
         (writeShellScriptBin "nixsw" '' # Rebuild Switch.
           echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}'
           sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}
@@ -122,8 +122,8 @@
           sudo nixos-rebuild switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name} --rollback
         '')
         (writeShellScriptBin "nixup" '' # Update Flake.
-          echo '# nix flake update /home/${settings.user.name}/${settings.system.flakePath}'
-          nix flake update /home/${settings.user.name}/${settings.system.flakePath}
+          echo '# nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}'
+          nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}
         '')
         (writeShellScriptBin "nixar" '' # Nix Archive.
           echo '# nix flake archive /home/${settings.user.name}/${settings.system.flakePath}'
@@ -170,7 +170,7 @@
 
     server = {
       # NixPro-Server specific configuration.
-      home.packages = with pkgs; [ 
+      home.packages = with pkgs; [
         (writeShellScriptBin "nixgu" '' # Nix Guide.
     	  echo "nixsw | Switch configuration"
 	      echo "nixup | Upgrade system"
@@ -183,7 +183,7 @@
        	echo "nixar | Archive system"
     	  echo "nixtr | Troubleshoot"
 	      echo "nixls | List generations"
-        '')        
+        '')
         (writeShellScriptBin "nixsw" '' # Rebuild Switch.
           echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}'
           sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}
@@ -205,8 +205,8 @@
           sudo nixos-rebuild switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name} --rollback
         '')
         (writeShellScriptBin "nixup" '' # Rebuild Update.
-        echo '# sudo nix flake update /home/${settings.user.name}/${settings.system.flakePath}'
-          sudo nix flake update /home/${settings.user.name}/${settings.system.flakePath}
+        echo '# sudo nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}'
+          sudo nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}
         echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}'
           sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}
         '')
@@ -247,7 +247,7 @@
 
     standalone = {
       # NixPro specific configuration.
-      home.packages = with pkgs; [ 
+      home.packages = with pkgs; [
         (writeShellScriptBin "nixgu" '' # Nix Guide.
     	  echo "nixsw | Switch configuration"
 	      echo "nixup | Upgrade system"
@@ -263,7 +263,7 @@
         echo "nixls | List generations"
         echo "nixim | Build Image"
         echo "nixpk | Enter package"
-        '')        
+        '')
         (writeShellScriptBin "nixsw" '' # Rebuild Switch.
           echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}'
           sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}
@@ -285,8 +285,8 @@
           sudo nixos-rebuild switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name} --rollback
         '')
         (writeShellScriptBin "nixup" '' # Update Flake.
-          echo '# nix flake update /home/${settings.user.name}/${settings.system.flakePath}'
-          nix flake update /home/${settings.user.name}/${settings.system.flakePath}
+          echo '# nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}'
+          nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}
         '')
         (writeShellScriptBin "nixar" '' # Nix Archive.
           echo '# nix flake archive /home/${settings.user.name}/${settings.system.flakePath}'
@@ -346,7 +346,7 @@ in {
     {
     }
     # profile-specific overrides.
-    (lib.mkIf (builtins.hasAttr settings.profile profiles) 
+    (lib.mkIf (builtins.hasAttr settings.profile profiles)
       (builtins.getAttr settings.profile profiles))
   ];
 }

@@ -8,7 +8,6 @@
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = inputs@{ self, ... }: let
     settings = {
@@ -34,6 +33,7 @@
       };
       user = {
         name = "miyu";
+        password = "unlock";
         email = "";
         terminal = "ghostty";
         shell = "fish";
@@ -61,9 +61,9 @@
             imports = [
               ./compose/home.nix
               ./profile/${settings.profile}/home.nix
-            ] 
-            ++ (if !builtins.isNull settings.desktop.type then [ 
-              ./desktop/${settings.desktop.type}/home.nix 
+            ]
+            ++ (if !builtins.isNull settings.desktop.type then [
+              ./desktop/${settings.desktop.type}/home.nix
             ] else [])
             ++ (if !builtins.isNull settings.user.terminal then [
               ./modules/home/apps/${settings.user.terminal}.nix
@@ -75,8 +75,8 @@
         }
         ./compose/system.nix
         ./profile/${settings.profile}/system.nix
-      ] ++ (if !builtins.isNull settings.desktop.type then [ 
-        ./desktop/${settings.desktop.type}/system.nix 
+      ] ++ (if !builtins.isNull settings.desktop.type then [
+        ./desktop/${settings.desktop.type}/system.nix
       ] else []);
     };
   };

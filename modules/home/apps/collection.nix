@@ -1,12 +1,11 @@
-{ inputs, pkgs, settings, ... }: let
-  unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; }; 
+{ inputs, pkgs, ... }: let
+  unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; };
 in {
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
     /* Essential */
     obsidian
     vscode
-    mangohud
     godot_4
     blender
     authenticator
@@ -22,12 +21,12 @@ in {
     gnome-calendar
     libreoffice-fresh
     upscayl
-    vlc 
+    vlc
     /* Games */
     unstable.lutris
     unstable.zed-editor
     unstable.heroic
-    /* 
+    /*
       foliate
       qbittorrent
       nextcloud-client
@@ -89,7 +88,7 @@ in {
       zen-browser
       portmaster
       tor-browser-bundle-bin
-      isoimagewriter 
+      isoimagewriter
     */
-  ]; 
+  ];
 }

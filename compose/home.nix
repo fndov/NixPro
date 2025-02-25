@@ -1,4 +1,4 @@
-{ inputs, settings, pkgs, ... }: {
+{ settings, ... }: {
   programs.home-manager.enable = true;
-  home.stateVersion = settings.system.version;  
+  home.stateVersion = settings.system.version;
 }

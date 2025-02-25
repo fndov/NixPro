@@ -1,5 +1,5 @@
-{ inputs, pkgs, setttings, ... }: let
-  unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; }; 
+{ inputs, pkgs, settings, ... }: let
+  unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
 in {
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
@@ -16,13 +16,14 @@ in {
     curl
     git
     /* Games */
+    unstable.mangohud
     unstable.wine
     unstable.gamescope
     unstable.protonplus
     unstable.protontricks
     unstable.protonup
     /* Extra */
-    fastfetch 
+    fastfetch
     compsize
     libnotify
     gdu
@@ -34,7 +35,7 @@ in {
       sshpass
       glances
       wget
-      ffmpeg 
+      ffmpeg
       bottom
       gamemode
       aria2
