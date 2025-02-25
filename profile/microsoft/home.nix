@@ -1,10 +1,9 @@
-{ settings, ... }: {
+{ ... }: {
   imports = [ /* Home-Manager */
     ../../modules/home/commands/sh.nix
     ../../modules/home/commands/cli.nix
     ../../modules/home/commands/lib.nix
     ../../modules/home/development/cc.nix
-    # ../../modules/home/development/ zig go py-pkgs rs hs c cc android     
   ];
   # https://github.com/sonowz/vscode-remote-wsl-nixos/tree/master
   home.file.".vscode-server/server-env-setup".text = ''

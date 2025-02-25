@@ -19,6 +19,7 @@
     ../../modules/home/hyprland/animation.nix
     ../../modules/home/hyprland/dependencies.nix
     ../../modules/home/hyprland/rules.nix
+    ../../modules/home/hyprland/dock.nix
   ];
   wayland.windowManager.hyprland = {
     enable = true;
@@ -30,7 +31,7 @@
         "gnome-keyring-daemon --start --components=secrets"
         "nm-applet --indicator"
         "blueman-applet"
-        "systemctl --user start hyprpolkitagent" 
+        "systemctl --user start hyprpolkitagent"
       ];
 
       env = [
@@ -86,7 +87,7 @@
         "col.inactive_border" = "0x00000000";
         border_part_of_window = true;
         no_border_on_floating = false;
-      }; 
+      };
 
       /*
       master = {
@@ -112,7 +113,7 @@
         dim_around = 0.6;
 
         blur = {
-          enabled = false;
+          enabled = true;
           size = 5;
           passes = 3;
           brightness = 0.8172;

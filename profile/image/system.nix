@@ -1,9 +1,3 @@
-/*
-  NixPro-ISO Configuration
-  - All modules must fit within available RAM
-  - Keep system packages minimal
-  - Consider compression settings carefully
-*/
 { lib, settings, modulesPath, ... }: {
   imports = [ (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix") ];
   isoImage = {

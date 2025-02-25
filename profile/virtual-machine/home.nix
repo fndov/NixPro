@@ -3,8 +3,7 @@
     ../../user/software/commands/sh.nix
     ../../user/software/commands/cli.nix
     ../../user/software/commands/lib.nix
-    ../../user/software/apps/${settings.user.terminal}.nix
-    ../../user/software/apps/collection.nix
+    # ../../user/software/apps/collection.nix
     # ../../user/software/apps/spotify.nix
     # ../../user/software/development/android.nix
     # ../../user/software/development/c.nix
@@ -40,7 +39,7 @@
   };
   home.sessionVariables = {
     EDITOR = settings.user.editor;
-    TERM = setttings.user.terminal;
+    TERM = settings.user.terminal;
     BROWSER = settings.user.browser;
   };
 }

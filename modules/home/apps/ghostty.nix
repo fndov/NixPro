@@ -1,5 +1,5 @@
 { pkgs, inputs, settings, ... }: let
-  unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; }; 
+  unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; };
 in {
   home.packages = with pkgs; [
     unstable.ghostty
@@ -13,8 +13,8 @@ in {
     theme = catppuccin-mocha
     # window-padding-y = 0
     # window-padding-x = 0
-    # background-opacity = 0.85
-    # background-blur-radius = 20
+    background-opacity = 0.85
+    background-blur-radius = 20
 
     # --- Font ---
     font-size = 16

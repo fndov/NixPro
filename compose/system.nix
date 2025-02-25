@@ -89,7 +89,7 @@
             then pkgs.linuxPackages
           else
             (if settings.profile == "standalone"
-              then pkgs.linuxPackages
+              then pkgs.linuxPackages_xanmod_latest
             else
               (if settings.profile == "microsoft"
                 then pkgs.linuxPackages

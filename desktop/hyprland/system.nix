@@ -46,10 +46,10 @@
 
   services.auto-cpufreq = {
     enable = true;
-    settings = {
-      charger = { governor = "performance"; turbo = "always"; };
-      battery = { governor = "performance"; turbo = "always"; };
-    };
+    # settings = {
+    #   charger = { governor = "performance"; turbo = "always"; };
+    #   battery = { governor = "performance"; turbo = "always"; };
+    # };
   };
   services.thermald.enable = false;
 }
