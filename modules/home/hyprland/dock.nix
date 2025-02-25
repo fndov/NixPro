@@ -1,4 +1,5 @@
-{
+{ pkgs, ... }: {
+  home.packages = [ pkgs.nwg-dock-hyprland ];
   home.file.".config/nwg-dock-hyprland/style.css".text = ''
     window {
         background: #1e1e2e;  /* Catppuccin Mocha base */
@@ -42,7 +43,5 @@
     }
   '';
 
-  wayland.windowManager.hyprland.extraConfig = ''
-    exec-once = nwg-dock-hyprland -i 60 -d -mb 10
-  '';
+  wayland.windowManager.hyprland.settings.exec-once = [ "nwg-dock-hyprland -i 50 -d -mb 10" ];
 }

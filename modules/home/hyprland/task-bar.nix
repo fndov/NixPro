@@ -27,12 +27,18 @@
           "group/pulseaudio"
           "keyboard-state"
         ];
-        modules-center = [ "custom/hyprprofile" "hyprland/workspaces" ];
+        modules-center = [ "custom/hyprprofile" "hyprland/workspaces" "custom/o" ];
         modules-right = [ "group/time" "idle_inhibitor" "tray" ];
+
+        "custom/o" = {
+          "format" = "O";
+          "tooltip" = false;
+          "on-click" = "if hyprctl clients | grep -q scratch_term; then echo 'scratch_term already running'; else ${settings.user.terminal} --class scratch_term; fi; hyprctl dispatch togglespecialworkspace scratch_term";
+        };
 
         "custom/os" = {
           "format" = " {} ";
-          "exec" = ''echo "" '';
+          "exec" = ''echo "" '';
           "interval" = "once";
           "on-click" = "rofi -show drun";
           "tooltip" = false;
@@ -74,7 +80,7 @@
           "on-click" = "shutdown now";
         };
         "custom/hyprprofile" = {
-          "format" = " {}";
+          "format" = " {}";
           "exec" = "cat ~/.hyprprofile";
           "interval" = 3;
           "on-click" = "alacritty -e sh -c btm";
@@ -99,10 +105,10 @@
             "7" = "VII";
             "8" = "VIII";
             "9" = "IX";
-            "scratch_term" = "_";
+            "scratch_term" = "_";
             "scratch_ranger" = "_󰴉";
-            "scratch_music" = "_";
-            "scratch_btm" = "_";
+            "scratch_music" = "_";
+            "scratch_btm" = "_";
             "scratch_pavucontrol" = "_󰍰";
           };
           "on-click" = "activate";
@@ -161,7 +167,7 @@
           "modules" = [ "cpu" "cpu#text" ];
         };
 
-        memory = { "format" = ""; };
+        memory = { "format" = ""; };
         "memory#text" = { "format" = "{}%"; };
         "group/memory" = {
           "orientation" = "horizontal";
@@ -174,7 +180,7 @@
 
         backlight = {
           "format" = "{icon}";
-          "format-icons" = [ "" "" "" "" "" "" "" "" "" ];
+          "format-icons" = [ "" "" "" "" "" "" "" "" "" ];
         };
         "backlight#text" = { "format" = "{percent}%"; };
         "group/backlight" = {
@@ -221,18 +227,18 @@
           "scroll-step" = 1;
           "format" = "{icon}";
           "format-bluetooth" = "{icon}";
-          "format-bluetooth-muted" = "󰸈";
+          "format-bluetooth-muted" = "󰸈";
           "format-muted" = "󰸈";
-          "format-source" = "";
-          "format-source-muted" = "";
+          "format-source" = "";
+          "format-source-muted" = "";
           "format-icons" = {
-            "headphone" = " ";
-            "hands-free" = "";
-            "headset" = "";
-            "phone" = "";
-            "portable" = "";
-            "car" = "";
-            "default" = [ " " " " " " ];
+            "headphone" = " ";
+            "hands-free" = "";
+            "headset" = "";
+            "phone" = "";
+            "portable" = "";
+            "car" = "";
+            "default" = [ " " " " " " ];
           };
           "on-click" =
             "playerctl play-pause";
@@ -261,227 +267,238 @@
     style = ''
       * {
           /* `otf-font-awesome` is required to be installed for icons */
-          font-family: FontAwesome, '' + settings.desktop.font + ''
-        ;
+          font-family: FontAwesome, '' + settings.desktop.font + '';
+          font-size: 20px;
+      }
 
-                  font-size: 20px;
-              }
+      window#waybar {
+          background-color: rgba(30, 30, 46, 0.55);
+          border-radius: 8px;
+          color: #cdd6f4;
+          transition-property: background-color;
+          transition-duration: .2s;
+      }
 
-              window#waybar {
-                  background-color: rgba(30, 30, 46, 0.55);
-                  border-radius: 8px;
-                  color: #cdd6f4;
-                  transition-property: background-color;
-                  transition-duration: .2s;
-              }
+      tooltip {
+        color: #cdd6f4;
+        background-color: rgba(30, 30, 46, 0.9);
+        border-style: solid;
+        border-width: 3px;
+        border-radius: 8px;
+        border-color: #3b3c47;
+      }
 
-              tooltip {
-                color: #cdd6f4;
-                background-color: rgba(30, 30, 46, 0.9);
-                border-style: solid;
-                border-width: 3px;
-                border-radius: 8px;
-                border-color: #3b3c47;
-              }
+      tooltip * {
+        color: #cdd6f4;
+        background-color: rgba(30, 30, 46, 0.0);
+      }
 
-              tooltip * {
-                color: #cdd6f4;
-                background-color: rgba(30, 30, 46, 0.0);
-              }
+      window > box {
+          border-radius: 8px;
+          opacity: 0.94;
+      }
 
-              window > box {
-                  border-radius: 8px;
-                  opacity: 0.94;
-              }
+      window#waybar.hidden {
+          opacity: 0.2;
+      }
 
-              window#waybar.hidden {
-                  opacity: 0.2;
-              }
+      button {
+          border: none;
+      }
 
-              button {
-                  border: none;
-              }
+      #custom-hyprprofile {
+          color: #cdd6f4;
+      }
 
-              #custom-hyprprofile {
-                  color: #cdd6f4;
-              }
+      #custom-o {
+          padding: 0px 6px;
+          background-color: transparent;
+          color: #cdd6f4;
+          font-weight: bold;
+      }
 
-              /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
-              button:hover {
-                  background: inherit;
-              }
+      #custom-o:hover {
+          color: #cdd6f4;
+          background-color: rgba(59, 60, 71, 0.5);
+      }
 
-              #workspaces button {
-                  padding: 0px 6px;
-                  background-color: transparent;
-                  color: #cdd6f4;
-                  font-weight: bold;
-              }
+      /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+      button:hover {
+          background: inherit;
+      }
 
-              #workspaces button:hover {
-                  color: #cdd6f4;
-              }
+      #workspaces button {
+          padding: 0px 6px;
+          background-color: transparent;
+          color: #cdd6f4;
+          font-weight: bold;
+      }
 
-              #workspaces button.active {
-                  color: #cdd6f4;
-              }
+      #workspaces button:hover {
+          color: #cdd6f4;
+      }
 
-              #workspaces button.focused {
-                  color: #cdd6f4;
-              }
+      #workspaces button.active {
+          color: #cdd6f4;
+      }
 
-              #workspaces button.visible {
-                  color: #cdd6f4;
-              }
+      #workspaces button.focused {
+          color: #cdd6f4;
+      }
 
-              #workspaces button.urgent {
-                  color: #cdd6f4;
-              }
+      #workspaces button.visible {
+          color: #cdd6f4;
+      }
 
-              #battery,
-              #cpu,
-              #memory,
-              #disk,
-              #temperature,
-              #backlight,
-              #network,
-              #pulseaudio,
-              #wireplumber,
-              #custom-media,
-              #tray,
-              #mode,
-              #idle_inhibitor,
-              #scratchpad,
-              #custom-hyprprofileicon,
-              #custom-quit,
-              #custom-lock,
-              #custom-reboot,
-              #custom-power,
-              #mpd {
-                  padding: 0 3px;
-                  color: #cdd6f4;
-                  border: none;
-                  border-radius: 8px;
-              }
+      #workspaces button.urgent {
+          color: #cdd6f4;
+      }
 
-              #custom-hyprprofileicon,
-              #custom-quit,
-              #custom-lock,
-              #custom-reboot,
-              #custom-power,
-              #idle_inhibitor {
-                  background-color: transparent;
-                  color: #cdd6f4;
-              }
+      #battery,
+      #cpu,
+      #memory,
+      #disk,
+      #temperature,
+      #backlight,
+      #network,
+      #pulseaudio,
+      #wireplumber,
+      #custom-media,
+      #tray,
+      #mode,
+      #idle_inhibitor,
+      #scratchpad,
+      #custom-hyprprofileicon,
+      #custom-quit,
+      #custom-lock,
+      #custom-reboot,
+      #custom-power,
+      #mpd {
+          padding: 0 3px;
+          color: #cdd6f4;
+          border: none;
+          border-radius: 8px;
+      }
 
-              #custom-hyprprofileicon:hover,
-              #custom-quit:hover,
-              #custom-lock:hover,
-              #custom-reboot:hover,
-              #custom-power:hover,
-              #idle_inhibitor:hover {
-                  color: #cdd6f4;
-              }
+      #custom-hyprprofileicon,
+      #custom-quit,
+      #custom-lock,
+      #custom-reboot,
+      #custom-power,
+      #idle_inhibitor {
+          background-color: transparent;
+          color: #cdd6f4;
+      }
 
-              #clock, #tray, #idle_inhibitor {
-                  padding: 0 5px;
-              }
+      #custom-hyprprofileicon:hover,
+      #custom-quit:hover,
+      #custom-lock:hover,
+      #custom-reboot:hover,
+      #custom-power:hover,
+      #idle_inhibitor:hover {
+          color: #cdd6f4;
+      }
 
-              #window,
-              #workspaces {
-                  margin: 0 6px;
-              }
+      #clock, #tray, #idle_inhibitor {
+          padding: 0 5px;
+      }
 
-              /* If workspaces is the leftmost module, omit left margin */
-              .modules-left > widget:first-child > #workspaces {
-                  margin-left: 0;
-              }
+      #window,
+      #workspaces,
+      #custom-o {
+          margin: 0;
+      }
 
-              /* If workspaces is the rightmost module, omit right margin */
-              .modules-right > widget:last-child > #workspaces {
-                  margin-right: 0;
-              }
+      /* If workspaces is the leftmost module, omit left margin */
+      .modules-left > widget:first-child > #workspaces {
+          margin-left: 0;
+      }
 
-              #clock {
-                  color: #cdd6f4;
-              }
+      /* If workspaces is the rightmost module, omit right margin */
+      .modules-right > widget:last-child > #workspaces {
+          margin-right: 0;
+      }
 
-              #battery {
-                  color: #cdd6f4;
-              }
+      #clock {
+          color: #cdd6f4;
+      }
 
-              #battery.charging, #battery.plugged {
-                  color: #cdd6f4;
-              }
+      #battery {
+          color: #cdd6f4;
+      }
 
-              @keyframes blink {
-                  to {
-                      background-color: #cdd6f4;
-                      color: #1e1e2e;
-                  }
-              }
+      #battery.charging, #battery.plugged {
+          color: #cdd6f4;
+      }
 
-              #battery.critical:not(.charging) {
-                  background-color: #cdd6f4;
-                  color: #1e1e2e;
-                  animation-name: blink;
-                  animation-duration: 0.5s;
-                  animation-timing-function: linear;
-                  animation-iteration-count: infinite;
-                  animation-direction: alternate;
-              }
+      @keyframes blink {
+          to {
+              background-color: #cdd6f4;
+              color: #1e1e2e;
+          }
+      }
 
-              label:focus {
-                  background-color: #1e1e2e;
-              }
+      #battery.critical:not(.charging) {
+          background-color: #cdd6f4;
+          color: #1e1e2e;
+          animation-name: blink;
+          animation-duration: 0.5s;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+          animation-direction: alternate;
+      }
 
-              #cpu {
-                  color: #cdd6f4;
-              }
+      label:focus {
+          background-color: #1e1e2e;
+      }
 
-              #memory {
-                  color: #cdd6f4;
-              }
+      #cpu {
+          color: #cdd6f4;
+      }
 
-              #disk {
-                  color: #cdd6f4;
-              }
+      #memory {
+          color: #cdd6f4;
+      }
 
-              #backlight {
-                  color: #cdd6f4;
-              }
+      #disk {
+          color: #cdd6f4;
+      }
 
-              label.numlock {
-                  color: #cdd6f4;
-              }
+      #backlight {
+          color: #cdd6f4;
+      }
 
-              label.numlock.locked {
-                  color: #cdd6f4;
-              }
+      label.numlock {
+          color: #cdd6f4;
+      }
 
-              #pulseaudio {
-                  color: #cdd6f4;
-              }
+      label.numlock.locked {
+          color: #cdd6f4;
+      }
 
-              #pulseaudio.muted {
-                  color: #cdd6f4;
-              }
+      #pulseaudio {
+          color: #cdd6f4;
+      }
 
-              #tray > .passive {
-                  -gtk-icon-effect: dim;
-              }
+      #pulseaudio.muted {
+          color: #cdd6f4;
+      }
 
-              #tray > .needs-attention {
-                  -gtk-icon-effect: highlight;
-              }
+      #tray > .passive {
+          -gtk-icon-effect: dim;
+      }
 
-              #idle_inhibitor {
-                  color: #cdd6f4;
-              }
+      #tray > .needs-attention {
+          -gtk-icon-effect: highlight;
+      }
 
-              #idle_inhibitor.activated {
-                  color: #cdd6f4;
-              }
-      '';
+      #idle_inhibitor {
+          color: #cdd6f4;
+      }
+
+      #idle_inhibitor.activated {
+          color: #cdd6f4;
+      }
+    '';
   };
 }
