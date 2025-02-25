@@ -37,13 +37,9 @@
   services.greetd = {
     enable = true;
     settings = {
-      initial_session = {
-        command = "clear; ${pkgs.hyprland}/bin/Hyprland &> /dev/null";
-        user = "${settings.user.name}";
-      };
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --greeting 'Powered by NixPro' --asterisks --remember --remember-user-session --time -cmd ${pkgs.hyprland}/bin/Hyprland";
-        user = "greeter";
+        command = "${pkgs.bash}/bin/bash -c 'clear; exec ${pkgs.hyprland}/bin/Hyprland &> /dev/null'";
+        user = "${settings.user.name}";
       };
     };
   };
