@@ -20,6 +20,7 @@
     ../../modules/home/hyprland/dependencies.nix
     ../../modules/home/hyprland/rules.nix
     ../../modules/home/hyprland/dock.nix
+    ../../modules/home/hyprland/plugins.nix
   ];
   wayland.windowManager.hyprland = {
     enable = true;
