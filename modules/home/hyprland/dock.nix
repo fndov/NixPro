@@ -1,47 +1,70 @@
 { pkgs, ... }: {
   home.packages = [ pkgs.nwg-dock-hyprland ];
   home.file.".config/nwg-dock-hyprland/style.css".text = ''
-    window {
-        background: #1e1e2e;  /* Catppuccin Mocha base */
+      * {
+        transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      window {
+        background: #1e1e2e;
         border-radius: 10px;
         border-style: none;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    }
+      }
 
-    #box {
+      #box {
         padding: 4px;
         border-radius: 10px;
-    }
+      }
 
-    #active {
-        border-bottom: 2px solid #cba6f7;  /* Catppuccin Mocha mauve */
-    }
+      #active {
+        background-color: #313244;
+        border-radius: 8px;
+        transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
 
-    button, image {
+      button, image {
         background: none;
         border-style: none;
         box-shadow: none;
-        color: #cdd6f4;  /* Catppuccin Mocha text */
-    }
+        color: #cdd6f4;
+        transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
 
-    button {
+      button {
         padding: 4px;
         margin: 2px;
-        color: #cdd6f4;  /* Catppuccin Mocha text */
+        color: #cdd6f4;
         font-size: 12px;
-        border-radius: 8px;  /* Changed to rounded rectangle */
-        transition: all 0.2s ease;
-    }
+        border-radius: 8px;
+        outline: none;
+        transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
 
-    button:hover {
-        background-color: #313244;  /* Catppuccin Mocha surface0 */
-        border-radius: 8px;  /* Changed to rounded rectangle */
-    }
+      button:hover {
+        background-color: rgba(49, 50, 68, 0.6);  /* #313244 with 60% opacity */
+        border-radius: 8px;
+      }
 
-    button:focus {
+      button:focus {
         box-shadow: none;
-    }
-  '';
+        outline: none;
+      }
+
+      .workspace-dot {
+        background-color: #3b3c47;
+        border-radius: 50%;
+        transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .workspace-dot.active {
+        background-color: #3b3c47;
+      }
+
+      .workspace-dot.inactive {
+        background-color: rgba(59, 60, 71, 0.5);
+      }
+    '';
 
   wayland.windowManager.hyprland.settings.exec-once = [ "nwg-dock-hyprland -i 50 -d -mb 10" ];
 }
