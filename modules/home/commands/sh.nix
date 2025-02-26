@@ -10,19 +10,21 @@
     cc = "clear;cd";
     ccc = "clear;cd /mnt/c/Users/miyu/";
     grep = "rg";
-    n = "${settings.user.editor} ~/Documents/note.txt";
+    n = if settings.user.editor == "micro"
+      then "${settings.user.editor} --ruler false -colorscheme geany ~/Documents/note.txt"
+    else "${settings.user.editor} ~/Documents/note.txt";
     h = "htop";
     fd = "fd -Lu";
     fetch = "fastfetch";
     f = "yazi";
     trash = "gio trash";
-    e = if settings.user.editor == "micro" 
-      then "${settings.user.editor} --ruler false -colorscheme geany" 
+    e = if settings.user.editor == "micro"
+      then "${settings.user.editor} --ruler false -colorscheme geany"
     else settings.user.editor;
     cattree = "find . -type f -exec grep -Iq . {} \\; -print | xargs cat";
     offload = "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia";
-    }; 
-in { 
+    };
+in {
   home.packages = with pkgs; [
     bat
     eza

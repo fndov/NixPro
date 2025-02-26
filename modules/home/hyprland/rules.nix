@@ -16,6 +16,7 @@
       "float,title:^(Virtual Machine Manager)$"
       "float,title:^(Location)$"
       "float,title:^(Choose Default Install Path)$"
+      "float,title:^(Choose target directory)$"
     ];
   };
 }

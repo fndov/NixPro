@@ -16,10 +16,10 @@
     settings = {
       profile = "standalone";
       driver = {
+        graphics = "nvidia";
         networking = true;
         bluetooth = true;
         usbmuxd = true;
-        graphics = "intel";
       };
       system = {
         version = "24.11";
@@ -28,10 +28,10 @@
         grubDevice = "/dev/sda";
         bootMountPath = "/boot";
         flakePath = ".nixpro";
-        automation = true;
+        automation = false;
+        printing = true;
         timezone = true;
         security = false;
-        printing = true;
         sshd = false;
       };
       user = {
@@ -47,8 +47,8 @@
         type = "hyprland";
         font = "Noto";
         fontPkg = pkgs.noto-fonts;
-        wallpaperPath = "Media/Pictures/Wallpapers";
-        wallpaperName = "space.jpg";
+        wallpaperPath = "Media/Pictures/walls catppuccin mocha";
+        wallpaperName = "idk-tbh.png";
         animationSpeed = "medium";
       };
     };

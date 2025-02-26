@@ -23,7 +23,6 @@
   users.users.root.hashedPassword = lib.mkForce null;
   users.users.nixos = { _module = {}; };
   services.openssh.enable = lib.mkForce false;
-  systemd.services.NetworkManager-wait-online.enable = false;
   hardware.graphics.enable = true;
   services.getty.autologinUser = lib.mkForce "${settings.user.name}";
   services.getty.helpLine = lib.mkForce "";

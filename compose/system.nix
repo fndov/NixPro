@@ -1,7 +1,6 @@
 { config, lib, inputs, pkgs, settings, ... }: {
   config = lib.mkMerge [
     {
-      /* Universal. */
       networking.hostName =
       if settings.profile == "apple"
       then "NixPro-ARM"
@@ -17,37 +16,30 @@
       then "NixPro-Image"
       else "NixPro";
 
-      nix.settings.trusted-users = [ "@wheel" ];
-      nix.settings.warn-dirty = false;
-      nix.extraOptions = "experimental-features = nix-command flakes";
-
-      system.stateVersion = settings.system.version;
-
-      home-manager.useGlobalPkgs = false;
-      home-manager.useUserPackages = false;
-      home-manager.backupFileExtension = "hm-backup";
-
       documentation.enable = lib.mkForce false;
       documentation.doc.enable = lib.mkForce false;
       documentation.info.enable = lib.mkForce false;
       documentation.man.enable = lib.mkForce false;
       documentation.nixos.enable = lib.mkForce false;
-
+      nix.settings.trusted-users = [ "@wheel" ];
+      nix.settings.warn-dirty = false;
+      nix.extraOptions = "experimental-features = nix-command flakes";
+      home-manager.useGlobalPkgs = false;
+      home-manager.useUserPackages = false;
+      home-manager.backupFileExtension = "hm-backup";
       programs.command-not-found.enable = if settings.profile == "image" then false else true;
-      programs.fish.enable = if settings.user.shell == "fish" then true else false;
       programs.nano.enable = false;
       programs.vim.enable = false;
-      environment.systemPackages = [ pkgs.micro ];
-
       services.gpm.enable = true;
-
+      programs.fish.enable = if settings.user.shell == "fish" then true else false;
+      environment.systemPackages = [ pkgs.micro ];
       boot.initrd.compressor = "zstd";
       boot.initrd.compressorArgs = [ "-19" ];
-
+      system.stateVersion = settings.system.version;
+      systemd.services.NetworkManager-wait-online.enable = false;
       hardware.ksm.enable = true;
       hardware.ksm.sleep = 1;
 
-      /* Account */
       users.mutableUsers = false;
       security.sudo.wheelNeedsPassword = false;
       users.users.root.initialPassword = lib.mkForce settings.user.password;
@@ -60,27 +52,26 @@
         shell = if settings.profile == "microsoft" || settings.user.shell == "fish" then pkgs.fish else pkgs.bash;
       };
 
-      /* Memory. */
       zramSwap.enable = builtins.elem settings.profile [ "image" "standalone" "virtual-machine" "server" ];
       zramSwap.memoryPercent = 100; # 40
       zramSwap.algorithm = "zstd -Xcompression-level 22"; # lzo is small, zstd is fast.
       zramSwap.priority = 3;
       boot.kernel.sysctl = {
-        "vm.compaction_proactiveness" = 0;
-        "vm.swappiness" = 160; # 40
-        "vm.vfs_cache_pressure" = 100;
-        "vm.dirty_background_ratio" = 2;
+        "vm.compaction_proactiveness" = 50; # 20
+        "vm.swappiness" = 100; # 40
+        "vm.vfs_cache_pressure" = 100; # 100
+        "vm.dirty_background_ratio" = 70; # 40
         "vm.dirty_ratio" = if settings.profile == "image" then 3 else 70;
       };
       services.earlyoom = {
-        enable = if settings.profile == "image" || settings.profile == "virtual-machine" then true else true;
+        enable = true;
         enableNotifications = true;
         freeMemThreshold = 3;
         freeMemKillThreshold = 3;
         freeSwapThreshold = 3;
         freeSwapKillThreshold = 3;
       };
-      /* Kernel. */
+
       boot.kernelPackages =
         (if settings.profile == "image"
           then pkgs.linuxPackages_xanmod_latest
@@ -130,8 +121,8 @@
         "idle=nomwait"
         "ascpi_osi=Linux"
         "preempt=full"
+        "noatime"
         /*
-          "noatime"
           "nodiratime"
           "nofail"
           "x-systemd.device-timeout=5s"
@@ -152,7 +143,6 @@
       ];
     }
 
-    /* Conditional and DRY profiles. */
     (
       if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "standalone")
       then {
@@ -164,7 +154,7 @@
         boot.loader.systemd-boot.enable =
           if (settings.system.bootMode == "uefi") then true else false;
         boot.loader.efi.efiSysMountPoint =
-          settings.system.bootMountPath; # does nothing if running bios rather than uefi
+          settings.system.bootMountPath;
         boot.loader.efi.canTouchEfiVariables =
           if (settings.system.bootMode == "uefi") then true else false;
         boot.loader.grub.enable =
@@ -173,21 +163,6 @@
       }
       else {}
     )
-
-    (
-      if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "standalone")
-      then {
-        swapDevices = [
-          {
-            device = "/var/lib/swapfile";
-            priority = 2;
-            size = 32*1024; # Useful for `systemctl hibernate`.
-          }
-        ];
-      }
-      else {}
-    )
-
     (
       if (settings.desktop.type == "hyprland" && settings.profile == "image")
       then {
@@ -260,7 +235,6 @@
       else {}
     )
 
-    /* Flake settings. */
     (lib.mkIf (settings.system.automation && settings.profile != "microsoft") {
       system.autoUpgrade = {
         enable = true;
@@ -288,17 +262,12 @@
 
     (lib.mkIf settings.system.security {
       boot.kernelPackages = lib.mkForce pkgs.linuxPackages_hardened;
-
       boot.kernelParams = [
         "slab_nomerge"
-
         "page_poison=1"
-
         "page_alloc.shuffle=1"
-
         "debugfs=off"
       ];
-
       security = {
         auditd.enable = true;
         audit.enable = true;

@@ -7,10 +7,11 @@
       "compress=zstd"
       "autodefrag"
       "noatime"
+      # "relatime"
       "nodiratime"
-      "nodatacow"
       "space_cache=v2" # Buggy?
       # "compress-force=zstd:15" # Smallest size.
+      # "nodatacow" Adds speed.
       # "commit=120" Adds speed.
     ];
   };
@@ -20,3 +21,5 @@
     fileSystems = [ "/" ];
   };
 }
+
+# try doing just home and nix/store

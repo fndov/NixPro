@@ -3,8 +3,8 @@
 in {
   environment.systemPackages = with pkgs; [
     unstable.virt-manager
-    unstable.distrobox
-    unstable.qemu
+    # unstable.distrobox
+    # unstable.qemu
     # uefi-run
     # lxc
     # swtpm
