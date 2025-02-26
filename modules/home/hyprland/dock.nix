@@ -66,5 +66,5 @@
       }
     '';
 
-  wayland.windowManager.hyprland.settings.exec-once = [ "nwg-dock-hyprland -i 50 -d -mb 10" ];
+  wayland.windowManager.hyprland.settings.exec-once = [ "nwg-dock-hyprland -i 60 -x" ];
 }
