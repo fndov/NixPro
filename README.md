@@ -1,4 +1,4 @@
-![20250226_16h44m39s_grim](https://github.com/user-attachments/assets/e8deb428-af0e-4406-a3ea-3efb730e0475)#### NixPro - 📸 Photograph
+#### NixPro - 📸 Photograph
 ![20250226_16h44m39s_grim](https://github.com/user-attachments/assets/a1d1c2b7-b058-448f-968a-03687c2e5f14)
 ---
 #### File structure & composition
