@@ -24,6 +24,7 @@
   users.users.nixos = { _module = {}; };
   services.openssh.enable = lib.mkForce false;
   hardware.graphics.enable = true;
+  boot.plymouth.enable = true;
   services.getty.autologinUser = lib.mkForce "${settings.user.name}";
   services.getty.helpLine = lib.mkForce "";
 }

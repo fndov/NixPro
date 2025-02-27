@@ -16,7 +16,7 @@
     settings = {
       profile = "standalone";
       driver = {
-        graphics = "nvidia";
+        graphics = "intel";
         networking = true;
         bluetooth = true;
         usbmuxd = true;
@@ -28,7 +28,7 @@
         grubDevice = "/dev/sda";
         bootMountPath = "/boot";
         flakePath = ".nixpro";
-        automation = false;
+        automation = true;
         printing = true;
         timezone = true;
         security = false;

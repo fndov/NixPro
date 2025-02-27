@@ -64,7 +64,7 @@
         "vm.dirty_ratio" = if settings.profile == "image" then 3 else 70;
       };
       services.earlyoom = {
-        enable = true;
+        enable = if settings.profile == "image" then true else false;
         enableNotifications = true;
         freeMemThreshold = 3;
         freeMemKillThreshold = 3;

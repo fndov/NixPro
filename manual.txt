@@ -1,9 +1,3 @@
-The Initial password is "password".
-
-vscode - alt catppuccin mocha
-firefox - catppuccin something
-micro - ctl + e:set colorscheme twilight
-
 https://nixos.wiki/wiki/WSL
 WSL SWAP is set in the app 'WSL Settings' and not in the configuration.
 wsl --shutdown
