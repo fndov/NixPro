@@ -18,6 +18,8 @@ cd $(nix-build '<nixpkgs>' -A intel-gpu-tools --no-out-link)
 Btrfs commands:
 btrfs filesystem defragment -czstd -v -r /path/to/target
 sudo compsize -x /path/to/target
+Dock order:
+edit ~/.cache/nwg-dock-pinned
 
 Settings:
   profile = "standalone" Apple Image Microsoft Server Standalone Virtual-Machine

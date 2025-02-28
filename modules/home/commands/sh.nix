@@ -68,4 +68,14 @@ in {
     enableFishIntegration = true;
     enableBashIntegration = true;
   };
+  programs.git.enable = true;
+  programs.git.userName = settings.user.name;
+  programs.git.userEmail = settings.user.email;
+  programs.git.extraConfig = {
+    core.editor = settings.user.editor;
+    safe.directory = [
+      ("/home/" + settings.user.name + "/." + settings.system.flakePath + "/")
+      ("/home/" + settings.user.name + "/." + settings.system.flakePath + "/.git")
+    ];
+  };
 }

@@ -23,11 +23,7 @@ in {
     libreoffice-fresh
     upscayl
     vlc
-    /* Games */
-    unstable.steam
     /*
-      heroic
-      lutris
       foliate
       qbittorrent
       nextcloud-client

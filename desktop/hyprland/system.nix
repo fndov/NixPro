@@ -33,4 +33,6 @@
   services.auto-cpufreq.enable = true;
   services.thermald.enable = false;
   home-manager.users.${settings.user.name}.wayland.windowManager.hyprland.settings.exec-once = [ "sudo auto-cpufreq --force performance" ];
+  boot.plymouth.enable = true;
+  boot.loader.timeout = 1;
 }

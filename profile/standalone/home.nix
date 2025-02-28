@@ -5,5 +5,6 @@
     ../../modules/home/commands/lib.nix
     ../../modules/home/apps/collection.nix
     ../../modules/home/apps/spotify.nix
+    ../../modules/home/apps/steam.nix
   ];
 }

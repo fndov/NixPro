@@ -127,6 +127,7 @@
         "ascpi_osi=Linux"
         "preempt=full"
         "noatime"
+        "uinput"
         /*
           "nodiratime"
           "nofail"
@@ -175,8 +176,6 @@
         hardware.nvidia.modesetting.enable = true;
         hardware.nvidia.nvidiaSettings = false;
         hardware.nvidia.open = false;
-        hardware.graphics.enable = true;
-        hardware.graphics.enable32Bit = true;
         boot.blacklistedKernelModules = [ "nouveau" ];
         boot.kernelParams = [
           "nvidia_drm"
@@ -185,6 +184,8 @@
           "nvidia-drm.fbdev=1"
           "nvidia"
         ];
+        hardware.graphics.enable = true;
+        hardware.graphics.enable32Bit = true;
         hardware.nvidia.prime.intelBusId = "PCI:0:2:0";
         hardware.nvidia.prime.nvidiaBusId = "PCI:9:0:0";
         hardware.nvidia.prime.offload.enable = true;

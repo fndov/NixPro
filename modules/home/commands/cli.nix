@@ -15,10 +15,6 @@ in {
     pciutils
     curl
     git
-    /* Games */
-    unstable.mangohud
-    unstable.wine
-    unstable.gamescope
     /* Extra */
     gdu
     fastfetch
@@ -26,10 +22,6 @@ in {
     libnotify
     numbat
     /*
-      unstable.protonup
-      unstable.protontricks
-      unstable.protonplus
-      unstable.winetricks
       nixfmt-classic
       syncthing
       openssh
@@ -81,14 +73,4 @@ in {
       vulkan-tools
     */
   ];
-  programs.git.enable = true;
-  programs.git.userName = settings.user.name;
-  programs.git.userEmail = settings.user.email;
-  programs.git.extraConfig = {
-    core.editor = settings.user.editor;
-    safe.directory = [
-      ("/home/" + settings.user.name + "/.nixpro")
-      ("/home/" + settings.user.name + "/.nixpro/.git")
-    ];
-  };
 }
