@@ -21,6 +21,7 @@
       documentation.info.enable = lib.mkForce false;
       documentation.man.enable = lib.mkForce false;
       documentation.nixos.enable = lib.mkForce false;
+
       nix.extraOptions = "experimental-features = nix-command flakes";
       nix.settings.sandbox = true;
       nix.settings.trusted-users = [ "@wheel" ];
@@ -33,24 +34,23 @@
       nix.gc.automatic = true;
       nix.gc.dates = "weekly";
       nix.gc.options = "--delete-older-than 30d";
+
       home-manager.useGlobalPkgs = false;
       home-manager.useUserPackages = false;
       home-manager.backupFileExtension = "hm-backup";
       programs.command-not-found.enable = if settings.profile == "image" then false else true;
       programs.nano.enable = false;
-      services.gpm.enable = true;
       programs.fish.enable = if settings.user.shell == "fish" then true else false;
+      services.gpm.enable = true;
       environment.systemPackages = [ pkgs.micro ];
-      boot.initrd.compressor = "zstd";
-      boot.initrd.compressorArgs = [ "-19" ];
       system.stateVersion = settings.system.version;
       systemd.services.NetworkManager-wait-online.enable = false;
       hardware.ksm.enable = true;
       hardware.ksm.sleep = 1;
+      security.sudo.wheelNeedsPassword = false;
 
       users.mutableUsers = false;
       users.users.root.initialPassword = lib.mkForce settings.user.password;
-      security.sudo.wheelNeedsPassword = false;
       users.users.${settings.user.name} = {
         isNormalUser = true;
         initialPassword = settings.user.password;
@@ -64,22 +64,20 @@
       zramSwap.memoryPercent = 100; # 30
       zramSwap.algorithm = "zstd -Xcompression-level 22"; # lzo is small, zstd is fast.
       zramSwap.priority = 3;
-      boot.kernel.sysctl = {
-        "vm.swappiness" = 200; # 60
-        "vm.dirty_background_ratio" = 80; # 10
-        "vm.dirty_ratio" = if settings.profile == "image" then 3 else 90; # 20
-        "vm.vfs_cache_pressure" = 0; # 100
-        "vm.min_free_kbytes" = 1000; # 0
-        "vm.compaction_proactiveness" = 50; # 20
-      };
-      services.earlyoom = {
-        enable = if settings.profile == "image" then true else false;
-        enableNotifications = true;
-        freeMemThreshold = 3;
-        freeMemKillThreshold = 3;
-        freeSwapThreshold = 3;
-        freeSwapKillThreshold = 3;
-      };
+      boot.kernel.sysctl."vm.swappiness" = 200; # 60
+      boot.kernel.sysctl."vm.dirty_background_ratio" = 80; # 10
+      boot.kernel.sysctl."vm.dirty_ratio" = if settings.profile == "image" then 3 else 90; # 20
+      boot.kernel.sysctl."vm.vfs_cache_pressure" = 0; # 100
+      boot.kernel.sysctl."vm.min_free_kbytes" = 1000; # 0
+      boot.kernel.sysctl."vm.compaction_proactiveness" = 50; # 20
+      boot.initrd.compressor = "zstd";
+      boot.initrd.compressorArgs = [ "-19" ];
+      services.earlyoom.enable = if settings.profile == "image" then true else false;
+      services.earlyoom.enableNotifications = true;
+      services.earlyoom.freeMemThreshold = 3;
+      services.earlyoom.freeMemKillThreshold = 3;
+      services.earlyoom.freeSwapThreshold = 3;
+      services.earlyoom.freeSwapKillThreshold = 3;
 
       boot.kernelPackages =
         (if settings.profile == "image"
@@ -164,32 +162,22 @@
           if (settings.system.bootMode == "uefi") then false else true;
         boot.loader.grub.device = settings.system.grubDevice;
       }
-      else {})
-    (if (settings.desktop.type == "hyprland" && settings.profile == "image")
-      then {
-        home-manager.users.${settings.user.name}.wayland.windowManager.hyprland.settings.exec-once = [
-          "cp -r /iso/home/${settings.user.name}/${settings.system.flakePath} /home/${settings.user.name}; chown -R miyu /home/${settings.user.name}/${settings.system.flakePath}; chmod -R 777 /home/${settings.user.name}/${settings.system.flakePath}"
-          "sudo systemctl restart NetworkManager"
-          "${settings.user.terminal} -e 'sleep 1;nmtui'"
-          "sudo rm -rf /home/nixos/"
-          "sudo nixos-generate-config && cp /etc/nixos/hardware.nix /home/${settings.user.name}/${settings.system.flakePath}/modules/system/"
-          "notify-send 'Welcome to Hyprland by NixPro!'"
-        ];
-      }
-      else {})
-    (if (settings.desktop.type == "hyprland" && settings.profile == "virtual-machine")
-      then {
-        home-manager.users.${settings.user.name} = {
-          wayland.windowManager.hyprland.settings.monitor = "Virtual-1, 1920x1080, 0x0, 1";
-        };
-      }
-      else {})
+    else {})
     (if settings.driver.graphics == "nvidia"
       then {
         nixpkgs.config.allowUnfree = true;
         environment.systemPackages = [ pkgs.nvtopPackages.full ];
-        boot.blacklistedKernelModules = [ "nouveau" ];
         services.xserver.videoDrivers = [ "nvidia" ];
+        hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest;
+        # ^ Works best with `boot.kernelPackages = pkgs.linuxPackages;`
+        hardware.nvidia.powerManagement.enable = true;
+        hardware.nvidia.powerManagement.finegrained = true;
+        hardware.nvidia.modesetting.enable = true;
+        hardware.nvidia.nvidiaSettings = false;
+        hardware.nvidia.open = false;
+        hardware.graphics.enable = true;
+        hardware.graphics.enable32Bit = true;
+        boot.blacklistedKernelModules = [ "nouveau" ];
         boot.kernelParams = [
           "nvidia_drm"
           "nvidia_modeset"
@@ -197,39 +185,24 @@
           "nvidia-drm.fbdev=1"
           "nvidia"
         ];
-        hardware.nvidia = {
-          package = config.boot.kernelPackages.nvidiaPackages.latest;
-          # ^ Works best with `boot.kernelPackages = pkgs.linuxPackages;`
-          powerManagement.enable = true;
-          powerManagement.finegrained = true;
-          modesetting.enable = true;
-          nvidiaSettings = false;
-          open = false;
-        };
-        hardware.nvidia.prime = {
-          intelBusId = "PCI:0:2:0";
-          nvidiaBusId = "PCI:9:0:0";
-          offload.enable = true;
-          offload.enableOffloadCmd = true;
-        };
+        hardware.nvidia.prime.intelBusId = "PCI:0:2:0";
+        hardware.nvidia.prime.nvidiaBusId = "PCI:9:0:0";
+        hardware.nvidia.prime.offload.enable = true;
+        hardware.nvidia.prime.offload.enableOffloadCmd = true;
       }
-      else {})
+    else {})
     (if settings.driver.graphics == "amd"
-      then {
-      }
-      else {})
+      then { }
+    else {})
     (if settings.driver.graphics == "intel"
-      then {
-      }
-      else {})
+      then { }
+    else {})
     (lib.mkIf (settings.system.automation && settings.profile != "microsoft") {
-      system.autoUpgrade = {
-        enable = true;
-        flake = inputs.self.outPath;
-        flags = [ "--update-input" "nixpkgs" "-L" ];
-        dates = "02:00";
-        randomizedDelaySec = "45min";
-      };
+      system.autoUpgrade.enable = true;
+      system.autoUpgrade.flake = inputs.self.outPath;
+      system.autoUpgrade.flags = [ "--update-input" "nixpkgs" "-L" ];
+      system.autoUpgrade.dates = "02:00";
+      system.autoUpgrade.randomizedDelaySec = "45min";
     })
     (lib.mkIf settings.system.security {
       boot.kernelPackages = lib.mkForce pkgs.linuxPackages_hardened;
@@ -239,22 +212,18 @@
         "page_alloc.shuffle=1"
         "debugfs=off"
       ];
-      security = {
-        auditd.enable = true;
-        audit.enable = true;
-        protectKernelImage = true;
-        lockKernelModules = true;
-      };
+      security.lockKernelModules = true;
+      security.auditd.enable = true;
+      security.audit.enable = true;
+      security.protectKernelImage = true;
       networking.firewall.enable = true;
     })
     (lib.mkIf settings.system.sshd {
-      services.openssh = {
-        enable = true;
-        ports = [ 22 ];
-        settings = {
-          PasswordAuthentication = true;
-          UseDns = true;
-        };
+      services.openssh.enable = true;
+      services.openssh.ports = [ 22 ];
+      services.openssh.settings = {
+        PasswordAuthentication = true;
+        UseDns = true;
       };
     })
     (lib.mkIf settings.system.printing {
@@ -283,20 +252,16 @@
     })
     (lib.mkIf settings.system.timezone {
       time.timeZone = "America/Chicago";
-      i18n = {
-        defaultLocale = "en_US.UTF-8";
-        extraLocaleSettings = {
-          LC_ADDRESS = "en_US.UTF-8";
-          LC_IDENTIFICATION = "en_US.UTF-8";
-          LC_MEASUREMENT = "en_US.UTF-8";
-          LC_MONETARY = "en_US.UTF-8";
-          LC_NAME = "en_US.UTF-8";
-          LC_NUMERIC = "en_US.UTF-8";
-          LC_PAPER = "en_US.UTF-8";
-          LC_TELEPHONE = "en_US.UTF-8";
-          LC_TIME = "en_US.UTF-8";
-        };
-      };
+      i18n.defaultLocale = "en_US.UTF-8";
+      i18n.extraLocaleSettings.LC_ADDRESS = "en_US.UTF-8";
+      i18n.extraLocaleSettings.LC_IDENTIFICATION = "en_US.UTF-8";
+      i18n.extraLocaleSettings.LC_MEASUREMENT = "en_US.UTF-8";
+      i18n.extraLocaleSettings.LC_MONETARY = "en_US.UTF-8";
+      i18n.extraLocaleSettings.LC_NAME = "en_US.UTF-8";
+      i18n.extraLocaleSettings.LC_NUMERIC = "en_US.UTF-8";
+      i18n.extraLocaleSettings.LC_PAPER = "en_US.UTF-8";
+      i18n.extraLocaleSettings.LC_TELEPHONE = "en_US.UTF-8";
+      i18n.extraLocaleSettings.LC_TIME = "en_US.UTF-8";
     })
   ];
 }

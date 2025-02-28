@@ -20,6 +20,7 @@
       "float,title:^(Select a Foler for new Wine Prefixes)$"
       "float,title:^(Select Executable)$"
       "float,title:^(Select the setup File)$"
+      "float,title:^(Steam Settings)$"
     ];
   };
 }

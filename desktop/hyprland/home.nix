@@ -164,4 +164,15 @@
   home.sessionVariables.EDITOR = settings.user.editor;
   home.sessionVariables.TERM = settings.user.terminal;
   home.sessionVariables.BROWSER = settings.user.browser;
-}
+} // (if settings.profile == "virtual-machine" then {
+  wayland.windowManager.hyprland.settings.monitor = "Virtual-1, 1920x1080, 0x0, 1";
+} else {}) // (if (settings.profile == "image") then {
+  wayland.windowManager.hyprland.settings.exec-once = [
+    "cp -r /iso/home/${settings.user.name}/${settings.system.flakePath} /home/${settings.user.name}; chown -R ${settings.user.name} /home/${settings.user.name}/${settings.system.flakePath}; chmod -R 777 /home/${settings.user.name}/${settings.system.flakePath}"
+    "sudo systemctl restart NetworkManager"
+    "${settings.user.terminal} -e 'sleep 1;nmtui'"
+    "sudo rm -rf /home/nixos/"
+    "sudo nixos-generate-config && cp /etc/nixos/hardware.nix /home/${settings.user.name}/${settings.system.flakePath}/modules/system/"
+    "notify-send 'Welcome to Hyprland by NixPro!'"
+  ];
+} else {})
