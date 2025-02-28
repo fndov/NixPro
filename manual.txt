@@ -73,3 +73,7 @@ Compose/ contains universal modules for common & dynamic options imported by eve
 Modules/ is for extra features
 Profiles/ are for different PC types (standard install or server etc)
 Desktop/ is for the desktop environment or window manager
+
+Trouble shooting, if you see: DBI connect('dbname=/nix/var/nix/profiles/per-user/root/channels/nixos/programs.sqlite
+it means you don't have the channel data cached in '/root/.cache/nix' which is a problem of flakes,
+you can add the channel with `sudo nix-channel --add https://nixos.org/channels/nixos-24.05 nixos` `sudo nix-channel --update`

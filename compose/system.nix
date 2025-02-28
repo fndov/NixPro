@@ -21,9 +21,18 @@
       documentation.info.enable = lib.mkForce false;
       documentation.man.enable = lib.mkForce false;
       documentation.nixos.enable = lib.mkForce false;
+      nix.extraOptions = "experimental-features = nix-command flakes";
+      nix.settings.sandbox = true;
       nix.settings.trusted-users = [ "@wheel" ];
       nix.settings.warn-dirty = false;
-      nix.extraOptions = "experimental-features = nix-command flakes";
+      nix.settings.substituters = [ "https://cache.lix.systems" ];
+      nix.settings.trusted-public-keys = [ "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o=" ];
+      nix.settings.auto-optimise-store = true;
+      nix.optimise.automatic = true;
+      nix.optimise.dates = [ "weekly" ];
+      nix.gc.automatic = true;
+      nix.gc.dates = "weekly";
+      nix.gc.options = "--delete-older-than 30d";
       home-manager.useGlobalPkgs = false;
       home-manager.useUserPackages = false;
       home-manager.backupFileExtension = "hm-backup";
@@ -220,15 +229,6 @@
         flags = [ "--update-input" "nixpkgs" "-L" ];
         dates = "02:00";
         randomizedDelaySec = "45min";
-      };
-      nix = {
-        settings.auto-optimise-store = true;
-        settings.sandbox = true;
-        gc.automatic = true;
-        gc.dates = "weekly";
-        gc.options = "--delete-older-than 30d";
-        optimise.automatic = true;
-        optimise.dates = [ "weekly" ];
       };
     })
     (lib.mkIf settings.system.security {

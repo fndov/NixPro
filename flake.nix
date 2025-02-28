@@ -11,6 +11,8 @@
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    lix-module.url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
+    lix-module.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = inputs@{ self, ... }: let
     settings = {
@@ -59,6 +61,7 @@
       specialArgs = { inherit inputs system settings; };
       modules = [
         ./modules/system/hardware.nix
+        inputs.lix-module.nixosModules.default
         inputs.home-manager.nixosModules.home-manager {
           home-manager.extraSpecialArgs = { inherit inputs settings; };
           home-manager.users.${settings.user.name} = {
