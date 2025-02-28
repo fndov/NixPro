@@ -1,5 +1,4 @@
 { pkgs, ... }: {
-  # Module installing chromium as default browser
   home.packages = [ pkgs.chromium ];
   xdg.mimeApps.defaultApplications = {
   "text/html" = "chromium-browser.desktop";

@@ -1,13 +1,11 @@
 { pkgs, settings, ... }: {
   home.packages = with pkgs; [
     waybar
-    nerdfonts # Huge file size.
+    nerdfonts
     networkmanagerapplet
   ];
   wayland.windowManager.hyprland.settings.exec-once = [ "waybar" ];
-  wayland.windowManager.hyprland.settings.bind = [
-    "SUPER,W,exec,pgrep waybar > /dev/null && pkill waybar || waybar &"
-  ];
+  wayland.windowManager.hyprland.settings.bind = [ "SUPER,W,exec,pgrep waybar > /dev/null && pkill waybar || waybar &" ];
   programs.waybar = {
     enable = true;
     settings = {
@@ -17,7 +15,6 @@
         height = 35;
         margin = "7 7 3 7";
         spacing = 2;
-
         modules-left = [
           "group/power"
           "group/battery"
@@ -29,7 +26,6 @@
         ];
         modules-center = [ "custom/hyprprofile" "hyprland/workspaces" ];
         modules-right = [ "group/time" "idle_inhibitor" "tray" ];
-
         "custom/os" = {
           "format" = " {} ";
           "exec" = ''echo "" '';

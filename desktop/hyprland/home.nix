@@ -26,7 +26,6 @@
     enable = true;
     systemd.enable = false;
     xwayland.enable = true;
-
     settings = {
       exec-once = [
         "gnome-keyring-daemon --start --components=secrets"
@@ -34,12 +33,11 @@
         "blueman-applet"
         "systemctl --user start hyprpolkitagent"
       ];
-
       env = [
         "MOZ_ENABLE_WAYLAND,1"
-	      "BROWSER,${settings.user.browser}"
-	      "EDITOR,${settings.user.editor}"
-	      "TERMINAL,${settings.user.terminal}"
+        "BROWSER,${settings.user.browser}"
+        "EDITOR,${settings.user.editor}"
+        "TERMINAL,${settings.user.terminal}"
         "XDG_CURRENT_DESKTOP,Hyprland"
         "XDG_SESSION_DESKTOP,Hyprland"
         # "WLR_DRM_DEVICES,/dev/dri/card2:/dev/dri/card1"
@@ -53,17 +51,12 @@
         "CLUTTER_BACKEND,wayland"
         "GTK_USE_PORTAL,1"
       ];
-
-      input = {
-        # natural_scroll = true;
-      };
-
+      input.natural_scroll = false;
       input.touchpad = {
         natural_scroll = true;
         # drag_lock = true;
         # tap-and-drag = true;
       };
-
       gestures = {
         workspace_swipe = true;
         workspace_swipe_distance = 170;
@@ -89,7 +82,6 @@
         border_part_of_window = true;
         no_border_on_floating = false;
       };
-
       /*
       master = {
         allow_small_split = true;
@@ -103,7 +95,6 @@
         smart_resizing = true;
       };
       */
-
       decoration = {
         rounding = 7;
         active_opacity = 1;
@@ -112,7 +103,6 @@
         dim_inactive = true;
         dim_strength = 0.2;
         dim_around = 0.6;
-
         blur = {
           enabled = true;
           size = 5;
@@ -125,7 +115,6 @@
           new_optimizations = true;
           xray = true;
         };
-
         shadow = {
           enabled = true;
           ignore_window = true;
@@ -135,7 +124,6 @@
           color = "rgba(00000055)";
         };
       };
-
       misc = {
         disable_hyprland_logo = true;
         disable_splash_rendering = false;
@@ -173,9 +161,7 @@
       XDG_BOOK_DIR = "/home/${settings.user.name}/Media/Books";
     };
   };
-  home.sessionVariables = {
-    EDITOR = settings.user.editor;
-    TERM = settings.user.terminal;
-    BROWSER = settings.user.browser;
-  };
+  home.sessionVariables.EDITOR = settings.user.editor;
+  home.sessionVariables.TERM = settings.user.terminal;
+  home.sessionVariables.BROWSER = settings.user.browser;
 }

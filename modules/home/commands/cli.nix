@@ -19,16 +19,17 @@ in {
     unstable.mangohud
     unstable.wine
     unstable.gamescope
-    unstable.protonplus
-    unstable.protontricks
-    unstable.protonup
     /* Extra */
+    gdu
     fastfetch
     compsize
     libnotify
-    gdu
     numbat
     /*
+      unstable.protonup
+      unstable.protontricks
+      unstable.protonplus
+      unstable.winetricks
       nixfmt-classic
       syncthing
       openssh

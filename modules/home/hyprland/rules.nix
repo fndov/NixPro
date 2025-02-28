@@ -17,6 +17,9 @@
       "float,title:^(Location)$"
       "float,title:^(Choose Default Install Path)$"
       "float,title:^(Choose target directory)$"
+      "float,title:^(Select a Foler for new Wine Prefixes)$"
+      "float,title:^(Select Executable)$"
+      "float,title:^(Select the setup File)$"
     ];
   };
 }

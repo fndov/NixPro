@@ -1,39 +1,26 @@
 { pkgs, ... }:{
   home.packages = [ pkgs.hypridle ];
-  wayland.windowManager.hyprland.settings.exec-once = [ 
-    "systemctl --user enable --now hypridle.service"
-  ];
-  services.hypridle = { # Put the system to rest when not in use.
+  wayland.windowManager.hyprland.settings.exec-once = [ "systemctl --user enable --now hypridle.service" ];
+  services.hypridle = {
     enable = true;
-
     settings = {
-      general = {
-        before_sleep_cmd = "pid hyprlock || hyprlock --immediate"; # Lock before suspend.
-        after_sleep_cmd = "hyprctl dispatch dpms on"; # Avoid having to press a key twice to turn on the display.
-      };
-
+      general.before_sleep_cmd = "pid hyprlock || hyprlock --immediate";
+      general.after_sleep_cmd = "hyprctl dispatch dpms on";
       listener = [
-        # Dim screen.
         {
           timeout = 150;
           on-timeout = "brightnessctl -s set 10";
           on-resume = "brightnessctl -r";
         }
-
-        # Lock screen.
         {
           timeout = 300;
           on-timeout = "pid hyprlock || hyprlock || cw";
         }
-
-        # Turn off screen.
         {
           timeout = 330;
           on-timeout = "hyprctl dispatch dpms off";
           on-resume = "hyprctl dispatch dpms on";
         }
-
-        # Suspend.
         {
           timeout = 400;
           on-timeout = "pid hyprlock || hyprlock --immediate & systemctl suspend";

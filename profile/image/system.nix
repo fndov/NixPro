@@ -9,8 +9,8 @@
     squashfsCompression = "zstd";
     contents = [
       {
-        source = lib.cleanSource /home/${settings.user.name}/${settings.system.flakePath}; # Impure.
-        target = "/home/${settings.user.name}/.nixpro";
+        source = lib.cleanSource /home/${settings.user.name}/${settings.system.flakePath}; # Impure warning.
+        target = "/home/${settings.user.name}/${settings.system.flakePath}";
         user = settings.user.name;
         group = "users";
         mode = "0777";

@@ -4,6 +4,7 @@ in {
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
     /* Essential */
+    unstable.zed-editor
     obsidian
     vscode
     godot_4
@@ -23,10 +24,10 @@ in {
     upscayl
     vlc
     /* Games */
-    unstable.lutris
-    unstable.zed-editor
-    unstable.heroic
+    unstable.steam
     /*
+      heroic
+      lutris
       foliate
       qbittorrent
       nextcloud-client

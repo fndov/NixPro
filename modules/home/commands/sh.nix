@@ -1,5 +1,5 @@
 { pkgs, settings, ... }: let
-  myAliases = {
+  aliases = {
     cat = "bat --style=plain --pager=never";
     tree = "eza --color always --icons --hyperlink --group-directories-first --tree";
     l = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2";
@@ -50,12 +50,12 @@ in {
       bind \cF nixsw
       bind \cH backward-kill-word
     '';
-    shellAliases = myAliases;
+    shellAliases = aliases;
   };
   programs.bash = {
     enable = true;
     enableCompletion = true;
-    shellAliases = myAliases;
+    shellAliases = aliases;
   };
   programs.powerline-go = { enable = true; };
   programs.atuin = {

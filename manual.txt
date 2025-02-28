@@ -1,76 +1,75 @@
 https://nixos.wiki/wiki/WSL
-WSL SWAP is set in the app 'WSL Settings' and not in the configuration.
-wsl --shutdown
-sudo systemctl restart nix-daemon
-
 https://search.nixos.org/packages
 https://search.nixos.org/options
 https://home-manager-options.extranix.com/
-https://github.com/search?q=+language%3ANix&type=code
 https://wiki.hyprland.org/Configuring/Variables/
-
-`nixos-option` options
-`nsearch` packages
-
-/* nix-shell & nix shell */
-nix-shell -p clang clang-tools --command fish --run 'clang++ a.cc -o b.exe'
-> # compiles it
-nix shell nixpkgs#youtube-dl --command youtube-dl --version
-> 2020.11.01.1
-nix shell nixpkgs/nixos-20.03#hello
-/* opening packages */
-cd $(nix-build '<nixpkgs>' -A intel-gpu-tools --no-out-link)
-
+https://github.com/search?q=+language%3ANix&type=code
+https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/nvidia-x11/default.nix
 https://ops.functionalalgebra.com/2016/06/14/nixos-systemd-journald/
 
-    systemSettings = {                # System settings.
-      bootMode = "uefi";              # Options: uefi, bios.
-      grubDevice = "/dev/sda";        # /dev/vda, /dev/nvme0n1.
-      bootMountPath = "/boot";        # Mount path for efi boot partition; only used for uefi boot mode.
-      arch = "x86_64-linux";          # Options: x86_64-linux, aarch64-linux.
-      flakePath = ".nixpro";          # /home/user/flakePath/nixpro
-      profile = "microsoft";          # Options: standalone, server, virtual-machine, apple, microsoft.
-      hostname = "NixPro";
-      gpu = "intel";                  # Options: nvidia, amd, intel.
-    userSettings = {                  # User settings.
-      username = "miyu";              # Username referenced across system.
-      email = "tommybice1@gmail.com"; # Primary email address.
-      terminal = "ghostty";           # Options: alacritty, ghostty.
-      shell = "fish";                 # Options: bash, zsh, fish, nushell.
-      editor = "micro";               # Options: vim, neovim, micro.
-      browser = "firefox";            # Options: firefox, chromium.
-    desktop = {                       # Desktop settings.
-      font = "Noto Mono";             # Font in use.
-      fontPkg = pkgs.noto-fonts;      # Package name for font.
-      wallpaperPath = "Media/Pictures/Wallpapers/Catppuccin-mocha"; # /home/wallpaperPath/
-      wallpaperName = "purpled-night.jpg"; # wallpaperPath/wallpaper
-      animationSpeed = "medium";      # Options: slow, medium, fast.
+WSL Swap is set in the 'WSL Settings' app and not in the configuration.
 
-bash
-while true; do cp -r NixPro/* /home/miyu/.nixpro; sleep 1; done
+Reference commands:
+nix-shell -p clang clang --command bash --run 'clang input.cc -o result'
+nix shell nixpkgs/nixos-24.05#youtube-dl --command youtube-dl --version
+nix shell nixpkgs/nixos-20.03#youtube-dl --command youtube-dl --version
+Opening packages:
+cd $(nix-build '<nixpkgs>' -A intel-gpu-tools --no-out-link)
+Btrfs commands:
+btrfs filesystem defragment -czstd -v -r /path/to/target
+sudo compsize -x /path/to/target
 
+Settings:
+  profile = "standalone" Apple Image Microsoft Server Standalone Virtual-Machine
+  Driver:
+    graphics = "nvidia" GPU driver
+    networking = true   Whether to install networking drivers
+    bluetooth = true    Whether to install bluetooth drivers
+    usbmuxd = true      IOS USB driver
+  }
+  System:
+    version = "24.11"             NixPkgs Version
+    architecture = "x86_64-linux" System arch
+    bootMode = "uefi"             Uefi or Bios
+    grubDevice = "/dev/sda"       Device identifier for grub; only used for legacy (bios) boot mode
+    bootMountPath = "/boot"       Mount path for efi boot partition; only used for uefi boot mode
+    flakePath = ".nixpro"         /home/${settings.user.name}/${settings.system.flakePath/contents
+    automation = false            Garbage collection, updates, builds etc
+    printing = true               Includes CUPS and other printing utilities
+    timezone = true               Sets timezone
+    security = false              Uses the hardend kernel, locks kernel modules and enables audits
+    sshd = false                  Allows SSH connections
+  User:
+    name = "miyu"                 User account name
+    password = "unlock"           User & Root password
+    email = ""                    Default git email address
+    terminal = "ghostty"          Terminal emulator for desktop environments
+    shell = "fish"                Shell for the user account
+    editor = "micro"              Text editor for the user account
+    browser = "firefox"           Web browser for the user account
+  Desktop:
+    type = "hyprland"             Desktop module name. Set null for no desktop
+    font = "Noto"                 Default font for the desktop environment
+    fontPkg = pkgs.noto-fonts     Name of font package
+    wallpaperPath = "Picturescatppuccin" /home/${settings.user.name}/${settings.desktop.wallpaperPath}/
+    wallpaperName = "background.png" /home/${settings.user.name}/${settings.desktop.wallpaperPath}/${settings.desktop.wallpaperName}
+    animationSpeed = "medium"     Slow Medium Fast
 
 Import flow:
 flake.nix
 - modules/system/hardware.nix
 - compose/home.nix
 - compose/system.nix
-- profile/option/home.nix
-- profile/option/system.nix
-- desktop/option/home.nix
-- desktop/option/system.nix
+- profile/${settings.profile}/system.nix
+- profile/${settings.profile}/home.nix
+- desktop/${settings.desktop.type}/home.nix
+- desktop/${settings.desktop.type}/system.nix
+- modules/home/apps/${settings.user.terminal}.nix
+- modules/home/apps/${settings.user.browser}.nix
 
+Every directory contains a `system.nix` & `home.nix` for easy separation between the system settings and home manager
 
-Run software faster with
-
-nice -n -20 <program>
-
-bees
-btdu
-btrbk
-btrfs-auto-snapshot
-btrfs-heatmap
-btrfs-progs
-btrfs-snap
-btrfs-assistant
-ntfs2btrfs
+Compose/ contains universal modules for common & dynamic options imported by every build
+Modules/ is for extra features
+Profiles/ are for different PC types (standard install or server etc)
+Desktop/ is for the desktop environment or window manager

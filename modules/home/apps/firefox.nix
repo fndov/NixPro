@@ -1,5 +1,4 @@
 { pkgs, ... }: {
-  # Module installing firefox as default browser
   home.packages = [ pkgs.firefox-bin ];
   xdg.mimeApps.defaultApplications = {
   "text/html" = "firefox.desktop";

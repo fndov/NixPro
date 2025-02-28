@@ -29,7 +29,6 @@
       home-manager.backupFileExtension = "hm-backup";
       programs.command-not-found.enable = if settings.profile == "image" then false else true;
       programs.nano.enable = false;
-      programs.vim.enable = false;
       services.gpm.enable = true;
       programs.fish.enable = if settings.user.shell == "fish" then true else false;
       environment.systemPackages = [ pkgs.micro ];
@@ -41,8 +40,8 @@
       hardware.ksm.sleep = 1;
 
       users.mutableUsers = false;
-      security.sudo.wheelNeedsPassword = false;
       users.users.root.initialPassword = lib.mkForce settings.user.password;
+      security.sudo.wheelNeedsPassword = false;
       users.users.${settings.user.name} = {
         isNormalUser = true;
         initialPassword = settings.user.password;
@@ -53,15 +52,16 @@
       };
 
       zramSwap.enable = builtins.elem settings.profile [ "image" "standalone" "virtual-machine" "server" ];
-      zramSwap.memoryPercent = 100; # 40
+      zramSwap.memoryPercent = 100; # 30
       zramSwap.algorithm = "zstd -Xcompression-level 22"; # lzo is small, zstd is fast.
       zramSwap.priority = 3;
       boot.kernel.sysctl = {
+        "vm.swappiness" = 200; # 60
+        "vm.dirty_background_ratio" = 80; # 10
+        "vm.dirty_ratio" = if settings.profile == "image" then 3 else 90; # 20
+        "vm.vfs_cache_pressure" = 0; # 100
+        "vm.min_free_kbytes" = 1000; # 0
         "vm.compaction_proactiveness" = 50; # 20
-        "vm.swappiness" = 100; # 40
-        "vm.vfs_cache_pressure" = 100; # 100
-        "vm.dirty_background_ratio" = 70; # 40
-        "vm.dirty_ratio" = if settings.profile == "image" then 3 else 70;
       };
       services.earlyoom = {
         enable = if settings.profile == "image" then true else false;
@@ -80,7 +80,7 @@
             then pkgs.linuxPackages
           else
             (if settings.profile == "standalone"
-              then pkgs.linuxPackages_xanmod_latest
+              then pkgs.linuxPackages
             else
               (if settings.profile == "microsoft"
                 then pkgs.linuxPackages
@@ -97,7 +97,6 @@
         "udev.log_level=3"
         "rd.udev.log_level=3"
         "udev.log_priority=3"
-
         "fastboot"
         "mitigations=off"
         "noibrs"
@@ -115,7 +114,6 @@
         "panic=1"
         "boot.panic_on_fail"
         "transparent_hugepage=always"
-
         "init_on_alloc=0"
         "init_on_free=0"
         "idle=nomwait"
@@ -126,7 +124,6 @@
           "nodiratime"
           "nofail"
           "x-systemd.device-timeout=5s"
-
           "splash"
           "rd.systemd.show_status=0"
           "rd.udev.log_level=3"
@@ -135,16 +132,13 @@
           "processor.max_cstate=1"
           "intel_idle.max_cstate=1"
           "threadirqs"
-
           "i915.fastboot=1"
           "raid=noautodetect"
           "noapic"
         */
       ];
     }
-
-    (
-      if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "standalone")
+    (if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "standalone")
       then {
         boot.loader.grub.useOSProber = true;
         boot.loader.systemd-boot.editor = false;
@@ -161,10 +155,8 @@
           if (settings.system.bootMode == "uefi") then false else true;
         boot.loader.grub.device = settings.system.grubDevice;
       }
-      else {}
-    )
-    (
-      if (settings.desktop.type == "hyprland" && settings.profile == "image")
+      else {})
+    (if (settings.desktop.type == "hyprland" && settings.profile == "image")
       then {
         home-manager.users.${settings.user.name}.wayland.windowManager.hyprland.settings.exec-once = [
           "cp -r /iso/home/${settings.user.name}/${settings.system.flakePath} /home/${settings.user.name}; chown -R miyu /home/${settings.user.name}/${settings.system.flakePath}; chmod -R 777 /home/${settings.user.name}/${settings.system.flakePath}"
@@ -175,25 +167,19 @@
           "notify-send 'Welcome to Hyprland by NixPro!'"
         ];
       }
-      else {}
-    )
-
-    (
-      if (settings.desktop.type == "hyprland" && settings.profile == "virtual-machine")
+      else {})
+    (if (settings.desktop.type == "hyprland" && settings.profile == "virtual-machine")
       then {
         home-manager.users.${settings.user.name} = {
           wayland.windowManager.hyprland.settings.monitor = "Virtual-1, 1920x1080, 0x0, 1";
         };
       }
-      else {}
-    )
-
-    (
-      if settings.driver.graphics == "nvidia"
+      else {})
+    (if settings.driver.graphics == "nvidia"
       then {
         nixpkgs.config.allowUnfree = true;
         environment.systemPackages = [ pkgs.nvtopPackages.full ];
-        boot.blacklistedKernelModules = [ "nouveau" ]; # Nouveau sucks. Add "nvidiafb" for GPU passthrough.
+        boot.blacklistedKernelModules = [ "nouveau" ];
         services.xserver.videoDrivers = [ "nvidia" ];
         boot.kernelParams = [
           "nvidia_drm"
@@ -218,23 +204,15 @@
           offload.enableOffloadCmd = true;
         };
       }
-      else {}
-    )
-
-    (
-      if settings.driver.graphics == "amd"
+      else {})
+    (if settings.driver.graphics == "amd"
       then {
       }
-      else {}
-    )
-
-    (
-      if settings.driver.graphics == "intel"
+      else {})
+    (if settings.driver.graphics == "intel"
       then {
       }
-      else {}
-    )
-
+      else {})
     (lib.mkIf (settings.system.automation && settings.profile != "microsoft") {
       system.autoUpgrade = {
         enable = true;
@@ -244,22 +222,15 @@
         randomizedDelaySec = "45min";
       };
       nix = {
-        settings = {
-          auto-optimise-store = true;
-          sandbox = true;
-        };
-        gc = {
-          automatic = true;
-          dates = "weekly";
-          options = "--delete-older-than 30d";
-        };
-        optimise = {
-          automatic = true;
-          dates = [ "weekly" ];
-        };
+        settings.auto-optimise-store = true;
+        settings.sandbox = true;
+        gc.automatic = true;
+        gc.dates = "weekly";
+        gc.options = "--delete-older-than 30d";
+        optimise.automatic = true;
+        optimise.dates = [ "weekly" ];
       };
     })
-
     (lib.mkIf settings.system.security {
       boot.kernelPackages = lib.mkForce pkgs.linuxPackages_hardened;
       boot.kernelParams = [
@@ -276,7 +247,6 @@
       };
       networking.firewall.enable = true;
     })
-
     (lib.mkIf settings.system.sshd {
       services.openssh = {
         enable = true;
@@ -287,7 +257,6 @@
         };
       };
     })
-
     (lib.mkIf settings.system.printing {
       services.printing.enable = true;
       services.avahi.enable = true;
@@ -295,12 +264,10 @@
       services.avahi.openFirewall = true;
       environment.systemPackages = [ pkgs.cups-filters ];
     })
-
     (lib.mkIf settings.driver.bluetooth {
       hardware.bluetooth.enable = true;
       services.blueman.enable = true;
     })
-
     (lib.mkIf (settings.driver.networking && settings.profile != "microsoft") {
       environment.systemPackages = [ pkgs.networkmanager ];
       networking.networkmanager.enable = true;
@@ -309,13 +276,11 @@
       services.dbus.enable = true;
       services.resolved.enable = true;
     })
-
     (lib.mkIf settings.driver.usbmuxd {
       services.usbmuxd.enable = true;
       services.usbmuxd.package = pkgs.usbmuxd2;
       environment.systemPackages = with pkgs; [ networkmanagerapplet ifuse ];
     })
-
     (lib.mkIf settings.system.timezone {
       time.timeZone = "America/Chicago";
       i18n = {

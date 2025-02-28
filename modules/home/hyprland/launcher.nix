@@ -9,7 +9,6 @@
     "SUPER,semicolon,exec,rofi -show drun"
     "SUPER, V, exec, cliphist list | cut -f 2- | rofi -dmenu | wl-copy"
   ];
-
   wayland.windowManager.hyprland.settings.exec-once = [
     "wl-paste --type text --watch cliphist store"
   ];

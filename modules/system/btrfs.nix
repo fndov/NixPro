@@ -7,12 +7,11 @@
       "compress=zstd"
       "autodefrag"
       "noatime"
-      # "relatime"
       "nodiratime"
-      "space_cache=v2" # Buggy?
-      # "compress-force=zstd:15" # Smallest size.
-      # "nodatacow" Adds speed.
-      # "commit=120" Adds speed.
+      "space_cache=v2"
+      # "relatime"
+      # "nodatacow"
+      # "commit=120"
     ];
   };
   services.btrfs.autoScrub = {
@@ -21,5 +20,3 @@
     fileSystems = [ "/" ];
   };
 }
-
-# try doing just home and nix/store

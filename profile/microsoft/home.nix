@@ -1,10 +1,11 @@
 { ... }: {
-  imports = [ /* Home-Manager */
+  imports = [
     ../../modules/home/commands/sh.nix
     ../../modules/home/commands/cli.nix
     ../../modules/home/commands/lib.nix
     ../../modules/home/development/cc.nix
   ];
+
   # https://github.com/sonowz/vscode-remote-wsl-nixos/tree/master
   home.file.".vscode-server/server-env-setup".text = ''
     # This shell script is run before checking for vscode version updates.

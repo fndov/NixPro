@@ -2,7 +2,6 @@
   services.xserver.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   services.displayManager.ly.enable = true;
-  
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;

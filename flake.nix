@@ -16,7 +16,7 @@
     settings = {
       profile = "standalone";
       driver = {
-        graphics = "intel";
+        graphics = "nvidia";
         networking = true;
         bluetooth = true;
         usbmuxd = true;
@@ -28,7 +28,7 @@
         grubDevice = "/dev/sda";
         bootMountPath = "/boot";
         flakePath = ".nixpro";
-        automation = true;
+        automation = false;
         printing = true;
         timezone = true;
         security = false;
@@ -57,7 +57,8 @@
   in {
     nixosConfigurations.${settings.user.name} = inputs.nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs system settings; };
-      modules = [ ./modules/system/hardware.nix
+      modules = [
+        ./modules/system/hardware.nix
         inputs.home-manager.nixosModules.home-manager {
           home-manager.extraSpecialArgs = { inherit inputs settings; };
           home-manager.users.${settings.user.name} = {
