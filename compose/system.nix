@@ -127,7 +127,6 @@
         "ascpi_osi=Linux"
         "preempt=full"
         "noatime"
-        "uinput"
         /*
           "nodiratime"
           "nofail"

@@ -4,8 +4,6 @@
     background {
       monitor =
       path = screenshot
-
-      # all these options are taken from hyprland, see https://wiki.hyprland.org/Configuring/Variables/#blur for explanations
       blur_passes = 4
       blur_size = 5
       noise = 0.0117
@@ -15,13 +13,11 @@
       vibrancy_darkness = 0.0
     }
 
-    # doesn't work yet
     image {
       size = 150 # lesser side if not 1:1 ratio
       rounding = -1 # negative values mean circle
       border_size = 0
       rotate = 0 # degrees, counter-clockwise
-
       position = 0, 200
       halign = center
       valign = center
@@ -47,7 +43,6 @@
       bothlock_color = -1 # when both locks are active. -1 means don't change outer color (same for above)
       invert_numlock = false # change color if numlock is off
       swap_font_color = false # see below
-
       position = 0, -20
       halign = center
       valign = center
@@ -58,9 +53,7 @@
       text = Hello, ${settings.user.name}
       font_size = 25
       font_family = ''+settings.desktop.font+''
-
       rotate = 0 # degrees, counter-clockwise
-
       position = 0, 160
       halign = center
       valign = center
@@ -72,7 +65,6 @@
       font_size = 20
       font_family = ''+settings.desktop.font+''
       rotate = 0 # degrees, counter-clockwise
-
       position = 0, 80
       halign = center
       valign = center

@@ -1,8 +1,23 @@
-{inputs, pkgs, ...}: {
+{ pkgs, inputs, ... }: let
+  unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
+in {
   wayland.windowManager.hyprland = {
     plugins = [
-      # inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
-      # inputs.hyprland-plugins.packages.${pkgs.system}.hyprtrails
+      pkgs.hyprlandPlugins.hypr-dynamic-cursors
     ];
+    settings = {
+      plugin.dynamic-cursors = {
+        mode = "stretch";
+        threshold = "2";
+        shake = {
+          threshold = 4;
+          base = 1;
+          speed = 2;
+          influence = 2;
+          limit = 2;
+          timeout = 300;
+        };
+      };
+    };
   };
 }

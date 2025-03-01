@@ -40,7 +40,6 @@
       "ALT,TAB,bringactivetotop"
       "ALTSHIFT,TAB,cyclenext,prev"
       "ALTSHIFT,TAB,bringactivetotop"
-      # "SUPER,V,exec,wl-copy $(wl-paste | tr '\n' ' ')"
       "SUPERSHIFT,T,exec,screenshot-ocr"
       "CTRLALT,Delete,exec,hyprctl kill"
       "SUPERSHIFT,Q,exec,hyprctl kill"

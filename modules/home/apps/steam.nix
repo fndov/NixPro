@@ -3,7 +3,6 @@
 in {
   home.packages = with pkgs; [
     unstable.steam
-    unstable.steam-unwrapped
     unstable.gamemode
     unstable.protonup
     unstable.mangohud

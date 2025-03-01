@@ -4,22 +4,22 @@
   services.udiskie.tray = "always";
   home.packages = [ pkgs.hyprpolkitagent ];
   imports = [
-    ../../modules/home/hyprland/terminal.nix
-    ../../modules/home/hyprland/theme.nix
+    ../../modules/home/hyprland/animation.nix
     ../../modules/home/hyprland/cursor.nix
-    ../../modules/home/hyprland/wallpaper.nix
+    ../../modules/home/hyprland/dependencies.nix
+    ../../modules/home/hyprland/dock.nix
     ../../modules/home/hyprland/keyboard.nix
     ../../modules/home/hyprland/launcher.nix
     ../../modules/home/hyprland/lock-screen.nix
     ../../modules/home/hyprland/nightlight.nix
     ../../modules/home/hyprland/notification.nix
+    ../../modules/home/hyprland/rules.nix
     ../../modules/home/hyprland/screenshot.nix
     ../../modules/home/hyprland/task-bar.nix
+    ../../modules/home/hyprland/terminal.nix
+    ../../modules/home/hyprland/theme.nix
     ../../modules/home/hyprland/timeout.nix
-    ../../modules/home/hyprland/animation.nix
-    ../../modules/home/hyprland/dependencies.nix
-    ../../modules/home/hyprland/rules.nix
-    ../../modules/home/hyprland/dock.nix
+    ../../modules/home/hyprland/wallpaper.nix
     ../../modules/home/hyprland/plugins.nix
   ];
   wayland.windowManager.hyprland = {

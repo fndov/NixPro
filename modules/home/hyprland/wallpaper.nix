@@ -1,6 +1,5 @@
 { pkgs, settings, ... }: let
-  # Check using `hyprctl monitors`
-  monitor = "eDP-1";
+  monitor = "eDP-1"; # Check using `hyprctl monitors`
 in {
   home.packages = [ pkgs.hyprpaper ];
   wayland.windowManager.hyprland.settings.exec-once = [ "hyprpaper" ];

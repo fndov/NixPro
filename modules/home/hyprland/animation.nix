@@ -39,9 +39,9 @@ in {
         "fade, 1, ${animationDuration}, smoothFocus"
         "fadeIn, 1, ${animationDuration}, smoothFocus"
         "fadeOut, 1, ${animationDuration}, smoothFocus"
-        "fadeSwitch, 1, ${animationDuration}, smoothFocus"   # Smoother focus transition
-        "fadeShadow, 1, ${animationDuration}, smoothFocus"   # Coordinated shadow fade
-        "fadeDim, 1, ${animationDuration}, smoothFocus"      # Smoother dimming
+        "fadeSwitch, 1, ${animationDuration}, smoothFocus"
+        "fadeShadow, 1, ${animationDuration}, smoothFocus"
+        "fadeDim, 1, ${animationDuration}, smoothFocus"
 
         # Borders (kept subtle for focus changes)
         "border, 1, ${borderDuration}, smoothFocus"

@@ -26,7 +26,7 @@ in {
     confirm-close-surface = false
 
     # --- Init ---
-    command = "date;fish"
+    command = "date;${settings.user.shell}"
 
     # --- Shaders ---
     # custom-shader = crt.glsl

@@ -1,5 +1,5 @@
 { ... }: {
-  wayland.windowManager.hyprland.settings = { # `hyprctl clients | grep -A 2 "Window"`
+  wayland.windowManager.hyprland.settings = {
     windowrulev2 = [
       "float, title:^(Picture-in-Picture)$"
       "pin, title:^(Picture-in-Picture)$"
@@ -21,6 +21,7 @@
       "float,title:^(Select Executable)$"
       "float,title:^(Select the setup File)$"
       "float,title:^(Steam Settings)$"
+      "float,title:^(Pick game to add)"
     ];
   };
 }
