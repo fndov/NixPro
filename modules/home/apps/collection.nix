@@ -36,7 +36,6 @@ in {
       sshfs
       texinfo
       libffi
-      zlib
       ventoy
       remmina
       tenacity
@@ -78,9 +77,7 @@ in {
       kontact
       korganizer
       mission-center
-      mpv
       remembrance
-      steam
       veracrypt
       zen-browser
       portmaster

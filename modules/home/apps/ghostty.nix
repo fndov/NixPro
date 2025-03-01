@@ -4,7 +4,6 @@ in {
   home.packages = with pkgs; [
     unstable.ghostty
   ];
-  wayland.windowManager.hyprland.settings.exec-once = [ "ghostty --initial-window=false" ];
   home.file."/home/${settings.user.name}/.config/ghostty/config".text = ''
     # --- Hyprland ---
     window-decoration = false
@@ -40,4 +39,6 @@ in {
     mouse-hide-while-typing = true
     focus-follows-mouse = true
   '';
-}
+} // (if settings.desktop.type == "hyprland" then {
+  wayland.windowManager.hyprland.settings.exec-once = [ "ghostty --initial-window=false" ];
+} else {})

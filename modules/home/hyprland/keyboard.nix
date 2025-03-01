@@ -45,9 +45,9 @@
       "SUPERSHIFT,Q,exec,hyprctl kill"
 
       # Volume and Media Control.
-      ", XF86AudioRaiseVolume, exec, pamixer --unmute -i 3"
-      ", XF86AudioLowerVolume, exec, 'pamixer --unmute --allow-boost -d 3'"
-      "SUPER, XF86AudioRaiseVolume, exec, pamixer --unmute --allow-boost -i 3"
+      ",XF86AudioRaiseVolume, exec, pamixer --unmute -i 3"
+      ",XF86AudioLowerVolume, exec, 'pamixer --unmute --allow-boost -d 3'"
+      "SUPER,XF86AudioRaiseVolume, exec, pamixer --unmute --allow-boost -i 3"
       ",XF86AudioMicMute,exec,pamixer --default-source -m"
       ",XF86AudioMute,exec,pamixer -t"
       ",XF86AudioPlay,exec,playerctl play-pause"

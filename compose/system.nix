@@ -87,7 +87,7 @@
             then pkgs.linuxPackages
           else
             (if settings.profile == "standalone"
-              then pkgs.linuxPackages
+              then pkgs.linuxPackages_xanmod_latest
             else
               (if settings.profile == "microsoft"
                 then pkgs.linuxPackages
@@ -126,9 +126,7 @@
         "idle=nomwait"
         "ascpi_osi=Linux"
         "preempt=full"
-        "noatime"
         /*
-          "nodiratime"
           "nofail"
           "x-systemd.device-timeout=5s"
           "splash"
