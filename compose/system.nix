@@ -65,9 +65,9 @@
       zramSwap.algorithm = "zstd -Xcompression-level 22"; # lzo is small, zstd is fast.
       zramSwap.priority = 3;
       boot.kernel.sysctl."vm.swappiness" = 200; # 60
-      boot.kernel.sysctl."vm.dirty_background_ratio" = 80; # 10
-      boot.kernel.sysctl."vm.dirty_ratio" = if settings.profile == "image" then 3 else 90; # 20
-      boot.kernel.sysctl."vm.vfs_cache_pressure" = 0; # 100
+      boot.kernel.sysctl."vm.dirty_background_ratio" = 95; # 10
+      boot.kernel.sysctl."vm.dirty_ratio" = if settings.profile == "image" then 80 else 90; # 20
+      boot.kernel.sysctl."vm.vfs_cache_pressure" = 1; # 100
       boot.kernel.sysctl."vm.min_free_kbytes" = 1000; # 0
       boot.kernel.sysctl."vm.compaction_proactiveness" = 50; # 20
       boot.initrd.compressor = "zstd";
@@ -79,7 +79,7 @@
       services.earlyoom.freeSwapThreshold = 3;
       services.earlyoom.freeSwapKillThreshold = 3;
 
-      boot.kernelPackages =
+      boot.kernelPackages = # xanmod xanmod_latest rt rt_latest hardened zen
         (if settings.profile == "image"
           then pkgs.linuxPackages_xanmod_latest
         else
@@ -87,7 +87,7 @@
             then pkgs.linuxPackages
           else
             (if settings.profile == "standalone"
-              then pkgs.linuxPackages_xanmod_latest
+              then pkgs.linuxPackages
             else
               (if settings.profile == "microsoft"
                 then pkgs.linuxPackages
@@ -96,8 +96,8 @@
                   then pkgs.linuxPackages_latest
                 else null)))));
 
+      boot.readOnlyNixStore = true;
       boot.blacklistedKernelModules = [ "nouveau" ];
-
       boot.kernelParams = [
         "quiet"
         "rd.systemd.show_status=false"
@@ -166,7 +166,7 @@
         nixpkgs.config.allowUnfree = true;
         environment.systemPackages = [ pkgs.nvtopPackages.full ];
         services.xserver.videoDrivers = [ "nvidia" ];
-        hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest;
+        hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production; /* production or latest */
         # ^ Works best with `boot.kernelPackages = pkgs.linuxPackages;`
         hardware.nvidia.powerManagement.enable = true;
         hardware.nvidia.powerManagement.finegrained = true;
@@ -193,7 +193,10 @@
       then { }
     else {})
     (if settings.driver.graphics == "intel"
-      then { }
+      then {
+        hardware.graphics.enable = true;
+        hardware.graphics.enable32Bit = true;
+      }
     else {})
     (lib.mkIf (settings.system.automation && settings.profile != "microsoft") {
       system.autoUpgrade.enable = true;

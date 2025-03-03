@@ -4,14 +4,12 @@
     fsType = "btrfs";
     options = [
       "subvol=@"
-      "compress=zstd"
       "autodefrag"
+      "space_cache=v2"
+      "compress=zstd"
       "noatime"
       "nodiratime"
-      "space_cache=v2"
-      # "relatime"
       # "nodatacow"
-      # "commit=120"
     ];
   };
   services.btrfs.autoScrub = {

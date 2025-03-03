@@ -1,5 +1,5 @@
 { pkgs, ... }: let
-  cursorSize = 27;
+  cursorSize = 24;
   cursorSizeStr = toString cursorSize;
   cursorThemeName = "catppuccin-mocha-dark-cursors";
 in {

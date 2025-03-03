@@ -17,6 +17,7 @@ Opening packages:
 cd $(nix-build '<nixpkgs>' -A intel-gpu-tools --no-out-link)
 Btrfs commands:
 btrfs filesystem defragment -czstd -v -r /path/to/target
+sudo btrfs fi df /
 sudo compsize -x /path/to/target
 Dock order:
 edit ~/.cache/nwg-dock-pinned

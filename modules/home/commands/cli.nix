@@ -15,7 +15,9 @@ in {
     pciutils
     curl
     git
+    loop
     /* Extra */
+    appimage-run
     gdu
     fastfetch
     compsize
@@ -39,7 +41,6 @@ in {
       twitch-dl
       unrar
       yt-dlp
-      appimage-run
       aircrack-ng
       ascii-image-converter
       carapace
