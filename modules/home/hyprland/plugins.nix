@@ -7,7 +7,7 @@ in {
     ];
     settings = {
       plugin.dynamic-cursors = {
-        mode = "stretch";
+        mode = "tilt"; # stretch
         threshold = "2";
         shake = {
           threshold = 4;

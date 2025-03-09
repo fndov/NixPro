@@ -49,8 +49,8 @@
         type = "hyprland";
         font = "Noto";
         fontPkg = pkgs.noto-fonts;
-        wallpaperPath = "Media/Pictures/walls catppuccin mocha";
-        wallpaperName = "idk-tbh.png";
+        wallpaperPath = "Media/Pictures/catppuccin-mocha";
+        wallpaperName = "clouds-5.jpg";
         animationSpeed = "medium";
       };
     };

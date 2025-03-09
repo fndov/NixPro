@@ -1,5 +1,5 @@
 { pkgs, ... }: let
-  cursorSize = 24;
+  cursorSize = 26;
   cursorSizeStr = toString cursorSize;
   cursorThemeName = "catppuccin-mocha-dark-cursors";
 in {
@@ -18,7 +18,6 @@ in {
   home.sessionVariables = {
     XCURSOR_THEME = cursorThemeName;
     XCURSOR_SIZE  = cursorSizeStr;
-    # QT_QPA_PLATFORMTHEME = "gtk2";
   };
   wayland.windowManager.hyprland.settings = {
     env = [
