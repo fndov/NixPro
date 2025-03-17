@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    # gcov           # Code coverage analysis (part of gcc)
+    # gcov         # Code coverage analysis (part of gcc)
     gcc            # GNU Compiler Collection.
     gdb            # GNU Debugger
     valgrind       # Memory debugging and profiling

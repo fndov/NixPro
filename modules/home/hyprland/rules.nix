@@ -4,6 +4,8 @@
       "float, title:^(Picture-in-Picture)$"
       "pin, title:^(Picture-in-Picture)$"
       "nodim, title:^(Picture-in-Picture)$"
+      "size 600 400, title:^(nwg-clipman)$"
+      "center, title:^(nwg-clipman)$"
     ];
     wayland.windowManager.hyprland.settings.windowrule = [
       "float,title:^(Select a folder)$"
@@ -22,6 +24,7 @@
       "float,title:^(Select the setup File)$"
       "float,title:^(Steam Settings)$"
       "float,title:^(Pick game to add)"
+      "float,title:^(nwg-clipman)"
     ];
   };
 }

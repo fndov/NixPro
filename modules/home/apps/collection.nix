@@ -3,7 +3,6 @@
 in {
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
-    /* Essential */
     unstable.zed-editor
     obsidian
     vscode

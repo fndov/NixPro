@@ -1,5 +1,5 @@
 { pkgs, settings, ... }: {
-  services.blueman-applet.enable = if settings.driver.bluetooth == true then true else false;
+  services.blueman-applet.enable = if settings.driver.bluetooth == true then true else false; # fix
   services.udiskie.enable = true;
   services.udiskie.tray = "always";
   home.packages = [ pkgs.hyprpolkitagent ];

@@ -83,8 +83,7 @@
     bind = [
       # Apps.
       "SUPER,Return,exec,${settings.user.terminal}"
-      "SUPER,Z,exec,hyprctl dispatch exec '[float] ${settings.user.terminal} -e ${settings.user.editor} ~/Documents/note.txt'"
-      "SUPER,B,exec,hyprctl dispatch exec '[float] ${settings.user.terminal} -e btm'"
+      "SUPER,H,exec,hyprctl dispatch exec '[float] ${settings.user.terminal} -e htop'"
       "SUPER,N,exec,hyprctl dispatch exec '[float] ${settings.user.terminal} -e numbat'"
 
       # Common.
@@ -121,7 +120,6 @@
       ",XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
       "SUPER,XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise --max-volume 200"
       "SUPER,XF86AudioLowerVolume, exec, swayosd-client --output-volume lower --max-volume 200"
-      # ",XF86AudioMicMute,exec,"
       ",XF86AudioMute,exec, swayosd-client --output-volume mute-toggle"
       ",XF86AudioPlay,exec,playerctl play-pause"
       ",XF86AudioPause,exec,playerctl play-pause"
@@ -160,4 +158,20 @@
       "SUPERSHIFT,9,movetoworkspace,9"
     ];
   };
-}
+} // (if settings.user.editor == "micro" then {
+  wayland.windowManager.hyprland.settings.bind = [
+      "SUPER,Z,exec,hyprctl dispatch exec '[float] ${settings.user.terminal} -e ${settings.user.editor} --ruler false -colorscheme geany ~/Documents/note.txt'"
+  ];
+} else {}) // (if settings.user.editor == "nano" then {
+  wayland.windowManager.hyprland.settings.bind = [
+      "SUPER,Z,exec,hyprctl dispatch exec '[float] ${settings.user.terminal} -e ${settings.user.editor} ~/Documents/note.txt'"
+  ];
+} else {}) // (if settings.user.editor == "neovim" then {
+  wayland.windowManager.hyprland.settings.bind = [
+      "SUPER,Z,exec,hyprctl dispatch exec '[float] ${settings.user.terminal} -e ${settings.user.editor} ~/Documents/note.txt'"
+  ];
+} else {}) // (if settings.user.editor == "vim" then {
+  wayland.windowManager.hyprland.settings.bind = [
+      "SUPER,Z,exec,hyprctl dispatch exec '[float] ${settings.user.terminal} -e ${settings.user.editor} ~/Documents/note.txt'"
+  ];
+} else {})

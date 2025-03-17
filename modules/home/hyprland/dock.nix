@@ -81,25 +81,4 @@
     box-shadow: none;
   }
   '';
-  /*
-    nwggrid
-    Alacritty
-    neovide
-    qutebrowser
-    firefox
-    writer
-    impress
-    calc
-    draw
-    krita
-    xournalpp
-    obs
-    kdenlive
-    flstudio
-    blender
-    openscad
-    Cura
-    virt-manager
-    nwggrid neovide flstudio cura openscad
-  */
 }
