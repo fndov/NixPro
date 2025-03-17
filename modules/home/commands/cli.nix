@@ -24,6 +24,7 @@ in {
     libnotify
     numbat
     /*
+      exif
       nixfmt-classic
       syncthing
       openssh
@@ -49,7 +50,6 @@ in {
       discordchatexporter-cli
       dmidecode
       egl-wayland
-      exif
       fastgame
       gophish
       hashcat

@@ -1,9 +1,9 @@
 { ... }: {
   imports = [
     ../../modules/system/btrfs.nix
-    # ../../modules/system/virtualize.nix
   ];
-  # swapDevices = [ { device = "/swapfile"; priority = 2; size = 16*1024; } ];
+  # extra options that don't fit in modules/home
   programs.gamemode.enable = true;
   programs.gamemode.enableRenice = true;
+  hardware.steam-hardware.enable = true;
 }

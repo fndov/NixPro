@@ -9,6 +9,7 @@
     c = "clear";
     cc = "clear;cd";
     ccc = "clear;cd /mnt/c/Users/miyu/";
+    cp = "cp -r";
     grep = "rg";
     n = if settings.user.editor == "micro"
       then "${settings.user.editor} --ruler false -colorscheme geany ~/Documents/note.txt"

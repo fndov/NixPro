@@ -20,12 +20,13 @@ in {
     gimp
     baobab
     gnome-calendar
-    libreoffice-fresh
-    upscayl
+    libreoffice
     vlc
+    qbittorrent
+    protonvpn-gui
     /*
+      upscayl
       foliate
-      qbittorrent
       nextcloud-client
       lollypop
       xournalpp

@@ -20,7 +20,7 @@
     ../../modules/home/hyprland/theme.nix
     ../../modules/home/hyprland/timeout.nix
     ../../modules/home/hyprland/wallpaper.nix
-    ../../modules/home/hyprland/plugins.nix
+    # ../../modules/home/hyprland/plugins.nix
   ];
   wayland.windowManager.hyprland = {
     enable = true;
@@ -75,10 +75,10 @@
         snap.enabled = true;
         border_size = 3;
         resize_on_border = true;
-        gaps_in = 4;
-        gaps_out = 7;
-        "col.active_border"  = "rgb(3b3c47)";
-        "col.inactive_border" = "0x00000000";
+        gaps_in = 2; # 4
+        gaps_out = 6;
+        "col.active_border" = "rgb(3b3c47)";
+        "col.inactive_border" = "rgb(3b3c47)";
         border_part_of_window = true;
         no_border_on_floating = false;
       };

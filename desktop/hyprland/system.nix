@@ -17,7 +17,7 @@
   services.pipewire.alsa.support32Bit = true;
   services.pipewire.pulse.enable = true;
   services.pipewire.jack.enable = true;
-  services.greetd.enable = true;
+  services.greetd.enable = true; 
   services.greetd.settings.default_session.command = "${pkgs.bash}/bin/bash -c 'clear; exec ${pkgs.hyprland}/bin/Hyprland &> /dev/null'";
   services.greetd.settings.default_session.user = "${settings.user.name}";
   security.pam.services.ly.enableGnomeKeyring = true;

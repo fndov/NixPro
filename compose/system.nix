@@ -99,6 +99,7 @@
       boot.readOnlyNixStore = true;
       boot.blacklistedKernelModules = [ "nouveau" ];
       boot.kernelParams = [
+        "splash"
         "quiet"
         "rd.systemd.show_status=false"
         "udev.log_level=3"
@@ -126,10 +127,10 @@
         "idle=nomwait"
         "ascpi_osi=Linux"
         "preempt=full"
+        "uinput"
         /*
           "nofail"
           "x-systemd.device-timeout=5s"
-          "splash"
           "rd.systemd.show_status=0"
           "rd.udev.log_level=3"
           "udev.log_priority=3"

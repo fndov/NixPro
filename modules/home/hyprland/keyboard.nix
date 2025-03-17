@@ -3,8 +3,79 @@
     pamixer
     playerctl
     brightnessctl
+    swayosd
   ];
+  home.file.".config/swayosd/style.css".text = ''
+    window {
+        background-color: rgba(30, 30, 46, 0.8);
+        color: #CDD6F4; /* Text */
+        border-radius: 12px;
+        margin: 16px;
+        padding: 16px;
+    }
+    progressbar {
+        margin: 8px;
+    }
+    progressbar trough {
+        background-color: #313244;
+        border-radius: 8px;
+        min-height: 10px;
+    }
+    progressbar progress {
+        border-radius: 8px;
+        min-height: 10px;
+        background-color: #B4B4D4;
+    }
+    .volume progressbar progress {
+        background-color: #89DCEB;
+    }
+    .volume.muted progressbar progress {
+        background-color: #F38BA8;
+    }
+    .brightness progressbar progress {
+        background-color: #F9E2AF;
+    }
+    label {
+        color: #CDD6F4;
+        font-family: "Sans";
+        font-size: 14px;
+        margin: 5px;
+    }
+    image {
+        color: #CDD6F4;
+        margin: 8px;
+    }
+    #capslock-indicator {
+        background-color: #A6E3A1; /* Green */
+        color: #1E1E2E;
+        padding: 8px;
+        border-radius: 6px;
+        font-weight: bold;
+        margin: 5px;
+    }
+    #numlock-indicator {
+        background-color: #F9E2AF; /* Yellow */
+        color: #1E1E2E;
+        padding: 8px;
+        border-radius: 6px;
+        font-weight: bold;
+        margin: 5px;
+    }
+    #scrolllock-indicator {
+        background-color: #FAB387; /* Peach */
+        color: #1E1E2E;
+        padding: 8px;
+        border-radius: 6px;
+        font-weight: bold;
+        margin: 5px;
+    }
+    * {
+        border: none;
+        box-shadow: none;
+    }
+  '';
   wayland.windowManager.hyprland.settings = {
+    exec-once = [ "swayosd-server" ];
     bindm = [
       "SUPER,mouse:272,movewindow"
       "SUPER,mouse:273,resizewindow"
@@ -31,6 +102,7 @@
       "SUPERSHIFT,J,swapwindow,down"
       "SUPERSHIFT,K,swapwindow,up"
       "SUPERSHIFT,L,swapwindow,right"
+      ",Caps_Lock,exec, sleep 0.1;swayosd-client --caps-lock"
 
       # Window Control.
       "SUPER,SPACE,fullscreen,1"
@@ -45,25 +117,26 @@
       "SUPERSHIFT,Q,exec,hyprctl kill"
 
       # Volume and Media Control.
-      ",XF86AudioRaiseVolume, exec, pamixer --unmute -i 3"
-      ",XF86AudioLowerVolume, exec, 'pamixer --unmute --allow-boost -d 3'"
-      "SUPER,XF86AudioRaiseVolume, exec, pamixer --unmute --allow-boost -i 3"
-      ",XF86AudioMicMute,exec,pamixer --default-source -m"
-      ",XF86AudioMute,exec,pamixer -t"
+      ",XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
+      ",XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
+      "SUPER,XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise --max-volume 200"
+      "SUPER,XF86AudioLowerVolume, exec, swayosd-client --output-volume lower --max-volume 200"
+      # ",XF86AudioMicMute,exec,"
+      ",XF86AudioMute,exec, swayosd-client --output-volume mute-toggle"
       ",XF86AudioPlay,exec,playerctl play-pause"
       ",XF86AudioPause,exec,playerctl play-pause"
       ",XF86AudioNext,exec,playerctl next"
       ",XF86AudioPrev,exec,playerctl previous"
 
       # Brightness Control.
-      ",XF86MonBrightnessDown,exec,brightnessctl set 3%-"
-      ",XF86MonBrightnessUp,exec,brightnessctl set +3%"
-      "SUPER,XF86MonBrightnessDown,exec,brightnessctl set 1%-"
-      "SUPER,XF86MonBrightnessUp,exec,brightnessctl set +1%"
+      ",XF86MonBrightnessUp,exec,swayosd-client --brightness raise"
+      ",XF86MonBrightnessDown,exec,swayosd-client --brightness lower"
+      "SUPER,XF86MonBrightnessUp,exec, swayosd-client --brightness +1"
+      "SUPER,XF86MonBrightnessDown,exec, swayosd-client --brightness -1"
 
       # Volume Control.
-      ",XF86AudioLowerVolume,exec,pamixer -d 2"
-      ",XF86AudioRaiseVolume,exec,pamixer -i 2"
+      ",XF86AudioRaiseVolume,exec, pswayosd-client --output-volume raise"
+      ",XF86AudioLowerVolume,exec, pswayosd-client --output-volume lower"
 
       # Workspace.
       "SUPER,1,workspace,1"

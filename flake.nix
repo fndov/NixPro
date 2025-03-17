@@ -49,8 +49,8 @@
         type = "hyprland";
         font = "Noto";
         fontPkg = pkgs.noto-fonts;
-        wallpaperPath = "Media/Pictures/catppuccin-mocha";
-        wallpaperName = "clouds-5.jpg";
+        wallpaperPath = "Media/Pictures/Wallpapers";
+        wallpaperName = "nix-wallpaper-dracula.png";
         animationSpeed = "medium";
       };
     };
