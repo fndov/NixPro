@@ -57,33 +57,21 @@
     system = settings.system.architecture;
     pkgs = import inputs.nixpkgs { inherit system; };
   in {
-    nixosConfigurations.${settings.user.name} = inputs.nixpkgs.lib.nixosSystem {
+    nixosConfigurations.${settings.user.name} = inputs.nixpkgs.lib.nixosSystem { # work or home
       specialArgs = { inherit inputs system settings; };
       modules = [
-        ./modules/system/hardware.nix
         inputs.lix-module.nixosModules.default
-        inputs.home-manager.nixosModules.home-manager {
-          home-manager.extraSpecialArgs = { inherit inputs settings; };
-          home-manager.users.${settings.user.name} = {
-            imports = [
-              ./compose/home.nix
-              ./profile/${settings.profile}/home.nix
-            ]
-            ++ (if !builtins.isNull settings.desktop.type then [
-              ./desktop/${settings.desktop.type}/home.nix
-            ] else [])
-            ++ (if !builtins.isNull settings.user.terminal then [
-              ./modules/home/apps/${settings.user.terminal}.nix
-            ] else [])
-            ++ (if !builtins.isNull settings.user.browser then [
-              ./modules/home/apps/${settings.user.browser}.nix
-            ] else []);
-          };
-        }
-        ./compose/system.nix
-        ./profile/${settings.profile}/system.nix
+        ./modules/system/hardware.nix
+        ./compose.nix
+        ./profile/${settings.profile}.nix
       ] ++ (if !builtins.isNull settings.desktop.type then [
-        ./desktop/${settings.desktop.type}/system.nix
+        ./desktop/${settings.desktop.type}.nix
+      ] else [])
+      ++ (if !builtins.isNull settings.user.terminal then [
+        ./modules/apps/${settings.user.terminal}.nix
+      ] else [])
+      ++ (if !builtins.isNull settings.user.browser then [
+        ./modules/apps/${settings.user.browser}.nix
       ] else []);
     };
   };
