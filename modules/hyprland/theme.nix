@@ -1,34 +1,36 @@
-{ pkgs, ... }: {
-  qt = {
-    enable = true;
-    platformTheme.name = "qtct";
-    style.name = "kvantum";
-  };
-  xdg.configFile = {
-    "Kvantum/kvantum.kvconfig".text = ''
-      [General]
-      theme=GraphiteNordDark
-    '';
-    "Kvantum/GraphiteNord".source = "${pkgs.graphite-kde-theme}/share/Kvantum/GraphiteNord";
-  };
-  gtk = {
-    enable = true;
-    iconTheme = {
-      package = pkgs.catppuccin-papirus-folders.override {
-        flavor = "macchiato";
-        accent = "lavender";
-      };
-      name = "Papirus-Dark";
+{ pkgs, settings, ... }: {
+  home-manager.users.${settings.user.name} = {
+    qt = {
+      enable = true;
+      platformTheme.name = "qtct";
+      style.name = "kvantum";
     };
-    theme = {
-      name = "catppuccin-macchiato-mauve-compact";
-      package = pkgs.catppuccin-gtk.override {
-        accents =  ["mauve" ];
-        variant = "macchiato";
-        size = "compact";
-      };
+    xdg.configFile = {
+      "Kvantum/kvantum.kvconfig".text = ''
+        [General]
+        theme=GraphiteNordDark
+      '';
+      "Kvantum/GraphiteNord".source = "${pkgs.graphite-kde-theme}/share/Kvantum/GraphiteNord";
     };
-    gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
-    gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
+    gtk = {
+      enable = true;
+      iconTheme = {
+        package = pkgs.catppuccin-papirus-folders.override {
+          flavor = "macchiato";
+          accent = "lavender";
+        };
+        name = "Papirus-Dark";
+      };
+      theme = {
+        name = "catppuccin-macchiato-mauve-compact";
+        package = pkgs.catppuccin-gtk.override {
+          accents =  ["mauve" ];
+          variant = "macchiato";
+          size = "compact";
+        };
+      };
+      gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
+      gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
+    };
   };
 }

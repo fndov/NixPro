@@ -129,21 +129,21 @@
         "preempt=full"
         "uinput"
         /*
-        "nofail"
-        "x-systemd.device-timeout=5s"
-        "rd.systemd.show_status=0"
-        "rd.udev.log_level=3"
-        "udev.log_priority=3"
-        "intel_pstate=active"
-        "processor.max_cstate=1"
-        "intel_idle.max_cstate=1"
-        "threadirqs"
-        "i915.fastboot=1"
-        "raid=noautodetect"
-        "noapic"
+          "nofail"
+          "x-systemd.device-timeout=5s"
+          "rd.systemd.show_status=0"
+          "rd.udev.log_level=3"
+          "udev.log_priority=3"
+          "intel_pstate=active"
+          "processor.max_cstate=1"
+          "intel_idle.max_cstate=1"
+          "threadirqs"
+          "i915.fastboot=1"
+          "raid=noautodetect"
+          "noapic"
         */
       ];
-      home-manager.users.${settings.user.name} = { settings, ... }: {
+      home-manager.users.${settings.user.name} = {
         programs.home-manager.enable = true;
         home.stateVersion = settings.system.version;
       };

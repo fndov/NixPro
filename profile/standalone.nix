@@ -1,12 +1,11 @@
 { ... }: {
   imports = [
-    ../../modules/system/btrfs.nix
-    ../../modules/system/steam.nix
-
-    ../../modules/home/commands/sh.nix
-    ../../modules/home/commands/cli.nix
-    ../../modules/home/commands/lib.nix
-    ../../modules/home/apps/collection.nix
-    ../../modules/home/apps/spotify.nix
+    ../modules/apps/steam.nix
+    ../modules/apps/collection.nix
+    ../modules/apps/spotify.nix
+    ../modules/system/btrfs.nix
+    ../modules/commands/sh.nix
+    ../modules/commands/cli.nix
+    ../modules/commands/lib.nix
   ];
 }

@@ -1,5 +1,5 @@
 { pkgs, settings, ... }: {
-  home-manager.users.${settings.user.name} = { pkgs, settings, ... }: {
+  home-manager.users.${settings.user.name} = {
     home.packages = [ pkgs.firefox-bin ];
     xdg.mimeApps.defaultApplications = {
       "text/html" = "firefox.desktop";

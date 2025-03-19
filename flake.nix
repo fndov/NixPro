@@ -48,18 +48,18 @@
       desktop = {
         type = "hyprland";
         font = "Noto";
-        fontPkg = pkgs.noto-fonts;
+        fontPkg = "noto-fonts";
         wallpaperPath = "Media/Pictures/Wallpapers";
         wallpaperName = "nix-wallpaper-dracula.png";
         animationSpeed = "medium";
       };
     };
     system = settings.system.architecture;
-    pkgs = import inputs.nixpkgs { inherit system; };
   in {
     nixosConfigurations.${settings.user.name} = inputs.nixpkgs.lib.nixosSystem { # work or home
       specialArgs = { inherit inputs system settings; };
       modules = [
+        inputs.home-manager.nixosModules.home-manager
         inputs.lix-module.nixosModules.default
         ./modules/system/hardware.nix
         ./compose.nix

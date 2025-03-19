@@ -1,8 +1,8 @@
 { ... }: {
   imports = [
-    ../../user/software/commands/sh.nix
-    ../../user/software/commands/cli.nix
-    ../../user/software/commands/lib.nix
+    ../modules/commands/sh.nix
+    ../modules/commands/cli.nix
+    ../modules/commands/lib.nix
   ];
   # swapDevices = [ { device = "/swapfile"; priority = 2; size = 16*1024; } ];
 }

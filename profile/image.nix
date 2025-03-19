@@ -1,11 +1,11 @@
 { lib, settings, modulesPath, ... }: {
   imports = [
     (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
-    ../../modules/home/commands/sh.nix
-    ../../modules/home/commands/cli.nix
-    ../../modules/home/commands/lib.nix
-    ../../modules/home/apps/collection.nix
-    ../../modules/home/apps/spotify.nix
+    ../../modules/commands/sh.nix
+    ../../modules/commands/cli.nix
+    ../../modules/commands/lib.nix
+    ../../modules/apps/collection.nix
+    ../../modules/apps/spotify.nix
   ];
 
   isoImage = {

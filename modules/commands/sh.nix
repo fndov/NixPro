@@ -1,5 +1,5 @@
 { pkgs, settings, ... }: {
-  home-manager.users.${settings.user.name} = { pkgs, settings, ... }: let
+  home-manager.users.${settings.user.name} = { ... }: let
     aliases = {
       cat = "bat --style=plain --pager=never";
       tree = "eza --color always --icons --hyperlink --group-directories-first --tree";

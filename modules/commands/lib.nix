@@ -1,7 +1,7 @@
 { lib, pkgs, settings, ... }: {
-  home-manager.users.${settings.user.name} = { lib, pkgs, settings, ... }: {
+  home-manager.users.${settings.user.name} = { ... }: {
     config = lib.mkMerge [
-      (if settings.profile == "standalone" then {
+      (lib.mkIf (settings.profile == "standalone") {
         home.packages = with pkgs; [
           (writeShellScriptBin "nixgu" ''
             echo "nixsw | Switch configuration"
@@ -77,15 +77,16 @@
           '')
           (pkgs.writeShellScriptBin "nixpk" ''
             if [ $# -ne 1 ]; then
-              echo "Usage: nixpk <package>"
-              exit 1
+            echo "Usage: nixpk <package>"
+            exit 1
             fi
             dir=$(nix-build "${pkgs.path}" -A "$1" --no-out-link) || exit 1
             cd "$dir" && exec $SHELL
           '')
         ];
-      } else {})
-      (if settings.driver.graphics == "image" then {
+      })
+
+      (lib.mkIf (settings.driver.graphics == "image") {
         home.packages = with pkgs; [
           (writeShellScriptBin "nixgu" ''
             echo "nixsw | Switch configuration"
@@ -151,15 +152,16 @@
           '')
           (pkgs.writeShellScriptBin "nixpk" ''
             if [ $# -ne 1 ]; then
-              echo "Usage: nixpk <package>"
-              exit 1
+            echo "Usage: nixpk <package>"
+            exit 1
             fi
             dir=$(nix-build "${pkgs.path}" -A "$1" --no-out-link) || exit 1
             cd "$dir" && exec $SHELL
           '')
         ];
-      } else {})
-      (if settings.driver.graphics == "microsoft" then {
+      })
+
+      (lib.mkIf (settings.driver.graphics == "microsoft") {
         home.packages = with pkgs; [
           (writeShellScriptBin "nixgu" ''
             echo "nixsw | Switch configuration"
@@ -235,15 +237,16 @@
           '')
           (pkgs.writeShellScriptBin "nixpk" ''
             if [ $# -ne 1 ]; then
-              echo "Usage: nixpk <package>"
-              exit 1
+            echo "Usage: nixpk <package>"
+            exit 1
             fi
             dir=$(nix-build "${pkgs.path}" -A "$1" --no-out-link) || exit 1
             cd "$dir" && exec $SHELL
           '')
         ];
-      } else {})
-      (if settings.driver.graphics == "server" then {
+      })
+
+      (lib.mkIf (settings.driver.graphics == "server") {
         home.packages = with pkgs; [
           (writeShellScriptBin "nixgu" ''
             echo "nixsw | Switch configuration"
@@ -279,9 +282,9 @@
             sudo nixos-rebuild switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name} --rollback
           '')
           (writeShellScriptBin "nixup" ''
-          echo '# sudo nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}'
+            echo '# sudo nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}'
             sudo nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}
-          echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}'
+            echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}'
             sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#${settings.user.name}
           '')
           (writeShellScriptBin "nixar" ''
@@ -317,10 +320,11 @@
             sudo nix-env --list-generations --profile /nix/var/nix/profiles/system | wc -l
           '')
         ];
-      } else {})
-      (if settings.profile == "apple" then {
-      } else {})
-      (if settings.driver.graphics == "virtual-machine" then {
+      })
+
+      (lib.mkIf (settings.profile == "apple") {})
+
+      (lib.mkIf (settings.driver.graphics == "virtual-machine") {
         home.packages = with pkgs; [
           (writeShellScriptBin "nixgu" ''
             echo "nixsw | Switch configuration"
@@ -396,14 +400,14 @@
           '')
           (pkgs.writeShellScriptBin "nixpk" ''
             if [ $# -ne 1 ]; then
-              echo "Usage: nixpk <package>"
-              exit 1
+            echo "Usage: nixpk <package>"
+            exit 1
             fi
             dir=$(nix-build "${pkgs.path}" -A "$1" --no-out-link) || exit 1
             cd "$dir" && exec $SHELL
           '')
         ];
-      } else {})
+      })
     ];
   };
 }
