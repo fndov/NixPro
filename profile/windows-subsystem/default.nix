@@ -1,10 +1,10 @@
 { inputs, settings, ... }: {
   imports = [
     inputs.nixos-wsl.nixosModules.default
-      ../modules/commands/sh.nix
-      ../modules/commands/cli.nix
-      ../modules/commands/lib.nix
-      ../modules/development/cc.nix
+      ../../modules/commands/sh.nix
+      ../../modules/commands/cli.nix
+      ../../modules/commands/lib.nix
+      ../../modules/development/cc.nix
   ];
   wsl.enable = true;
   wsl.defaultUser = settings.user.name;

@@ -1,9 +1,9 @@
 { lib, ... }:{
   imports = [
-    ../modules/commands/sh.nix
-    ../modules/commands/cli.nix
-    ../modules/commands/lib.nix
-    ../modules/development/cc.nix
+    ../../modules/commands/sh.nix
+    ../../modules/commands/cli.nix
+    ../../modules/commands/lib.nix
+    ../../modules/development/cc.nix
   ];
   systemd.services."serial-getty@ttyS0".enable = lib.mkDefault false;
   systemd.services."serial-getty@hvc0".enable = false;

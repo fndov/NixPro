@@ -2,17 +2,17 @@
   config = lib.mkMerge [
     {
       networking.hostName =
-      if settings.profile == "apple"
+      if settings.profile == "darwin"
       then "NixPro-ARM"
-      else if settings.profile == "microsoft"
+      else if settings.profile == "windows-subsystem"
       then "NixPro-WSL"
       else if settings.profile == "server"
       then "NixPro-Server"
-      else if settings.profile == "standalone"
+      else if settings.profile == "workstation"
       then "NixPro"
       else if settings.profile == "virtual-machine"
       then "NixPro-VM"
-      else if settings.profile == "image"
+      else if settings.profile == "installation-media"
       then "NixPro-Image"
       else "NixPro";
 
@@ -38,7 +38,7 @@
       home-manager.useGlobalPkgs = false;
       home-manager.useUserPackages = false;
       home-manager.backupFileExtension = "hm-backup";
-      programs.command-not-found.enable = if settings.profile == "image" then false else true;
+      programs.command-not-found.enable = if settings.profile == "installation-media" then false else true;
       programs.nano.enable = false;
       programs.fish.enable = if settings.user.shell == "fish" then true else false;
       services.gpm.enable = true;
@@ -57,10 +57,10 @@
         description = settings.user.name;
         extraGroups = [ "networkmanager" "wheel" "qemu-libvirtd" "libvirtd" "kvm" "docker" ];
         uid = 1000;
-        shell = if settings.profile == "microsoft" || settings.user.shell == "fish" then pkgs.fish else pkgs.bash;
+        shell = if settings.profile == "windows-subsystem" || settings.user.shell == "fish" then pkgs.fish else pkgs.bash;
       };
 
-      zramSwap.enable = builtins.elem settings.profile [ "image" "standalone" "virtual-machine" "server" ];
+      zramSwap.enable = builtins.elem settings.profile [ "installation-media" "workstation" "virtual-machine" "server" ];
       zramSwap.memoryPercent = 100; # 30
       zramSwap.algorithm = "zstd -Xcompression-level 22"; # lzo is small, zstd is fast.
       zramSwap.priority = 3;
@@ -80,16 +80,16 @@
       services.earlyoom.freeSwapKillThreshold = 3;
 
       boot.kernelPackages = # xanmod xanmod_latest rt rt_latest hardened zen
-      (if settings.profile == "image"
+      (if settings.profile == "installation-media"
         then pkgs.linuxPackages_xanmod_latest
         else
         (if settings.profile == "server"
           then pkgs.linuxPackages
           else
-          (if settings.profile == "standalone"
+          (if settings.profile == "workstation"
             then pkgs.linuxPackages_xanmod
             else
-            (if settings.profile == "microsoft"
+            (if settings.profile == "windows-subsystem"
               then pkgs.linuxPackages
               else
               (if settings.profile == "virtual-machine"
@@ -148,7 +148,7 @@
         home.stateVersion = settings.system.version;
       };
     }
-    (if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "standalone") then {
+    (if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "workstation") then {
       boot.consoleLogLevel = 3;
       boot.tmp.cleanOnBoot = true;
       boot.loader.systemd-boot.enable = if (settings.system.bootMode == "uefi") then true else false;
@@ -234,7 +234,7 @@
     (lib.mkIf (settings.driver.networking && settings.profile != "microsoft") {
       environment.systemPackages = [ pkgs.networkmanager ];
       networking.networkmanager.enable = true;
-      networking.wireless.enable = if settings.profile == "image" then lib.mkForce false else false;
+      networking.wireless.enable = if settings.profile == "installation-media" then lib.mkForce false else false;
       services.udev.packages = [ pkgs.networkmanager ];
       services.dbus.enable = true;
       services.resolved.enable = true;

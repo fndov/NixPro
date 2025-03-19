@@ -1,11 +1,28 @@
 { ... }: {
   imports = [
-    ../modules/apps/steam.nix
-    ../modules/apps/collection.nix
-    ../modules/apps/spotify.nix
-    ../modules/system/btrfs.nix
-    ../modules/commands/sh.nix
-    ../modules/commands/cli.nix
-    ../modules/commands/lib.nix
+    ../../modules/apps/steam.nix
+    ../../modules/apps/collection.nix
+    ../../modules/apps/spotify.nix
+    ../../modules/commands/sh.nix
+    ../../modules/commands/cli.nix
+    ../../modules/commands/lib.nix
   ];
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/7cb4ff42-4c16-4227-be44-91049697abf5";
+    fsType = "btrfs";
+    options = [
+      "subvol=@"
+      "autodefrag"
+      "space_cache=v2"
+      "compress=zstd"
+      "noatime"
+      "nodiratime"
+      # "nodatacow"
+    ];
+  };
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "weekly";
+    fileSystems = [ "/" ];
+  };
 }

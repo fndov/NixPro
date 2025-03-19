@@ -60,19 +60,16 @@ Settings:
 
 Import flow:
 flake.nix
-- modules/system/hardware.nix
-- compose/home.nix
-- compose/system.nix
-- profile/${settings.profile}/system.nix
-- profile/${settings.profile}/home.nix
-- desktop/${settings.desktop.type}/home.nix
-- desktop/${settings.desktop.type}/system.nix
-- modules/home/apps/${settings.user.terminal}.nix
-- modules/home/apps/${settings.user.browser}.nix
+- profile/<profile>/hardware.nix
+- profile/<profile>/default.nix
+- compose.nix
+- desktop/<type>.nix
+- modules/apps/<terminal>.nix
+- modules/apps/<browser>.nix
 
 Every directory contains a `system.nix` & `home.nix` for easy separation between the system settings and home manager
 
-Compose/ contains universal modules for common & dynamic options imported by every build
+Compose.nix contains universal modules for common & dynamic options imported by every build
 Modules/ is for extra features
 Profiles/ are for different PC types (standard install or server etc)
 Desktop/ is for the desktop environment or window manager

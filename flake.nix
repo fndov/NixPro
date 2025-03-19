@@ -16,7 +16,6 @@
   };
   outputs = inputs@{ self, ... }: let
     settings = {
-      profile = "standalone";
       driver = {
         graphics = "nvidia";
         networking = true;
@@ -57,7 +56,7 @@
     system = settings.system.architecture;
   in {
     nixosConfigurations.workstation = inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs system settings; };
+      specialArgs = { inherit inputs system; settings = settings // { profile = "workstation"; }; };
       modules = [
         inputs.home-manager.nixosModules.home-manager
         inputs.lix-module.nixosModules.default
@@ -75,7 +74,7 @@
       ] else []);
     };
     nixosConfigurations.virtual-machine = inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs system settings; };
+      specialArgs = { inherit inputs system; settings = settings // { profile = "virtual-machine"; }; };
       modules = [
         inputs.home-manager.nixosModules.home-manager
         inputs.lix-module.nixosModules.default
@@ -93,7 +92,7 @@
       ] else []);
     };
     nixosConfigurations.windows-subsystem = inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs system settings; };
+      specialArgs = { inherit inputs system; settings = settings // { profile = "windows-subsystem"; }; };
       modules = [
         inputs.home-manager.nixosModules.home-manager
         inputs.lix-module.nixosModules.default
@@ -111,7 +110,7 @@
       ] else []);
     };
     nixosConfigurations.server = inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs system settings; };
+      specialArgs = { inherit inputs system; settings = settings // { profile = "server"; }; };
       modules = [
         inputs.home-manager.nixosModules.home-manager
         inputs.lix-module.nixosModules.default
@@ -129,7 +128,7 @@
       ] else []);
     };
     nixosConfigurations.installation-media = inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs system settings; };
+      specialArgs = { inherit inputs system; settings = settings // { profile = "installation-media"; }; };
       modules = [
         inputs.home-manager.nixosModules.home-manager
         inputs.lix-module.nixosModules.default
@@ -147,7 +146,7 @@
       ] else []);
     };
     darwinSystem.darwin = inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs system settings; };
+      specialArgs = { inherit inputs system; settings = settings // { profile = "darwin"; }; };
       modules = [
         inputs.home-manager.nixosModules.home-manager
         inputs.lix-module.nixosModules.default

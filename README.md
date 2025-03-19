@@ -3,36 +3,30 @@
 ---
 #### File structure & composition
 ```
-┌── flake.nix
-├── compose
-│   ├── home.nix
-│   └── system.nix
-├── profile/option
-│   └── option
-│       ├── home.nix
-│       └── system.nix
-├── desktop/option
-│   └── option
-│       ├── home.nix
-│       └── system.nix
-└── modules
+┌─ flake.nix
+├─ compose.nix
+├─ desktop/option
+├─ profile/option
+│  ├─ default.nix
+│  └─ hardware.nix
+└─ modules
 ```
 #### Profiles
 NixPro employs a profile-driven architecture to support seamless adaptation across environments. The configuration dynamically adjusts settings and imports environment-specific modules based on your selected profile in `flake.nix`
 
-| Profile           | Target Environment       | Hostname         | Use Case                                                                 |
-|-------------------|--------------------------|------------------|-------------------------------------------------------------------------|
-| `standalone`      | Bare-metal Installation  | NixPro           | Default setup for physical workstations/laptops                         |
-| `apple`           | ARM Apple Machines       | NixPro-ARM       | Apple Silicon optimizations (M1/M2 Macs)                                |
-| `microsoft`       | WSL Environment          | NixPro-WSL       | Windows Subsystem for Linux integration                                 |
-| `server`          | Headless Servers         | NixPro-Server    | Server-oriented configuration without GUI components                    |
-| `virtual-machine` | Virtualization Platforms | NixPro-VM        | Optimized for QEMU/VirtualBox/VMware workloads                          |
-| `image`           | ISO Generation           | NixPro-Image     | Building live/installation media (see ISO building section below)       |
+| Profile             | Target Environment       | Hostname         | Use Case                                                                 |
+|---------------------|--------------------------|------------------|-------------------------------------------------------------------------|
+| `workstation`       | Bare-metal Installation  | NixPro           | Default setup for physical workstations/laptops                         |
+| `darwin`            | ARM Apple Machines       | NixPro-ARM       | Apple Silicon optimizations (M1/M2 Macs)                                |
+| `windows-subsystem` | WSL Environment          | NixPro-WSL       | Windows Subsystem for Linux integration                                 |
+| `server`            | Headless Servers         | NixPro-Server    | Server-oriented configuration without GUI components                    |
+| `virtual-machine`   | Virtualization Platforms | NixPro-VM        | Optimized for QEMU/VirtualBox/VMware workloads                          |
+| `installation-media`| ISO Generation           | NixPro-Image     | Building live/installation media (see ISO building section below)       |
 #### Building an ISO
 ![Screenshot 2025-02-19 at 12-39-48 Wed 11 36 AM](https://github.com/user-attachments/assets/8056f514-e651-4cf8-97f6-b439d39f0a01)
 ---
 - Define your Image-specific Profile in `flake.nix`.
-- Run the `nixim` tool to build the ISO image.
+- Run `nix build .#nixosConfigurations.installation-media.config.system.build.isoImage --impure` to build the ISO image.
 - The output file is automatically named based on version, desktop environment, and architecture.
 
 | Version | Desktop  | Architecture  | Image                              |
