@@ -1,5 +1,5 @@
 {
-  description = "NixPro. Modular configuration framework started June 19, 2024";
+  description = "NixPro. Started June 19, 2024";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -56,14 +56,104 @@
     };
     system = settings.system.architecture;
   in {
-    nixosConfigurations.${settings.user.name} = inputs.nixpkgs.lib.nixosSystem { # work or home
+    nixosConfigurations.workstation = inputs.nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs system settings; };
       modules = [
         inputs.home-manager.nixosModules.home-manager
         inputs.lix-module.nixosModules.default
-        ./modules/system/hardware.nix
+        ./profile/workstation/hardware.nix
+        ./profile/workstation/default.nix
         ./compose.nix
-        ./profile/${settings.profile}.nix
+      ] ++ (if !builtins.isNull settings.desktop.type then [
+        ./desktop/${settings.desktop.type}.nix
+      ] else [])
+      ++ (if !builtins.isNull settings.user.terminal then [
+        ./modules/apps/${settings.user.terminal}.nix
+      ] else [])
+      ++ (if !builtins.isNull settings.user.browser then [
+        ./modules/apps/${settings.user.browser}.nix
+      ] else []);
+    };
+    nixosConfigurations.virtual-machine = inputs.nixpkgs.lib.nixosSystem {
+      specialArgs = { inherit inputs system settings; };
+      modules = [
+        inputs.home-manager.nixosModules.home-manager
+        inputs.lix-module.nixosModules.default
+        ./profile/virtual-machine/hardware.nix
+        ./profile/virtual-machine/default.nix
+        ./compose.nix
+      ] ++ (if !builtins.isNull settings.desktop.type then [
+        ./desktop/${settings.desktop.type}.nix
+      ] else [])
+      ++ (if !builtins.isNull settings.user.terminal then [
+        ./modules/apps/${settings.user.terminal}.nix
+      ] else [])
+      ++ (if !builtins.isNull settings.user.browser then [
+        ./modules/apps/${settings.user.browser}.nix
+      ] else []);
+    };
+    nixosConfigurations.windows-subsystem = inputs.nixpkgs.lib.nixosSystem {
+      specialArgs = { inherit inputs system settings; };
+      modules = [
+        inputs.home-manager.nixosModules.home-manager
+        inputs.lix-module.nixosModules.default
+        ./profile/windows-subsystem/hardware.nix
+        ./profile/windows-subsystem/default.nix
+        ./compose.nix
+      ] ++ (if !builtins.isNull settings.desktop.type then [
+        ./desktop/${settings.desktop.type}.nix
+      ] else [])
+      ++ (if !builtins.isNull settings.user.terminal then [
+        ./modules/apps/${settings.user.terminal}.nix
+      ] else [])
+      ++ (if !builtins.isNull settings.user.browser then [
+        ./modules/apps/${settings.user.browser}.nix
+      ] else []);
+    };
+    nixosConfigurations.server = inputs.nixpkgs.lib.nixosSystem {
+      specialArgs = { inherit inputs system settings; };
+      modules = [
+        inputs.home-manager.nixosModules.home-manager
+        inputs.lix-module.nixosModules.default
+        ./profile/server/hardware.nix
+        ./profile/server/default.nix
+        ./compose.nix
+      ] ++ (if !builtins.isNull settings.desktop.type then [
+        ./desktop/${settings.desktop.type}.nix
+      ] else [])
+      ++ (if !builtins.isNull settings.user.terminal then [
+        ./modules/apps/${settings.user.terminal}.nix
+      ] else [])
+      ++ (if !builtins.isNull settings.user.browser then [
+        ./modules/apps/${settings.user.browser}.nix
+      ] else []);
+    };
+    nixosConfigurations.installation-media = inputs.nixpkgs.lib.nixosSystem {
+      specialArgs = { inherit inputs system settings; };
+      modules = [
+        inputs.home-manager.nixosModules.home-manager
+        inputs.lix-module.nixosModules.default
+        ./profile/installation-media/hardware.nix
+        ./profile/installation-media/default.nix
+        ./compose.nix
+      ] ++ (if !builtins.isNull settings.desktop.type then [
+        ./desktop/${settings.desktop.type}.nix
+      ] else [])
+      ++ (if !builtins.isNull settings.user.terminal then [
+        ./modules/apps/${settings.user.terminal}.nix
+      ] else [])
+      ++ (if !builtins.isNull settings.user.browser then [
+        ./modules/apps/${settings.user.browser}.nix
+      ] else []);
+    };
+    darwinSystem.darwin = inputs.nixpkgs.lib.nixosSystem {
+      specialArgs = { inherit inputs system settings; };
+      modules = [
+        inputs.home-manager.nixosModules.home-manager
+        inputs.lix-module.nixosModules.default
+        ./profile/darwin/hardware.nix
+        ./profile/darwin/default.nix
+        ./compose.nix
       ] ++ (if !builtins.isNull settings.desktop.type then [
         ./desktop/${settings.desktop.type}.nix
       ] else [])
