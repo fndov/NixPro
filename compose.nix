@@ -64,15 +64,15 @@
       zramSwap.memoryPercent = 100; # 30
       zramSwap.algorithm = "zstd -Xcompression-level 22"; # lzo is small, zstd is fast.
       zramSwap.priority = 3;
-      boot.kernel.sysctl."vm.swappiness" = 200; # 60
+      boot.kernel.sysctl."vm.swappiness" = 100; # 60
       boot.kernel.sysctl."vm.dirty_background_ratio" = 95; # 10
-      boot.kernel.sysctl."vm.dirty_ratio" = if settings.profile == "image" then 80 else 90; # 20
+      boot.kernel.sysctl."vm.dirty_ratio" = if settings.profile == "installation-media" then 80 else 90; # 20
       boot.kernel.sysctl."vm.vfs_cache_pressure" = 1; # 100
       boot.kernel.sysctl."vm.min_free_kbytes" = 1000; # 0
-      boot.kernel.sysctl."vm.compaction_proactiveness" = 50; # 20
+      boot.kernel.sysctl."vm.compaction_proactiveness" = 20; # 20
       boot.initrd.compressor = "zstd";
-      boot.initrd.compressorArgs = [ "-19" ];
-      services.earlyoom.enable = if settings.profile == "image" then true else false;
+      boot.initrd.compressorArgs = [ "-22" ];
+      services.earlyoom.enable = builtins.elem settings.profile [ "installation-media" ];
       services.earlyoom.enableNotifications = true;
       services.earlyoom.freeMemThreshold = 3;
       services.earlyoom.freeMemKillThreshold = 3;
@@ -81,7 +81,7 @@
 
       boot.kernelPackages = # xanmod xanmod_latest rt rt_latest hardened zen
       (if settings.profile == "installation-media"
-        then pkgs.linuxPackages_xanmod_latest
+        then pkgs.linuxPackages
         else
         (if settings.profile == "server"
           then pkgs.linuxPackages
@@ -226,10 +226,6 @@
       services.avahi.nssmdns4 = true;
       services.avahi.openFirewall = true;
       environment.systemPackages = [ pkgs.cups-filters ];
-    })
-    (lib.mkIf settings.driver.bluetooth {
-      hardware.bluetooth.enable = true;
-      services.blueman.enable = true;
     })
     (lib.mkIf (settings.driver.networking && settings.profile != "microsoft") {
       environment.systemPackages = [ pkgs.networkmanager ];

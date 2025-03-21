@@ -1,13 +1,14 @@
-{ pkgs, settings, lib, ... }: {
+{ config, pkgs, settings, lib, ... }: {
   nix.settings.substituters = [ "https://hyprland.cachix.org" ];
   nix.settings.trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.systemPackages = [ pkgs.libsecret ];
   programs.hyprland.enable = true;
   programs.hyprland.xwayland.enable = true;
   programs.hyprland.portalPackage = pkgs.xdg-desktop-portal-hyprland;
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  environment.systemPackages = [ pkgs.libsecret ];
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal pkgs.xdg-desktop-portal-gtk ];
+  services.blueman.enable = true;
   services.udisks2.enable = true;
   services.devmon.enable = true;
   services.gvfs.enable = true;
@@ -19,8 +20,12 @@
   services.pipewire.jack.enable = true;
   services.greetd.enable = true;
   services.greetd.settings.default_session.command = "${pkgs.bash}/bin/bash -c 'clear; exec ${pkgs.hyprland}/bin/Hyprland &> /dev/null'";
-  services.greetd.settings.default_session.user = "${settings.user.name}";
-  security.pam.services.ly.enableGnomeKeyring = true;
+  services.greetd.settings.default_session.user = settings.user.name;
+  services.getty.autologinUser = lib.mkForce "${settings.user.name}";
+  services.getty.helpLine = lib.mkForce "";
+  services.auto-cpufreq.enable = true;
+  services.thermald.enable = false;
+  security.pam.services.greetd = lib.mkIf config.services.greetd.enable { enableGnomeKeyring = true; };
   security.rtkit.enable = true;
   fonts.enableDefaultPackages = true;
   fonts.fontconfig.enable = true;
@@ -28,10 +33,9 @@
   fonts.fontconfig.defaultFonts.monospace = [ "${settings.desktop.font} Mono" ];
   fonts.fontconfig.defaultFonts.sansSerif = [ "${settings.desktop.font} Sans" ];
   fonts.fontconfig.defaultFonts.serif = [ "${settings.desktop.font} Serif" ];
-  services.auto-cpufreq.enable = true;
-  services.thermald.enable = false;
+  hardware.bluetooth.enable = true;
   boot.plymouth.enable = true;
-  boot.loader.timeout = 1;
+  boot.loader.timeout = lib.mkForce 1;
 
   imports = [
     ../modules/hyprland/animation.nix
@@ -65,11 +69,11 @@
         xwayland.enable = true;
         settings = {
           exec-once = [
-            "gnome-keyring-daemon --start --components=secrets"
+            "sudo auto-cpufreq --force performance"
             "nm-applet --indicator"
             "blueman-applet"
             "systemctl --user start hyprpolkitagent"
-            "sudo auto-cpufreq --force performance"
+            "gnome-keyring-daemon --start --components=secrets"
           ];
           env = [
             "MOZ_ENABLE_WAYLAND,1"

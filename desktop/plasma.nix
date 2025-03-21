@@ -1,13 +1,15 @@
-{ ... }: {
+{ lib, settings, ... }: {
   services.xserver.enable = true;
   services.desktopManager.plasma6.enable = true;
-  services.displayManager.ly.enable = true;
+	services.displayManager.defaultSession = "plasma";
+	services.displayManager.autoLogin.enable = true;
+	services.displayManager.autoLogin.user = settings.user.name;
   security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
+  services.pipewire.enable = true;
+  services.pipewire.alsa.enable = true;
+  services.pipewire.alsa.support32Bit = true;
+  services.pipewire.pulse.enable = true;
+  services.pipewire.jack.enable = true;
+  boot.plymouth.enable = true;
+  boot.loader.timeout = lib.mkForce 1;
 }

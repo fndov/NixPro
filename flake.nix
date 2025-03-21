@@ -19,7 +19,6 @@
       driver = {
         graphics = "nvidia";
         networking = true;
-        bluetooth = true;
         usbmuxd = true;
       };
       system = {
@@ -29,7 +28,7 @@
         grubDevice = "/dev/sda";
         bootMountPath = "/boot";
         flakePath = ".nixpro";
-        automation = false;
+        automation = true;
         printing = true;
         timezone = true;
         security = false;
@@ -39,13 +38,13 @@
         name = "miyu";
         password = "unlock";
         email = "";
-        terminal = "ghostty";
+        terminal = null;
         shell = "fish";
         editor = "micro";
         browser = "firefox";
       };
       desktop = {
-        type = "hyprland";
+        type = "plasma";
         font = "Noto";
         fontPkg = "noto-fonts";
         wallpaperPath = "Media/Pictures/Wallpapers";
