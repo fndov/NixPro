@@ -1,5 +1,5 @@
 { pkgs, settings, ... }: {
-  home-manager.users.${settings.user.name} = { ... }: let
+  home-manager.users.${settings.account.name} = { ... }: let
     aliases = {
       cat = "bat --style=plain --pager=never";
       tree = "eza --color always --icons --hyperlink --group-directories-first --tree";
@@ -12,17 +12,17 @@
       ccc = "clear;cd /mnt/c/Users/miyu/";
       cp = "cp -r";
       grep = "rg";
-      n = if settings.user.editor == "micro"
-        then "${settings.user.editor} --ruler false -colorscheme geany ~/Documents/note.txt"
-      else "${settings.user.editor} ~/Documents/note.txt";
+      n = if settings.account.editor == "micro"
+        then "${settings.account.editor} --ruler false -colorscheme geany ~/Documents/note.txt"
+      else "${settings.account.editor} ~/Documents/note.txt";
       h = "htop";
       fd = "fd -Lu";
       fetch = "fastfetch";
       f = "yazi";
       trash = "gio trash";
-      e = if settings.user.editor == "micro"
-        then "${settings.user.editor} --ruler false -colorscheme geany"
-      else settings.user.editor;
+      e = if settings.account.editor == "micro"
+        then "${settings.account.editor} --ruler false -colorscheme geany"
+      else settings.account.editor;
       cattree = "find . -type f -exec grep -Iq . {} \\; -print | xargs cat";
       offload = "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia";
       };
@@ -71,13 +71,13 @@
       enableBashIntegration = true;
     };
     programs.git.enable = true;
-    programs.git.userName = settings.user.name;
-    programs.git.userEmail = settings.user.email;
+    programs.git.userName = settings.account.name;
+    programs.git.userEmail = settings.account.email;
     programs.git.extraConfig = {
-      core.editor = settings.user.editor;
+      core.editor = settings.account.editor;
       safe.directory = [
-        ("/home/" + settings.user.name + "/." + settings.system.flakePath + "/")
-        ("/home/" + settings.user.name + "/." + settings.system.flakePath + "/.git")
+        ("/home/" + settings.account.name + "/." + settings.system.flakePath + "/")
+        ("/home/" + settings.account.name + "/." + settings.system.flakePath + "/.git")
       ];
     };
   };

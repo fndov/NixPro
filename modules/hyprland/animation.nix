@@ -1,5 +1,5 @@
 { settings, ... }:
-  { home-manager.users.${settings.user.name} = { ... }: let
+  { home-manager.users.${settings.account.name} = { ... }: let
     animationSpeed = settings.desktop.animationSpeed;
     animationDuration = if animationSpeed == "slow" then "4"
     else if animationSpeed == "medium" then "2.5"

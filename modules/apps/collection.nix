@@ -1,27 +1,32 @@
 { inputs, pkgs, settings, ... }: {
-  home-manager.users.${settings.user.name} = { pkgs, ... }: let
+  home-manager.users.${settings.account.name} = { pkgs, ... }: let
     unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; };
   in {
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
+      # AI
+      unstable.ollama-cuda
+      # Code
       unstable.zed-editor
-      obsidian
+      unstable.code-cursor
       vscode
+      # Apps
+      obsidian
       godot_4
       blender
       authenticator
-      nautilus
       swayimg
       chatterino2
       kdenlive
       krita
       obs-studio
+      gnome-calendar
       kwrited
       gimp
       baobab
-      gnome-calendar
-      libreoffice
       vlc
+      # Work
+      libreoffice
       /*
         qbittorrent
         protonvpn-gui
@@ -59,6 +64,7 @@
         davinci-resolve
         handbrake
         helvum
+        veracrypt
         jetbrains-toolbox
         jetbrains.aqua
         jetbrains.clion
@@ -79,7 +85,6 @@
         korganizer
         mission-center
         remembrance
-        veracrypt
         zen-browser
         portmaster
         tor-browser-bundle-bin

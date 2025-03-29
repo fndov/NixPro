@@ -1,6 +1,13 @@
-{ pkgs, settings, ... }: {
-  home-manager.users.${settings.user.name} = { pkgs, ... }: {
-    home.packages = [ pkgs.python314Full ];
+{ inputs, pkgs, settings, ... }: {
+  home-manager.users.${settings.account.name} = { pkgs, ... }: let
+    unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; };
+  in {
+    nixpkgs.config.allowUnfree = true;
+    home.packages = with pkgs; [
+      unstable.python312Full
+      unstable.python312Packages.python-lsp-server
+      unstable.python312Packages.ollama
+    ];
   };
   /*
     cffi

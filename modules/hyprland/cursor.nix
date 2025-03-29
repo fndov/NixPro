@@ -1,5 +1,5 @@
 { lib, pkgs, settings, ... }: {
-  home-manager.users.${settings.user.name} = { ... }: let
+  home-manager.users.${settings.account.name} = { ... }: let
     cursorSize = 26;
     cursorSizeStr = toString cursorSize;
     cursorThemeName = "catppuccin-mocha-dark-cursors";

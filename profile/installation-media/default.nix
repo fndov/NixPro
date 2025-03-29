@@ -12,9 +12,9 @@
     }-${settings.system.architecture}.iso");
     squashfsCompression = "zstd";
     contents = [ {
-      source = lib.cleanSource /home/${settings.user.name}/${settings.system.flakePath}; # Impure warning.
-      target = "/home/${settings.user.name}/${settings.system.flakePath}";
-      user = settings.user.name;
+      source = lib.cleanSource /home/${settings.account.name}/${settings.system.flakePath}; # Impure warning.
+      target = "/home/${settings.account.name}/${settings.system.flakePath}";
+      user = settings.account.name;
       group = "users";
       mode = "0777";
     } ];

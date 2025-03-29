@@ -1,5 +1,5 @@
 { lib, pkgs, settings, ... }: {
-  home-manager.users.${settings.user.name} = {
+  home-manager.users.${settings.account.name} = {
     config = lib.mkMerge [
       {
         home.packages = with pkgs; [
@@ -85,9 +85,9 @@
           ];
           bind = [
             # Apps.
-            "SUPER,Return,exec,${settings.user.terminal}"
-            "SUPER,H,exec,hyprctl dispatch exec '[float] ${settings.user.terminal} -e htop'"
-            "SUPER,N,exec,hyprctl dispatch exec '[float] ${settings.user.terminal} -e numbat'"
+            "SUPER,Return,exec,${settings.account.terminal}"
+            "SUPER,H,exec,hyprctl dispatch exec '[float] ${settings.account.terminal} -e htop'"
+            "SUPER,N,exec,hyprctl dispatch exec '[float] ${settings.account.terminal} -e numbat'"
 
             # Common.
             "SUPER,Q,killactive"
@@ -163,27 +163,27 @@
         };
       }
 
-      (lib.mkIf (settings.user.editor == "micro") {
+      (lib.mkIf (settings.account.editor == "micro") {
         wayland.windowManager.hyprland.settings.bind = [
-          "SUPER,Z,exec,hyprctl dispatch exec '[float] ${settings.user.terminal} -e ${settings.user.editor} --ruler false -colorscheme geany ~/Documents/note.txt'"
+          "SUPER,Z,exec,hyprctl dispatch exec '[float] ${settings.account.terminal} -e ${settings.account.editor} --ruler false -colorscheme geany ~/Documents/note.txt'"
         ];
       })
 
-      (lib.mkIf (settings.user.editor == "nano") {
+      (lib.mkIf (settings.account.editor == "nano") {
         wayland.windowManager.hyprland.settings.bind = [
-          "SUPER,Z,exec,hyprctl dispatch exec '[float] ${settings.user.terminal} -e ${settings.user.editor} ~/Documents/note.txt'"
+          "SUPER,Z,exec,hyprctl dispatch exec '[float] ${settings.account.terminal} -e ${settings.account.editor} ~/Documents/note.txt'"
         ];
       })
 
-      (lib.mkIf (settings.user.editor == "neovim") {
+      (lib.mkIf (settings.account.editor == "neovim") {
         wayland.windowManager.hyprland.settings.bind = [
-          "SUPER,Z,exec,hyprctl dispatch exec '[float] ${settings.user.terminal} -e ${settings.user.editor} ~/Documents/note.txt'"
+          "SUPER,Z,exec,hyprctl dispatch exec '[float] ${settings.account.terminal} -e ${settings.account.editor} ~/Documents/note.txt'"
         ];
       })
 
-      (lib.mkIf (settings.user.editor == "vim") {
+      (lib.mkIf (settings.account.editor == "vim") {
         wayland.windowManager.hyprland.settings.bind = [
-          "SUPER,Z,exec,hyprctl dispatch exec '[float] ${settings.user.terminal} -e ${settings.user.editor} ~/Documents/note.txt'"
+          "SUPER,Z,exec,hyprctl dispatch exec '[float] ${settings.account.terminal} -e ${settings.account.editor} ~/Documents/note.txt'"
         ];
       })
     ];

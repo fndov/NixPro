@@ -1,5 +1,5 @@
 { pkgs, settings, ... }: {
-  home-manager.users.${settings.user.name} = {
+  home-manager.users.${settings.account.name} = {
     home.packages = [ pkgs.hyprlock ];
     home.file.".config/hypr/hyprlock.conf".text = ''
       background {
@@ -51,7 +51,7 @@
 
       label {
         monitor =
-        text = Hello, ${settings.user.name}
+        text = Hello, ${settings.account.name}
         font_size = 25
         font_family = ''+settings.desktop.font+''
         rotate = 0 # degrees, counter-clockwise

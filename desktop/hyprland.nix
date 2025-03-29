@@ -20,8 +20,8 @@
   services.pipewire.jack.enable = true;
   services.greetd.enable = true;
   services.greetd.settings.default_session.command = "${pkgs.bash}/bin/bash -c 'clear; exec ${pkgs.hyprland}/bin/Hyprland &> /dev/null'";
-  services.greetd.settings.default_session.user = settings.user.name;
-  services.getty.autologinUser = lib.mkForce "${settings.user.name}";
+  services.greetd.settings.default_session.user = settings.account.name;
+  services.getty.autologinUser = lib.mkForce "${settings.account.name}";
   services.getty.helpLine = lib.mkForce "";
   services.auto-cpufreq.enable = true;
   services.thermald.enable = false;
@@ -57,9 +57,9 @@
     # ../modules/home/hyprland/plugins.nix
   ];
 
-  home-manager.users.${settings.user.name} = lib.mkMerge [
+  home-manager.users.${settings.account.name} = lib.mkMerge [
     {
-      services.blueman-applet.enable = if settings.driver.bluetooth == true then true else false; # fix
+      services.blueman-applet.enable = true;
       services.udiskie.enable = true;
       services.udiskie.tray = "always";
       home.packages = [ pkgs.hyprpolkitagent ];
@@ -77,9 +77,9 @@
           ];
           env = [
             "MOZ_ENABLE_WAYLAND,1"
-            "BROWSER,${settings.user.browser}"
-            "EDITOR,${settings.user.editor}"
-            "TERMINAL,${settings.user.terminal}"
+            "BROWSER,${settings.account.browser}"
+            "EDITOR,${settings.account.editor}"
+            "TERMINAL,${settings.account.terminal}"
             "XDG_CURRENT_DESKTOP,Hyprland"
             "XDG_SESSION_DESKTOP,Hyprland"
             # "WLR_DRM_DEVICES,/dev/dri/card2:/dev/dri/card1"
@@ -187,20 +187,20 @@
       xdg.userDirs = {
         enable = true;
         createDirectories = true;
-        music = "/home/${settings.user.name}/Media/Music";
-        videos = "/home/${settings.user.name}/Media/Videos";
-        pictures = "/home/${settings.user.name}/Media/Pictures";
-        templates = "/home/${settings.user.name}/Templates";
-        download = "/home/${settings.user.name}/Downloads";
-        documents = "/home/${settings.user.name}/Documents";
+        music = "/home/${settings.account.name}/Media/Music";
+        videos = "/home/${settings.account.name}/Media/Videos";
+        pictures = "/home/${settings.account.name}/Media/Pictures";
+        templates = "/home/${settings.account.name}/Templates";
+        download = "/home/${settings.account.name}/Downloads";
+        documents = "/home/${settings.account.name}/Documents";
         desktop = null;
         publicShare = null;
         extraConfig = {
-          XDG_ARCHIVE_DIR = "/home/${settings.user.name}/Archive";
-          XDG_VM_DIR = "/home/${settings.user.name}/Machines";
-          XDG_ORG_DIR = "/home/${settings.user.name}/Org";
-          XDG_PODCAST_DIR = "/home/${settings.user.name}/Media/Podcasts";
-          XDG_BOOK_DIR = "/home/${settings.user.name}/Media/Books";
+          XDG_ARCHIVE_DIR = "/home/${settings.account.name}/Archive";
+          XDG_VM_DIR = "/home/${settings.account.name}/Machines";
+          XDG_ORG_DIR = "/home/${settings.account.name}/Org";
+          XDG_PODCAST_DIR = "/home/${settings.account.name}/Media/Podcasts";
+          XDG_BOOK_DIR = "/home/${settings.account.name}/Media/Books";
         };
       };
     }
@@ -209,11 +209,11 @@
     })
     (lib.mkIf (settings.profile == "installation-media") {
       wayland.windowManager.hyprland.settings.exec-once = [
-        "cp -r /iso/home/${settings.user.name}/${settings.system.flakePath} /home/${settings.user.name}; chown -R ${settings.user.name} /home/${settings.user.name}/${settings.system.flakePath}; chmod -R 777 /home/${settings.user.name}/${settings.system.flakePath}"
+        "cp -r /iso/home/${settings.account.name}/${settings.system.flakePath} /home/${settings.account.name}; chown -R ${settings.account.name} /home/${settings.account.name}/${settings.system.flakePath}; chmod -R 777 /home/${settings.account.name}/${settings.system.flakePath}"
         "sudo systemctl restart NetworkManager"
-        "${settings.user.terminal} -e 'sleep 1;nmtui'"
+        "${settings.account.terminal} -e 'sleep 1;nmtui'"
         "sudo rm -rf /home/nixos/"
-        "sudo nixos-generate-config && cp /etc/nixos/hardware.nix /home/${settings.user.name}/${settings.system.flakePath}/modules/system/"
+        "sudo nixos-generate-config && cp /etc/nixos/hardware.nix /home/${settings.account.name}/${settings.system.flakePath}/modules/system/"
         "notify-send 'Welcome to Hyprland by NixPro!'"
       ];
     })

@@ -1,5 +1,5 @@
 { pkgs, settings, ... }: {
-  home-manager.users.${settings.user.name} = {
+  home-manager.users.${settings.account.name} = {
     services.mako = {
       width = 600;
       height = 400;

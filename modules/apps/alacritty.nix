@@ -1,8 +1,8 @@
 { pkgs, settings, ... }: {
-  home-manager.users.${settings.user.name} = { pkgs, settings, ... }: {
+  home-manager.users.${settings.account.name} = { pkgs, settings, ... }: {
     home.packages = [ pkgs.alacritty ];
     programs.alacritty.enable = true;
-    home.file."/home/${settings.user.name}/.config/alacritty/alacritty.toml".text = ''
+    home.file."/home/${settings.account.name}/.config/alacritty/alacritty.toml".text = ''
       [colors.primary]
       background = "#1e1e2e"
       foreground = "#cdd6f4"

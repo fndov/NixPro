@@ -1,5 +1,5 @@
 { pkgs, settings, ... }: {
-  home-manager.users.${settings.user.name} = { pkgs, ... }: {
+  home-manager.users.${settings.account.name} = { pkgs, ... }: {
     home.packages = with pkgs; [
       # gcov         # Code coverage analysis (part of gcc)
       gcc            # GNU Compiler Collection.

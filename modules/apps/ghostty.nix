@@ -1,11 +1,11 @@
 { pkgs, inputs, settings, ... }: let
   unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; };
 in {
-  home-manager.users.${settings.user.name} = {
+  home-manager.users.${settings.account.name} = {
     home.packages = with pkgs; [
       unstable.ghostty
     ];
-    home.file."/home/${settings.user.name}/.config/ghostty/config".text = ''
+    home.file."/home/${settings.account.name}/.config/ghostty/config".text = ''
       # --- Hyprland ---
       window-decoration = false
 
@@ -26,7 +26,7 @@ in {
       confirm-close-surface = false
 
       # --- Init ---
-      command = "date;${settings.user.shell}"
+      command = "date;${settings.account.shell}"
 
       # --- Shaders ---
       # custom-shader = crt.glsl

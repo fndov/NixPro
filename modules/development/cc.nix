@@ -1,5 +1,5 @@
 { pkgs, settings, inputs, ... }: {
-  home-manager.users.${settings.user.name} = { pkgs, settings, inputs, ... }: let
+  home-manager.users.${settings.account.name} = { pkgs, settings, inputs, ... }: let
     unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
   in {
     home.packages = with pkgs; [

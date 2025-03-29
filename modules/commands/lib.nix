@@ -1,5 +1,5 @@
 { lib, pkgs, settings, ... }: {
-  home-manager.users.${settings.user.name} = { ... }: {
+  home-manager.users.${settings.account.name} = { ... }: {
     config = lib.mkMerge [
       (lib.mkIf (settings.profile == "workstation") {
         home.packages = with pkgs; [
@@ -20,40 +20,40 @@
             echo "nixpk | Enter package"
           '')
           (writeShellScriptBin "nixsw" ''
-            echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#workstation'
-            sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#workstation
+            echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation'
+            sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation
           '')
           (writeShellScriptBin "nixbo" ''
-            echo '# sudo nixos-rebuild boot --flake /home/${settings.user.name}/${settings.system.flakePath}#workstation'
-            sudo nixos-rebuild boot --flake /home/${settings.user.name}/${settings.system.flakePath}#workstation
+            echo '# sudo nixos-rebuild boot --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation'
+            sudo nixos-rebuild boot --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation
           '')
           (writeShellScriptBin "nixts" ''
-            echo '# sudo nixos-rebuild test --flake /home/${settings.user.name}/${settings.system.flakePath}#workstation'
-            sudo nixos-rebuild test --flake /home/${settings.user.name}/${settings.system.flakePath}#workstation
+            echo '# sudo nixos-rebuild test --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation'
+            sudo nixos-rebuild test --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation
           '')
           (writeShellScriptBin "nixdr" ''
-            echo '# sudo nixos-rebuild dry-run --flake /home/${settings.user.name}/${settings.system.flakePath}#workstation'
-            sudo nixos-rebuild dry-run --flake /home/${settings.user.name}/${settings.system.flakePath}#workstation
+            echo '# sudo nixos-rebuild dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation'
+            sudo nixos-rebuild dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation
           '')
           (writeShellScriptBin "nixrl" ''
-            echo '# sudo nixos-rebuild switch --flake /home/${settings.user.name}/${settings.system.flakePath}#workstation --rollback'
-            sudo nixos-rebuild switch --flake /home/${settings.user.name}/${settings.system.flakePath}#workstation --rollback
+            echo '# sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation --rollback'
+            sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation --rollback
           '')
           (writeShellScriptBin "nixup" ''
-            echo '# nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}'
-            nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}
+            echo '# nix flake update --flake /home/${settings.account.name}/${settings.system.flakePath}'
+            nix flake update --flake /home/${settings.account.name}/${settings.system.flakePath}
           '')
           (writeShellScriptBin "nixar" ''
-            echo '# nix flake archive /home/${settings.user.name}/${settings.system.flakePath}'
-            nix flake archive /home/${settings.user.name}/${settings.system.flakePath}
+            echo '# nix flake archive /home/${settings.account.name}/${settings.system.flakePath}'
+            nix flake archive /home/${settings.account.name}/${settings.system.flakePath}
           '')
           (writeShellScriptBin "nixtr" ''
-            echo '# journalctl -xe --unit home-manager-${settings.user.name}'
-            journalctl -xe --unit home-manager-${settings.user.name}
+            echo '# journalctl -xe --unit home-manager-${settings.account.name}'
+            journalctl -xe --unit home-manager-${settings.account.name}
           '')
           (writeShellScriptBin "nixim" ''
-            echo '# nix build /home/${settings.user.name}/${settings.system.flakePath}#nixosConfigurations.installation-media.config.system.build.isoImage --impure'
-            nix build /home/${settings.user.name}/${settings.system.flakePath}#nixosConfigurations.installation-media.config.system.build.isoImage --impure
+            echo '# nix build /home/${settings.account.name}/${settings.system.flakePath}#nixosConfigurations.installation-media.config.system.build.isoImage --impure'
+            nix build /home/${settings.account.name}/${settings.system.flakePath}#nixosConfigurations.installation-media.config.system.build.isoImage --impure
           '')
           (writeShellScriptBin "nixgc" ''
             echo '# sudo nix-collect-garbage --delete-older-than 30d'
@@ -103,36 +103,36 @@
             echo "nixpk | Enter package"
           '')
           (writeShellScriptBin "nixsw" ''
-            echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#installation-media'
-            sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#installation-media
+            echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#installation-media'
+            sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#installation-media
           '')
           (writeShellScriptBin "nixbo" ''
-            echo '# sudo nixos-rebuild boot --flake /home/${settings.user.name}/${settings.system.flakePath}#installation-media'
-            sudo nixos-rebuild boot --flake /home/${settings.user.name}/${settings.system.flakePath}#installation-media
+            echo '# sudo nixos-rebuild boot --flake /home/${settings.account.name}/${settings.system.flakePath}#installation-media'
+            sudo nixos-rebuild boot --flake /home/${settings.account.name}/${settings.system.flakePath}#installation-media
           '')
           (writeShellScriptBin "nixts" ''
-            echo '# sudo nixos-rebuild test --flake /home/${settings.user.name}/${settings.system.flakePath}#installation-media'
-            sudo nixos-rebuild test --flake /home/${settings.user.name}/${settings.system.flakePath}#installation-media
+            echo '# sudo nixos-rebuild test --flake /home/${settings.account.name}/${settings.system.flakePath}#installation-media'
+            sudo nixos-rebuild test --flake /home/${settings.account.name}/${settings.system.flakePath}#installation-media
           '')
           (writeShellScriptBin "nixdr" ''
-            echo '# sudo nixos-rebuild dry-run --flake /home/${settings.user.name}/${settings.system.flakePath}#installation-media'
-            sudo nixos-rebuild dry-run --flake /home/${settings.user.name}/${settings.system.flakePath}#installation-media
+            echo '# sudo nixos-rebuild dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#installation-media'
+            sudo nixos-rebuild dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#installation-media
           '')
           (writeShellScriptBin "nixrl" ''
-            echo '# sudo nixos-rebuild switch --flake /home/${settings.user.name}/${settings.system.flakePath}#installation-media --rollback'
-            sudo nixos-rebuild switch --flake /home/${settings.user.name}/${settings.system.flakePath}#installation-media --rollback
+            echo '# sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#installation-media --rollback'
+            sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#installation-media --rollback
           '')
           (writeShellScriptBin "nixup" ''
-            echo '# nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}'
-            nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}
+            echo '# nix flake update --flake /home/${settings.account.name}/${settings.system.flakePath}'
+            nix flake update --flake /home/${settings.account.name}/${settings.system.flakePath}
           '')
           (writeShellScriptBin "nixar" ''
-            echo '# nix flake archive /home/${settings.user.name}/${settings.system.flakePath}'
-            nix flake archive /home/${settings.user.name}/${settings.system.flakePath}
+            echo '# nix flake archive /home/${settings.account.name}/${settings.system.flakePath}'
+            nix flake archive /home/${settings.account.name}/${settings.system.flakePath}
           '')
           (writeShellScriptBin "nixtr" ''
-            echo '# journalctl -xe --unit home-manager-${settings.user.name}'
-            journalctl -xe --unit home-manager-${settings.user.name}
+            echo '# journalctl -xe --unit home-manager-${settings.account.name}'
+            journalctl -xe --unit home-manager-${settings.account.name}
           '')
           (writeShellScriptBin "nixgc" ''
             echo '# sudo nix-collect-garbage'
@@ -180,40 +180,40 @@
             echo "nixpk | Enter package"
           '')
           (writeShellScriptBin "nixsw" ''
-            echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#windows-subsystem'
-            sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#windows-subsystem
+            echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem'
+            sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem
           '')
           (writeShellScriptBin "nixbo" ''
-            echo '# sudo nixos-rebuild boot --flake /home/${settings.user.name}/${settings.system.flakePath}#windows-subsystem'
-            sudo nixos-rebuild boot --flake /home/${settings.user.name}/${settings.system.flakePath}#windows-subsystem
+            echo '# sudo nixos-rebuild boot --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem'
+            sudo nixos-rebuild boot --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem
           '')
           (writeShellScriptBin "nixts" ''
-            echo '# sudo nixos-rebuild test --flake /home/${settings.user.name}/${settings.system.flakePath}#windows-subsystem'
-            sudo nixos-rebuild test --flake /home/${settings.user.name}/${settings.system.flakePath}#windows-subsystem
+            echo '# sudo nixos-rebuild test --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem'
+            sudo nixos-rebuild test --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem
           '')
           (writeShellScriptBin "nixdr" ''
-            echo '# sudo nixos-rebuild dry-run --flake /home/${settings.user.name}/${settings.system.flakePath}#windows-subsystem'
-            sudo nixos-rebuild dry-run --flake /home/${settings.user.name}/${settings.system.flakePath}#windows-subsystem
+            echo '# sudo nixos-rebuild dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem'
+            sudo nixos-rebuild dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem
           '')
           (writeShellScriptBin "nixrl" ''
-            echo '# sudo nixos-rebuild switch --flake /home/${settings.user.name}/${settings.system.flakePath}#windows-subsystem --rollback'
-            sudo nixos-rebuild switch --flake /home/${settings.user.name}/${settings.system.flakePath}#windows-subsystem --rollback
+            echo '# sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem --rollback'
+            sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem --rollback
           '')
           (writeShellScriptBin "nixup" ''
-            echo '# nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}'
-            nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}
+            echo '# nix flake update --flake /home/${settings.account.name}/${settings.system.flakePath}'
+            nix flake update --flake /home/${settings.account.name}/${settings.system.flakePath}
           '')
           (writeShellScriptBin "nixar" ''
-            echo '# nix flake archive /home/${settings.user.name}/${settings.system.flakePath}'
-            nix flake archive /home/${settings.user.name}/${settings.system.flakePath}
+            echo '# nix flake archive /home/${settings.account.name}/${settings.system.flakePath}'
+            nix flake archive /home/${settings.account.name}/${settings.system.flakePath}
           '')
           (writeShellScriptBin "nixtr" ''
-            echo '# journalctl -xe --unit home-manager-${settings.user.name}'
-            journalctl -xe --unit home-manager-${settings.user.name}
+            echo '# journalctl -xe --unit home-manager-${settings.account.name}'
+            journalctl -xe --unit home-manager-${settings.account.name}
           '')
           (writeShellScriptBin "nixim" ''
-            echo '# nix build /home/${settings.user.name}/${settings.system.flakePath}#nixosConfigurations.installation-media.config.system.build.isoImage --impure'
-            nix build /home/${settings.user.name}/${settings.system.flakePath}#nixosConfigurations.installation-media.config.system.build.isoImage --impure
+            echo '# nix build /home/${settings.account.name}/${settings.system.flakePath}#nixosConfigurations.installation-media.config.system.build.isoImage --impure'
+            nix build /home/${settings.account.name}/${settings.system.flakePath}#nixosConfigurations.installation-media.config.system.build.isoImage --impure
           '')
           (writeShellScriptBin "nixgc" ''
             echo '# sudo nix-collect-garbage --delete-older-than 30d'
@@ -262,42 +262,42 @@
             echo "nixls | List generations"
           '')
           (writeShellScriptBin "nixsw" ''
-            echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#server'
-            sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#server
+            echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#server'
+            sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#server
           '')
           (writeShellScriptBin "nixbo" ''
-            echo '# sudo nixos-rebuild boot --flake /home/${settings.user.name}/${settings.system.flakePath}#server'
-            sudo nixos-rebuild boot --flake /home/${settings.user.name}/${settings.system.flakePath}#server
+            echo '# sudo nixos-rebuild boot --flake /home/${settings.account.name}/${settings.system.flakePath}#server'
+            sudo nixos-rebuild boot --flake /home/${settings.account.name}/${settings.system.flakePath}#server
           '')
           (writeShellScriptBin "nixts" ''
-            echo '# sudo nixos-rebuild test --flake /home/${settings.user.name}/${settings.system.flakePath}#server'
-            sudo nixos-rebuild test --flake /home/${settings.user.name}/${settings.system.flakePath}#server
+            echo '# sudo nixos-rebuild test --flake /home/${settings.account.name}/${settings.system.flakePath}#server'
+            sudo nixos-rebuild test --flake /home/${settings.account.name}/${settings.system.flakePath}#server
           '')
           (writeShellScriptBin "nixdr" ''
-            echo '# sudo nixos-rebuild dry-run --flake /home/${settings.user.name}/${settings.system.flakePath}#server'
-            sudo nixos-rebuild dry-run --flake /home/${settings.user.name}/${settings.system.flakePath}#server
+            echo '# sudo nixos-rebuild dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#server'
+            sudo nixos-rebuild dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#server
           '')
           (writeShellScriptBin "nixrl" ''
-            echo '# sudo nixos-rebuild switch --flake /home/${settings.user.name}/${settings.system.flakePath}#server --rollback'
-            sudo nixos-rebuild switch --flake /home/${settings.user.name}/${settings.system.flakePath}#server --rollback
+            echo '# sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#server --rollback'
+            sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#server --rollback
           '')
           (writeShellScriptBin "nixup" ''
-            echo '# sudo nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}'
-            sudo nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}
-            echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#server'
-            sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#server
+            echo '# sudo nix flake update --flake /home/${settings.account.name}/${settings.system.flakePath}'
+            sudo nix flake update --flake /home/${settings.account.name}/${settings.system.flakePath}
+            echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#server'
+            sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#server
           '')
           (writeShellScriptBin "nixar" ''
-            echo '# nix flake archive /home/${settings.user.name}/${settings.system.flakePath}'
-            nix flake archive /home/${settings.user.name}/${settings.system.flakePath}
+            echo '# nix flake archive /home/${settings.account.name}/${settings.system.flakePath}'
+            nix flake archive /home/${settings.account.name}/${settings.system.flakePath}
           '')
           (writeShellScriptBin "nixtr" ''
-            echo '# journalctl -xe --unit home-manager-${settings.user.name}'
-            journalctl -xe --unit home-manager-${settings.user.name}
+            echo '# journalctl -xe --unit home-manager-${settings.account.name}'
+            journalctl -xe --unit home-manager-${settings.account.name}
           '')
           (writeShellScriptBin "nixim" ''
-            echo '# nix build /home/${settings.user.name}/${settings.system.flakePath}#nixosConfigurations.installation-media.config.system.build.isoImage --impure'
-            nix build /home/${settings.user.name}/${settings.system.flakePath}#nixosConfigurations.installation-media.config.system.build.isoImage --impure
+            echo '# nix build /home/${settings.account.name}/${settings.system.flakePath}#nixosConfigurations.installation-media.config.system.build.isoImage --impure'
+            nix build /home/${settings.account.name}/${settings.system.flakePath}#nixosConfigurations.installation-media.config.system.build.isoImage --impure
           '')
           (writeShellScriptBin "nixgc" ''
             echo '# sudo nix-collect-garbage'
@@ -343,40 +343,40 @@
             echo "nixpk | Enter package"
           '')
           (writeShellScriptBin "nixsw" ''
-            echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#virtual-machine'
-            sudo nixos-rebuild --upgrade switch --flake /home/${settings.user.name}/${settings.system.flakePath}#virtual-machine
+            echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine'
+            sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine
           '')
           (writeShellScriptBin "nixbo" ''
-            echo '# sudo nixos-rebuild boot --flake /home/${settings.user.name}/${settings.system.flakePath}#virtual-machine'
-            sudo nixos-rebuild boot --flake /home/${settings.user.name}/${settings.system.flakePath}#virtual-machine
+            echo '# sudo nixos-rebuild boot --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine'
+            sudo nixos-rebuild boot --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine
           '')
           (writeShellScriptBin "nixts" ''
-            echo '# sudo nixos-rebuild test --flake /home/${settings.user.name}/${settings.system.flakePath}#virtual-machine'
-            sudo nixos-rebuild test --flake /home/${settings.user.name}/${settings.system.flakePath}#virtual-machine
+            echo '# sudo nixos-rebuild test --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine'
+            sudo nixos-rebuild test --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine
           '')
           (writeShellScriptBin "nixdr" ''
-            echo '# sudo nixos-rebuild dry-run --flake /home/${settings.user.name}/${settings.system.flakePath}#virtual-machine'
-            sudo nixos-rebuild dry-run --flake /home/${settings.user.name}/${settings.system.flakePath}#virtual-machine
+            echo '# sudo nixos-rebuild dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine'
+            sudo nixos-rebuild dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine
           '')
           (writeShellScriptBin "nixrl" ''
-            echo '# sudo nixos-rebuild switch --flake /home/${settings.user.name}/${settings.system.flakePath}#virtual-machine --rollback'
-            sudo nixos-rebuild switch --flake /home/${settings.user.name}/${settings.system.flakePath}#virtual-machine --rollback
+            echo '# sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine --rollback'
+            sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine --rollback
           '')
           (writeShellScriptBin "nixup" ''
-            echo '# nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}'
-            nix flake update --flake /home/${settings.user.name}/${settings.system.flakePath}
+            echo '# nix flake update --flake /home/${settings.account.name}/${settings.system.flakePath}'
+            nix flake update --flake /home/${settings.account.name}/${settings.system.flakePath}
           '')
           (writeShellScriptBin "nixar" ''
-            echo '# nix flake archive /home/${settings.user.name}/${settings.system.flakePath}'
-            nix flake archive /home/${settings.user.name}/${settings.system.flakePath}
+            echo '# nix flake archive /home/${settings.account.name}/${settings.system.flakePath}'
+            nix flake archive /home/${settings.account.name}/${settings.system.flakePath}
           '')
           (writeShellScriptBin "nixtr" ''
-            echo '# journalctl -xe --unit home-manager-${settings.user.name}'
-            journalctl -xe --unit home-manager-${settings.user.name}
+            echo '# journalctl -xe --unit home-manager-${settings.account.name}'
+            journalctl -xe --unit home-manager-${settings.account.name}
           '')
           (writeShellScriptBin "nixim" ''
-            echo '# nix build /home/${settings.user.name}/${settings.system.flakePath}#nixosConfigurations.installation-media.config.system.build.isoImage --impure'
-            nix build /home/${settings.user.name}/${settings.system.flakePath}#nixosConfigurations.installation-media.config.system.build.isoImage --impure
+            echo '# nix build /home/${settings.account.name}/${settings.system.flakePath}#nixosConfigurations.installation-media.config.system.build.isoImage --impure'
+            nix build /home/${settings.account.name}/${settings.system.flakePath}#nixosConfigurations.installation-media.config.system.build.isoImage --impure
           '')
           (writeShellScriptBin "nixgc" ''
             echo '# sudo nix-collect-garbage --delete-older-than 30d'

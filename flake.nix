@@ -34,17 +34,17 @@
         security = false;
         sshd = false;
       };
-      user = {
+      account = {
         name = "miyu";
-        password = "unlock";
+        password = "$6$4oIhgNCDy8qpD9k3$IjLevO4A8W40sPqTT4BzCa7LKrMOmCnbfey5L94K/tQpa48eely7BLJNJzlztHUzAvQQfhaFYiaGlKDJqgBGM1";
         email = "";
-        terminal = null;
+        terminal = "ghostty";
         shell = "fish";
         editor = "micro";
         browser = "firefox";
       };
       desktop = {
-        type = "plasma";
+        type = "hyprland";
         font = "Noto";
         fontPkg = "noto-fonts";
         wallpaperPath = "Media/Pictures/Wallpapers";
@@ -65,11 +65,11 @@
       ] ++ (if !builtins.isNull settings.desktop.type then [
         ./desktop/${settings.desktop.type}.nix
       ] else [])
-      ++ (if !builtins.isNull settings.user.terminal then [
-        ./modules/apps/${settings.user.terminal}.nix
+      ++ (if !builtins.isNull settings.account.terminal then [
+        ./modules/apps/${settings.account.terminal}.nix
       ] else [])
-      ++ (if !builtins.isNull settings.user.browser then [
-        ./modules/apps/${settings.user.browser}.nix
+      ++ (if !builtins.isNull settings.account.browser then [
+        ./modules/apps/${settings.account.browser}.nix
       ] else []);
     };
     nixosConfigurations.virtual-machine = inputs.nixpkgs.lib.nixosSystem {
@@ -83,11 +83,11 @@
       ] ++ (if !builtins.isNull settings.desktop.type then [
         ./desktop/${settings.desktop.type}.nix
       ] else [])
-      ++ (if !builtins.isNull settings.user.terminal then [
-        ./modules/apps/${settings.user.terminal}.nix
+      ++ (if !builtins.isNull settings.account.terminal then [
+        ./modules/apps/${settings.account.terminal}.nix
       ] else [])
-      ++ (if !builtins.isNull settings.user.browser then [
-        ./modules/apps/${settings.user.browser}.nix
+      ++ (if !builtins.isNull settings.account.browser then [
+        ./modules/apps/${settings.account.browser}.nix
       ] else []);
     };
     nixosConfigurations.windows-subsystem = inputs.nixpkgs.lib.nixosSystem {
@@ -101,11 +101,11 @@
       ] ++ (if !builtins.isNull settings.desktop.type then [
         ./desktop/${settings.desktop.type}.nix
       ] else [])
-      ++ (if !builtins.isNull settings.user.terminal then [
-        ./modules/apps/${settings.user.terminal}.nix
+      ++ (if !builtins.isNull settings.account.terminal then [
+        ./modules/apps/${settings.account.terminal}.nix
       ] else [])
-      ++ (if !builtins.isNull settings.user.browser then [
-        ./modules/apps/${settings.user.browser}.nix
+      ++ (if !builtins.isNull settings.account.browser then [
+        ./modules/apps/${settings.account.browser}.nix
       ] else []);
     };
     nixosConfigurations.server = inputs.nixpkgs.lib.nixosSystem {
@@ -119,11 +119,11 @@
       ] ++ (if !builtins.isNull settings.desktop.type then [
         ./desktop/${settings.desktop.type}.nix
       ] else [])
-      ++ (if !builtins.isNull settings.user.terminal then [
-        ./modules/apps/${settings.user.terminal}.nix
+      ++ (if !builtins.isNull settings.account.terminal then [
+        ./modules/apps/${settings.account.terminal}.nix
       ] else [])
-      ++ (if !builtins.isNull settings.user.browser then [
-        ./modules/apps/${settings.user.browser}.nix
+      ++ (if !builtins.isNull settings.account.browser then [
+        ./modules/apps/${settings.account.browser}.nix
       ] else []);
     };
     nixosConfigurations.installation-media = inputs.nixpkgs.lib.nixosSystem {
@@ -137,11 +137,11 @@
       ] ++ (if !builtins.isNull settings.desktop.type then [
         ./desktop/${settings.desktop.type}.nix
       ] else [])
-      ++ (if !builtins.isNull settings.user.terminal then [
-        ./modules/apps/${settings.user.terminal}.nix
+      ++ (if !builtins.isNull settings.account.terminal then [
+        ./modules/apps/${settings.account.terminal}.nix
       ] else [])
-      ++ (if !builtins.isNull settings.user.browser then [
-        ./modules/apps/${settings.user.browser}.nix
+      ++ (if !builtins.isNull settings.account.browser then [
+        ./modules/apps/${settings.account.browser}.nix
       ] else []);
     };
     darwinSystem.darwin = inputs.nixpkgs.lib.nixosSystem {
@@ -155,11 +155,11 @@
       ] ++ (if !builtins.isNull settings.desktop.type then [
         ./desktop/${settings.desktop.type}.nix
       ] else [])
-      ++ (if !builtins.isNull settings.user.terminal then [
-        ./modules/apps/${settings.user.terminal}.nix
+      ++ (if !builtins.isNull settings.account.terminal then [
+        ./modules/apps/${settings.account.terminal}.nix
       ] else [])
-      ++ (if !builtins.isNull settings.user.browser then [
-        ./modules/apps/${settings.user.browser}.nix
+      ++ (if !builtins.isNull settings.account.browser then [
+        ./modules/apps/${settings.account.browser}.nix
       ] else []);
     };
   };

@@ -1,5 +1,5 @@
 { pkgs, settings, ... }: {
-  home-manager.users.${settings.user.name} = {
+  home-manager.users.${settings.account.name} = {
     home.packages = [ pkgs.hypridle ];
     wayland.windowManager.hyprland.settings.exec-once = [ "systemctl --user enable --now hypridle.service" ];
     services.hypridle = {

@@ -1,5 +1,5 @@
 { pkgs, settings, inputs, ... }: {
-  home-manager.users.${settings.user.name} = { ... }: let
+  home-manager.users.${settings.account.name} = { ... }: let
     unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
   in {
     wayland.windowManager.hyprland = {

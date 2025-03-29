@@ -40,7 +40,7 @@
       home-manager.backupFileExtension = "hm-backup";
       programs.command-not-found.enable = if settings.profile == "installation-media" then false else true;
       programs.nano.enable = false;
-      programs.fish.enable = if settings.user.shell == "fish" then true else false;
+      programs.fish.enable = if settings.account.shell == "fish" then true else false;
       services.gpm.enable = true;
       environment.systemPackages = [ pkgs.micro ];
       system.stateVersion = settings.system.version;
@@ -50,14 +50,14 @@
       security.sudo.wheelNeedsPassword = false;
 
       users.mutableUsers = false;
-      users.users.root.initialPassword = lib.mkForce settings.user.password;
-      users.users.${settings.user.name} = {
+      users.users.root.hashedPassword = lib.mkForce settings.account.password;
+      users.users.${settings.account.name} = {
         isNormalUser = true;
-        initialPassword = settings.user.password;
-        description = settings.user.name;
+        hashedPassword = settings.account.password;
+        description = settings.account.name;
         extraGroups = [ "networkmanager" "wheel" "qemu-libvirtd" "libvirtd" "kvm" "docker" ];
         uid = 1000;
-        shell = if settings.profile == "windows-subsystem" || settings.user.shell == "fish" then pkgs.fish else pkgs.bash;
+        shell = if settings.profile == "windows-subsystem" || settings.account.shell == "fish" then pkgs.fish else pkgs.bash;
       };
 
       zramSwap.enable = builtins.elem settings.profile [ "installation-media" "workstation" "virtual-machine" "server" ];
@@ -143,7 +143,7 @@
           "noapic"
         */
       ];
-      home-manager.users.${settings.user.name} = {
+      home-manager.users.${settings.account.name} = {
         programs.home-manager.enable = true;
         home.stateVersion = settings.system.version;
       };
@@ -167,8 +167,8 @@
       services.xserver.videoDrivers = [ "nvidia" ];
       hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production; /* production or latest */
       # ^ Works best with boot.kernelPackages = pkgs.linuxPackages;
-      hardware.nvidia.powerManagement.enable = true;
-      hardware.nvidia.powerManagement.finegrained = true;
+      hardware.nvidia.powerManagement.enable = false;
+      hardware.nvidia.powerManagement.finegrained = false;
       hardware.nvidia.modesetting.enable = true;
       hardware.nvidia.nvidiaSettings = false;
       hardware.nvidia.open = false;

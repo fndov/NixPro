@@ -3,7 +3,7 @@
   services.desktopManager.plasma6.enable = true;
 	services.displayManager.defaultSession = "plasma";
 	services.displayManager.autoLogin.enable = true;
-	services.displayManager.autoLogin.user = settings.user.name;
+	services.displayManager.autoLogin.user = settings.account.name;
   security.rtkit.enable = true;
   services.pipewire.enable = true;
   services.pipewire.alsa.enable = true;

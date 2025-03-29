@@ -1,7 +1,7 @@
 { settings, ... }: {
-  home-manager.users.${settings.user.name} = {
+  home-manager.users.${settings.account.name} = {
     wayland.windowManager.hyprland.settings.bind = [
-      "SUPER,X,exec,if hyprctl clients | grep -q scratch_term; then echo 'scratch_term already running'; else ${settings.user.terminal} --class scratch_term; fi"
+      "SUPER,X,exec,if hyprctl clients | grep -q scratch_term; then echo 'scratch_term already running'; else ${settings.account.terminal} --class scratch_term; fi"
       "SUPER,X,togglespecialworkspace,scratch_term"
     ];
     wayland.windowManager.hyprland.settings.windowrule = [

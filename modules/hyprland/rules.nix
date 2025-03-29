@@ -1,5 +1,5 @@
 { settings, ... }: {
-  home-manager.users.${settings.user.name} = {
+  home-manager.users.${settings.account.name} = {
     wayland.windowManager.hyprland.settings = {
       windowrulev2 = [
         "float, title:^(Picture-in-Picture)$"

@@ -36,7 +36,7 @@ Settings:
     bootMode = "uefi"             Uefi or Bios
     grubDevice = "/dev/sda"       Device identifier for grub; only used for legacy (bios) boot mode
     bootMountPath = "/boot"       Mount path for efi boot partition; only used for uefi boot mode
-    flakePath = ".nixpro"         /home/${settings.user.name}/${settings.system.flakePath/contents
+    flakePath = ".nixpro"         /home/${settings.account.name}/${settings.system.flakePath/contents
     automation = false            Garbage collection, updates, builds etc
     printing = true               Includes CUPS and other printing utilities
     timezone = true               Sets timezone
@@ -54,8 +54,8 @@ Settings:
     type = "hyprland"             Desktop module name. Set null for no desktop
     font = "Noto"                 Default font for the desktop environment
     fontPkg = pkgs.noto-fonts     Name of font package
-    wallpaperPath = "Picturescatppuccin" /home/${settings.user.name}/${settings.desktop.wallpaperPath}/
-    wallpaperName = "background.png" /home/${settings.user.name}/${settings.desktop.wallpaperPath}/${settings.desktop.wallpaperName}
+    wallpaperPath = "Picturescatppuccin" /home/${settings.account.name}/${settings.desktop.wallpaperPath}/
+    wallpaperName = "background.png" /home/${settings.account.name}/${settings.desktop.wallpaperPath}/${settings.desktop.wallpaperName}
     animationSpeed = "medium"     Slow Medium Fast
 
 Import flow:

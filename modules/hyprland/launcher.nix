@@ -1,5 +1,5 @@
 { pkgs, settings, ... }: {
-    home-manager.users.${settings.user.name} = {
+    home-manager.users.${settings.account.name} = {
     home.packages = with pkgs; [
       rofi-wayland
       nerdfonts
@@ -20,7 +20,7 @@
           modi: "run,drun,window";
           icon-theme: "Oranchelo";
           show-icons: true;
-          terminal: "${settings.user.terminal}";
+          terminal: "${settings.account.terminal}";
           drun-display-format: "{icon} {name}";
           location: 0;
           disable-history: false;

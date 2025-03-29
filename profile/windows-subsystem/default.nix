@@ -7,9 +7,9 @@
       ../../modules/development/cc.nix
   ];
   wsl.enable = true;
-  wsl.defaultUser = settings.user.name;
+  wsl.defaultUser = settings.account.name;
 
-  home-manager.users.${settings.user.name}.home.file.".vscode-server/server-env-setup".text = ''
+  home-manager.users.${settings.account.name}.home.file.".vscode-server/server-env-setup".text = ''
     # This shell script is run before checking for vscode version updates.
     # If a newer version is downloaded, this script won't patch that version,
     # resulting in error. Therefore retry is required to patch it.

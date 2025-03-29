@@ -1,7 +1,7 @@
 { pkgs, inputs, settings, ... }: let
   unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; };
 in {
-  home-manager.users.${settings.user.name} = { pkgs, inputs, settings, ... }: {
+  home-manager.users.${settings.account.name} = { pkgs, inputs, settings, ... }: {
     home.packages = with pkgs; [
       unstable.heroic
       unstable.gamemode

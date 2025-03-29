@@ -1,7 +1,7 @@
 { inputs, pkgs, settings, ... }: let
   unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
 in {
-  home-manager.users.${settings.user.name} = { pkgs, ... }: {
+  home-manager.users.${settings.account.name} = { pkgs, ... }: {
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
       /* Essential */
