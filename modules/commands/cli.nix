@@ -1,30 +1,32 @@
-{ inputs, pkgs, settings, ... }: let
-  unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
-in {
-  home-manager.users.${settings.account.name} = { pkgs, ... }: {
+{ inputs, pkgs, settings, ... }: {
+  home-manager.users.${settings.account.name} = { ... }: let
+    unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
+  in {
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
       /* Essential */
-      nixd
-      nil
       zip
       unzip
       glib
       glibc
-      usbutils
-      hwinfo
-      pciutils
       curl
       git
-      loop
       /* Extra */
-      appimage-run
-      gdu
-      fastfetch
+      unstable.ollama
+      unstable.nixd
+      unstable.nil
+      unstable.appimage-run
+      unstable.gdu
+      unstable.htop
+      unstable.fastfetch
       compsize
-      libnotify
-      numbat
+      unstable.numbat
       /*
+        loop
+        toybox
+        usbutils
+        pciutils
+        hwinfo
         exif
         nixfmt-classic
         syncthing

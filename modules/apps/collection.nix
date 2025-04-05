@@ -1,33 +1,32 @@
 { inputs, pkgs, settings, ... }: {
-  home-manager.users.${settings.account.name} = { pkgs, ... }: let
+  home-manager.users.${settings.account.name} = { ... }: let
     unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; };
   in {
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
-      # AI
-      unstable.ollama-cuda
-      # Code
       unstable.zed-editor
-      unstable.code-cursor
-      vscode
-      # Apps
-      obsidian
-      godot_4
-      blender
+      unstable.obsidian
+      unstable.godot_4
+      unstable.blender
       authenticator
       swayimg
       chatterino2
+      discord
       kdenlive
       krita
-      obs-studio
+      kdePackages.elisa
+      unstable.obs-studio
       gnome-calendar
       kwrited
-      gimp
+      unstable.gimp
       baobab
       vlc
-      # Work
       libreoffice
       /*
+        k3b # Broken Wed Apr  2 04:27:23 PM CDT 2025
+        vscode
+        unstable.code-cursor
+        unstable.alpaca
         qbittorrent
         protonvpn-gui
         upscayl

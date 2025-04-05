@@ -1,5 +1,5 @@
 { pkgs, settings, ... }: {
-  home-manager.users.${settings.account.name} = { pkgs, settings, ... }: {
+  home-manager.users.${settings.account.name} = {
     home.packages = [ pkgs.chromium ];
     xdg.mimeApps.defaultApplications = {
       "text/html" = "chromium-browser.desktop";

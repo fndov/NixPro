@@ -8,9 +8,9 @@
       nwg-clipman
     ];
     wayland.windowManager.hyprland.settings.bind = [
-      "SUPER,semicolon,exec,rofi -show drun"
+      "SUPER,semicolon,exec,nice -21 rofi -show drun"
       # "SUPER, V, exec, cliphist list | cut -f 2- | rofi -dmenu | wl-copy"
-      "SUPER,V,exec,nwg-clipman --window"
+      "SUPER,V,exec, nice -21 nwg-clipman --window"
     ];
     wayland.windowManager.hyprland.settings.exec-once = [
       "wl-paste --type text --watch cliphist store"

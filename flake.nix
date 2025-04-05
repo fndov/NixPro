@@ -11,16 +11,13 @@
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    lix-module.url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
-    lix-module.inputs.nixpkgs.follows = "nixpkgs";
+    # lix-module.url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
+    # lix-module.inputs.nixpkgs.follows = "nixpkgs";
+    # Broken Wed Apr  2 08:19:17 AM CDT 2025
   };
   outputs = inputs@{ self, ... }: let
     settings = {
-      driver = {
-        graphics = "nvidia";
-        networking = true;
-        usbmuxd = true;
-      };
+      driver.graphics = "nvidia";
       system = {
         version = "24.11";
         architecture = "x86_64-linux";
@@ -29,8 +26,6 @@
         bootMountPath = "/boot";
         flakePath = ".nixpro";
         automation = true;
-        printing = true;
-        timezone = true;
         security = false;
         sshd = false;
       };
@@ -58,7 +53,7 @@
       specialArgs = { inherit inputs system; settings = settings // { profile = "workstation"; }; };
       modules = [
         inputs.home-manager.nixosModules.home-manager
-        inputs.lix-module.nixosModules.default
+        # inputs.lix-module.nixosModules.default
         ./profile/workstation/hardware.nix
         ./profile/workstation/default.nix
         ./compose.nix

@@ -5,8 +5,13 @@
       nerdfonts
       networkmanagerapplet
     ];
-    wayland.windowManager.hyprland.settings.exec-once = [ "waybar" ];
-    wayland.windowManager.hyprland.settings.bind = [ "SUPER,W,exec,pgrep waybar > /dev/null && pkill waybar || waybar &" ];
+    fonts.packages = [ ... ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts)
+    wayland.windowManager.hyprland.settings.exec-once = [ 
+      "nice -1 waybar"
+    ];
+    wayland.windowManager.hyprland.settings.bind = [
+      "SUPER,W,exec,pgrep waybar > /dev/null && pkill waybar || nice -1 waybar &"
+    ];
     programs.waybar = {
       enable = true;
       settings = {
@@ -31,7 +36,7 @@
             "format" = " {} ";
             "exec" = ''echo "" '';
             "interval" = "once";
-            "on-click" = "rofi -show drun";
+            "on-click" = "nice -21 rofi -show drun";
             "tooltip" = false;
           };
           "group/power" = {

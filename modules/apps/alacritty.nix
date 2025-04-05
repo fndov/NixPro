@@ -1,5 +1,5 @@
 { pkgs, settings, ... }: {
-  home-manager.users.${settings.account.name} = { pkgs, settings, ... }: {
+  home-manager.users.${settings.account.name} = {
     home.packages = [ pkgs.alacritty ];
     programs.alacritty.enable = true;
     home.file."/home/${settings.account.name}/.config/alacritty/alacritty.toml".text = ''

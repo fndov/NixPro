@@ -78,21 +78,23 @@
           }
         '';
         wayland.windowManager.hyprland.settings = {
-          exec-once = [ "swayosd-server" ];
+          exec-once = [ 
+            "nice -1 swayosd-server"
+          ];
           bindm = [
             "SUPER,mouse:272,movewindow"
             "SUPER,mouse:273,resizewindow"
           ];
           bind = [
             # Apps.
-            "SUPER,Return,exec,${settings.account.terminal}"
+            "SUPER,Return,exec, nice -1 ${settings.account.terminal}"
             "SUPER,H,exec,hyprctl dispatch exec '[float] ${settings.account.terminal} -e htop'"
             "SUPER,N,exec,hyprctl dispatch exec '[float] ${settings.account.terminal} -e numbat'"
 
             # Common.
             "SUPER,Q,killactive"
-            "SUPER,E,exec,systemctl suspend"
-            "SUPERSHIFT,E,exec,hyprlock & sleep 1;systemctl suspend"
+            "SUPER,E,exec,nice -1 systemctl suspend"
+            "SUPERSHIFT,E,exec,hyprlock & sleep 1;nice -1 systemctl suspend"
             "SUPER,F,fullscreen"
             "SUPER,T,togglefloating"
             "SUPER,H,movefocus,left"
@@ -119,25 +121,25 @@
             "SUPERSHIFT,Q,exec,hyprctl kill"
 
             # Volume and Media Control.
-            ",XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
-            ",XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
-            "SUPER,XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise --max-volume 200"
-            "SUPER,XF86AudioLowerVolume, exec, swayosd-client --output-volume lower --max-volume 200"
-            ",XF86AudioMute,exec, swayosd-client --output-volume mute-toggle"
-            ",XF86AudioPlay,exec,playerctl play-pause"
-            ",XF86AudioPause,exec,playerctl play-pause"
-            ",XF86AudioNext,exec,playerctl next"
-            ",XF86AudioPrev,exec,playerctl previous"
+            ",XF86AudioRaiseVolume,exec,nice -1 swayosd-client --output-volume raise"
+            ",XF86AudioLowerVolume,exec,nice -1 swayosd-client --output-volume lower"
+            "SUPER,XF86AudioRaiseVolume,exec,nice -1 swayosd-client --output-volume raise --max-volume 200"
+            "SUPER,XF86AudioLowerVolume,exec,nice -1 swayosd-client --output-volume lower --max-volume 200"
+            ",XF86AudioMute,exec,nice -1 swayosd-client --output-volume mute-toggle"
+            ",XF86AudioPlay,exec,nice -1 playerctl play-pause"
+            ",XF86AudioPause,exec,nice -1 playerctl play-pause"
+            ",XF86AudioNext,exec,nice -1 playerctl next"
+            ",XF86AudioPrev,exec,nice -1 playerctl previous"
 
             # Brightness Control.
-            ",XF86MonBrightnessUp,exec,swayosd-client --brightness raise"
-            ",XF86MonBrightnessDown,exec,swayosd-client --brightness lower"
-            "SUPER,XF86MonBrightnessUp,exec, swayosd-client --brightness +1"
-            "SUPER,XF86MonBrightnessDown,exec, swayosd-client --brightness -1"
+            ",XF86MonBrightnessUp,exec,nice -1 swayosd-client --brightness raise"
+            ",XF86MonBrightnessDown,exec,nice -1 swayosd-client --brightness lower"
+            "SUPER,XF86MonBrightnessUp,exec,nice -1 swayosd-client --brightness +1"
+            "SUPER,XF86MonBrightnessDown,exec,nice -1 swayosd-client --brightness -1"
 
             # Volume Control.
-            ",XF86AudioRaiseVolume,exec, pswayosd-client --output-volume raise"
-            ",XF86AudioLowerVolume,exec, pswayosd-client --output-volume lower"
+            ",XF86AudioRaiseVolume,exec,nice -1 pswayosd-client --output-volume raise"
+            ",XF86AudioLowerVolume,exec,nice -1 pswayosd-client --output-volume lower"
 
             # Workspace.
             "SUPER,1,workspace,1"

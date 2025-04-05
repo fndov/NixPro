@@ -1,7 +1,7 @@
-{ inputs, settings, pkgs, ... }: let
-  unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; };
-in {
-  home-manager.users.${settings.account.name} = { pkgs, ... }: {
+{ inputs, settings, pkgs, ... }: {
+  home-manager.users.${settings.account.name} = { ... }: let
+    unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; };
+  in {
     home.packages = with pkgs; [
       unstable.steam
       unstable.gamemode

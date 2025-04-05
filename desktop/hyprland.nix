@@ -1,13 +1,14 @@
-{ config, pkgs, settings, lib, ... }: {
+{ config, inputs, lib, pkgs, settings, ... }: {
   nix.settings.substituters = [ "https://hyprland.cachix.org" ];
   nix.settings.trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  environment.systemPackages = [ pkgs.libsecret ];
+  environment.systemPackages = with pkgs; [ libsecret cups-filters ];
   programs.hyprland.enable = true;
   programs.hyprland.xwayland.enable = true;
-  programs.hyprland.portalPackage = pkgs.xdg-desktop-portal-hyprland;
+  programs.hyprland.package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+  programs.hyprland.portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal pkgs.xdg-desktop-portal-gtk ];
+  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal xdg-desktop-portal-gtk ];
   services.blueman.enable = true;
   services.udisks2.enable = true;
   services.devmon.enable = true;
@@ -27,6 +28,10 @@
   services.thermald.enable = false;
   security.pam.services.greetd = lib.mkIf config.services.greetd.enable { enableGnomeKeyring = true; };
   security.rtkit.enable = true;
+  services.printing.enable = true;
+  services.avahi.enable = true;
+  services.avahi.nssmdns4 = true;
+  services.avahi.openFirewall = true;
   fonts.enableDefaultPackages = true;
   fonts.fontconfig.enable = true;
   fonts.packages = [ pkgs.${settings.desktop.fontPkg} ];
@@ -54,7 +59,6 @@
     ../modules/hyprland/theme.nix
     ../modules/hyprland/timeout.nix
     ../modules/hyprland/wallpaper.nix
-    # ../modules/home/hyprland/plugins.nix
   ];
 
   home-manager.users.${settings.account.name} = lib.mkMerge [
@@ -62,7 +66,10 @@
       services.blueman-applet.enable = true;
       services.udiskie.enable = true;
       services.udiskie.tray = "always";
-      home.packages = [ pkgs.hyprpolkitagent ];
+      home.packages = with pkgs; [
+        hyprpolkitagent
+        libnotify
+      ];
       wayland.windowManager.hyprland = {
         enable = true;
         systemd.enable = false;
@@ -82,10 +89,8 @@
             "TERMINAL,${settings.account.terminal}"
             "XDG_CURRENT_DESKTOP,Hyprland"
             "XDG_SESSION_DESKTOP,Hyprland"
-            # "WLR_DRM_DEVICES,/dev/dri/card2:/dev/dri/card1"
-            # "GDK_BACKEND,wayland,x11,*"
-            # "QT_QPA_PLATFORM,wayland;xcb"
-            # "QT_QPA_PLATFORMTHEME,qt5ct"
+            "GDK_BACKEND,wayland,x11,*"
+            "QT_QPA_PLATFORM,wayland;xcb"
             "QT_AUTO_SCREEN_SCALE_FACTOR,1"
             "XDG_SESSION_TYPE,wayland"
             "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
@@ -96,15 +101,12 @@
           input.natural_scroll = false;
           input.touchpad = {
             natural_scroll = true;
-            # drag_lock = true;
-            # tap-and-drag = true;
           };
           gestures = {
             workspace_swipe = true;
             workspace_swipe_distance = 170;
             workspace_swipe_fingers = 3;
             workspace_swipe_cancel_ratio = 0.2;
-            # workspace_swipe_min_speed_to_force = 1
             workspace_swipe_direction_lock = true;
             workspace_swipe_direction_lock_threshold = 100;
             workspace_swipe_create_new = true;
@@ -113,7 +115,7 @@
           };
 
           general = {
-            layout = "master"; # "dwindle";
+            layout = "master"; # dwindle
             snap.enabled = true;
             border_size = 3;
             resize_on_border = true;
@@ -125,17 +127,17 @@
             no_border_on_floating = false;
           };
           /*
-          master = {
-            allow_small_split = true;
-            always_center_master = true;
-            drop_at_cursor = true;
-            inherit_fullscreen = false;
-            mfact = 0.55;
-            new_on_top = true;
-            new_status = "master";
-            orientation = "center";
-            smart_resizing = true;
-          };
+            master = {
+              allow_small_split = true;
+              always_center_master = true;
+              drop_at_cursor = true;
+              inherit_fullscreen = false;
+              mfact = 0.55;
+              new_on_top = true;
+              new_status = "master";
+              orientation = "center";
+              smart_resizing = true;
+            };
           */
           decoration = {
             rounding = 7;

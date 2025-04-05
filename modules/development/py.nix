@@ -1,15 +1,14 @@
 { inputs, pkgs, settings, ... }: {
-  home-manager.users.${settings.account.name} = { pkgs, ... }: let
+  home-manager.users.${settings.account.name} = { ... }: let
     unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; };
   in {
     nixpkgs.config.allowUnfree = true;
-    home.packages = with pkgs; [
-      unstable.python312Full
-      unstable.python312Packages.python-lsp-server
-      unstable.python312Packages.ollama
-    ];
+    home.packages = with pkgs; [ ];
   };
   /*
+    python312Full
+    python312Packages.python-lsp-server
+    unstable.python312Packages.ollama
     cffi
     dbus-python
     wheel

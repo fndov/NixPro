@@ -1,9 +1,10 @@
-{ pkgs, inputs, settings, ... }: let
-  unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; };
-in {
-  home-manager.users.${settings.account.name} = {
+{ pkgs, inputs, settings, ... }: {
+  home-manager.users.${settings.account.name} = { ... }: let
+    unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; };
+  in {
     home.packages = with pkgs; [
       unstable.ghostty
+      timg
     ];
     home.file."/home/${settings.account.name}/.config/ghostty/config".text = ''
       # --- Hyprland ---
@@ -41,6 +42,8 @@ in {
       focus-follows-mouse = true
     '';
   } // (if settings.desktop.type == "hyprland" then {
-    wayland.windowManager.hyprland.settings.exec-once = [ "ghostty --initial-window=false" ];
+    wayland.windowManager.hyprland.settings.exec-once = [
+      "nice -1 ghostty --initial-window=false"
+    ];
   } else {});
 }

@@ -1,5 +1,5 @@
 { pkgs, settings, ... }: {
-  home-manager.users.${settings.account.name} = { pkgs, settings, ... }: {
+  home-manager.users.${settings.account.name} = {
     home.packages = [ pkgs.brave ];
     xdg.mimeApps.defaultApplications = {
       "text/html" = "brave-browser.desktop";

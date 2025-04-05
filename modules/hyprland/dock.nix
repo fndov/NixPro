@@ -4,7 +4,7 @@
       pkgs.nwg-dock-hyprland
     ];
     wayland.windowManager.hyprland.settings.exec-once = [
-      "nwg-dock-hyprland -i 60 -x"
+      "nice -1 nwg-dock-hyprland -i 60 -x"
     ];
     wayland.windowManager.hyprland.settings.bind = [
       "SUPER,D,exec,pgrep nwg-dock > /dev/null && pkill nwg-dock || nwg-dock-hyprland -i 60 -x &"

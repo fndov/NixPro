@@ -13,6 +13,7 @@ Reference commands:
 nix-shell -p clang clang --command bash --run 'clang input.cc -o result'
 nix shell nixpkgs/nixos-24.05#youtube-dl --command youtube-dl --version
 nix shell nixpkgs/nixos-20.03#youtube-dl --command youtube-dl --version
+nix-shell -I nixpkgs=channel:nixos-unstable -p hello
 Opening packages:
 cd $(nix-build '<nixpkgs>' -A intel-gpu-tools --no-out-link)
 Btrfs commands:

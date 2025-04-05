@@ -15,40 +15,60 @@
       else if settings.profile == "installation-media"
       then "NixPro-Image"
       else "NixPro";
-
+      time.timeZone = "America/Chicago";
+      i18n.defaultLocale = "en_US.UTF-8";
+      i18n.extraLocaleSettings.LC_ADDRESS = "en_US.UTF-8";
+      i18n.extraLocaleSettings.LC_IDENTIFICATION = "en_US.UTF-8";
+      i18n.extraLocaleSettings.LC_MEASUREMENT = "en_US.UTF-8";
+      i18n.extraLocaleSettings.LC_MONETARY = "en_US.UTF-8";
+      i18n.extraLocaleSettings.LC_NAME = "en_US.UTF-8";
+      i18n.extraLocaleSettings.LC_NUMERIC = "en_US.UTF-8";
+      i18n.extraLocaleSettings.LC_PAPER = "en_US.UTF-8";
+      i18n.extraLocaleSettings.LC_TELEPHONE = "en_US.UTF-8";
+      i18n.extraLocaleSettings.LC_TIME = "en_US.UTF-8";
       documentation.enable = lib.mkForce false;
       documentation.doc.enable = lib.mkForce false;
       documentation.info.enable = lib.mkForce false;
       documentation.man.enable = lib.mkForce false;
       documentation.nixos.enable = lib.mkForce false;
-
       nix.extraOptions = "experimental-features = nix-command flakes";
       nix.settings.sandbox = true;
       nix.settings.trusted-users = [ "@wheel" ];
       nix.settings.warn-dirty = false;
-      nix.settings.substituters = [ "https://cache.lix.systems" ];
-      nix.settings.trusted-public-keys = [ "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o=" ];
+      nix.settings.substituters = [ 
+        "https://cache.lix.systems"
+        "https://hyprland.cachix.org"
+      ];
+      nix.settings.trusted-public-keys = [ 
+        "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      ];
       nix.settings.auto-optimise-store = true;
       nix.optimise.automatic = true;
       nix.optimise.dates = [ "weekly" ];
       nix.gc.automatic = true;
       nix.gc.dates = "weekly";
       nix.gc.options = "--delete-older-than 30d";
-
-      home-manager.useGlobalPkgs = false;
       home-manager.useUserPackages = false;
       home-manager.backupFileExtension = "hm-backup";
+      home-manager.useGlobalPkgs = false;
+      environment.systemPackages = with pkgs; [ micro networkmanagerapplet ifuse ];
+      services.usbmuxd.enable = true;
+      services.usbmuxd.package = pkgs.usbmuxd2;
+      services.gpm.enable = true;
       programs.command-not-found.enable = if settings.profile == "installation-media" then false else true;
       programs.nano.enable = false;
       programs.fish.enable = if settings.account.shell == "fish" then true else false;
-      services.gpm.enable = true;
-      environment.systemPackages = [ pkgs.micro ];
       system.stateVersion = settings.system.version;
       systemd.services.NetworkManager-wait-online.enable = false;
+      systemd.coredump.extraConfig = ''
+        [Coredump]
+        Storage=none
+        ProcessSizeMax=0
+      '';
       hardware.ksm.enable = true;
       hardware.ksm.sleep = 1;
       security.sudo.wheelNeedsPassword = false;
-
       users.mutableUsers = false;
       users.users.root.hashedPassword = lib.mkForce settings.account.password;
       users.users.${settings.account.name} = {
@@ -59,17 +79,17 @@
         uid = 1000;
         shell = if settings.profile == "windows-subsystem" || settings.account.shell == "fish" then pkgs.fish else pkgs.bash;
       };
-
       zramSwap.enable = builtins.elem settings.profile [ "installation-media" "workstation" "virtual-machine" "server" ];
       zramSwap.memoryPercent = 100; # 30
-      zramSwap.algorithm = "zstd -Xcompression-level 22"; # lzo is small, zstd is fast.
+      zramSwap.algorithm = "zstd -Xcompression-level 22";
       zramSwap.priority = 3;
-      boot.kernel.sysctl."vm.swappiness" = 100; # 60
-      boot.kernel.sysctl."vm.dirty_background_ratio" = 95; # 10
-      boot.kernel.sysctl."vm.dirty_ratio" = if settings.profile == "installation-media" then 80 else 90; # 20
+      boot.kernel.sysctl."vm.swappiness" = 200; # 60
+      boot.kernel.sysctl."vm.dirty_background_ratio" = 100; # 10
+      boot.kernel.sysctl."vm.dirty_ratio" = if settings.profile == "installation-media" then 80 else 100; # 20
       boot.kernel.sysctl."vm.vfs_cache_pressure" = 1; # 100
-      boot.kernel.sysctl."vm.min_free_kbytes" = 1000; # 0
-      boot.kernel.sysctl."vm.compaction_proactiveness" = 20; # 20
+      boot.kernel.sysctl."vm.min_free_kbytes" = 1000; # 1000
+      boot.kernel.sysctl."vm.compaction_proactiveness" = 100; # 20
+      boot.tmp.useTmpfs = true;
       boot.initrd.compressor = "zstd";
       boot.initrd.compressorArgs = [ "-22" ];
       services.earlyoom.enable = builtins.elem settings.profile [ "installation-media" ];
@@ -78,7 +98,6 @@
       services.earlyoom.freeMemKillThreshold = 3;
       services.earlyoom.freeSwapThreshold = 3;
       services.earlyoom.freeSwapKillThreshold = 3;
-
       boot.kernelPackages = # xanmod xanmod_latest rt rt_latest hardened zen
       (if settings.profile == "installation-media"
         then pkgs.linuxPackages
@@ -95,7 +114,6 @@
               (if settings.profile == "virtual-machine"
                 then pkgs.linuxPackages_latest
                 else null)))));
-
       boot.readOnlyNixStore = true;
       boot.blacklistedKernelModules = [ "nouveau" ];
       boot.kernelParams = [
@@ -190,6 +208,8 @@
     (if settings.driver.graphics == "amd" then {
     } else {})
     (if settings.driver.graphics == "intel" then {
+      services.xserver.videoDrivers = [ "i915" ];
+      boot.initrd.kernelModules = [ "i915" ];
       hardware.graphics.enable = true;
       hardware.graphics.enable32Bit = true;
     } else {})
@@ -220,38 +240,13 @@
       services.openssh.settings.PasswordAuthentication = true;
       services.openssh.settings.UseDns = true;
     })
-    (lib.mkIf settings.system.printing {
-      services.printing.enable = true;
-      services.avahi.enable = true;
-      services.avahi.nssmdns4 = true;
-      services.avahi.openFirewall = true;
-      environment.systemPackages = [ pkgs.cups-filters ];
-    })
-    (lib.mkIf (settings.driver.networking && settings.profile != "microsoft") {
+    (lib.mkIf (settings.profile != "microsoft") {
       environment.systemPackages = [ pkgs.networkmanager ];
       networking.networkmanager.enable = true;
       networking.wireless.enable = if settings.profile == "installation-media" then lib.mkForce false else false;
       services.udev.packages = [ pkgs.networkmanager ];
       services.dbus.enable = true;
       services.resolved.enable = true;
-    })
-    (lib.mkIf settings.driver.usbmuxd {
-      services.usbmuxd.enable = true;
-      services.usbmuxd.package = pkgs.usbmuxd2;
-      environment.systemPackages = with pkgs; [ networkmanagerapplet ifuse ];
-    })
-    (lib.mkIf settings.system.timezone {
-      time.timeZone = "America/Chicago";
-      i18n.defaultLocale = "en_US.UTF-8";
-      i18n.extraLocaleSettings.LC_ADDRESS = "en_US.UTF-8";
-      i18n.extraLocaleSettings.LC_IDENTIFICATION = "en_US.UTF-8";
-      i18n.extraLocaleSettings.LC_MEASUREMENT = "en_US.UTF-8";
-      i18n.extraLocaleSettings.LC_MONETARY = "en_US.UTF-8";
-      i18n.extraLocaleSettings.LC_NAME = "en_US.UTF-8";
-      i18n.extraLocaleSettings.LC_NUMERIC = "en_US.UTF-8";
-      i18n.extraLocaleSettings.LC_PAPER = "en_US.UTF-8";
-      i18n.extraLocaleSettings.LC_TELEPHONE = "en_US.UTF-8";
-      i18n.extraLocaleSettings.LC_TIME = "en_US.UTF-8";
     })
   ];
 }

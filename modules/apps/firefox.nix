@@ -12,6 +12,8 @@
       DEFAULT_BROWSER = "${pkgs.firefox-bin}/bin/firefox";
     };
   } // (if settings.desktop.type == "hyprland" then {
-    wayland.windowManager.hyprland.settings.exec-once = [ "firefox" ];
+    wayland.windowManager.hyprland.settings.exec-once = [
+      "${pkgs.firefox-bin}/bin/firefox"
+    ];
   } else {});
 }

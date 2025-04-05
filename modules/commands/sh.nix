@@ -1,5 +1,6 @@
-{ pkgs, settings, ... }: {
+{ inputs, pkgs, settings, ... }: {
   home-manager.users.${settings.account.name} = { ... }: let
+    unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
     aliases = {
       cat = "bat --style=plain --pager=never";
       tree = "eza --color always --icons --hyperlink --group-directories-first --tree";
@@ -21,27 +22,23 @@
       f = "yazi";
       trash = "gio trash";
       e = if settings.account.editor == "micro"
-        then "${settings.account.editor} --ruler false -colorscheme geany"
-      else settings.account.editor;
+        then "nice -1 ${settings.account.editor} --ruler false -colorscheme geany"
+      else "nice -1 ${settings.account.editor}";
       cattree = "find . -type f -exec grep -Iq . {} \\; -print | xargs cat";
       offload = "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia";
-      };
+    };
   in {
     home.packages = with pkgs; [
       bat
-      eza
-      fastfetch
+      unstable.eza
       fd
       glib
       glibc
-      htop
       mako
       micro
-      ripgrep
-      openssh
-      libnotify
-      yazi
-      timg
+      unstable.ripgrep
+      unstable.openssh
+      unstable.yazi
       fishPlugins.done
     ];
     programs.fish = {

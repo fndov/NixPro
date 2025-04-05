@@ -1,4 +1,4 @@
-{ lib, settings, ... }: {
+{ lib, pkgs, settings, ... }: {
   services.xserver.enable = true;
   services.desktopManager.plasma6.enable = true;
 	services.displayManager.defaultSession = "plasma";
@@ -12,4 +12,9 @@
   services.pipewire.jack.enable = true;
   boot.plymouth.enable = true;
   boot.loader.timeout = lib.mkForce 1;
+  services.printing.enable = true;
+  services.avahi.enable = true;
+  services.avahi.nssmdns4 = true;
+  services.avahi.openFirewall = true;
+  environment.systemPackages = [ pkgs.cups-filters ];
 }
