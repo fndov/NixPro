@@ -31,6 +31,10 @@
       documentation.info.enable = lib.mkForce false;
       documentation.man.enable = lib.mkForce false;
       documentation.nixos.enable = lib.mkForce false;
+      environment.sessionVariables = {
+        NIX_AUTO_RUN = "1";
+        NIXPKGS_ALLOW_UNFREE = "1";
+      };
       nix.extraOptions = "experimental-features = nix-command flakes";
       nix.settings.sandbox = true;
       nix.settings.trusted-users = [ "@wheel" ];
@@ -183,7 +187,7 @@
       nixpkgs.config.allowUnfree = true;
       environment.systemPackages = [ pkgs.nvtopPackages.full ];
       services.xserver.videoDrivers = [ "nvidia" ];
-      hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production; /* production or latest */
+      hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest; /* production or latest */
       # ^ Works best with boot.kernelPackages = pkgs.linuxPackages;
       hardware.nvidia.powerManagement.enable = false;
       hardware.nvidia.powerManagement.finegrained = false;

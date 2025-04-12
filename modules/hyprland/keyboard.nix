@@ -1,12 +1,14 @@
-{ lib, pkgs, settings, ... }: {
-  home-manager.users.${settings.account.name} = {
+{ lib, pkgs, settings, inputs, ... }: {
+  home-manager.users.${settings.account.name} = { ... }: let
+    unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
+  in {
     config = lib.mkMerge [
       {
-        home.packages = with pkgs; [
-          pamixer
-          playerctl
-          brightnessctl
-          swayosd
+        home.packages = with unstable; [
+          unstable.pamixer
+          unstable.playerctl
+          unstable.brightnessctl
+          unstable.swayosd
         ];
         home.file.".config/swayosd/style.css".text = ''
           window {
@@ -78,7 +80,7 @@
           }
         '';
         wayland.windowManager.hyprland.settings = {
-          exec-once = [ 
+          exec-once = [
             "nice -1 swayosd-server"
           ];
           bindm = [

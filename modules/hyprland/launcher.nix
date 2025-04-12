@@ -1,11 +1,13 @@
-{ pkgs, settings, ... }: {
-    home-manager.users.${settings.account.name} = {
-    home.packages = with pkgs; [
-      rofi-wayland
-      nerdfonts
-      cliphist
-      wl-clipboard
-      nwg-clipman
+{ pkgs, settings, inputs, ... }: {
+  home-manager.users.${settings.account.name} = { ... }: let
+    unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
+  in {
+    home.packages = [
+      unstable.rofi-wayland
+      pkgs.nerdfonts
+      pkgs.cliphist
+      pkgs.wl-clipboard
+      unstable.nwg-clipman
     ];
     wayland.windowManager.hyprland.settings.bind = [
       "SUPER,semicolon,exec,nice -21 rofi -show drun"

@@ -1,12 +1,13 @@
-{ pkgs, settings, ... }: {
-  home-manager.users.${settings.account.name} = {
+{ pkgs, settings, inputs, ... }: {
+  home-manager.users.${settings.account.name} = { ... }: let
+    unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
+  in {
     home.packages = with pkgs; [
       waybar
       nerdfonts
       networkmanagerapplet
     ];
-    fonts.packages = [ ... ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts)
-    wayland.windowManager.hyprland.settings.exec-once = [ 
+    wayland.windowManager.hyprland.settings.exec-once = [
       "nice -1 waybar"
     ];
     wayland.windowManager.hyprland.settings.bind = [

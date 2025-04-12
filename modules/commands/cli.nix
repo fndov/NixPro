@@ -12,7 +12,6 @@
       curl
       git
       /* Extra */
-      unstable.ollama
       unstable.nixd
       unstable.nil
       unstable.appimage-run

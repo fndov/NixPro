@@ -69,6 +69,7 @@
       home.packages = with pkgs; [
         hyprpolkitagent
         libnotify
+        mako
       ];
       wayland.windowManager.hyprland = {
         enable = true;

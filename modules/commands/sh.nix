@@ -31,15 +31,14 @@
     home.packages = with pkgs; [
       bat
       unstable.eza
-      fd
+      unstable.fd
       glib
       glibc
-      mako
-      micro
+      unstable.micro
       unstable.ripgrep
       unstable.openssh
       unstable.yazi
-      fishPlugins.done
+      unstable.fishPlugins.done
     ];
     programs.fish = {
       enable = true;

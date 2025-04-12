@@ -1,4 +1,4 @@
-{ lib, pkgs, settings, ... }: {
+{ pkgs, settings, ... }: {
   home-manager.users.${settings.account.name} = { ... }: let
     cursorSize = 26;
     cursorSizeStr = toString cursorSize;

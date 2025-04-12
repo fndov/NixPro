@@ -22,6 +22,7 @@
       baobab
       vlc
       libreoffice
+      kdePackages.ark
       /*
         k3b # Broken Wed Apr  2 04:27:23 PM CDT 2025
         vscode

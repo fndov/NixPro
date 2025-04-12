@@ -1,6 +1,8 @@
-{ pkgs, settings, ... }: {
-  home-manager.users.${settings.account.name} = {
-    home.packages = with pkgs; [ grim slurp ];
+{ pkgs, settings, inputs, ... }: {
+  home-manager.users.${settings.account.name} = { ... }: let
+    unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
+  in {
+    home.packages = with pkgs; [ unstable.grim unstable.slurp ];
     wayland.windowManager.hyprland.settings.exec-once = [
       "mkdir -p /home/${settings.account.name}/Media/Pictures/Screenshots"
     ];

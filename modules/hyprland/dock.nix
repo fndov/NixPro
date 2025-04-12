@@ -1,7 +1,9 @@
-{ pkgs, settings, ... }: {
-  home-manager.users.${settings.account.name} = {
+{ pkgs, settings, inputs, ... }: {
+  home-manager.users.${settings.account.name} = { ... }: let
+    unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
+  in {
     home.packages = [
-      pkgs.nwg-dock-hyprland
+      unstable.nwg-dock-hyprland
     ];
     wayland.windowManager.hyprland.settings.exec-once = [
       "nice -1 nwg-dock-hyprland -i 60 -x"

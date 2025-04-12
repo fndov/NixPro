@@ -11,6 +11,7 @@
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     # lix-module.url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
     # lix-module.inputs.nixpkgs.follows = "nixpkgs";
     # Broken Wed Apr  2 08:19:17 AM CDT 2025
@@ -53,6 +54,7 @@
       specialArgs = { inherit inputs system; settings = settings // { profile = "workstation"; }; };
       modules = [
         inputs.home-manager.nixosModules.home-manager
+        inputs.determinate.nixosModules.default
         # inputs.lix-module.nixosModules.default
         ./profile/workstation/hardware.nix
         ./profile/workstation/default.nix

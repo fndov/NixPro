@@ -1,6 +1,6 @@
 { pkgs, settings, ... }: {
   home-manager.users.${settings.account.name} = {
-    home.packages = [ pkgs.gammastep ];
+    home.packages = with pkgs; [ gammastep ];
     services.gammastep = {
       enable = true;
       latitude = "31.0";
