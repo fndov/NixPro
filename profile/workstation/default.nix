@@ -6,7 +6,6 @@
     ../../modules/apps/collection.nix
     ../../modules/apps/spotify.nix
     ../../modules/apps/lutris.nix
-    ../../modules/apps/virtualize.nix
   ];
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/7cb4ff42-4c16-4227-be44-91049697abf5";

@@ -23,12 +23,13 @@
       vlc
       libreoffice
       kdePackages.ark
+      qbittorrent
       /*
         k3b # Broken Wed Apr  2 04:27:23 PM CDT 2025
+        veracrypt
         vscode
         unstable.code-cursor
         unstable.alpaca
-        qbittorrent
         protonvpn-gui
         upscayl
         foliate
@@ -64,7 +65,6 @@
         davinci-resolve
         handbrake
         helvum
-        veracrypt
         jetbrains-toolbox
         jetbrains.aqua
         jetbrains.clion

@@ -34,6 +34,7 @@
       unstable.fd
       glib
       glibc
+      file
       unstable.micro
       unstable.ripgrep
       unstable.openssh

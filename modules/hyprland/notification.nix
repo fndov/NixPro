@@ -13,8 +13,9 @@
       layer = "overlay";
       textColor = "#cdd6f4";
     };
-    wayland.windowManager.hyprland.settings.exec-once = [ 
-      "pkill time-notice;time-notice"
+    wayland.windowManager.hyprland.settings.exec-once = [
+      "pkill time-notice"
+      "time-notice"
     ];
     home.packages = with pkgs; [
       (writeShellScriptBin "time-notice" ''
