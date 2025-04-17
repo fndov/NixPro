@@ -59,6 +59,7 @@
       environment.systemPackages = with pkgs; [ micro networkmanagerapplet ifuse ];
       services.usbmuxd.enable = true;
       services.usbmuxd.package = pkgs.usbmuxd2;
+      services.preload.enable = true;
       services.gpm.enable = true;
       programs.command-not-found.enable = if settings.profile == "installation-media" then false else true;
       programs.nano.enable = false;

@@ -11,7 +11,6 @@
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
   };
   outputs = inputs@{ self, ... }: let
     settings = {
@@ -51,7 +50,6 @@
       specialArgs = { inherit inputs system; settings = settings // { profile = "workstation"; }; };
       modules = [
         inputs.home-manager.nixosModules.home-manager
-        inputs.determinate.nixosModules.default
         ./profile/workstation/hardware.nix
         ./profile/workstation/default.nix
         ./compose.nix
@@ -69,7 +67,6 @@
       specialArgs = { inherit inputs system; settings = settings // { profile = "virtual-machine"; }; };
       modules = [
         inputs.home-manager.nixosModules.home-manager
-        inputs.determinate.nixosModules.default
         ./profile/virtual-machine/hardware.nix
         ./profile/virtual-machine/default.nix
         ./compose.nix
@@ -87,7 +84,6 @@
       specialArgs = { inherit inputs system; settings = settings // { profile = "windows-subsystem"; }; };
       modules = [
         inputs.home-manager.nixosModules.home-manager
-        inputs.determinate.nixosModules.default
         ./profile/windows-subsystem/hardware.nix
         ./profile/windows-subsystem/default.nix
         ./compose.nix
@@ -105,7 +101,7 @@
       specialArgs = { inherit inputs system; settings = settings // { profile = "server"; }; };
       modules = [
         inputs.home-manager.nixosModules.home-manager
-        inputs.determinate.nixosModules.default
+         inputs.determinate.nixosModules.default
         ./profile/server/hardware.nix
         ./profile/server/default.nix
         ./compose.nix
@@ -123,7 +119,6 @@
       specialArgs = { inherit inputs system; settings = settings // { profile = "installation-media"; }; };
       modules = [
         inputs.home-manager.nixosModules.home-manager
-        inputs.determinate.nixosModules.default
         ./profile/installation-media/hardware.nix
         ./profile/installation-media/default.nix
         ./compose.nix
@@ -141,7 +136,6 @@
       specialArgs = { inherit inputs system; settings = settings // { profile = "darwin"; }; };
       modules = [
         inputs.home-manager.nixosModules.home-manager
-        inputs.determinate.nixosModules.default
         ./profile/darwin/hardware.nix
         ./profile/darwin/default.nix
         ./compose.nix

@@ -20,7 +20,11 @@
   services.pipewire.pulse.enable = true;
   services.pipewire.jack.enable = true;
   services.greetd.enable = true;
-  services.greetd.settings.default_session.command = "${pkgs.bash}/bin/bash -c 'clear; exec ${pkgs.hyprland}/bin/Hyprland &> /dev/null'";
+  services.greetd.settings.default_session.command = 
+    if settings.driver.graphics == "nvidia" then 
+      "${pkgs.bash}/bin/bash -c 'clear; __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia exec ${pkgs.hyprland}/bin/Hyprland &> /dev/null'"
+    else 
+      "${pkgs.bash}/bin/bash -c 'clear; exec ${pkgs.hyprland}/bin/Hyprland &> /dev/null'";
   services.greetd.settings.default_session.user = settings.account.name;
   services.getty.autologinUser = lib.mkForce "${settings.account.name}";
   services.getty.helpLine = lib.mkForce "";
@@ -88,8 +92,10 @@
             "BROWSER,${settings.account.browser}"
             "EDITOR,${settings.account.editor}"
             "TERMINAL,${settings.account.terminal}"
-            "XDG_CURRENT_DESKTOP,Hyprland"
             "XDG_SESSION_DESKTOP,Hyprland"
+            "XDG_CURRENT_DESKTOP,Hyprland"
+            "__NV_PRIME_RENDER_OFFLOAD,1"
+            "__GLX_VENDOR_LIBRARY_NAME,nvidia"
             "GDK_BACKEND,wayland,x11,*"
             "QT_QPA_PLATFORM,wayland;xcb"
             "QT_AUTO_SCREEN_SCALE_FACTOR,1"

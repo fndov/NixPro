@@ -7,7 +7,7 @@
         home.packages = with unstable; [
           unstable.pamixer
           unstable.playerctl
-          unstable.brightnessctl
+          brightnessctl
           unstable.swayosd
         ];
         home.file.".config/swayosd/style.css".text = ''

@@ -7,7 +7,7 @@
       "mkdir -p /home/${settings.account.name}/Media/Pictures/Screenshots"
     ];
     wayland.windowManager.hyprland.settings.bind = [
-      ",Print,exec,grim -g \"$(slurp)\" /home/${settings.account.name}/Media/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"
+    '',Print,exec,grim -g "$(slurp -b '#00000000' -c '#00000000' -s '#00000000')" /home/${settings.account.name}/Media/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png''
     ];
   };
 }

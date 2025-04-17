@@ -5,6 +5,7 @@
     home.packages = with pkgs; [
       unstable.ghostty
       timg
+      # unstable.nerd-fonts.zed-mono
     ];
     home.file."/home/${settings.account.name}/.config/ghostty/config".text = ''
       # --- Hyprland ---
