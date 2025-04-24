@@ -22,7 +22,7 @@
         grubDevice = "/dev/sda";
         bootMountPath = "/boot";
         flakePath = ".nixpro";
-        automation = true;
+        automation = false;
         security = false;
         sshd = false;
       };
@@ -33,7 +33,7 @@
         terminal = "ghostty";
         shell = "fish";
         editor = "micro";
-        browser = "firefox";
+        browser = null;
       };
       desktop = {
         type = "hyprland";

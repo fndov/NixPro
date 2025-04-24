@@ -214,7 +214,7 @@
     (lib.mkIf (settings.profile == "virtual-machine") {
       wayland.windowManager.hyprland.settings.monitor = "Virtual-1, 1920x1080, 0x0, 1";
     })
-    (lib.mkIf (settings.profile == "installation-media") {
+    (lib.mkIf (settings.profile == "image") {
       wayland.windowManager.hyprland.settings.exec-once = [
         "cp -r /iso/home/${settings.account.name}/${settings.system.flakePath} /home/${settings.account.name}; chown -R ${settings.account.name} /home/${settings.account.name}/${settings.system.flakePath}; chmod -R 777 /home/${settings.account.name}/${settings.system.flakePath}"
         "sudo systemctl restart NetworkManager"

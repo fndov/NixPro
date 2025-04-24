@@ -24,7 +24,7 @@ Dock order:
 edit ~/.cache/nwg-dock-pinned
 
 Code for zswap over zram:
-  zramSwap.enable = builtins.elem settings.profile [ "installation-media" "workstation" "virtual-machine" "server" ];
+  zramSwap.enable = builtins.elem settings.profile [ "image" "workstation" "virtual-machine" "server" ];
   zramSwap.memoryPercent = 100; # 30
   zramSwap.algorithm = "zstd -Xcompression-level 22";
   zramSwap.priority = 3;
