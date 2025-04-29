@@ -15,5 +15,9 @@
     wayland.windowManager.hyprland.settings.exec-once = [
       "${pkgs.firefox-bin}/bin/firefox"
     ];
+    wayland.windowManager.hyprland.settings.env = [
+      "MOZ_ENABLE_WAYLAND,1"
+      "BROWSER,${settings.account.browser}"
+    ];
   } else {});
 }

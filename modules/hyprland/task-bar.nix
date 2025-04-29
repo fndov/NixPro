@@ -59,12 +59,12 @@
           "custom/quit" = {
             "format" = "󰍃";
             "tooltip" = false;
-            "on-click" = "hyprlock & sleep 1 && systemctl sleep";
+            "on-click" = "hyprlock & sleep 3 && systemctl suspend";
           };
           "custom/lock" = {
             "format" = "󰍁";
             "tooltip" = false;
-            "on-click" = "hyprlock";
+            "on-click" = "systemctl hibernate";
           };
           "custom/reboot" = {
             "format" = "󰜉";
@@ -128,21 +128,24 @@
             #"icon-size" = 21;
             "spacing" = 10;
           };
+
+          # Built-in clock with calendar tooltip (leading zero)
           "clock#time" = {
-            "interval" = 1;
-            "format" = "{:%I:%M:%S %p}";
+            "interval" = 60;
+            "format" = "{:%A %B %m/%d %I:%M %p}"; # Keep desired clock format
             "timezone" = "America/Chicago";
-            "tooltip-format" = ''
-              <big>{:%Y %B}</big>
-              <tt><small>{calendar}</small></tt>'';
-          };
-          "clock#date" = {
-            "interval" = 1;
-            "format" = "{:%a %Y-%m-%d}";
-            "timezone" = "America/Chicago";
-            "tooltip-format" = ''
-              <big>{:%Y %B}</big>
-              <tt><small>{calendar}</small></tt>'';
+            "tooltip-format" = "{calendar}";
+            "calendar.show-next-prev" = true;
+            # --- SIMPLIFIED CALENDAR FORMATTING (Attempt to fix alignment) ---
+            "calendar.format.header" = "{}"; # Removed bold span
+            "calendar.format.weekdays" = "{}"; # Removed bold span
+            "calendar.format.today" = "{}"; # Removed bold tag
+            # --- END SIMPLIFIED CALENDAR FORMATTING ---
+            # Previous/Next month formatting remains removed/commented out
+            # IMPORTANT: If calendar alignment is still incorrect, check your system locale
+            # with `locale | grep LC_TIME`. Waybar uses this to determine the first day of the week.
+            # If your locale starts the week on Sunday but you expect Monday (or vice versa),
+            # you may need to adjust your system's LC_TIME setting.
           };
           "group/time" = {
             "orientation" = "horizontal";
@@ -150,7 +153,7 @@
               "transition-duration" = 500;
               "transition-left-to-right" = false;
             };
-            "modules" = [ "clock#time" "clock#date" ];
+            "modules" = [ "clock#time" ];
           };
 
           cpu = { "format" = "󰍛"; };
@@ -178,6 +181,7 @@
           backlight = {
             "format" = "{icon}";
             "format-icons" = [ "" "" "" "" "" "" "" "" "" ];
+            "tooltip" = false;
           };
           "backlight#text" = { "format" = "{percent}%"; };
           "group/backlight" = {
@@ -263,229 +267,224 @@
       };
       style = ''
         * {
-            /* `otf-font-awesome` is required to be installed for icons */
-            font-family: FontAwesome, '' + settings.desktop.font + ''
+          font-family: FontAwesome, '' + settings.desktop.font + ''
           ;
+          font-size: 20px;
+        }
 
-                    font-size: 20px;
-                }
+        window#waybar {
+          background-color: rgba(30, 30, 46, 0.55);
+          border-radius: 8px;
+          color: #cdd6f4;
+          transition-property: background-color;
+          transition-duration: .2s;
+        }
 
-                window#waybar {
-                    background-color: rgba(30, 30, 46, 0.55);
-                    border-radius: 8px;
-                    color: #cdd6f4;
-                    transition-property: background-color;
-                    transition-duration: .2s;
-                }
+        tooltip {
+          color: #cdd6f4;
+          background-color: rgba(30, 30, 46, 0.9);
+          border-style: solid;
+          border-width: 3px;
+          border-radius: 8px;
+          border-color: #3b3c47;
+        }
 
-                tooltip {
-                  color: #cdd6f4;
-                  background-color: rgba(30, 30, 46, 0.9);
-                  border-style: solid;
-                  border-width: 3px;
-                  border-radius: 8px;
-                  border-color: #3b3c47;
-                }
+        tooltip * {
+          color: #cdd6f4;
+          background-color: rgba(30, 30, 46, 0.0);
+        }
 
-                tooltip * {
-                  color: #cdd6f4;
-                  background-color: rgba(30, 30, 46, 0.0);
-                }
+        window > box {
+          border-radius: 8px;
+          opacity: 0.94;
+        }
 
-                window > box {
-                    border-radius: 8px;
-                    opacity: 0.94;
-                }
+        window#waybar.hidden {
+          opacity: 0.2;
+        }
 
-                window#waybar.hidden {
-                    opacity: 0.2;
-                }
+        button {
+          border: none;
+        }
 
-                button {
-                    border: none;
-                }
+        #custom-hyprprofile {
+          color: #cdd6f4;
+        }
 
-                #custom-hyprprofile {
-                    color: #cdd6f4;
-                }
+        button:hover {
+          background: inherit;
+        }
 
-                /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
-                button:hover {
-                    background: inherit;
-                }
+        #workspaces button {
+          padding: 0px 6px;
+          background-color: transparent;
+          color: #cdd6f4;
+          font-weight: bold;
+        }
 
-                #workspaces button {
-                    padding: 0px 6px;
-                    background-color: transparent;
-                    color: #cdd6f4;
-                    font-weight: bold;
-                }
+        #workspaces button:hover {
+          color: #cdd6f4;
+        }
 
-                #workspaces button:hover {
-                    color: #cdd6f4;
-                }
+        #workspaces button.active {
+          color: #cdd6f4;
+        }
 
-                #workspaces button.active {
-                    color: #cdd6f4;
-                }
+        #workspaces button.focused {
+          color: #cdd6f4;
+        }
 
-                #workspaces button.focused {
-                    color: #cdd6f4;
-                }
+        #workspaces button.visible {
+          color: #cdd6f4;
+        }
 
-                #workspaces button.visible {
-                    color: #cdd6f4;
-                }
+        #workspaces button.urgent {
+          color: #cdd6f4;
+        }
 
-                #workspaces button.urgent {
-                    color: #cdd6f4;
-                }
+        #battery,
+        #cpu,
+        #memory,
+        #disk,
+        #temperature,
+        #backlight,
+        #network,
+        #pulseaudio,
+        #wireplumber,
+        #custom-media,
+        #tray,
+        #mode,
+        #idle_inhibitor,
+        #scratchpad,
+        #custom-hyprprofileicon,
+        #custom-quit,
+        #custom-lock,
+        #custom-reboot,
+        #custom-power,
+        #mpd {
+          padding: 0 3px;
+          color: #cdd6f4;
+          border: none;
+          border-radius: 8px;
+        }
 
-                #battery,
-                #cpu,
-                #memory,
-                #disk,
-                #temperature,
-                #backlight,
-                #network,
-                #pulseaudio,
-                #wireplumber,
-                #custom-media,
-                #tray,
-                #mode,
-                #idle_inhibitor,
-                #scratchpad,
-                #custom-hyprprofileicon,
-                #custom-quit,
-                #custom-lock,
-                #custom-reboot,
-                #custom-power,
-                #mpd {
-                    padding: 0 3px;
-                    color: #cdd6f4;
-                    border: none;
-                    border-radius: 8px;
-                }
+        #custom-hyprprofileicon,
+        #custom-quit,
+        #custom-lock,
+        #custom-reboot,
+        #custom-power,
+        #idle_inhibitor {
+          background-color: transparent;
+          color: #cdd6f4;
+        }
 
-                #custom-hyprprofileicon,
-                #custom-quit,
-                #custom-lock,
-                #custom-reboot,
-                #custom-power,
-                #idle_inhibitor {
-                    background-color: transparent;
-                    color: #cdd6f4;
-                }
+        #custom-hyprprofileicon:hover,
+        #custom-quit:hover,
+        #custom-lock:hover,
+        #custom-reboot:hover,
+        #custom-power:hover,
+        #idle_inhibitor:hover {
+          color: #cdd6f4;
+        }
 
-                #custom-hyprprofileicon:hover,
-                #custom-quit:hover,
-                #custom-lock:hover,
-                #custom-reboot:hover,
-                #custom-power:hover,
-                #idle_inhibitor:hover {
-                    color: #cdd6f4;
-                }
+        #clock, #tray, #idle_inhibitor {
+          padding: 0 5px;
+        }
 
-                #clock, #tray, #idle_inhibitor {
-                    padding: 0 5px;
-                }
+        #window,
+        #workspaces {
+          margin: 0 6px;
+        }
 
-                #window,
-                #workspaces {
-                    margin: 0 6px;
-                }
+        .modules-left > widget:first-child > #workspaces {
+          margin-left: 0;
+        }
 
-                /* If workspaces is the leftmost module, omit left margin */
-                .modules-left > widget:first-child > #workspaces {
-                    margin-left: 0;
-                }
+        .modules-right > widget:last-child > #workspaces {
+          margin-right: 0;
+        }
 
-                /* If workspaces is the rightmost module, omit right margin */
-                .modules-right > widget:last-child > #workspaces {
-                    margin-right: 0;
-                }
+        #clock {
+          color: #cdd6f4;
+        }
 
-                #clock {
-                    color: #cdd6f4;
-                }
+        #battery {
+          color: #cdd6f4;
+        }
 
-                #battery {
-                    color: #cdd6f4;
-                }
+        #battery.charging, #battery.plugged {
+          color: #cdd6f4;
+        }
 
-                #battery.charging, #battery.plugged {
-                    color: #cdd6f4;
-                }
+        @keyframes blink {
+          to {
+            background-color: #cdd6f4;
+            color: #1e1e2e;
+          }
+        }
 
-                @keyframes blink {
-                    to {
-                        background-color: #cdd6f4;
-                        color: #1e1e2e;
-                    }
-                }
+        #battery.critical:not(.charging) {
+          background-color: #cdd6f4;
+          color: #1e1e2e;
+          animation-name: blink;
+          animation-duration: 0.5s;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+          animation-direction: alternate;
+        }
 
-                #battery.critical:not(.charging) {
-                    background-color: #cdd6f4;
-                    color: #1e1e2e;
-                    animation-name: blink;
-                    animation-duration: 0.5s;
-                    animation-timing-function: linear;
-                    animation-iteration-count: infinite;
-                    animation-direction: alternate;
-                }
+        label:focus {
+          background-color: #1e1e2e;
+        }
 
-                label:focus {
-                    background-color: #1e1e2e;
-                }
+        #cpu {
+          color: #cdd6f4;
+        }
 
-                #cpu {
-                    color: #cdd6f4;
-                }
+        #memory {
+          color: #cdd6f4;
+        }
 
-                #memory {
-                    color: #cdd6f4;
-                }
+        #disk {
+          color: #cdd6f4;
+        }
 
-                #disk {
-                    color: #cdd6f4;
-                }
+        #backlight {
+          color: #cdd6f4;
+        }
 
-                #backlight {
-                    color: #cdd6f4;
-                }
+        label.numlock {
+          color: #cdd6f4;
+        }
 
-                label.numlock {
-                    color: #cdd6f4;
-                }
+        label.numlock.locked {
+          color: #cdd6f4;
+        }
 
-                label.numlock.locked {
-                    color: #cdd6f4;
-                }
+        #pulseaudio {
+          color: #cdd6f4;
+        }
 
-                #pulseaudio {
-                    color: #cdd6f4;
-                }
+        #pulseaudio.muted {
+          color: #cdd6f4;
+        }
 
-                #pulseaudio.muted {
-                    color: #cdd6f4;
-                }
+        #tray > .passive {
+          -gtk-icon-effect: dim;
+        }
 
-                #tray > .passive {
-                    -gtk-icon-effect: dim;
-                }
+        #tray > .needs-attention {
+          -gtk-icon-effect: highlight;
+        }
 
-                #tray > .needs-attention {
-                    -gtk-icon-effect: highlight;
-                }
+        #idle_inhibitor {
+          color: #cdd6f4;
+        }
 
-                #idle_inhibitor {
-                    color: #cdd6f4;
-                }
-
-                #idle_inhibitor.activated {
-                    color: #cdd6f4;
-                }
-        '';
+        #idle_inhibitor.activated {
+          color: #cdd6f4;
+        }
+      '';
     };
   };
 }

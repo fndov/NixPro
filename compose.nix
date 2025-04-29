@@ -12,7 +12,7 @@
       then "NixPro"
       else if settings.profile == "virtual-machine"
       then "NixPro-VM"
-      else if settings.profile == "installation-media"
+      else if settings.profile == "image"
       then "NixPro-Image"
       else "NixPro";
       time.timeZone = "America/Chicago";
@@ -61,7 +61,7 @@
       services.usbmuxd.package = pkgs.usbmuxd2;
       services.preload.enable = true;
       services.gpm.enable = true;
-      programs.command-not-found.enable = if settings.profile == "installation-media" then false else true;
+      programs.command-not-found.enable = if settings.profile == "image" then false else true;
       programs.nano.enable = false;
       programs.fish.enable = if settings.account.shell == "fish" then true else false;
       system.stateVersion = settings.system.version;
@@ -84,14 +84,14 @@
         uid = 1000;
         shell = if settings.profile == "windows-subsystem" || settings.account.shell == "fish" then pkgs.fish else pkgs.bash;
       };
-      services.zram-generator.enable = builtins.elem settings.profile [ "installation-media" "workstation" "virtual-machine" "server" ];
+      services.zram-generator.enable = builtins.elem settings.profile [ "image" "workstation" "virtual-machine" "server" ];
       services.zram-generator.settings.zram0.zram-size = "ram * 2";
       services.zram-generator.settings.zram0.compression-algorithm = "zstd"; # "zstd lz4 (type=huge)";
       services.zram-generator.settings.zram0.fs-type = "swap";
       services.zram-generator.settings.zram0.swap-priority = 3;
       boot.kernel.sysctl."vm.swappiness" = 180; # 60
       boot.kernel.sysctl."vm.dirty_background_ratio" = 100; # 10
-      boot.kernel.sysctl."vm.dirty_ratio" = if settings.profile == "installation-media" then 80 else 100; # 20
+      boot.kernel.sysctl."vm.dirty_ratio" = if settings.profile == "image" then 80 else 100; # 20
       boot.kernel.sysctl."vm.vfs_cache_pressure" = 1; # 100
       boot.kernel.sysctl."vm.min_free_kbytes" = 1000; # 1000
       boot.kernel.sysctl."vm.compaction_proactiveness" = 100; # 20
@@ -101,14 +101,14 @@
       boot.tmp.useTmpfs = true;
       boot.initrd.compressor = "zstd";
       boot.initrd.compressorArgs = [ "-22" ];
-      services.earlyoom.enable = builtins.elem settings.profile [ "installation-media" ];
+      services.earlyoom.enable = builtins.elem settings.profile [ "image" ];
       services.earlyoom.enableNotifications = true;
       services.earlyoom.freeMemThreshold = 3;
       services.earlyoom.freeMemKillThreshold = 3;
       services.earlyoom.freeSwapThreshold = 3;
       services.earlyoom.freeSwapKillThreshold = 3;
       boot.kernelPackages = # xanmod xanmod_latest rt rt_latest hardened zen
-      (if settings.profile == "installation-media"
+      (if settings.profile == "image"
         then pkgs.linuxPackages
         else
         (if settings.profile == "server"
@@ -194,8 +194,8 @@
       services.xserver.videoDrivers = [ "nvidia" ];
       hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest; /* production or latest */
       # ^ Works best with boot.kernelPackages = pkgs.linuxPackages;
-      hardware.nvidia.powerManagement.enable = false;
-      hardware.nvidia.powerManagement.finegrained = false;
+      hardware.nvidia.powerManagement.enable = true;
+      hardware.nvidia.powerManagement.finegrained = true;
       hardware.nvidia.modesetting.enable = true;
       hardware.nvidia.nvidiaSettings = false;
       hardware.nvidia.open = false;
@@ -252,7 +252,7 @@
     (lib.mkIf (settings.profile != "microsoft") {
       environment.systemPackages = [ pkgs.networkmanager ];
       networking.networkmanager.enable = true;
-      networking.wireless.enable = if settings.profile == "installation-media" then lib.mkForce false else false;
+      networking.wireless.enable = if settings.profile == "image" then lib.mkForce false else false;
       services.udev.packages = [ pkgs.networkmanager ];
       services.dbus.enable = true;
       services.resolved.enable = true;

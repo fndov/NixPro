@@ -85,9 +85,7 @@
             "systemctl --user start hyprpolkitagent"
             "gnome-keyring-daemon --start --components=secrets"
           ];
-          env = [ 
-            "MOZ_ENABLE_WAYLAND,1"
-            "BROWSER,${settings.account.browser}"
+          env = [
             "EDITOR,${settings.account.editor}"
             "TERMINAL,${settings.account.terminal}"
             "XDG_SESSION_DESKTOP,Hyprland"
