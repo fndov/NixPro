@@ -35,7 +35,7 @@
     fileSystems = [ "/" ];
   };
 
-  swapDevices = [ { device = "/dev/sda7"; priority = 4; } ];
+  swapDevices = [ { device = "/dev/sda7"; priority = 2; } ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
