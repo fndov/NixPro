@@ -33,7 +33,7 @@
         terminal = "ghostty";
         shell = "fish";
         editor = "micro";
-        browser = "firefox";
+        browser = "google-chrome";
       };
       desktop = {
         type = "hyprland";
