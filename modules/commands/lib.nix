@@ -53,8 +53,7 @@
           '')
           (writeShellScriptBin "nixim" ''
             echo '# nix build /home/${settings.account.name}/${settings.system.flakePath}#nixosConfigurations.image.config.system.build.isoImage --impure'
-            nix build /home/${settings.account.name}/${settings.system.flakePath}#nixosConfigurations.
-            .config.system.build.isoImage --impure
+            nix build /home/${settings.account.name}/${settings.system.flakePath}#nixosConfigurations.image.config.system.build.isoImage --impure
           '')
           (writeShellScriptBin "nixgc" ''
             echo '# sudo nix-collect-garbage --delete-older-than 30d'

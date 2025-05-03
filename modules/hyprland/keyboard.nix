@@ -96,7 +96,7 @@
             # Common.
             "SUPER,Q,killactive"
             "SUPER,E,exec,nice -1 systemctl suspend"
-            "SUPERSHIFT,E,exec,hyprlock & sleep 1;nice -1 systemctl suspend"
+            "SUPERSHIFT,E,exec,hyprlock & sleep 3;nice -1 systemctl suspend"
             "SUPER,F,fullscreen"
             "SUPER,T,togglefloating"
             "SUPER,H,movefocus,left"

@@ -29,16 +29,12 @@
     };
   in {
     home.packages = with pkgs; [
-      bat
       unstable.eza
       unstable.fd
       glib
       glibc
-      file
       unstable.micro
       unstable.ripgrep
-      unstable.openssh
-      unstable.yazi
       unstable.fishPlugins.done
     ];
     programs.fish = {

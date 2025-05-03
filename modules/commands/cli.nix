@@ -5,13 +5,17 @@
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
       /* Essential */
+      bat
       zip
       unzip
       glib
       glibc
       curl
       git
+      unstable.openssh
+      unstable.yazi
       /* Extra */
+      file
       unstable.nixd
       unstable.nil
       unstable.appimage-run

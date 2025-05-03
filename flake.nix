@@ -14,7 +14,7 @@
   };
   outputs = inputs@{ self, ... }: let
     settings = {
-      driver.graphics = "intel";
+      driver.graphics = "amd";
       system = {
         version = "24.11";
         architecture = "x86_64-linux";
@@ -22,7 +22,7 @@
         grubDevice = "/dev/sda";
         bootMountPath = "/boot";
         flakePath = ".nixpro";
-        automation = true;
+        automation = false;
         security = false;
         sshd = false;
       };
