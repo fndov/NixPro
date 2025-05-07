@@ -27,6 +27,8 @@
         "float,title:^(Pick game to add)"
         "float,title:^(nwg-clipman)"
         "float,title:^(Select the setup file)"
+        "float,title:^(Add Non-Steam Game)"
+        "float,title:^(Steam)"
       ];
     };
   };

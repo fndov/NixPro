@@ -20,11 +20,7 @@
   services.pipewire.pulse.enable = true;
   services.pipewire.jack.enable = true;
   services.greetd.enable = true;
-  services.greetd.settings.default_session.command =
-    if settings.driver.graphics == "nvidia" then
-      "${pkgs.bash}/bin/bash -c 'clear; __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia exec ${pkgs.hyprland}/bin/Hyprland &> /dev/null'"
-    else
-      "${pkgs.bash}/bin/bash -c 'clear; exec ${pkgs.hyprland}/bin/Hyprland &> /dev/null'";
+  services.greetd.settings.default_session.command = "${pkgs.bash}/bin/bash -c 'clear; exec ${pkgs.hyprland}/bin/Hyprland &> /dev/null'";
   services.greetd.settings.default_session.user = settings.account.name;
   services.getty.autologinUser = lib.mkForce "${settings.account.name}";
   services.getty.helpLine = lib.mkForce "";
@@ -38,10 +34,10 @@
   services.avahi.openFirewall = true;
   fonts.enableDefaultPackages = true;
   fonts.fontconfig.enable = true;
-  fonts.packages = [ pkgs.${settings.desktop.fontPkg} ];
-  fonts.fontconfig.defaultFonts.monospace = [ "${settings.desktop.font} Mono" ];
-  fonts.fontconfig.defaultFonts.sansSerif = [ "${settings.desktop.font} Sans" ];
-  fonts.fontconfig.defaultFonts.serif = [ "${settings.desktop.font} Serif" ];
+  fonts.packages = [ pkgs.noto-fonts ];
+  fonts.fontconfig.defaultFonts.monospace = [ "Noto Mono" ];
+  fonts.fontconfig.defaultFonts.sansSerif = [ "Noto Sans" ];
+  fonts.fontconfig.defaultFonts.serif = [ "Noto Serif" ];
   hardware.bluetooth.enable = true;
   boot.plymouth.enable = true;
   boot.loader.timeout = 1;
@@ -97,9 +93,6 @@
             "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
             "CLUTTER_BACKEND,wayland"
             "GTK_USE_PORTAL,1"
-          ] ++ lib.optionals (settings.driver.graphics == "nvidia") [
-            "__NV_PRIME_RENDER_OFFLOAD,1"
-            "__GLX_VENDOR_LIBRARY_NAME,nvidia"
           ];
           input.natural_scroll = false;
           input.touchpad = {

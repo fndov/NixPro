@@ -167,6 +167,12 @@
         };
       }
 
+      (lib.mkIf (settings.account.editor == "flow") {
+        wayland.windowManager.hyprland.settings.bind = [
+          "SUPER,Z,exec,hyprctl dispatch exec '[float] ${settings.account.terminal} -e ${settings.account.editor} ~/Documents/note.txt'"
+        ];
+      })
+      
       (lib.mkIf (settings.account.editor == "micro") {
         wayland.windowManager.hyprland.settings.bind = [
           "SUPER,Z,exec,hyprctl dispatch exec '[float] ${settings.account.terminal} -e ${settings.account.editor} --ruler false -colorscheme geany ~/Documents/note.txt'"

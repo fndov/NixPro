@@ -1,4 +1,4 @@
-{ config, lib, inputs, pkgs, settings, ... }: {
+{ config, lib, inputs, pkgs, settings, ... }: let unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; }; in {
   config = lib.mkMerge [
     {
       networking.hostName =
@@ -56,7 +56,11 @@
       home-manager.useUserPackages = false;
       home-manager.backupFileExtension = "hm-backup";
       home-manager.useGlobalPkgs = false;
-      environment.systemPackages = with pkgs; [ micro networkmanagerapplet ifuse ];
+      environment.systemPackages = with pkgs; [
+        networkmanagerapplet
+        ifuse
+      ] ++ (if settings.account.editor == "micro" then [ micro ] else [])
+        ++ (if settings.account.editor == "flow" then [ unstable.flow-control ] else []);
       services.usbmuxd.enable = true;
       services.usbmuxd.package = pkgs.usbmuxd2;
       services.preload.enable = true;

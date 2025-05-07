@@ -267,8 +267,7 @@
       };
       style = ''
         * {
-          font-family: FontAwesome, '' + settings.desktop.font + ''
-          ;
+          font-family: FontAwesome, Noto;
           font-size: 20px;
         }
 

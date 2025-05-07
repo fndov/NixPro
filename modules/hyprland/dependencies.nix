@@ -3,6 +3,7 @@
     home.packages = with pkgs; [
       nautilus
       swayimg
+      pix
       networkmanagerapplet /*
       papirus-icon-theme
       fnott

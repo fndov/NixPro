@@ -15,6 +15,7 @@
       unstable.openssh
       unstable.yazi
       /* Extra */
+      unstable.flow-control
       file
       unstable.nixd
       unstable.nil

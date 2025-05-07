@@ -53,7 +53,7 @@
         monitor =
         text = Hello, ${settings.account.name}
         font_size = 25
-        font_family = ''+settings.desktop.font+''
+        font_family = Noto
         rotate = 0 # degrees, counter-clockwise
         position = 0, 160
         halign = center
@@ -64,7 +64,7 @@
         monitor =
         text = $TIME
         font_size = 20
-        font_family = ''+settings.desktop.font+''
+        font_family = Noto
         rotate = 0 # degrees, counter-clockwise
         position = 0, 80
         halign = center

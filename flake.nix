@@ -14,7 +14,7 @@
   };
   outputs = inputs@{ self, ... }: let
     settings = {
-      driver.graphics = "amd";
+      driver.graphics = "nvidia";
       system = {
         version = "24.11";
         architecture = "x86_64-linux";
@@ -22,7 +22,7 @@
         grubDevice = "/dev/sda";
         bootMountPath = "/boot";
         flakePath = ".nixpro";
-        automation = false;
+        automation = true;
         security = false;
         sshd = false;
       };
@@ -32,13 +32,11 @@
         email = "";
         terminal = "ghostty";
         shell = "fish";
-        editor = "micro";
+        editor = "flow";
         browser = "google-chrome";
       };
       desktop = {
         type = "hyprland";
-        font = "Noto";
-        fontPkg = "noto-fonts";
         wallpaperPath = "Media/Pictures/Wallpapers";
         wallpaperName = "nix-wallpaper-dracula.png";
         animationSpeed = "medium";

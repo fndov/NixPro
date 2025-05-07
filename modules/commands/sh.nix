@@ -23,6 +23,8 @@
       trash = "gio trash";
       e = if settings.account.editor == "micro"
         then "nice -1 ${settings.account.editor} --ruler false -colorscheme geany"
+      else if settings.account.editor == "flow"
+        then "nice -1 ${settings.account.editor}"
       else "nice -1 ${settings.account.editor}";
       cattree = "find . -type f -exec grep -Iq . {} \\; -print | xargs cat";
       offload = "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia";
@@ -33,7 +35,6 @@
       unstable.fd
       glib
       glibc
-      unstable.micro
       unstable.ripgrep
       unstable.fishPlugins.done
     ];
@@ -43,6 +44,8 @@
         set fish_greeting ""
         # bind \x7f backward-kill-word
         bind \cF nixsw
+        bind \cT nixts
+        bind \cK ls
         bind \cH backward-kill-word
       '';
       shellAliases = aliases;

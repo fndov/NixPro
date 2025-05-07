@@ -3,7 +3,7 @@
 in {
   environment.systemPackages = with pkgs; [
     unstable.virt-manager
-    unstable.distrobox
+    # unstable.distrobox
     # unstable.qemu
     # uefi-run
     # lxc
@@ -17,8 +17,10 @@ in {
   programs.virt-manager.enable = true;
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
-  virtualisation.podman.enable = true;
-  virtualisation.podman.dockerCompat = true;
+
+  # virtualisation.podman.enable = true;
+  # virtualisation.podman.dockerCompat = true;
+  
   # virtualisation.docker.enable = true;
   # virtualisation.docker.enableOnBoot = true;
   # virtualisation.docker.autoPrune.enable = true;

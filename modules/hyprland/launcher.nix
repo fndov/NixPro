@@ -4,7 +4,7 @@
   in {
     home.packages = [
       unstable.rofi-wayland
-      pkgs.nerdfonts
+      # pkgs.nerdfonts
       pkgs.cliphist
       pkgs.wl-clipboard
       unstable.nwg-clipman
@@ -50,7 +50,7 @@
             light-grey: #cdd6f4;
 
             width: 600;
-            font: "JetBrainsMono Nerd Font 14";
+            font: " Noto Mono 14";
         }
 
         element-text, element-icon , mode-switcher {
