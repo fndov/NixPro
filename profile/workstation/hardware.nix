@@ -1,31 +1,31 @@
-{ config, lib, modulesPath, ... }: {
+{ config, lib, pkgs, modulesPath, ... }: {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "sd_mod" "sr_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "sr_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ ];
-  boot.initrd.luks.devices."luks-314d8043-ffe1-4a3e-b442-f86857f70765".device = "/dev/disk/by-uuid/314d8043-ffe1-4a3e-b442-f86857f70765";
+  boot.initrd.luks.devices."luks-3d50afbd-8126-4e58-9e9f-eabd40e642e7".device = "/dev/disk/by-uuid/3d50afbd-8126-4e58-9e9f-eabd40e642e7";
   boot.kernelModules = [ "kvm-intel" ];
   boot.kernelParams = [ "resume=/dev/sda7" ];
   boot.extraModulePackages = [ ];
 
   fileSystems = {
-    "/boot" = {
-      device = "/dev/disk/by-uuid/A6BD-93E6";
+    "/boot" = { 
+      device = "/dev/disk/by-uuid/25DD-3446";
       fsType = "vfat";
-      options = [
-        "fmask=0077"
+      options = [ 
+        "fmask=0077" 
         "dmask=0077"
       ];
     };
     "/" = {
-      device = "/dev/disk/by-uuid/7cb4ff42-4c16-4227-be44-91049697abf5";
+      device = "/dev/disk/by-uuid/874f0d63-3841-4fc7-814d-3117faf463e0";
       fsType = "btrfs";
-      options = [
-        "subvol=@"
+      options = [ 
+        "subvol=@" 
         "autodefrag"
         "space_cache=v2"
-        "compress=zstd"
+        "compress=zstd" 
         "noatime"
-        "nodiratime"
+        "nodiratime" 
       ];
     };
   };
@@ -34,8 +34,8 @@
     interval = "weekly";
     fileSystems = [ "/" ];
   };
-
-  swapDevices = [ { device = "/dev/sda7"; priority = 2; } ];
+  
+  swapDevices = [ { device = "/dev/disk/by-uuid/05c70cbb-8744-456c-af67-040c8e2ed312"; } ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

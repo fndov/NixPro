@@ -29,6 +29,7 @@
         "float,title:^(Select the setup file)"
         "float,title:^(Add Non-Steam Game)"
         "float,title:^(Steam)"
+        "float,title:^(Open File)"
       ];
     };
   };

@@ -84,3 +84,12 @@ Desktop/ is for the desktop environment or window manager
 Trouble shooting, if you see: DBI connect('dbname=/nix/var/nix/profiles/per-user/root/channels/nixos/programs.sqlite
 it means you don't have the channel data cached in '/root/.cache/nix' which is a problem of flakes,
 you can add the channel with `sudo nix-channel --add https://nixos.org/channels/nixos-24.05 nixos` `sudo nix-channel --update`
+
+If you collect all garbage : 
+  sudo nix-collect-garbage & nix-collect-garbage
+but still have generations left over :
+  sudo nix-env --list-generations --profile /nix/var/nix/profiles/system | wc -l
+then use :
+  sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations #
+to delete the unused generations and then run :
+  sudo nix-collect-garbage & nix-collect-garbage

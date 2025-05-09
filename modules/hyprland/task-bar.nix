@@ -59,12 +59,12 @@
           "custom/quit" = {
             "format" = "󰍃";
             "tooltip" = false;
-            "on-click" = "hyprlock & sleep 3 && systemctl suspend";
+            "on-click" = "systemctl hibernate";
           };
           "custom/lock" = {
             "format" = "󰍁";
             "tooltip" = false;
-            "on-click" = "systemctl hibernate";
+            "on-click" = "hyprlock & sleep 4 && systemctl suspend";
           };
           "custom/reboot" = {
             "format" = "󰜉";

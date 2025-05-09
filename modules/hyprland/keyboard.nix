@@ -91,12 +91,12 @@
             # Apps.
             "SUPER,Return,exec, nice -1 ${settings.account.terminal}"
             "SUPER,H,exec,hyprctl dispatch exec '[float] ${settings.account.terminal} -e htop'"
-            "SUPER,N,exec,hyprctl dispatch exec '[float] ${settings.account.terminal} -e numbat'"
+            "SUPER,C,exec,hyprctl dispatch exec '[float] ${settings.account.terminal} -e numbat'"
 
             # Common.
             "SUPER,Q,killactive"
             "SUPER,E,exec,nice -1 systemctl suspend"
-            "SUPERSHIFT,E,exec,hyprlock & sleep 3;nice -1 systemctl suspend"
+            "SUPERSHIFT,E,exec,hyprlock & sleep 4;nice -1 systemctl suspend"
             "SUPER,F,fullscreen"
             "SUPER,T,togglefloating"
             "SUPER,H,movefocus,left"

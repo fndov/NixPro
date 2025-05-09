@@ -46,6 +46,7 @@
         bind \cF nixsw
         bind \cT nixts
         bind \cK ls
+        bind \cE e
         bind \cH backward-kill-word
       '';
       shellAliases = aliases;

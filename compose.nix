@@ -40,11 +40,11 @@
       nix.settings.trusted-users = [ "@wheel" ];
       nix.settings.warn-dirty = false;
       nix.settings.substituters = [
-        "https://cache.lix.systems"
+        # "https://cache.lix.systems"
         "https://hyprland.cachix.org"
       ];
       nix.settings.trusted-public-keys = [
-        "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
+        # "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       ];
       nix.settings.auto-optimise-store = true;

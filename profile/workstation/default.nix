@@ -2,8 +2,7 @@
   ../../modules/commands/sh.nix
   ../../modules/commands/cli.nix
   ../../modules/commands/lib.nix
-  ../../modules/apps/collection.nix
   ../../modules/apps/spotify.nix
-  ../../modules/apps/lutris.nix
-  ../../modules/development/cc.nix
+  ../../modules/apps/collection.nix
+  # ../../modules/apps/lutris.nix
 ]; }

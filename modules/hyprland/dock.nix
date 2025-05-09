@@ -3,7 +3,7 @@
     unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
   in {
     home.packages = [
-      unstable.nwg-dock-hyprland
+      pkgs.nwg-dock-hyprland
     ];
     wayland.windowManager.hyprland.settings.exec-once = [
       "nice -1 nwg-dock-hyprland -i 60 -x"

@@ -37,8 +37,8 @@
       };
       desktop = {
         type = "hyprland";
-        wallpaperPath = "Media/Pictures/Wallpapers";
-        wallpaperName = "nix-wallpaper-dracula.png";
+        wallpaperPath = "Media/Pictures/catppuccin-mocha";
+        wallpaperName = "biome.jpg";
         animationSpeed = "medium";
       };
     };

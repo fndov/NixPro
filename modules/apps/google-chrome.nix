@@ -1,4 +1,5 @@
 { pkgs, settings, ... }: {
+  nixpkgs.config.allowUnfree = true;
   home-manager.users.${settings.account.name} = {
     home.packages = [ pkgs.google-chrome ];
     xdg.mimeApps.defaultApplications = {

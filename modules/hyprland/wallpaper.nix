@@ -2,7 +2,7 @@
   home-manager.users.${settings.account.name} = { ... }: let
     monitor = "eDP-1"; # Check using `hyprctl monitors`
   in {
-    home.packages = [ pkgs.hyprpaper ];
+    home.packages = with pkgs; [ hyprpaper waypaper ];
     wayland.windowManager.hyprland.settings.exec-once = [ "hyprpaper" ];
     services.hyprpaper.enable = true;
     services.hyprpaper.settings.preload = if settings.profile == "image" then
@@ -11,5 +11,6 @@
     services.hyprpaper.settings.wallpaper = if settings.profile == "image" then
       "${monitor},/iso/home/${settings.account.name}/${settings.system.flakePath}/wallpaper.png"
     else "${monitor},/home/${settings.account.name}/${settings.desktop.wallpaperPath}/${settings.desktop.wallpaperName}";
+    wayland.windowManager.hyprland.settings.bind = [ "SUPER,N,exec, waypaper --random" ];
   };
 }
