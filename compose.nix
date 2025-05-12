@@ -53,9 +53,6 @@
       nix.gc.automatic = true;
       nix.gc.dates = "weekly";
       nix.gc.options = "--delete-older-than 30d";
-      home-manager.useUserPackages = false;
-      home-manager.backupFileExtension = "hm-backup";
-      home-manager.useGlobalPkgs = false;
       environment.systemPackages = with pkgs; [
         networkmanagerapplet
         ifuse
@@ -104,7 +101,9 @@
       boot.kernel.sysctl."vm.watermark_scale_factor" = 125;
       boot.tmp.useTmpfs = true;
       boot.initrd.compressor = "zstd";
-      boot.initrd.compressorArgs = [ "-22" ];
+      boot.initrd.compressorArgs = [ "-22" "--ultra" ];
+      boot.initrd.verbose = false;
+      boot.initrd.systemd.enable = true;
       services.earlyoom.enable = builtins.elem settings.profile [ "image" ];
       services.earlyoom.enableNotifications = true;
       services.earlyoom.freeMemThreshold = 3;
@@ -127,15 +126,15 @@
               (if settings.profile == "virtual-machine"
                 then pkgs.linuxPackages_latest
                 else null)))));
-      boot.readOnlyNixStore = true;
+      boot.readOnlyNixStore = false;
       boot.blacklistedKernelModules = [ "nouveau" ];
       boot.kernelParams = [
         "splash"
         "quiet"
         "rd.systemd.show_status=false"
-        "udev.log_level=3"
-        "rd.udev.log_level=3"
-        "udev.log_priority=3"
+        "udev.log_level=0"
+        "rd.udev.log_level=0"
+        "udev.log_priority=0"
         "fastboot"
         "mitigations=off"
         "noibrs"
@@ -174,17 +173,23 @@
           "noapic"
         */
       ];
-      home-manager.users.${settings.account.name} = {
-        programs.home-manager.enable = true;
-        home.stateVersion = settings.system.version;
+      home-manager = {
+        useUserPackages = true;
+        backupFileExtension = "hm-backup";
+        useGlobalPkgs = true;
+        users.${settings.account.name} = {
+          programs.home-manager.enable = true;
+          home.stateVersion = settings.system.version;
+        };
       };
     }
     (if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "workstation") then {
-      boot.consoleLogLevel = 3;
+      boot.consoleLogLevel = 0;
       boot.tmp.cleanOnBoot = true;
       boot.loader.systemd-boot.enable = if (settings.system.bootMode == "uefi") then true else false;
-      boot.loader.grub.enable = if (settings.system.bootMode == "uefi") then false else true;
       boot.loader.systemd-boot.editor = false;
+      boot.loader.systemd-boot.configurationLimit = 25;
+      boot.loader.grub.enable = if (settings.system.bootMode == "uefi") then false else true;
       boot.loader.grub.useOSProber = true;
       boot.loader.grub.device = settings.system.grubDevice;
       boot.loader.grub.devices = [ settings.system.grubDevice ];

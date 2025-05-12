@@ -4,7 +4,6 @@
   in {
     home.packages = with pkgs; [
       lutris
-      unstable.gamemode
       unstable.gamescope
       unstable.protonup
       unstable.mangohud
@@ -19,4 +18,5 @@
     ];
   };
   nixpkgs.config.allowUnfree = true;
+  programs.gamemode.enable = true;
 }

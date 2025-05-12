@@ -30,6 +30,8 @@
         "float,title:^(Add Non-Steam Game)"
         "float,title:^(Steam)"
         "float,title:^(Open File)"
+        "float,title:^(Open Files)"
+        "float,title:^(Open video)"
       ];
     };
   };

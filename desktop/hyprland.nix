@@ -4,6 +4,7 @@
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.systemPackages = with pkgs; [ libsecret cups-filters ];
   programs.hyprland.enable = true;
+  programs.hyprland.withUWSM = true;
   programs.hyprland.xwayland.enable = true;
   programs.hyprland.package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   programs.hyprland.portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
@@ -24,7 +25,6 @@
   services.greetd.settings.default_session.user = settings.account.name;
   services.getty.autologinUser = lib.mkForce "${settings.account.name}";
   services.getty.helpLine = lib.mkForce "";
-  services.auto-cpufreq.enable = true;
   services.thermald.enable = false;
   security.pam.services.greetd = lib.mkIf config.services.greetd.enable { enableGnomeKeyring = true; };
   security.rtkit.enable = true;
@@ -41,7 +41,20 @@
   hardware.bluetooth.enable = true;
   boot.plymouth.enable = true;
   boot.loader.timeout = 1;
+  powerManagement.cpuFreqGovernor = "performance";
+  services.power-profiles-daemon.enable = true;
+  # services.auto-cpufreq.enable = false;
+  # services.auto-cpufreq.settings.charger = {
+  #   governor = "performance";
+  #   turbo = "auto";
+  # };
+  # services.auto-cpufreq.settings.battery = {
+  #   governor = "preformance"; # powersave
+  #   turbo = "auto";
+  # };
+
   imports = [
+    ../modules/hyprland/tts.nix
     ../modules/hyprland/animation.nix
     ../modules/hyprland/cursor.nix
     ../modules/hyprland/dependencies.nix
@@ -72,10 +85,10 @@
       wayland.windowManager.hyprland = {
         enable = true;
         systemd.enable = false;
-        xwayland.enable = true;
+        xwayland.enable = false;
         settings = {
           exec-once = [
-            "sudo auto-cpufreq --force performance"
+            # "sudo auto-cpufreq --force performance"
             "nm-applet --indicator"
             "blueman-applet"
             "systemctl --user start hyprpolkitagent"

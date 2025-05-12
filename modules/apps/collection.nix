@@ -11,7 +11,9 @@
       vlc
       libreoffice
       kdePackages.ark
+      video-trimmer
       /*
+        amberol
         unstable.godot_4
         unstable.blender
         unstable.telegram-desktop

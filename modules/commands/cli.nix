@@ -5,6 +5,9 @@
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
       /* Essential */
+      nh
+      inxi
+      weechat
       bat
       zip
       unzip
@@ -15,7 +18,8 @@
       unstable.openssh
       unstable.yazi
       /* Extra */
-      unstable.flow-control
+      alsa-utils
+      piper-tts
       file
       unstable.nixd
       unstable.nil

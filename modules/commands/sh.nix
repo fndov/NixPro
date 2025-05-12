@@ -47,6 +47,7 @@
         bind \cT nixts
         bind \cK ls
         bind \cE e
+        bind \cW weechat
         bind \cH backward-kill-word
       '';
       shellAliases = aliases;
@@ -54,9 +55,9 @@
     programs.bash = {
       enable = true;
       enableCompletion = true;
-      shellAliases = aliases;
+      # shellAliases = aliases;
     };
-    programs.powerline-go = { enable = true; };
+    programs.powerline-go.enable = true;
     programs.atuin = {
       enable = true;
       enableFishIntegration = true;
