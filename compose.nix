@@ -112,7 +112,7 @@
       services.earlyoom.freeSwapKillThreshold = 3;
       boot.kernelPackages = # xanmod xanmod_latest rt rt_latest hardened zen
       (if settings.profile == "image"
-        then pkgs.linuxPackages
+        then pkgs.linuxPackages_xanmod
         else
         (if settings.profile == "server"
           then pkgs.linuxPackages
@@ -126,7 +126,7 @@
               (if settings.profile == "virtual-machine"
                 then pkgs.linuxPackages_latest
                 else null)))));
-      boot.readOnlyNixStore = false;
+      boot.readOnlyNixStore = true;
       boot.blacklistedKernelModules = [ "nouveau" ];
       boot.kernelParams = [
         "splash"
@@ -159,6 +159,7 @@
         "preempt=full"
         "uinput"
         /*
+          "i915.fastboot=1"
           "nofail"
           "x-systemd.device-timeout=5s"
           "rd.systemd.show_status=0"
@@ -257,6 +258,7 @@
       services.openssh.ports = [ 22 ];
       services.openssh.settings.PasswordAuthentication = true;
       services.openssh.settings.UseDns = true;
+      services.openssh.permitRootLogin = "yes";
     })
     (lib.mkIf (settings.profile != "microsoft") {
       environment.systemPackages = [ pkgs.networkmanager ];

@@ -8,9 +8,9 @@
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
     hyprland-plugins.inputs.hyprland.follows = "hyprland";
-    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = inputs@{ self, ... }: let
     settings = {
@@ -37,8 +37,8 @@
       };
       desktop = {
         type = "hyprland";
-        wallpaperPath = "Media/Pictures/catppuccin-mocha";
-        wallpaperName = "biome.jpg";
+        wallpaperPath = "Media/Pictures/Wallpapers";
+        wallpaperName = "IMG_7379.jpg";
         animationSpeed = "medium";
       };
     };

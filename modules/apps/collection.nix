@@ -12,6 +12,8 @@
       libreoffice
       kdePackages.ark
       video-trimmer
+      discord
+      krita
       /*
         amberol
         unstable.godot_4
@@ -21,14 +23,12 @@
         swayimg
         chatterino2
         kdenlive
-        krita
         kdePackages.elisa
         gnome-calendar
         kwrited
         baobab
         qbittorrent
         veracrypt
-        discord
         k3b # Broken Wed Apr  2 04:27:23 PM CDT 2025
         vscode
         unstable.code-cursor

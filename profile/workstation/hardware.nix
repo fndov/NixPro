@@ -23,9 +23,10 @@
         "subvol=@"
         "autodefrag"
         "space_cache=v2"
-        "compress=zstd"
+        "compress=zstd:3"
         "noatime"
         "nodiratime"
+        "discard=async"
       ];
     };
   };

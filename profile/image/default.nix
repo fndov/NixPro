@@ -24,7 +24,6 @@
   users.users.nixos = { _module = {}; };
   services.openssh.enable = lib.mkForce false;
   hardware.graphics.enable = true;
-  hardware.graphics.enable32 = false;
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
   boot.loader.timeout = lib.mkForce 3;
