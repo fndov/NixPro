@@ -168,7 +168,14 @@
     }
     (if (settings.profile == "image") then {
       boot.kernelPatches = [
-        {patch = ./linux-tkg-patches/6.6/0001-bore.patch;}
+        {patch = ./kernel-patches/tkg-6.6/0001-bore.patch;}
+        {patch = ./kernel-patches/tkg-6.6/0003-glitched-base.patch;}
+        {patch = ./kernel-patches/tkg-6.6/0003-glitched-cfs.patch;}
+        {patch = ./kernel-patches/tkg-6.6/0003-glitched-eevdf-additions.patch;}
+        {patch = ./kernel-patches/tkg-6.6/0005-glitched-pds.patch;}
+        {patch = ./kernel-patches/tkg-6.6/0006-add-acs-overrides_iommu.patch;}
+        {patch = ./kernel-patches/tkg-6.6/0001-mm-Support-soft-dirty-flag-reset-for-VA-range.patch;}
+        {patch = ./kernel-patches/tkg-6.6/0002-mm-Support-soft-dirty-flag-read-with-reset.patch;}
       ];
     } else {})
     (if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "workstation") then {
