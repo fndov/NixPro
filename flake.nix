@@ -14,7 +14,7 @@
   };
   outputs = inputs@{ self, ... }: let
     settings = {
-      driver.graphics = "nvidia";
+      driver.graphics = "intel";
       system = {
         version = "24.11";
         architecture = "x86_64-linux";

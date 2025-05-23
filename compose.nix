@@ -52,6 +52,13 @@
       nix.gc.automatic = true;
       nix.gc.dates = "weekly";
       nix.gc.options = "--delete-older-than 30d";
+      home-manager.useUserPackages = false;
+      home-manager.backupFileExtension = "hm-backup";
+      home-manager.useGlobalPkgs = false;
+      home-manager.users.${settings.account.name} = {
+        programs.home-manager.enable = true;
+        home.stateVersion = settings.system.version;
+      };
       environment.systemPackages = with pkgs; [
         networkmanagerapplet
         ifuse
@@ -111,7 +118,7 @@
       services.earlyoom.freeSwapKillThreshold = 3;
       boot.kernelPackages = # xanmod xanmod_latest rt rt_latest hardened zen
       (if settings.profile == "image"
-        then pkgs.linuxPackages_xanmod
+        then pkgs.linuxPackages_latest
         else
         (if settings.profile == "server"
           then pkgs.linuxPackages
@@ -123,7 +130,7 @@
               then pkgs.linuxPackages
               else
               (if settings.profile == "virtual-machine"
-                then pkgs.linuxPackages_latest
+                then pkgs.linuxPackages
                 else null)))));
       boot.readOnlyNixStore = true;
       boot.blacklistedKernelModules = [ "nouveau" ];
@@ -157,32 +164,13 @@
         "ascpi_osi=Linux"
         "preempt=full"
         "uinput"
-        /*
-          "i915.fastboot=1"
-          "nofail"
-          "x-systemd.device-timeout=5s"
-          "rd.systemd.show_status=0"
-          "rd.udev.log_level=3"
-          "udev.log_priority=3"
-          "intel_pstate=active"
-          "processor.max_cstate=1"
-          "intel_idle.max_cstate=1"
-          "threadirqs"
-          "i915.fastboot=1"
-          "raid=noautodetect"
-          "noapic"
-        */
       ];
-      home-manager = {
-        useUserPackages = true;
-        backupFileExtension = "hm-backup";
-        useGlobalPkgs = true;
-        users.${settings.account.name} = {
-          programs.home-manager.enable = true;
-          home.stateVersion = settings.system.version;
-        };
-      };
     }
+    (if (settings.profile == "image") then {
+      boot.kernelPatches = [
+        {patch = ./linux-tkg-patches/6.6/0001-bore.patch;}
+      ];
+    } else {})
     (if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "workstation") then {
       boot.consoleLogLevel = 0;
       boot.tmp.cleanOnBoot = true;
@@ -201,7 +189,7 @@
       nixpkgs.config.allowUnfree = true;
       environment.systemPackages = [ pkgs.nvtopPackages.full ];
       services.xserver.videoDrivers = [ "nvidia" ];
-      hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest; /* production or latest */
+      hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production; /* production or latest */
       # ^ Works best with boot.kernelPackages = pkgs.linuxPackages;
       hardware.nvidia.powerManagement.enable = true;
       hardware.nvidia.powerManagement.finegrained = true;
