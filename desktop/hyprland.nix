@@ -41,18 +41,7 @@
   hardware.bluetooth.enable = true;
   boot.plymouth.enable = true;
   boot.loader.timeout = 1;
-  powerManagement.cpuFreqGovernor = "performance";
   services.power-profiles-daemon.enable = true;
-  # services.auto-cpufreq.enable = false;
-  # services.auto-cpufreq.settings.charger = {
-  #   governor = "performance";
-  #   turbo = "auto";
-  # };
-  # services.auto-cpufreq.settings.battery = {
-  #   governor = "preformance"; # powersave
-  #   turbo = "auto";
-  # };
-
   imports = [
     ../modules/hyprland/tts.nix
     ../modules/hyprland/animation.nix
@@ -88,7 +77,7 @@
         xwayland.enable = false;
         settings = {
           exec-once = [
-            # "sudo auto-cpufreq --force performance"
+            "powerprofilesctl set performance"
             "nm-applet --indicator"
             "blueman-applet"
             "systemctl --user start hyprpolkitagent"

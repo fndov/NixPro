@@ -1,4 +1,4 @@
-{ lib, pkgs, settings, ... }: {
+{ pkgs, settings, ... }: {
   services.xserver.enable = true;
   services.desktopManager.plasma6.enable = true;
 	services.displayManager.defaultSession = "plasma";
@@ -11,10 +11,25 @@
   services.pipewire.pulse.enable = true;
   services.pipewire.jack.enable = true;
   boot.plymouth.enable = true;
-  boot.loader.timeout = lib.mkForce 1;
+  boot.loader.timeout = 1;
   services.printing.enable = true;
   services.avahi.enable = true;
   services.avahi.nssmdns4 = true;
   services.avahi.openFirewall = true;
   environment.systemPackages = [ pkgs.cups-filters ];
+  hardware.bluetooth.enable = true;
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    plasma-browser-integration
+    kdepim-runtime
+    konsole
+    oxygen
+    kate
+    elisa
+    gwenview
+    khelpcenter
+    plasma-workspace-wallpapers
+    breeze
+    breeze-icons
+    breeze-gtk
+  ];
 }

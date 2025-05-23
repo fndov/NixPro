@@ -18,13 +18,13 @@
       mode = "0777";
     } ];
   };
-
+  documentation.man.enable = lib.mkForce false;
   nix.settings.keep-outputs = false;
   nix.settings.keep-derivations = false;
   users.users.nixos = { _module = {}; };
   services.openssh.enable = lib.mkForce false;
   hardware.graphics.enable = true;
-  hardware.enableAllFirmware = true;
-  hardware.enableRedistributableFirmware = true;
+  # hardware.enableAllFirmware = true;
+  # hardware.enableRedistributableFirmware = true;
   boot.loader.timeout = lib.mkForce 3;
 }

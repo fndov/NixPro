@@ -55,7 +55,6 @@
     programs.bash = {
       enable = true;
       enableCompletion = true;
-      # shellAliases = aliases;
     };
     programs.powerline-go.enable = true;
     programs.atuin = {
