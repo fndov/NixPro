@@ -12,7 +12,6 @@
       libreoffice
       kdePackages.ark
       video-trimmer
-      discord
       krita
       /*
         amberol
@@ -35,6 +34,7 @@
         unstable.alpaca
         protonvpn-gui
         upscayl
+        discord
         foliate
         nextcloud-client
         lollypop

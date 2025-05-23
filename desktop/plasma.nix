@@ -18,6 +18,8 @@
   services.avahi.openFirewall = true;
   environment.systemPackages = [ pkgs.cups-filters ];
   hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     plasma-browser-integration
     kdepim-runtime

@@ -4,7 +4,6 @@
     ../../modules/commands/sh.nix
     ../../modules/commands/lib.nix
   ];
-
   isoImage = {
     isoName = lib.mkForce (builtins.replaceStrings ["--" "-linux"] ["-" ""] "nixpro-${settings.system.version}-${
       if settings.desktop.type != null then settings.desktop.type else ""

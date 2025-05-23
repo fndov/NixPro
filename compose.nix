@@ -107,9 +107,8 @@
       boot.kernel.sysctl."vm.watermark_scale_factor" = 125;
       boot.tmp.useTmpfs = true;
       boot.initrd.compressor = "zstd";
-      boot.initrd.compressorArgs = [ "-22" "--ultra" ];
-      boot.initrd.verbose = false;
-      boot.initrd.systemd.enable = true;
+      boot.initrd.compressorArgs = [ "-15" ];
+      boot.initrd.verbose = true;
       services.earlyoom.enable = builtins.elem settings.profile [ "image" ];
       services.earlyoom.enableNotifications = true;
       services.earlyoom.freeMemThreshold = 3;
@@ -146,15 +145,15 @@
         "noibrs"
         "noibpb"
         "nopti"
-        "nospectre_v2"
         "nospectre_v1"
-        "nowatchdog"
+        "nospectre_v2"
         "l1tf=off"
         "nospec_store_bypass_disable"
         "no_stf_barrier"
         "mds=off"
         "tsx=on"
         "tsx_async_abort=off"
+        "nowatchdog"
         "panic=1"
         "boot.panic_on_fail"
         "transparent_hugepage=always"
@@ -168,14 +167,12 @@
     }
     (if (settings.profile == "image") then {
       boot.kernelPatches = [
-        {patch = ./kernel-patches/tkg-6.6/0001-bore.patch;}
-        {patch = ./kernel-patches/tkg-6.6/0003-glitched-base.patch;}
-        {patch = ./kernel-patches/tkg-6.6/0003-glitched-cfs.patch;}
-        {patch = ./kernel-patches/tkg-6.6/0003-glitched-eevdf-additions.patch;}
-        {patch = ./kernel-patches/tkg-6.6/0005-glitched-pds.patch;}
-        {patch = ./kernel-patches/tkg-6.6/0006-add-acs-overrides_iommu.patch;}
-        {patch = ./kernel-patches/tkg-6.6/0001-mm-Support-soft-dirty-flag-reset-for-VA-range.patch;}
-        {patch = ./kernel-patches/tkg-6.6/0002-mm-Support-soft-dirty-flag-read-with-reset.patch;}
+        # {patch = ./kernel-patches/tkg-6.14/0001-bore.patch;}
+        # {patch = ./kernel-patches/tkg-6.14/0009-glitched-bmq.patch;}
+        # {patch = ./kernel-patches/tkg-6.14/0009-glitched-bmq.patch;}
+        # {patch = ./kernel-patches/tkg-6.14/0012-misc-additions.patch;}
+        # {patch = ./kernel-patches/tkg-6.14/0013-optimize_harder_O3.patch;}
+        # {patch = ./kernel-patches/tkg-6.14/0014-OpenRGB.patch;}
       ];
     } else {})
     (if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "workstation") then {

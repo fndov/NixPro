@@ -14,7 +14,7 @@
   };
   outputs = inputs@{ self, ... }: let
     settings = {
-      driver.graphics = "intel";
+      driver.graphics = "nvidia";
       system = {
         version = "24.11";
         architecture = "x86_64-linux";
@@ -33,10 +33,10 @@
         terminal = "ghostty";
         shell = "fish";
         editor = "flow";
-        browser = "google-chrome";
+        browser = null;
       };
       desktop = {
-        type = "hyprland";
+        type = "plasma";
         wallpaperPath = "Media/Pictures/Wallpapers";
         wallpaperName = "IMG_7379.jpg";
         animationSpeed = "medium";
