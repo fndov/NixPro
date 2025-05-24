@@ -34,9 +34,9 @@
   services.avahi.openFirewall = true;
   fonts.enableDefaultPackages = true;
   fonts.fontconfig.enable = true;
-  fonts.packages = [ pkgs.noto-fonts ];
+  fonts.packages = with pkgs; [ noto-fonts inter ];
   fonts.fontconfig.defaultFonts.monospace = [ "Noto Mono" ];
-  fonts.fontconfig.defaultFonts.sansSerif = [ "Noto Sans" ];
+  fonts.fontconfig.defaultFonts.sansSerif = [ "Inter" "Noto Sans" ];
   fonts.fontconfig.defaultFonts.serif = [ "Noto Serif" ];
   hardware.bluetooth.enable = true;
   boot.plymouth.enable = true;
@@ -121,7 +121,6 @@
             gaps_out = 6;
             "col.active_border" = "rgb(3b3c47)";
             "col.inactive_border" = "rgb(3b3c47)";
-            border_part_of_window = true;
             no_border_on_floating = false;
           };
           /*
@@ -178,6 +177,8 @@
             vfr = true;
             mouse_move_enables_dpms = "on";
             key_press_enables_dpms = "on";
+            enable_anr_dialog = true;
+            render_ahead_safezone = 2;
           };
         };
       };

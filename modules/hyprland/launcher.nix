@@ -4,14 +4,12 @@
   in {
     home.packages = [
       unstable.rofi-wayland
-      # pkgs.nerdfonts
       pkgs.cliphist
       pkgs.wl-clipboard
       unstable.nwg-clipman
     ];
     wayland.windowManager.hyprland.settings.bind = [
       "SUPER,semicolon,exec,nice -21 rofi -show drun"
-      # "SUPER, V, exec, cliphist list | cut -f 2- | rofi -dmenu | wl-copy"
       "SUPER,V,exec, nice -21 nwg-clipman --window"
     ];
     wayland.windowManager.hyprland.settings.exec-once = [
@@ -27,10 +25,10 @@
           location: 0;
           disable-history: false;
           hide-scrollbar: true;
-          display-drun: " 󰕰 Apps ";
-          display-run: "  Run ";
-          display-window: "   Window ";
-          display-Network: " 󰤨  Network ";
+          display-drun: "  Apps ";
+          display-run: "  Run ";
+          display-window: "  Window ";
+          display-Network: "  Network ";
           sidebar-mode: true;
       }
 
@@ -38,6 +36,7 @@
     '';
     home.file.".config/rofi/catppuccin-mocha.rasi".text = ''
         * {
+            /* Keep the colors for reference, but we'll use rgba for transparency */
             bg-col:  #1e1e2e;
             bg-col-light: #1e1e2e;
             border-col: #3b3c47;
@@ -63,23 +62,26 @@
             border: 3px;
             border-color: #3b3c47;
             border-radius: 12px;
-            background-color: @bg-col;
+            /* Make the main window background less transparent (80% opaque) */
+            background-color: rgba(30, 30, 46, 0.9); /* Changed alpha to 0.8 */
         }
 
         mainbox {
-            background-color: @bg-col;
+            /* Make the mainbox background transparent */
+            background-color: rgba(30, 30, 46, 0.0); /* Setting alpha to 0 for transparency, it will inherit window transparency */
             border-radius: 12px;
         }
 
         inputbar {
             children: [prompt,entry];
-            background-color: @bg-col;
+            /* Make the inputbar background transparent */
+            background-color: rgba(30, 30, 46, 0.0); /* Setting alpha to 0 for transparency */
             border-radius: 12px;
             padding: 2px;
         }
 
         prompt {
-            background-color: @blue;
+            background-color: @blue; /* You can adjust the transparency of individual elements if needed */
             padding: 6px;
             text-color: @white;
             border-radius: 8px;
@@ -90,7 +92,8 @@
             padding: 6px;
             margin: 20px 0px 0px 10px;
             text-color: @fg-col;
-            background-color: @bg-col;
+            /* Make the entry background transparent */
+            background-color: rgba(30, 30, 46, 0.0); /* Setting alpha to 0 for transparency */
             border-radius: 8px;
         }
 
@@ -100,13 +103,15 @@
             margin: 10px 0px 0px 20px;
             columns: 2;
             lines: 5;
-            background-color: @bg-col;
+            /* Make the listview background transparent */
+            background-color: rgba(30, 30, 46, 0.0); /* Setting alpha to 0 for transparency */
             border-radius: 8px;
         }
 
         element {
             padding: 5px;
-            background-color: @bg-col;
+            /* Make the element background transparent */
+            background-color: rgba(30, 30, 46, 0.0); /* Setting alpha to 0 for transparency */
             text-color: @fg-col;
             border-radius: 8px;
         }
@@ -116,7 +121,8 @@
         }
 
         element selected {
-            background-color: @selected-col;
+            /* Make the selected element background transparent */
+            background-color: rgba(30, 30, 46, 0.3); /* You might want a slight background for selected items */
             text-color: @fg-col2;
             border: 2px;
             border-color: #3b3c47;
@@ -130,7 +136,8 @@
 
         button {
             padding: 10px;
-            background-color: @bg-col-light;
+            /* Make the button background transparent */
+            background-color: rgba(30, 30, 46, 0.3); /* A slight background can help distinguish buttons */
             text-color: @grey;
             vertical-align: 0.5;
             horizontal-align: 0.5;
@@ -138,15 +145,17 @@
         }
 
         button selected {
-            background-color: @bg-col;
-            text-color: @light-grey;    // Changed to use light-grey
+            /* Make the selected button background transparent */
+            background-color: rgba(30, 30, 46, 0.5); /* A bit more opaque for the selected button */
+            text-color: @light-grey;
             border: 2px;
             border-color: #3b3c47;
             border-radius: 8px;
         }
 
         message {
-            background-color: @bg-col-light;
+            /* Make the message background transparent */
+            background-color: rgba(30, 30, 46, 0.0); /* Setting alpha to 0 for transparency */
             margin: 2px;
             padding: 2px;
             border-radius: 8px;
@@ -156,7 +165,8 @@
             padding: 6px;
             margin: 20px 0px 0px 20px;
             text-color: @blue;
-            background-color: @bg-col-light;
+            /* Make the textbox background transparent */
+            background-color: rgba(30, 30, 46, 0.0); /* Setting alpha to 0 for transparency */
             border-radius: 8px;
         }
     '';

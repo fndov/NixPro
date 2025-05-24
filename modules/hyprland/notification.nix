@@ -1,17 +1,19 @@
 { pkgs, settings, ... }: {
   home-manager.users.${settings.account.name} = {
     services.mako = {
-      width = 600;
-      height = 400;
-      backgroundColor = "#1e1e2e";
-      borderColor = "#3b3c47";
-      borderRadius = 6;
-      borderSize = 2;
-      defaultTimeout = 6000;
       enable = true;
-      font = "Iosevka 16";
-      layer = "overlay";
-      textColor = "#cdd6f4";
+      settings = {
+        width = 600;
+        height = 400;
+        "background-color" = "#1e1e2e";
+        "border-color" = "#3b3c47";
+        "border-radius" = 6;
+        "border-size" = 2;
+        "default-timeout" = 6000;
+        font = "Iosevka 16";
+        layer = "overlay";
+        "text-color" = "#cdd6f4";
+      };
     };
     wayland.windowManager.hyprland.settings.exec-once = [
       "pkill time-notice"

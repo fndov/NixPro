@@ -169,7 +169,6 @@
       boot.kernelPatches = [
         # {patch = ./kernel-patches/tkg-6.14/0001-bore.patch;}
         # {patch = ./kernel-patches/tkg-6.14/0009-glitched-bmq.patch;}
-        # {patch = ./kernel-patches/tkg-6.14/0009-glitched-bmq.patch;}
         # {patch = ./kernel-patches/tkg-6.14/0012-misc-additions.patch;}
         # {patch = ./kernel-patches/tkg-6.14/0013-optimize_harder_O3.patch;}
         # {patch = ./kernel-patches/tkg-6.14/0014-OpenRGB.patch;}
@@ -193,7 +192,7 @@
       nixpkgs.config.allowUnfree = true;
       environment.systemPackages = [ pkgs.nvtopPackages.full ];
       services.xserver.videoDrivers = [ "nvidia" ];
-      hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production; /* production or latest */
+      hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest; /* production or latest */
       # ^ Works best with boot.kernelPackages = pkgs.linuxPackages;
       hardware.nvidia.powerManagement.enable = true;
       hardware.nvidia.powerManagement.finegrained = true;

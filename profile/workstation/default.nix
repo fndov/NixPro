@@ -5,5 +5,4 @@
   ../../modules/apps/collection.nix
   ../../modules/apps/spotify.nix
   ../../modules/apps/lutris.nix
-  ../../modules/apps/virtualize.nix
 ]; }
