@@ -6,10 +6,10 @@
       pkgs.nwg-dock-hyprland
     ];
     wayland.windowManager.hyprland.settings.exec-once = [
-      "nice -1 nwg-dock-hyprland -i 60 -x"
+      "nice -1 nwg-dock-hyprland -i 60 -x -nolauncher"
     ];
     wayland.windowManager.hyprland.settings.bind = [
-      "SUPER,D,exec,pgrep nwg-dock > /dev/null && pkill nwg-dock || nwg-dock-hyprland -i 60 -x &"
+      "SUPER,D,exec,pgrep nwg-dock > /dev/null && pkill nwg-dock || nwg-dock-hyprland -i 60 -x -nolauncher &"
     ];
     home.file.".config/nwg-dock-hyprland/style.css".text = ''
     * {
@@ -53,7 +53,7 @@
     }
 
     button:hover {
-      background-color: rgba(49, 50, 68, 0.6);  /* #313244 with 60% opacity */
+      background-color: rgba(49, 50, 68, 0.6);
       border-radius: 8px;
     }
 

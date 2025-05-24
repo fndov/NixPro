@@ -36,7 +36,6 @@
     '';
     home.file.".config/rofi/catppuccin-mocha.rasi".text = ''
         * {
-            /* Keep the colors for reference, but we'll use rgba for transparency */
             bg-col:  #1e1e2e;
             bg-col-light: #1e1e2e;
             border-col: #3b3c47;
@@ -62,26 +61,23 @@
             border: 3px;
             border-color: #3b3c47;
             border-radius: 12px;
-            /* Make the main window background less transparent (80% opaque) */
-            background-color: rgba(30, 30, 46, 0.9); /* Changed alpha to 0.8 */
+            background-color: rgba(30, 30, 46, 0.9);
         }
 
         mainbox {
-            /* Make the mainbox background transparent */
-            background-color: rgba(30, 30, 46, 0.0); /* Setting alpha to 0 for transparency, it will inherit window transparency */
+            background-color: rgba(30, 30, 46, 0.0);
             border-radius: 12px;
         }
 
         inputbar {
             children: [prompt,entry];
-            /* Make the inputbar background transparent */
-            background-color: rgba(30, 30, 46, 0.0); /* Setting alpha to 0 for transparency */
+            background-color: rgba(30, 30, 46, 0.0);
             border-radius: 12px;
             padding: 2px;
         }
 
         prompt {
-            background-color: @blue; /* You can adjust the transparency of individual elements if needed */
+            background-color: @blue;
             padding: 6px;
             text-color: @white;
             border-radius: 8px;
@@ -92,8 +88,7 @@
             padding: 6px;
             margin: 20px 0px 0px 10px;
             text-color: @fg-col;
-            /* Make the entry background transparent */
-            background-color: rgba(30, 30, 46, 0.0); /* Setting alpha to 0 for transparency */
+            background-color: rgba(30, 30, 46, 0.0);
             border-radius: 8px;
         }
 
@@ -103,15 +98,13 @@
             margin: 10px 0px 0px 20px;
             columns: 2;
             lines: 5;
-            /* Make the listview background transparent */
-            background-color: rgba(30, 30, 46, 0.0); /* Setting alpha to 0 for transparency */
+            background-color: rgba(30, 30, 46, 0.0);
             border-radius: 8px;
         }
 
         element {
             padding: 5px;
-            /* Make the element background transparent */
-            background-color: rgba(30, 30, 46, 0.0); /* Setting alpha to 0 for transparency */
+            background-color: rgba(30, 30, 46, 0.0);
             text-color: @fg-col;
             border-radius: 8px;
         }
@@ -121,8 +114,7 @@
         }
 
         element selected {
-            /* Make the selected element background transparent */
-            background-color: rgba(30, 30, 46, 0.3); /* You might want a slight background for selected items */
+            background-color: rgba(30, 30, 46, 0.0);
             text-color: @fg-col2;
             border: 2px;
             border-color: #3b3c47;
@@ -136,8 +128,7 @@
 
         button {
             padding: 10px;
-            /* Make the button background transparent */
-            background-color: rgba(30, 30, 46, 0.3); /* A slight background can help distinguish buttons */
+            background-color: rgba(30, 30, 46, 0.4);
             text-color: @grey;
             vertical-align: 0.5;
             horizontal-align: 0.5;
@@ -145,8 +136,7 @@
         }
 
         button selected {
-            /* Make the selected button background transparent */
-            background-color: rgba(30, 30, 46, 0.5); /* A bit more opaque for the selected button */
+            background-color: rgba(30, 30, 46, 0.4);
             text-color: @light-grey;
             border: 2px;
             border-color: #3b3c47;
@@ -154,8 +144,7 @@
         }
 
         message {
-            /* Make the message background transparent */
-            background-color: rgba(30, 30, 46, 0.0); /* Setting alpha to 0 for transparency */
+            background-color: rgba(30, 30, 46, 0.0);
             margin: 2px;
             padding: 2px;
             border-radius: 8px;
@@ -165,8 +154,7 @@
             padding: 6px;
             margin: 20px 0px 0px 20px;
             text-color: @blue;
-            /* Make the textbox background transparent */
-            background-color: rgba(30, 30, 46, 0.0); /* Setting alpha to 0 for transparency */
+            background-color: rgba(30, 30, 46, 0.0);
             border-radius: 8px;
         }
     '';
