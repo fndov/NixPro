@@ -201,14 +201,13 @@
             "tooltip" = false;
           };
 
-          # New data-usage module
           "custom/data-usage" = {
             format = "{}";
             exec = ''
               awk 'NR>2 { rx += $2 } \
                    END {
                      n = int(rx/1024/1024/1024);
-                     if (n >= 1) printf("%dg", n);
+                     if (n >= 1) printf("%dG", n);
                    }' /proc/net/dev
             '';
             interval = 10;
@@ -340,6 +339,7 @@
         #custom-power,
         #custom-menu,
         #custom-power-profile,
+        #custom-data-usage,
         #mpd {
           padding: 0 3px;
           color: #c0caf5;
@@ -351,17 +351,23 @@
           background-color: transparent;
           color: #c0caf5;
           min-width: 60px;
-          padding: 0;
-          margin: 0;
+          padding: 0 3px;
+          margin: 0 3px 0 0;
         }
         #custom-power-profile {
           background-color: transparent;
           color: #c0caf5;
           min-width: 120px;
-          padding: 0 6px;
+          padding: 0 3px;
           margin: 0;
         }
 
+        #custom-data-usage {
+          background-color: transparent;
+          color: #c0caf5;
+          padding: 0 3px;
+          margin: 0;
+        }
 
         #custom-hyprprofileicon:hover,
         #custom-quit:hover,
@@ -370,15 +376,20 @@
         #custom-power:hover,
         #custom-menu:hover,
         #custom-power-profile:hover,
-        #idle_inhibitor:hover,
         #pulseaudio:hover,
         #pulseaudio#combined:hover {
           background: rgba(0, 0, 0, 0.2);
           color: #ffffff;
         }
 
+        #idle_inhibitor:hover,
+        #idle_inhibitor.activated:hover {
+          background: rgba(0, 0, 0, 0.2);
+          color: #ffffff;
+        }
+
         .not-power {
-          margin-left: 2px;
+          margin-right: 3px;
         }
 
         #taskbar button:hover {
