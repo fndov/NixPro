@@ -43,7 +43,6 @@
   boot.loader.timeout = 1;
   services.power-profiles-daemon.enable = true;
   imports = [
-    ../modules/hyprland/tts.nix
     ../modules/hyprland/animation.nix
     ../modules/hyprland/cursor.nix
     ../modules/hyprland/dependencies.nix
@@ -56,11 +55,10 @@
     ../modules/hyprland/rules.nix
     ../modules/hyprland/screenshot.nix
     ../modules/hyprland/task-bar.nix
-    ../modules/hyprland/terminal.nix
     ../modules/hyprland/theme.nix
     ../modules/hyprland/timeout.nix
     ../modules/hyprland/wallpaper.nix
-  ];
+  ] ++ lib.optional (settings.profile == "workstation") ../modules/hyprland/tts.nix;
   home-manager.users.${settings.account.name} = lib.mkMerge [
     {
       services.blueman-applet.enable = true;
@@ -178,7 +176,12 @@
             mouse_move_enables_dpms = "on";
             key_press_enables_dpms = "on";
             enable_anr_dialog = true;
-            render_ahead_safezone = 2;
+            render_ahead_safezone = 1;
+          };
+          ecosystem = {
+            no_update_news = true;
+            no_donation_nag = true;
+            enforce_permissions = false;
           };
         };
       };

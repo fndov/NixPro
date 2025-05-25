@@ -30,6 +30,7 @@
             "zram#combined"
             "vram#combined"
             "pulseaudio#combined"
+            "custom/data-usage"
             "keyboard-state"
           ];
           modules-center = [
@@ -49,6 +50,7 @@
             "sort-by-number" = true;
           };
           modules-right = [ "custom/empty" "hyprland/window" "group/time" "idle_inhibitor" "tray" ];
+
           "custom/menu" = {
             "format" = " MENU ";
             "exec" = ''echo "MENU" '';
@@ -56,13 +58,15 @@
             "on-click" = "nice -21 rofi -show drun";
             "tooltip" = false;
           };
+
           "custom/power-profile" = {
             "format" = "CLOCK {}";
             "exec" = "powerprofilesctl get | tr '[:lower:]' '[:upper:]'";
-            "interval" = 2;
+            "interval" = 1;
             "on-click" = "(powerprofilesctl get | grep performance > /dev/null && powerprofilesctl set balanced) || (powerprofilesctl get | grep balanced > /dev/null && powerprofilesctl set power-saver) || powerprofilesctl set performance";
             "tooltip" = false;
           };
+
           "group/power" = {
             "orientation" = "horizontal";
             "drawer" = {
@@ -72,39 +76,45 @@
             };
             "modules" = [
               "custom/menu"
-              "custom/power-profile" # Moved the power-profile module here
+              "custom/power-profile"
               "custom/lock"
               "custom/quit"
               "custom/power"
               "custom/reboot"
             ];
           };
+
           "custom/quit" = {
             "format" = "HIBERNATE";
             "tooltip" = false;
             "on-click" = "systemctl hibernate";
           };
+
           "custom/lock" = {
             "format" = "LOCK";
             "tooltip" = false;
             "on-click" = "hyprlock & sleep 4 && systemctl suspend";
           };
+
           "custom/reboot" = {
             "format" = "REBOOT";
             "tooltip" = false;
             "on-click" = "reboot";
           };
+
           "custom/power" = {
             "format" = "POWER";
             "tooltip" = false;
             "on-click" = "shutdown now";
           };
+
           "custom/hyprprofile" = {
             "format" = "PROFILE: {}";
             "exec" = "cat ~/.hyprprofile";
             "interval" = 3;
             "on-click" = "alacritty -e sh -c btm";
           };
+
           "keyboard-state" = {
             "numlock" = true;
             "format" = "{name}";
@@ -113,6 +123,7 @@
               "unlocked" = "NUM OFF";
             };
           };
+
           "custom/workspacesfix" = {
             "format" = "         ";
             "tooltip" = false;
@@ -180,7 +191,6 @@
             "modules" = [ "backlight#combined" ];
           };
 
-
           "pulseaudio#combined" = {
             "scroll-step" = 1;
             "format" = "SOUND {volume}%";
@@ -189,6 +199,20 @@
             "format-muted" = "MUTE";
             "on-click" = "playerctl play-pause";
             "tooltip" = false;
+          };
+
+          # New data-usage module
+          "custom/data-usage" = {
+            format = "{}";
+            exec = ''
+              awk 'NR>2 { rx += $2 } \
+                   END {
+                     n = int(rx/1024/1024/1024);
+                     if (n >= 1) printf("%dg", n);
+                   }' /proc/net/dev
+            '';
+            interval = 10;
+            tooltip = false;
           };
         };
       };
@@ -315,7 +339,7 @@
         #custom-reboot,
         #custom-power,
         #custom-menu,
-        #custom-power-profile, /* Style for the new module */
+        #custom-power-profile,
         #mpd {
           padding: 0 3px;
           color: #c0caf5;
@@ -330,7 +354,7 @@
           padding: 0;
           margin: 0;
         }
-        #custom-power-profile { /* Style for the new module - Removed empty line before this */  /* <<< FIXED CSS COMMENT HERE */
+        #custom-power-profile {
           background-color: transparent;
           color: #c0caf5;
           min-width: 120px;

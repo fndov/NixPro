@@ -93,6 +93,10 @@
             "SUPER,H,exec,hyprctl dispatch exec '[float] ${settings.account.terminal} -e htop'"
             "SUPER,C,exec,hyprctl dispatch exec '[float] ${settings.account.terminal} -e numbat'"
 
+            # Popup terminal.
+            "SUPER,X,exec,if hyprctl clients | grep -q scratch_term; then echo 'scratch_term already running'; else ${settings.account.terminal} --class scratch_term; fi"
+            "SUPER,X,togglespecialworkspace,scratch_term"
+
             # Common.
             "SUPER,Q,killactive"
             "SUPER,E,exec,nice -1 systemctl suspend"
@@ -164,6 +168,13 @@
             "SUPERSHIFT,8,movetoworkspace,8"
             "SUPERSHIFT,9,movetoworkspace,9"
           ];
+          windowrule = [
+            "float,class:^(scratch_term)$"
+            "size 80% 85%,class:^(scratch_term)$"
+            "workspace special:scratch_term,class:^(scratch_term)$"
+            "center,class:^(scratch_term)$"
+            "opacity 0.80,class:^(scratch_term)$"
+          ];
         };
       }
 
@@ -172,7 +183,7 @@
           "SUPER,Z,exec,hyprctl dispatch exec '[float] ${settings.account.terminal} -e ${settings.account.editor} ~/Documents/note.txt'"
         ];
       })
-      
+
       (lib.mkIf (settings.account.editor == "micro") {
         wayland.windowManager.hyprland.settings.bind = [
           "SUPER,Z,exec,hyprctl dispatch exec '[float] ${settings.account.terminal} -e ${settings.account.editor} --ruler false -colorscheme geany ~/Documents/note.txt'"

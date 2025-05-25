@@ -16,7 +16,7 @@
     settings = {
       driver.graphics = "nvidia";
       system = {
-        version = "24.11";
+        version = "25.05";
         architecture = "x86_64-linux";
         bootMode = "uefi";
         grubDevice = "/dev/sda";
