@@ -39,6 +39,7 @@
   fonts.fontconfig.defaultFonts.sansSerif = [ "Inter" "Noto Sans" ];
   fonts.fontconfig.defaultFonts.serif = [ "Noto Serif" ];
   hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
   boot.plymouth.enable = true;
   boot.loader.timeout = 1;
   services.power-profiles-daemon.enable = true;

@@ -14,9 +14,13 @@
   };
   outputs = inputs@{ self, ... }: let
     settings = {
-      driver.graphics = "nvidia";
+      driver = {
+        graphics = "intel";
+        intelBusID = "PCI:0:2:0";
+        nvidiaBusID = "PCI:9:0:0";
+      };
       system = {
-        version = "25.05";
+        version = "24.11";
         architecture = "x86_64-linux";
         bootMode = "uefi";
         grubDevice = "/dev/sda";

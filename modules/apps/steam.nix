@@ -5,6 +5,8 @@
     home.packages = with pkgs; [
       unstable.steam
       unstable.gamemode
+      unstable.gamescope
+      unstable.gvfs
       unstable.mangohud
       unstable.protonup
       unstable.wine

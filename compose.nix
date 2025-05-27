@@ -115,65 +115,8 @@
       services.earlyoom.freeMemKillThreshold = 3;
       services.earlyoom.freeSwapThreshold = 3;
       services.earlyoom.freeSwapKillThreshold = 3;
-      boot.kernelPackages = # xanmod xanmod_latest rt rt_latest hardened zen
-      (if settings.profile == "image"
-        then pkgs.linuxPackages_latest
-        else
-        (if settings.profile == "server"
-          then pkgs.linuxPackages
-          else
-          (if settings.profile == "workstation"
-            then pkgs.linuxPackages_xanmod
-            else
-            (if settings.profile == "windows-subsystem"
-              then pkgs.linuxPackages
-              else
-              (if settings.profile == "virtual-machine"
-                then pkgs.linuxPackages
-                else null)))));
       boot.readOnlyNixStore = true;
-      boot.blacklistedKernelModules = [ "nouveau" ];
-      boot.kernelParams = [
-        "splash"
-        "quiet"
-        "rd.systemd.show_status=false"
-        "udev.log_level=0"
-        "rd.udev.log_level=0"
-        "udev.log_priority=0"
-        "fastboot"
-        "mitigations=off"
-        "noibrs"
-        "noibpb"
-        "nopti"
-        "nospectre_v1"
-        "nospectre_v2"
-        "l1tf=off"
-        "nospec_store_bypass_disable"
-        "no_stf_barrier"
-        "mds=off"
-        "tsx=on"
-        "tsx_async_abort=off"
-        "nowatchdog"
-        "panic=1"
-        "boot.panic_on_fail"
-        "transparent_hugepage=always"
-        "init_on_alloc=0"
-        "init_on_free=0"
-        "idle=nomwait"
-        "ascpi_osi=Linux"
-        "preempt=full"
-        "uinput"
-      ];
     }
-    (if (settings.profile == "image") then {
-      boot.kernelPatches = [
-        # {patch = ./kernel-patches/tkg-6.14/0001-bore.patch;}
-        # {patch = ./kernel-patches/tkg-6.14/0009-glitched-bmq.patch;}
-        # {patch = ./kernel-patches/tkg-6.14/0012-misc-additions.patch;}
-        # {patch = ./kernel-patches/tkg-6.14/0013-optimize_harder_O3.patch;}
-        # {patch = ./kernel-patches/tkg-6.14/0014-OpenRGB.patch;}
-      ];
-    } else {})
     (if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "workstation") then {
       boot.consoleLogLevel = 0;
       boot.tmp.cleanOnBoot = true;
@@ -192,7 +135,7 @@
       nixpkgs.config.allowUnfree = true;
       environment.systemPackages = [ pkgs.nvtopPackages.full ];
       services.xserver.videoDrivers = [ "nvidia" ];
-      hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest; /* production or latest */
+      hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production; /* production or latest */
       # ^ Works best with boot.kernelPackages = pkgs.linuxPackages;
       hardware.nvidia.powerManagement.enable = true;
       hardware.nvidia.powerManagement.finegrained = true;
@@ -209,8 +152,8 @@
       ];
       hardware.graphics.enable = true;
       hardware.graphics.enable32Bit = true;
-      hardware.nvidia.prime.intelBusId = "PCI:0:2:0";
-      hardware.nvidia.prime.nvidiaBusId = "PCI:9:0:0";
+      hardware.nvidia.prime.intelBusId = settings.graphics.intelBusID;
+      hardware.nvidia.prime.nvidiaBusId = settings.graphics.nvidiaBusID;
       hardware.nvidia.prime.offload.enable = true;
       hardware.nvidia.prime.offload.enableOffloadCmd = true;
     } else {})
@@ -222,7 +165,7 @@
       hardware.graphics.enable = true;
       hardware.graphics.enable32Bit = true;
     } else {})
-    (lib.mkIf (settings.system.automation && settings.profile != "microsoft") {
+    (lib.mkIf (settings.system.automation && settings.profile != "windows-subsystem") {
       system.autoUpgrade.enable = true;
       system.autoUpgrade.flake = inputs.self.outPath;
       system.autoUpgrade.flags = [ "nixpkgs" "-L" ];
@@ -232,9 +175,45 @@
     (lib.mkIf settings.system.security {
       boot.kernelPackages = lib.mkForce pkgs.linuxPackages_hardened;
       boot.kernelParams = [
+        # The Magic SysRq key is a key combo that allows users connected to the
+        # system console of a Linux kernel to perform some low-level commands.
+        # Disable it, since we don't need it, and is a potential security concern.
+        "kernel.sysrq=0"
+
+        # Hide kptrs even for processes with CAP_SYSLOG.
+        # Also prevents printing kernel pointers.
+        "kernel.kptr_restrict=2"
+
+        # Disable bpf() JIT (to eliminate spray attacks).
+        "net.core.bpf_jit_enable=0"
+
+        # Disable ftrace debugging.
+        "kernel.ftrace_enabled=false"
+
+        # Avoid kernel memory address exposures via dmesg (this value can also be set by CONFIG_SECURITY_DMESG_RESTRICT).
+        "kernel.dmesg_restrict=1"
+
+        # Prevent unintentional fifo writes.
+        "fs.protected_fifos=2"
+
+        # Prevent unintended writes to already-created files.
+        "fs.protected_regular=2"
+
+        # Disable SUID binary dump.
+        "fs.suid_dumpable=0"
+
+        # Disallow profiling at all levels without CAP_SYS_ADMIN.
+        "kernel.perf_event_paranoid=3"
+
+        # Require CAP_BPF to use bpf.
+        "kernel.unprvileged_bpf_disabled=1"
+
         "slab_nomerge"
+
         "page_poison=1"
+
         "page_alloc.shuffle=1"
+
         "debugfs=off"
       ];
       security.lockKernelModules = true;

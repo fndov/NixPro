@@ -129,6 +129,7 @@
             # Volume and Media Control.
             ",XF86AudioRaiseVolume,exec,nice -1 swayosd-client --output-volume raise"
             ",XF86AudioLowerVolume,exec,nice -1 swayosd-client --output-volume lower"
+            ",XF86PowerOff,exec,systemctl hibernate || systemctl poweroff"
             "SUPER,XF86AudioRaiseVolume,exec,nice -1 swayosd-client --output-volume raise --max-volume 200"
             "SUPER,XF86AudioLowerVolume,exec,nice -1 swayosd-client --output-volume lower --max-volume 200"
             ",XF86AudioMute,exec,nice -1 swayosd-client --output-volume mute-toggle"

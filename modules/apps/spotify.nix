@@ -10,6 +10,6 @@
       shuffle
     ];
     programs.spicetify.theme = spicePkgs.themes.catppuccin;
-    programs.spicetify.colorScheme = "mocha";
+    programs.spicetify.colorScheme = "frappe";
   };
 }

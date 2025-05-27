@@ -14,6 +14,7 @@
       video-trimmer
       krita
       /*
+        qbittorrent
         amberol
         unstable.godot_4
         unstable.blender
@@ -26,7 +27,6 @@
         gnome-calendar
         kwrited
         baobab
-        qbittorrent
         veracrypt
         k3b # Broken Wed Apr  2 04:27:23 PM CDT 2025
         vscode

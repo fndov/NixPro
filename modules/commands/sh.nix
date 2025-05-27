@@ -31,6 +31,7 @@
     };
   in {
     home.packages = with pkgs; [
+      unstable.appimage-run
       unstable.eza
       unstable.fd
       glib

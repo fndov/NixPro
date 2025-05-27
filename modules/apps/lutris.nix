@@ -4,9 +4,11 @@
   in {
     home.packages = with pkgs; [
       lutris
+      unstable.gamemode
       unstable.gamescope
-      unstable.protonup
+      unstable.gvfs
       unstable.mangohud
+      unstable.protonup
       unstable.wine
       unstable.vulkan-tools
       unstable.vulkan-loader

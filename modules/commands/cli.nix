@@ -23,7 +23,6 @@
       file
       unstable.nixd
       unstable.nil
-      unstable.appimage-run
       unstable.gdu
       unstable.htop
       unstable.fastfetch
