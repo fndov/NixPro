@@ -1,0 +1,86 @@
+{ inputs, pkgs, settings, ... }: {
+  home-manager.users.${settings.account.name} = { ... }: let
+    unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; };
+  in {
+    nixpkgs.config.allowUnfree = true;
+    home.packages = with pkgs; [ ];
+  };
+  /*
+    python312Full
+    python312Packages.python-lsp-server
+    unstable.python312Packages.ollama
+    cffi
+    dbus-python
+    wheel
+    pyyaml
+    zipp
+    xlib
+    libvirt
+    pybind11
+    pyatspi
+    attrs
+    autocommand
+    bcrypt
+    pycairo
+    certifi
+    chardet
+    click
+    cryptography
+    cssselect
+    python-dateutil
+    distro
+    dnspython
+    evdev
+    ewmh
+    fastjsonschema
+    fido2
+    python-gnupg
+    pygobject3
+    idna
+    importlib-metadata
+    inflect
+    isodate
+    jeepney
+    keyring
+    lxml
+    markdown
+    markupsafe
+    more-itertools
+    numpy
+    ordered-set
+    packaging
+    pillow
+    pip
+    platformdirs
+    ply
+    prettytable
+    proton-client
+    protonvpn-nm-lib
+    psutil
+    pulsectl
+    pycparser
+    pycups
+    pycurl
+    pydantic
+    pyinotify
+    pyopenssl
+    pyparsing
+    pyqt5
+    pyqt5_sip
+    pyscard
+    pythondialog
+    pyxdg
+    rdflib
+    requests
+    secretstorage
+    setproctitle
+    setuptools
+    six
+    systemd
+    tomli
+    urllib3
+    wcwidth
+    websockets
+    python-zbar
+  */
+}

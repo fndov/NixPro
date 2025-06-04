@@ -1,0 +1,553 @@
+From e5e77ad2223f662e1615266d8ef39a8db7e65a70 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20H=C3=A4dicke?= <felixhaedicke@web.de>
+Date: Thu, 19 Nov 2020 09:22:32 +0100
+Subject: HID: quirks: Add Apple Magic Trackpad 2 to hid_have_special_driver
+ list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The Apple Magic Trackpad 2 is handled by the magicmouse driver. And
+there were severe stability issues when both drivers (hid-generic and
+hid-magicmouse) were loaded for this device.
+
+Fixes: https://bugzilla.kernel.org/show_bug.cgi?id=210241
+
+Signed-off-by: Felix Hädicke <felixhaedicke@web.de>
+---
+ drivers/hid/hid-quirks.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/hid/hid-quirks.c b/drivers/hid/hid-quirks.c
+index bf7ecab5d9e5..142e9dae2837 100644
+--- a/drivers/hid/hid-quirks.c
++++ b/drivers/hid/hid-quirks.c
+@@ -478,6 +478,8 @@ static const struct hid_device_id hid_have_special_driver[] = {
+ #if IS_ENABLED(CONFIG_HID_MAGICMOUSE)
+ 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_MAGICMOUSE) },
+ 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_MAGICTRACKPAD) },
++	{ HID_BLUETOOTH_DEVICE(BT_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_MAGICTRACKPAD2) },
++	{ HID_USB_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_MAGICTRACKPAD2) },
+ #endif
+ #if IS_ENABLED(CONFIG_HID_MAYFLASH)
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_DRAGONRISE, USB_DEVICE_ID_DRAGONRISE_PS3) },
+-- 
+cgit v1.2.3-1-gf6bb5
+
+From f7f49141a5dbe9c99d78196b58c44307fb2e6be3 Mon Sep 17 00:00:00 2001
+From: Tk-Glitch <ti3nou@gmail.com>
+Date: Wed, 3 Feb 2021 11:20:12 +0200
+Subject: Revert "cpufreq: Avoid configuring old governors as default with intel_pstate"
+
+This is an undesirable behavior for us since our aggressive ondemand performs
+better than schedutil for gaming when using intel_pstate in passive mode.
+Also it interferes with the option to select the desired default governor we have.
+
+diff --git a/drivers/cpufreq/Kconfig b/drivers/cpufreq/Kconfig
+index 2c7171e0b0010..85de313ddec29 100644
+--- a/drivers/cpufreq/Kconfig
++++ b/drivers/cpufreq/Kconfig
+@@ -71,7 +71,6 @@ config CPU_FREQ_DEFAULT_GOV_USERSPACE
+ 
+ config CPU_FREQ_DEFAULT_GOV_ONDEMAND
+ 	bool "ondemand"
+-	depends on !(X86_INTEL_PSTATE && SMP)
+ 	select CPU_FREQ_GOV_ONDEMAND
+ 	select CPU_FREQ_GOV_PERFORMANCE
+ 	help
+@@ -83,7 +84,6 @@ config CPU_FREQ_DEFAULT_GOV_ONDEMAND
+ 
+ config CPU_FREQ_DEFAULT_GOV_CONSERVATIVE
+ 	bool "conservative"
+-	depends on !(X86_INTEL_PSTATE && SMP)
+ 	select CPU_FREQ_GOV_CONSERVATIVE
+ 	select CPU_FREQ_GOV_PERFORMANCE
+ 	help
+
+From 3a88b77d3cb9f9cd8a8aee052ab479b73aeb2e80 Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
+Date: Sat, 13 Jan 2024 15:29:25 +0100
+Subject: [PATCH] arch/Kconfig: Default to maximum amount of ASLR bits
+
+To mitigate https://zolutal.github.io/aslrnt/; do this with a patch to
+avoid having to enable `CONFIG_EXPERT`.
+---
+ arch/Kconfig | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/Kconfig b/arch/Kconfig
+index f4b210ab061291..837d0dbb28ea08 100644
+--- a/arch/Kconfig
++++ b/arch/Kconfig
+@@ -1032,7 +1032,7 @@ config ARCH_MMAP_RND_BITS
+ 	int "Number of bits to use for ASLR of mmap base address" if EXPERT
+ 	range ARCH_MMAP_RND_BITS_MIN ARCH_MMAP_RND_BITS_MAX
+ 	default ARCH_MMAP_RND_BITS_DEFAULT if ARCH_MMAP_RND_BITS_DEFAULT
+-	default ARCH_MMAP_RND_BITS_MIN
++	default ARCH_MMAP_RND_BITS_MAX
+ 	depends on HAVE_ARCH_MMAP_RND_BITS
+ 	help
+ 	  This value can be used to select the number of bits to use to
+@@ -1066,7 +1066,7 @@ config ARCH_MMAP_RND_COMPAT_BITS
+ 	int "Number of bits to use for ASLR of mmap base address for compatible applications" if EXPERT
+ 	range ARCH_MMAP_RND_COMPAT_BITS_MIN ARCH_MMAP_RND_COMPAT_BITS_MAX
+ 	default ARCH_MMAP_RND_COMPAT_BITS_DEFAULT if ARCH_MMAP_RND_COMPAT_BITS_DEFAULT
+-	default ARCH_MMAP_RND_COMPAT_BITS_MIN
++	default ARCH_MMAP_RND_COMPAT_BITS_MAX
+ 	depends on HAVE_ARCH_MMAP_RND_COMPAT_BITS
+ 	help
+ 	  This value can be used to select the number of bits to use to
+
+From 299b81f3e619aea3ceda77d7c42842a496b34a53 Mon Sep 17 00:00:00 2001
+From: Peter Jung <admin@ptr1337.dev>
+Date: Thu, 21 Mar 2024 19:00:50 +0100
+Subject: [PATCH] cachy: move AMD_PRIVATE_COLOR to Kconfig
+
+Co-authored-by: PedroHLC <root@pedrohlc.com>
+Signed-off-by: Peter Jung <admin@ptr1337.dev>
+---
+ drivers/gpu/drm/amd/display/Kconfig                     | 6 ++++++
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c       | 2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c  | 6 +++---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 6 +++---
+ 5 files changed, 14 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
+index 901d1961b73927..05c49141f5802f 100644
+--- a/drivers/gpu/drm/amd/display/Kconfig
++++ b/drivers/gpu/drm/amd/display/Kconfig
+@@ -51,4 +51,10 @@ config DRM_AMD_SECURE_DISPLAY
+ 	  This option enables the calculation of crc of specific region via
+ 	  debugfs. Cooperate with specific DMCU FW.
+
++config AMD_PRIVATE_COLOR
++	bool "Enable KMS color management by AMD for AMD"
++	default n
++	help
++	  This option extends the KMS color management API with AMD driver-specific properties to enhance the color management support on AMD Steam Deck.
++
+ endmenu
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 59d2eee72a3297..0a4e75de95c257 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4078,7 +4078,7 @@ static int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
+ 		return r;
+ 	}
+ 
+-#ifdef AMD_PRIVATE_COLOR
++#ifdef CONFIG_AMD_PRIVATE_COLOR
+ 	if (amdgpu_dm_create_color_properties(adev)) {
+ 		dc_state_release(state->context);
+ 		kfree(state);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index c87b64e464ed5c..6fe07243adc3d5 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -97,7 +97,7 @@ static inline struct fixed31_32 amdgpu_dm_fixpt_from_s3132(__u64 x)
+ 	return val;
+ }
+
+-#ifdef AMD_PRIVATE_COLOR
++#ifdef CONFIG_AMD_PRIVATE_COLOR
+ /* Pre-defined Transfer Functions (TF)
+  *
+  * AMD driver supports pre-defined mathematical functions for transferring
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index 6e715ef3a5566e..11c7199ec3b348 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -290,7 +290,7 @@ static int amdgpu_dm_crtc_late_register(struct drm_crtc *crtc)
+ }
+ #endif
+
+-#ifdef AMD_PRIVATE_COLOR
++#ifdef CONFIG_AMD_PRIVATE_COLOR
+ /**
+  * dm_crtc_additional_color_mgmt - enable additional color properties
+  * @crtc: DRM CRTC
+@@ -372,7 +372,7 @@ static const struct drm_crtc_funcs amdgpu_dm_crtc_funcs = {
+ #if defined(CONFIG_DEBUG_FS)
+ 	.late_register = amdgpu_dm_crtc_late_register,
+ #endif
+-#ifdef AMD_PRIVATE_COLOR
++#ifdef CONFIG_AMD_PRIVATE_COLOR
+ 	.atomic_set_property = amdgpu_dm_atomic_crtc_set_property,
+ 	.atomic_get_property = amdgpu_dm_atomic_crtc_get_property,
+ #endif
+@@ -551,7 +551,7 @@ int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
+
+ 	drm_mode_crtc_set_gamma_size(&acrtc->base, MAX_COLOR_LEGACY_LUT_ENTRIES);
+
+-#ifdef AMD_PRIVATE_COLOR
++#ifdef CONFIG_AMD_PRIVATE_COLOR
+ 	dm_crtc_additional_color_mgmt(&acrtc->base);
+ #endif
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 8a4c40b4c27e4f..779880c6457553 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1468,7 +1468,7 @@ static void amdgpu_dm_plane_drm_plane_destroy_state(struct drm_plane *plane,
+ 	drm_atomic_helper_plane_destroy_state(plane, state);
+ }
+
+-#ifdef AMD_PRIVATE_COLOR
++#ifdef CONFIG_AMD_PRIVATE_COLOR
+ static void
+ dm_atomic_plane_attach_color_mgmt_properties(struct amdgpu_display_manager *dm,
+ 					     struct drm_plane *plane)
+@@ -1659,7 +1659,7 @@ static const struct drm_plane_funcs dm_plane_funcs = {
+ 	.atomic_duplicate_state = amdgpu_dm_plane_drm_plane_duplicate_state,
+ 	.atomic_destroy_state = amdgpu_dm_plane_drm_plane_destroy_state,
+ 	.format_mod_supported = amdgpu_dm_plane_format_mod_supported,
+-#ifdef AMD_PRIVATE_COLOR
++#ifdef CONFIG_AMD_PRIVATE_COLOR
+ 	.atomic_set_property = dm_atomic_plane_set_property,
+ 	.atomic_get_property = dm_atomic_plane_get_property,
+ #endif
+@@ -1742,7 +1742,7 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+
+ 	drm_plane_helper_add(plane, &dm_plane_helper_funcs);
+
+-#ifdef AMD_PRIVATE_COLOR
++#ifdef CONFIG_AMD_PRIVATE_COLOR
+ 	dm_atomic_plane_attach_color_mgmt_properties(dm, plane);
+ #endif
+ 	/* Create (reset) the plane state */
+
+From f1807682de0edbff6c1e46b19642a517d2e15c57 Mon Sep 17 00:00:00 2001
+From: Tk-Glitch <ti3nou@gmail.com>
+Date: Sat, 13 Apr 2024 18:25:35 +0530
+Subject: revert "drm/amd/pm: Fetch current power limit from FW"
+
+Fetching FW value prevents power limit modification by the user.
+The "out-of-band ways" are unclear.
+This fixes 7700/7800 XT custom powercap.
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index a54663f2e2ab9f..7ffad3eb0a0150 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -2703,7 +2703,6 @@ int smu_get_power_limit(void *handle,
+ 		case SMU_PPT_LIMIT_CURRENT:
+ 			switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
+ 			case IP_VERSION(13, 0, 2):
+-			case IP_VERSION(13, 0, 6):
+ 			case IP_VERSION(13, 0, 14):
+ 			case IP_VERSION(11, 0, 7):
+ 			case IP_VERSION(11, 0, 11):
+
+From f03da22e562a7d65a97926a76f61daeef8a1eb0d Mon Sep 17 00:00:00 2001
+From: Steven Barrett <steven@liquorix.net>
+Date: Fri, 15 Mar 2024 12:36:51 -0500
+Subject: [PATCH] ZEN: drm/amdgpu/pm: Allow override of min_power_limit with
+ ignore_min_pcap
+
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h       |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c   | 10 ++++++++++
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c        |  3 +++
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 14 ++++++++++++--
+ 4 files changed, 26 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 69895fccb474ae..5884de0f23bb14 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -160,6 +160,7 @@ struct amdgpu_watchdog_timer {
+  */
+ extern int amdgpu_modeset;
+ extern unsigned int amdgpu_vram_limit;
++extern int amdgpu_ignore_min_pcap;
+ extern int amdgpu_vis_vram_limit;
+ extern int amdgpu_gart_size;
+ extern int amdgpu_gtt_size;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index c0ddbe7d6f0bc5..73b1a742c5e439 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -139,6 +139,7 @@ enum AMDGPU_DEBUG_MASK {
+ };
+ 
+ unsigned int amdgpu_vram_limit = UINT_MAX;
++int amdgpu_ignore_min_pcap = 0; /* do not ignore by default */
+ int amdgpu_vis_vram_limit;
+ int amdgpu_gart_size = -1; /* auto */
+ int amdgpu_gtt_size = -1; /* auto */
+@@ -257,6 +258,15 @@ struct amdgpu_watchdog_timer amdgpu_watchdog_timer = {
+ 	.period = 0x0, /* default to 0x0 (timeout disable) */
+ };
+ 
++/**
++ * DOC: ignore_min_pcap (int)
++ * Ignore the minimum power cap.
++ * Useful on graphics cards where the minimum power cap is very high.
++ * The default is 0 (Do not ignore).
++ */
++MODULE_PARM_DESC(ignore_min_pcap, "Ignore the minimum power cap");
++module_param_named(ignore_min_pcap, amdgpu_ignore_min_pcap, int, 0600);
++
+ /**
+  * DOC: vramlimit (int)
+  * Restrict the total amount of VRAM in MiB for testing.  The default is 0 (Use full VRAM).
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 77b1f061bbf0b4..89ffc9fd946373 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -3180,6 +3180,9 @@ static ssize_t amdgpu_hwmon_show_power_cap_min(struct device *dev,
+ 					 struct device_attribute *attr,
+ 					 char *buf)
+ {
++	if (amdgpu_ignore_min_pcap)
++		return sysfs_emit(buf, "%i\n", 0);
++
+ 	return amdgpu_hwmon_show_power_cap_generic(dev, attr, buf, PP_PWR_LIMIT_MIN);
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index ed9dac00ebfb18..b3fd5e9df44c6f 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -2823,7 +2823,10 @@ int smu_get_power_limit(void *handle,
+ 			*limit = smu->max_power_limit;
+ 			break;
+ 		case SMU_PPT_LIMIT_MIN:
+-			*limit = smu->min_power_limit;
++			if (amdgpu_ignore_min_pcap)
++				*limit = 0;
++			else
++				*limit = smu->min_power_limit;
+ 			break;
+ 		default:
+ 			return -EINVAL;
+@@ -2847,7 +2850,14 @@ static int smu_set_power_limit(void *handle, uint32_t limit)
+ 		if (smu->ppt_funcs->set_power_limit)
+ 			return smu->ppt_funcs->set_power_limit(smu, limit_type, limit);
+ 
+-	if ((limit > smu->max_power_limit) || (limit < smu->min_power_limit)) {
++	if (amdgpu_ignore_min_pcap) {
++		if ((limit > smu->max_power_limit)) {
++			dev_err(smu->adev->dev,
++				"New power limit (%d) is over the max allowed %d\n",
++				limit, smu->max_power_limit);
++			return -EINVAL;
++		}
++	} else if ((limit > smu->max_power_limit) || (limit < smu->min_power_limit)) {
+ 		dev_err(smu->adev->dev,
+ 			"New power limit (%d) is out of range [%d,%d]\n",
+ 			limit, smu->min_power_limit, smu->max_power_limit);
+
+From d4ca2fd218caafbf50e3343ba1260c6a23b5676a Mon Sep 17 00:00:00 2001
+From: Tk-Glitch <ti3nou@gmail.com>
+Date: Sun, 24 Apr 2025 23:38:21 +0200
+Subject: REVERT: Bluetooth: l2cap: Check encryption key size on incoming connection
+
+Reverts upstream commit 522e9ed157e3c21b4dd623c79967f72c21e45b78 due to a regression
+with multiple devices, notably Dualshock 4 and Dualsense gamepads
+
+---
+ net/bluetooth/l2cap_core.c | 3 --+
+ 1 file changed, 1 insertions(+), 2 deletion(-)
+
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index c27ea70f71e1e1..499e38ed639e60 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -3956,8 +3956,7 @@ static void l2cap_connect(struct l2cap_conn *conn, struct l2cap_cmd_hdr *cmd,
+
+ 	/* Check if the ACL is secure enough (if not SDP) */
+ 	if (psm != cpu_to_le16(L2CAP_PSM_SDP) &&
+-	    (!hci_conn_check_link_mode(conn->hcon) ||
+-	    !l2cap_check_enc_key_size(conn->hcon))) {
++	    !hci_conn_check_link_mode(conn->hcon)) {
+ 		conn->disc_reason = HCI_ERROR_AUTH_FAILURE;
+ 		result = L2CAP_CR_SEC_BLOCK;
+ 		goto response;
+
+From 26f452f76a41a44be2f6e6b171433a2115972c44 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Sergio=20Gonz=C3=A1lez=20Collado?=
+ <sergio.collado@gmail.com>
+Date: Sun, 2 Mar 2025 23:15:18 +0100
+Subject: [PATCH] Kunit to check the longest symbol length
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The longest length of a symbol (KSYM_NAME_LEN) was increased to 512
+in the reference [1]. This patch adds kunit test suite to check the longest
+symbol length. These tests verify that the longest symbol length defined
+is supported.
+
+This test can also help other efforts for longer symbol length,
+like [2].
+
+The test suite defines one symbol with the longest possible length.
+
+The first test verify that functions with names of the created
+symbol, can be called or not.
+
+The second test, verify that the symbols are created (or
+not) in the kernel symbol table.
+
+[1] https://lore.kernel.org/lkml/20220802015052.10452-6-ojeda@kernel.org/
+[2] https://lore.kernel.org/lkml/20240605032120.3179157-1-song@kernel.org/
+
+Tested-by: Martin Rodriguez Reboredo <yakoyoku@gmail.com>
+Reviewed-by: Shuah Khan <skhan@linuxfoundation.org>
+Reviewed-by: Rae Moar <rmoar@google.com>
+Signed-off-by: Sergio González Collado <sergio.collado@gmail.com>
+Link: https://github.com/Rust-for-Linux/linux/issues/504
+Source: https://lore.kernel.org/rust-for-linux/20250302221518.76874-1-sergio.collado@gmail.com/
+Cherry-picked-for: https://gitlab.archlinux.org/archlinux/packaging/packages/linux/-/issues/63
+---
+ arch/x86/tools/insn_decoder_test.c |  3 +-
+ lib/Kconfig.debug                  |  9 ++++
+ lib/Makefile                       |  2 +
+ lib/longest_symbol_kunit.c         | 82 ++++++++++++++++++++++++++++++
+ 4 files changed, 95 insertions(+), 1 deletion(-)
+ create mode 100644 lib/longest_symbol_kunit.c
+
+diff --git a/arch/x86/tools/insn_decoder_test.c b/arch/x86/tools/insn_decoder_test.c
+index 472540aeabc235..6c2986d2ad1174 100644
+--- a/arch/x86/tools/insn_decoder_test.c
++++ b/arch/x86/tools/insn_decoder_test.c
+@@ -10,6 +10,7 @@
+ #include <assert.h>
+ #include <unistd.h>
+ #include <stdarg.h>
++#include <linux/kallsyms.h>
+ 
+ #define unlikely(cond) (cond)
+ 
+@@ -106,7 +107,7 @@ static void parse_args(int argc, char **argv)
+ 	}
+ }
+ 
+-#define BUFSIZE 256
++#define BUFSIZE (256 + KSYM_NAME_LEN)
+ 
+ int main(int argc, char **argv)
+ {
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 35796c290ca351..a6da7f4411f461 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -2838,6 +2838,15 @@ config FORTIFY_KUNIT_TEST
+ 	  by the str*() and mem*() family of functions. For testing runtime
+ 	  traps of FORTIFY_SOURCE, see LKDTM's "FORTIFY_*" tests.
+ 
++config LONGEST_SYM_KUNIT_TEST
++	tristate "Test the longest symbol possible" if !KUNIT_ALL_TESTS
++	depends on KUNIT && KPROBES
++	default KUNIT_ALL_TESTS
++	help
++	  Tests the longest symbol possible
++
++	  If unsure, say N.
++
+ config HW_BREAKPOINT_KUNIT_TEST
+ 	bool "Test hw_breakpoint constraints accounting" if !KUNIT_ALL_TESTS
+ 	depends on HAVE_HW_BREAKPOINT
+diff --git a/lib/Makefile b/lib/Makefile
+index 4f3d00a2fd6592..9a54526008d0a5 100644
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -398,6 +398,8 @@ obj-$(CONFIG_FORTIFY_KUNIT_TEST) += fortify_kunit.o
+ obj-$(CONFIG_CRC_KUNIT_TEST) += crc_kunit.o
+ obj-$(CONFIG_SIPHASH_KUNIT_TEST) += siphash_kunit.o
+ obj-$(CONFIG_USERCOPY_KUNIT_TEST) += usercopy_kunit.o
++obj-$(CONFIG_LONGEST_SYM_KUNIT_TEST) += longest_symbol_kunit.o
++CFLAGS_longest_symbol_kunit.o += $(call cc-disable-warning, missing-prototypes)
+ 
+ obj-$(CONFIG_GENERIC_LIB_DEVMEM_IS_ALLOWED) += devmem_is_allowed.o
+ 
+diff --git a/lib/longest_symbol_kunit.c b/lib/longest_symbol_kunit.c
+new file mode 100644
+index 00000000000000..e3c28ff1807f0d
+--- /dev/null
++++ b/lib/longest_symbol_kunit.c
+@@ -0,0 +1,82 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Test the longest symbol length. Execute with:
++ *  ./tools/testing/kunit/kunit.py run longest-symbol
++ *  --arch=x86_64 --kconfig_add CONFIG_KPROBES=y --kconfig_add CONFIG_MODULES=y
++ *  --kconfig_add CONFIG_RETPOLINE=n --kconfig_add CONFIG_CFI_CLANG=n
++ *  --kconfig_add CONFIG_MITIGATION_RETPOLINE=n
++ */
++
++#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
++
++#include <kunit/test.h>
++#include <linux/stringify.h>
++#include <linux/kprobes.h>
++#include <linux/kallsyms.h>
++
++#define DI(name) s##name##name
++#define DDI(name) DI(n##name##name)
++#define DDDI(name) DDI(n##name##name)
++#define DDDDI(name) DDDI(n##name##name)
++#define DDDDDI(name) DDDDI(n##name##name)
++
++/*Generate a symbol whose name length is 511 */
++#define LONGEST_SYM_NAME  DDDDDI(g1h2i3j4k5l6m7n)
++
++#define RETURN_LONGEST_SYM 0xAAAAA
++
++noinline int LONGEST_SYM_NAME(void);
++noinline int LONGEST_SYM_NAME(void)
++{
++	return RETURN_LONGEST_SYM;
++}
++
++_Static_assert(sizeof(__stringify(LONGEST_SYM_NAME)) == KSYM_NAME_LEN,
++"Incorrect symbol length found. Expected KSYM_NAME_LEN: "
++__stringify(KSYM_NAME_LEN) ", but found: "
++__stringify(sizeof(LONGEST_SYM_NAME)));
++
++static void test_longest_symbol(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, RETURN_LONGEST_SYM, LONGEST_SYM_NAME());
++};
++
++static void test_longest_symbol_kallsyms(struct kunit *test)
++{
++	unsigned long (*kallsyms_lookup_name)(const char *name);
++	static int (*longest_sym)(void);
++
++	struct kprobe kp = {
++		.symbol_name = "kallsyms_lookup_name",
++	};
++
++	if (register_kprobe(&kp) < 0) {
++		pr_info("%s: kprobe not registered", __func__);
++		KUNIT_FAIL(test, "test_longest_symbol kallsyms: kprobe not registered\n");
++		return;
++	}
++
++	kunit_warn(test, "test_longest_symbol kallsyms: kprobe registered\n");
++	kallsyms_lookup_name = (unsigned long (*)(const char *name))kp.addr;
++	unregister_kprobe(&kp);
++
++	longest_sym =
++		(void *) kallsyms_lookup_name(__stringify(LONGEST_SYM_NAME));
++	KUNIT_EXPECT_EQ(test, RETURN_LONGEST_SYM, longest_sym());
++};
++
++static struct kunit_case longest_symbol_test_cases[] = {
++	KUNIT_CASE(test_longest_symbol),
++	KUNIT_CASE(test_longest_symbol_kallsyms),
++	{}
++};
++
++static struct kunit_suite longest_symbol_test_suite = {
++	.name = "longest-symbol",
++	.test_cases = longest_symbol_test_cases,
++};
++kunit_test_suite(longest_symbol_test_suite);
++
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("Test the longest symbol length");
++MODULE_AUTHOR("Sergio González Collado");

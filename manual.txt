@@ -1,0 +1,99 @@
+https://nixos.wiki/wiki/WSL
+https://search.nixos.org/packages
+https://search.nixos.org/options
+https://home-manager-options.extranix.com/
+https://wiki.hyprland.org/Configuring/Variables/
+https://github.com/search?q=+language%3ANix&type=code
+https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/nvidia-x11/default.nix
+https://ops.functionalalgebra.com/2016/06/14/nixos-systemd-journald/
+
+WSL Swap is set in the 'WSL Settings' app and not in the configuration.
+
+Reference commands:
+nix-shell -p clang clang --command bash --run 'clang input.cc -o result'
+nix shell nixpkgs/nixos-24.05#youtube-dl --command youtube-dl --version
+nix shell nixpkgs/nixos-20.03#youtube-dl --command youtube-dl --version
+nix-shell -I nixpkgs=channel:nixos-unstable -p hello
+Opening packages:
+cd $(nix-build '<nixpkgs>' -A intel-gpu-tools --no-out-link)
+Btrfs commands:
+btrfs filesystem defragment -czstd -v -r /path/to/target
+sudo btrfs fi df /
+sudo compsize -x /path/to/target
+Dock order:
+edit ~/.cache/nwg-dock-pinned
+
+Code for zswap over zram:
+  zramSwap.enable = builtins.elem settings.profile [ "image" "workstation" "virtual-machine" "server" ];
+  zramSwap.memoryPercent = 100; # 30
+  zramSwap.algorithm = "zstd -Xcompression-level 22";
+  zramSwap.priority = 3;
+      
+Settings:
+  profile = "standalone" Apple Image Microsoft Server Standalone Virtual-Machine
+  Driver:
+    graphics = "nvidia" GPU driver
+    networking = true   Whether to install networking drivers
+    bluetooth = true    Whether to install bluetooth drivers
+    usbmuxd = true      IOS USB driver
+  }
+  System:
+    version = "24.11"             NixPkgs Version
+    architecture = "x86_64-linux" System arch
+    bootMode = "uefi"             Uefi or Bios
+    grubDevice = "/dev/sda"       Device identifier for grub; only used for legacy (bios) boot mode
+    bootMountPath = "/boot"       Mount path for efi boot partition; only used for uefi boot mode
+    flakePath = ".nixpro"         /home/${settings.account.name}/${settings.system.flakePath/contents
+    automation = false            Garbage collection, updates, builds etc
+    printing = true               Includes CUPS and other printing utilities
+    timezone = true               Sets timezone
+    security = false              Uses the hardend kernel, locks kernel modules and enables audits
+    sshd = false                  Allows SSH connections
+  User:
+    name = "miyu"                 User account name
+    password = "unlock"           User & Root password
+    email = ""                    Default git email address
+    terminal = "ghostty"          Terminal emulator for desktop environments
+    shell = "fish"                Shell for the user account
+    editor = "micro"              Text editor for the user account
+    browser = "firefox"           Web browser for the user account
+  Desktop:
+    type = "hyprland"             Desktop module name. Set null for no desktop
+    font = "Noto"                 Default font for the desktop environment
+    fontPkg = pkgs.noto-fonts     Name of font package
+    wallpaperPath = "Picturescatppuccin" /home/${settings.account.name}/${settings.desktop.wallpaperPath}/
+    wallpaperName = "background.png" /home/${settings.account.name}/${settings.desktop.wallpaperPath}/${settings.desktop.wallpaperName}
+    animationSpeed = "medium"     Slow Medium Fast
+
+Import flow:
+flake.nix
+- profile/<profile>/hardware.nix
+- profile/<profile>/default.nix
+- compose.nix
+- desktop/<type>.nix
+- modules/apps/<terminal>.nix
+- modules/apps/<browser>.nix
+
+Every directory contains a `system.nix` & `home.nix` for easy separation between the system settings and home manager
+
+Compose.nix contains universal modules for common & dynamic options imported by every build
+Modules/ is for extra features
+Profiles/ are for different PC types (standard install or server etc)
+Desktop/ is for the desktop environment or window manager
+
+Trouble shooting, if you see: DBI connect('dbname=/nix/var/nix/profiles/per-user/root/channels/nixos/programs.sqlite
+it means you don't have the channel data cached in '/root/.cache/nix' which is a problem of flakes,
+you can add the channel with `sudo nix-channel --add https://nixos.org/channels/nixos-24.05 nixos` `sudo nix-channel --update`
+
+If you collect all garbage : 
+  sudo nix-collect-garbage & nix-collect-garbage
+but still have generations left over :
+  sudo nix-env --list-generations --profile /nix/var/nix/profiles/system | wc -l
+then use :
+  sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations #
+to delete the unused generations and then run :
+  sudo nix-collect-garbage & nix-collect-garbage
+
+cp -r /home/miyu/.steam/root/compatibilitytools.d/GE-Proton9-27 ~/.local/share/lutris/runners/wine/
+mv ~/.local/share/lutris/runners/wine/GE-Proton9-27/files/* ~/.local/share/lutris/runners/wine/GE-Proton9-27/
+rmdir ~/.local/share/lutris/runners/wine/GE-Proton9-27/files/
