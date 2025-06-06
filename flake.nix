@@ -21,7 +21,7 @@
       };
       system = {
         version = "25.05";
-        architecture = "x86_64-linux"; # aarch64-linux x86_64-linux
+        architecture = "x86_64-linux"; # aarch64-linux
         bootMode = "uefi";
         grubDevice = "/dev/sda";
         bootMountPath = "/boot";

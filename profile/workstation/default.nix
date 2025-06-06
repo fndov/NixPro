@@ -5,7 +5,7 @@
   ../../modules/apps/collection.nix
   ../../modules/apps/spotify.nix
   ../../modules/apps/lutris.nix
-  ../../modules/apps/virtualize.nix
+  # ../../modules/apps/virtualize.nix
   ];
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
   boot.kernelPatches = [ /*

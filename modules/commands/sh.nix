@@ -28,6 +28,7 @@
       else "nice -1 ${settings.account.editor}";
       cattree = "find . -type f -exec grep -Iq . {} \\; -print | xargs cat";
       offload = "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia";
+      gc = "git clone";
     };
   in {
     home.packages = with pkgs; [

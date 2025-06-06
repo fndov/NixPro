@@ -5,6 +5,7 @@
     home.packages = with pkgs; [
       waybar
       networkmanagerapplet
+      pavucontrol
     ];
     wayland.windowManager.hyprland.settings.exec-once = [
       "nice -1 waybar"
@@ -170,6 +171,8 @@
           "hyprland/window" = {
             "format" = "{}";
             "separate-outputs" = true;
+            "on-click" = "pavucontrol";
+            "tooltip" = false;
           };
 
           "cpu#combined" = {
@@ -340,6 +343,7 @@
         #custom-menu,
         #custom-power-profile,
         #custom-data-usage,
+        #window,
         #mpd {
           padding: 0 3px;
           color: #c0caf5;
@@ -377,7 +381,8 @@
         #custom-menu:hover,
         #custom-power-profile:hover,
         #pulseaudio:hover,
-        #pulseaudio#combined:hover {
+        #pulseaudio#combined:hover,
+        #window:hover {
           background: rgba(0, 0, 0, 0.2);
           color: #ffffff;
         }
