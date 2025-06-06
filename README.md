@@ -1,5 +1,5 @@
 ### NixPro - 📸 Photograph
-![2025-05-24_11-17-53](https://github.com/user-attachments/assets/c39739ee-9967-48a5-a32d-aab0a0cfd8fa)
+![2025-06-05_20-00-46](https://github.com/user-attachments/assets/c1fb13b9-9f2c-4bbb-881b-c7bb6175d8d6)
 ---
 #### File structure & composition
 ```
