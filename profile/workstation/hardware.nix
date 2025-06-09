@@ -23,7 +23,7 @@
         "subvol=@"
         "autodefrag"
         "space_cache=v2"
-        "compress=zstd:4"
+        "compress=zstd:5"
         "noatime"
         "nodiratime"
         "discard=async"

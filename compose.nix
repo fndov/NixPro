@@ -175,6 +175,12 @@
       system.autoUpgrade.randomizedDelaySec = "45min";
     })
     (lib.mkIf settings.system.security {
+      security.tpm2.enable = true;
+      networking.firewall.enable = true;
+      security.auditd.enable = true;
+      security.audit.enable = true;
+      security.lockKernelModules = true;
+      security.protectKernelImage = true;
       boot.kernelPackages = lib.mkForce pkgs.linuxPackages_hardened;
       boot.kernelParams = [
         # The Magic SysRq key is a key combo that allows users connected to the
@@ -218,11 +224,6 @@
 
         "debugfs=off"
       ];
-      security.lockKernelModules = true;
-      security.auditd.enable = true;
-      security.audit.enable = true;
-      security.protectKernelImage = true;
-      networking.firewall.enable = true;
     })
     (lib.mkIf settings.system.sshd {
       services.openssh.enable = true;
