@@ -5,7 +5,6 @@
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
       /* Essential */
-      nh
       inxi
       weechat
       bat
@@ -20,14 +19,10 @@
       /* Extra */
       alsa-utils
       unstable.bottom
-      piper-tts
       file
-      unstable.nixd
-      unstable.nil
       unstable.gdu
       unstable.htop
       unstable.fastfetch
-      compsize
       numbat
       /*
         kmon

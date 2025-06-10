@@ -40,7 +40,7 @@
         browser = "google-chrome";
       };
       desktop = {
-        type = "hyprland";
+        type = "hyprland/default";
         monitors = [ "eDP-1,1920x1080@60,0x0,1" "Virtual-1,1920x1080@60,0x0,1" ];
         wallpaperPath = "Media/Pictures/catppuccin-mocha";
         wallpaperName = "wheat.png";
@@ -55,7 +55,7 @@
       modules = [
         inputs.home-manager.nixosModules.home-manager
         ./profile/workstation/hardware.nix
-        ./profile/workstation/default.nix
+        ./profile/workstation/configuration.nix
         ./compose.nix
       ] ++ (if !builtins.isNull settings.desktop.type then [
         ./desktop/${settings.desktop.type}.nix
@@ -72,7 +72,7 @@
       modules = [
         inputs.home-manager.nixosModules.home-manager
         ./profile/virtual-machine/hardware.nix
-        ./profile/virtual-machine/default.nix
+        ./profile/virtual-machine/configuration.nix
         ./compose.nix
       ] ++ (if !builtins.isNull settings.desktop.type then [
         ./desktop/${settings.desktop.type}.nix
@@ -89,7 +89,7 @@
       modules = [
         inputs.home-manager.nixosModules.home-manager
         ./profile/windows-subsystem/hardware.nix
-        ./profile/windows-subsystem/default.nix
+        ./profile/windows-subsystem/configuration.nix
         ./compose.nix
       ] ++ (if !builtins.isNull settings.desktop.type then [
         ./desktop/${settings.desktop.type}.nix
@@ -107,7 +107,7 @@
         inputs.home-manager.nixosModules.home-manager
          inputs.determinate.nixosModules.default
         ./profile/server/hardware.nix
-        ./profile/server/default.nix
+        ./profile/server/configuration.nix
         ./compose.nix
       ] ++ (if !builtins.isNull settings.desktop.type then [
         ./desktop/${settings.desktop.type}.nix
@@ -124,7 +124,7 @@
       modules = [
         inputs.home-manager.nixosModules.home-manager
         ./profile/image/hardware.nix
-        ./profile/image/default.nix
+        ./profile/image/configuration.nix
         ./compose.nix
       ] ++ (if !builtins.isNull settings.desktop.type then [
         ./desktop/${settings.desktop.type}.nix
@@ -140,8 +140,7 @@
       specialArgs = { inherit inputs system; settings = settings // { profile = "darwin"; }; };
       modules = [
         inputs.home-manager.nixosModules.home-manager
-        ./profile/darwin/hardware.nix
-        ./profile/darwin/default.nix
+        ./profile/darwin/configuration.nix
         ./compose.nix
       ] ++ (if !builtins.isNull settings.desktop.type then [
         ./desktop/${settings.desktop.type}.nix

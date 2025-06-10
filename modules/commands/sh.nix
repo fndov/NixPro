@@ -54,6 +54,9 @@
       '';
       shellAliases = aliases;
     };
+    programs.zsh = {
+      enable = false;
+    };
     programs.bash = {
       enable = true;
       enableCompletion = true;

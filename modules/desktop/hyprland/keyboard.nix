@@ -153,6 +153,8 @@
             ",XF86AudioLowerVolume,exec,nice -1 pswayosd-client --output-volume lower"
 
             # Workspace.
+            "SUPER,left,workspace,e-1"
+            "SUPER,right,workspace,e+1"
             "SUPER,1,workspace,1"
             "SUPER,2,workspace,2"
             "SUPER,3,workspace,3"
@@ -163,6 +165,9 @@
             "SUPER,8,workspace,8"
             "SUPER,9,workspace,9"
             "SUPER,0,workspace,0"
+            
+            "SUPERSHIFT,left,movetoworkspace, e-1"
+            "SUPERSHIFT,right,movetoworkspace,e+1"
             "SUPERSHIFT,1,movetoworkspace,1"
             "SUPERSHIFT,2,movetoworkspace,2"
             "SUPERSHIFT,3,movetoworkspace,3"

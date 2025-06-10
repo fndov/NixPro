@@ -2,9 +2,10 @@
   ../../modules/commands/sh.nix
   ../../modules/commands/cli.nix
   ../../modules/commands/lib.nix
-  ../../modules/apps/collection.nix
+  ../../modules/apps/common.nix
   ../../modules/apps/spotify.nix
   ../../modules/apps/lutris.nix
+  ../../modules/development/nix.nix
   # ../../modules/apps/virtualize.nix
   ];
   boot.kernelPackages = pkgs.linuxPackages_xanmod;

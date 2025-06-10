@@ -33,6 +33,7 @@
         "float,title:^(Open Files)"
         "float,title:^(Open video)"
         "float,title:^(Volume Control)"
+        "float,title:^(Authenticator)"
       ];
     };
   };
