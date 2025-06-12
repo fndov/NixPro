@@ -58,7 +58,7 @@
         ./profile/workstation/configuration.nix
         ./compose.nix
       ] ++ (if !builtins.isNull settings.desktop.type then [
-        ./desktop/${settings.desktop.type}.nix
+        ./modules/desktop/${settings.desktop.type}.nix
       ] else [])
       ++ (if !builtins.isNull settings.account.terminal then [
         ./modules/apps/${settings.account.terminal}.nix
@@ -75,7 +75,7 @@
         ./profile/virtual-machine/configuration.nix
         ./compose.nix
       ] ++ (if !builtins.isNull settings.desktop.type then [
-        ./desktop/${settings.desktop.type}.nix
+        ./modules/desktop/${settings.desktop.type}.nix
       ] else [])
       ++ (if !builtins.isNull settings.account.terminal then [
         ./modules/apps/${settings.account.terminal}.nix
@@ -92,7 +92,7 @@
         ./profile/windows-subsystem/configuration.nix
         ./compose.nix
       ] ++ (if !builtins.isNull settings.desktop.type then [
-        ./desktop/${settings.desktop.type}.nix
+        ./modules/desktop/${settings.desktop.type}.nix
       ] else [])
       ++ (if !builtins.isNull settings.account.terminal then [
         ./modules/apps/${settings.account.terminal}.nix
@@ -110,7 +110,7 @@
         ./profile/server/configuration.nix
         ./compose.nix
       ] ++ (if !builtins.isNull settings.desktop.type then [
-        ./desktop/${settings.desktop.type}.nix
+        ./modules/desktop/${settings.desktop.type}.nix
       ] else [])
       ++ (if !builtins.isNull settings.account.terminal then [
         ./modules/apps/${settings.account.terminal}.nix
@@ -127,7 +127,7 @@
         ./profile/image/configuration.nix
         ./compose.nix
       ] ++ (if !builtins.isNull settings.desktop.type then [
-        ./desktop/${settings.desktop.type}.nix
+        ./modules/desktop/${settings.desktop.type}.nix
       ] else [])
       ++ (if !builtins.isNull settings.account.terminal then [
         ./modules/apps/${settings.account.terminal}.nix
@@ -143,7 +143,7 @@
         ./profile/darwin/configuration.nix
         ./compose.nix
       ] ++ (if !builtins.isNull settings.desktop.type then [
-        ./desktop/${settings.desktop.type}.nix
+        ./modules/desktop/${settings.desktop.type}.nix
       ] else [])
       ++ (if !builtins.isNull settings.account.terminal then [
         ./modules/apps/${settings.account.terminal}.nix

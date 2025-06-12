@@ -44,22 +44,22 @@
   boot.loader.timeout = 1;
   services.power-profiles-daemon.enable = true;
   imports = [
-    ../modules/hyprland/animation.nix
-    ../modules/hyprland/cursor.nix
-    ../modules/hyprland/dependencies.nix
-    ../modules/hyprland/dock.nix
-    ../modules/hyprland/keyboard.nix
-    ../modules/hyprland/launcher.nix
-    ../modules/hyprland/lock-screen.nix
-    ../modules/hyprland/nightlight.nix
-    ../modules/hyprland/notification.nix
-    ../modules/hyprland/rules.nix
-    ../modules/hyprland/screenshot.nix
-    ../modules/hyprland/task-bar.nix
-    ../modules/hyprland/theme.nix
-    ../modules/hyprland/timeout.nix
-    ../modules/hyprland/wallpaper.nix
-  ] ++ lib.optional (settings.profile == "workstation") ../modules/hyprland/tts.nix;
+    ../hyprland/animation.nix
+    ../hyprland/cursor.nix
+    ../hyprland/dependencies.nix
+    ../hyprland/dock.nix
+    ../hyprland/keyboard.nix
+    ../hyprland/launcher.nix
+    ../hyprland/lock-screen.nix
+    ../hyprland/nightlight.nix
+    ../hyprland/notification.nix
+    ../hyprland/rules.nix
+    ../hyprland/screenshot.nix
+    ../hyprland/task-bar.nix
+    ../hyprland/theme.nix
+    ../hyprland/timeout.nix
+    ../hyprland/wallpaper.nix
+  ] ++ lib.optional (settings.profile == "workstation") ../hyprland/tts.nix;
   home-manager.users.${settings.account.name} = lib.mkMerge [
     {
       services.blueman-applet.enable = true;
