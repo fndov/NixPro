@@ -41,7 +41,7 @@
       mouse-hide-while-typing = true
       focus-follows-mouse = true
     '';
-  } // (if settings.desktop.type == "hyprland" then {
+  } // (if settings.desktop.type == "hyprland/default" then {
     wayland.windowManager.hyprland.settings.exec-once = [
       "nice -1 ghostty --initial-window=false"
     ];

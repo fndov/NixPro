@@ -4,6 +4,7 @@
   in {
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
+      kdePackages.k3b # broken
       unstable.zed-editor
       unstable.obsidian
       unstable.obs-studio
@@ -14,7 +15,10 @@
       video-trimmer
       krita
       authenticator
+      helvum
+      easyeffects
       /*
+        portmaster
         kmon
         cpufetch
         qbittorrent
@@ -69,7 +73,6 @@
         beaver-notes
         davinci-resolve
         handbrake
-        helvum
         jetbrains-toolbox
         jetbrains.aqua
         jetbrains.clion
@@ -91,7 +94,6 @@
         mission-center
         remembrance
         zen-browser
-        portmaster
         tor-browser-bundle-bin
         isoimagewriter
       */

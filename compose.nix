@@ -88,7 +88,7 @@
         isNormalUser = true;
         hashedPassword = settings.account.password;
         description = settings.account.name;
-        extraGroups = [ "networkmanager" "wheel" "qemu-libvirtd" "libvirtd" "kvm" "docker" ];
+        extraGroups = [ "networkmanager" "wheel" "qemu-libvirtd" "libvirtd" "kvm" "docker" "cdrom" ];
         uid = 1000;
         shell = if settings.profile == "windows-subsystem" || settings.account.shell == "fish" then pkgs.fish else pkgs.bash;
       };

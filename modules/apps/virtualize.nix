@@ -3,16 +3,18 @@
 in {
   environment.systemPackages = with pkgs; [
     unstable.virt-manager
-    # unstable.distrobox
-    # unstable.qemu
-    # uefi-run
-    # lxc
-    # swtpm
-    # dosfstools
-    # kubectl
-    # docker
-    # docker-compose
-    # lazydocker
+    /*
+      unstable.distrobox
+      unstable.qemu
+      uefi-run
+      lxc
+      swtpm
+      dosfstools
+      kubectl
+      docker
+      docker-compose
+      lazydocker
+    */
   ];
   programs.virt-manager.enable = true;
   virtualisation.libvirtd.enable = true;

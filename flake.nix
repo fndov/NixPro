@@ -31,7 +31,7 @@
         sshd = false;
       };
       account = {
-        name = "miyu";
+        name = "plasma";
         email = "miyu@atl.tools";
         password = "$6$4oIhgNCDy8qpD9k3$IjLevO4A8W40sPqTT4BzCa7LKrMOmCnbfey5L94K/tQpa48eely7BLJNJzlztHUzAvQQfhaFYiaGlKDJqgBGM1";
         terminal = "ghostty";
@@ -40,7 +40,7 @@
         browser = "google-chrome";
       };
       desktop = {
-        type = "hyprland/default";
+        type = "plasma";
         monitors = [ "eDP-1,1920x1080@60,0x0,1" "Virtual-1,1920x1080@60,0x0,1" ];
         wallpaperPath = "Media/Pictures/catppuccin-mocha";
         wallpaperName = "wheat.png";
