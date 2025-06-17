@@ -21,16 +21,16 @@
     ];
     home.packages = with pkgs; [
       (writeShellScriptBin "time-notice" ''
-          while true; do
-              date_string=$(date "+%A, %B %d, %I:%M %p %Z %Y")
-              notify-send "Current Date and Time" "$date_string"
-              current_minute=$(date +%M)
-              current_second=$(date +%S)
-              seconds_to_wait=$((60 - current_minute))
-              seconds_to_wait=$((seconds_to_wait * 60))
-              seconds_to_wait=$((seconds_to_wait - current_second))
-              sleep $seconds_to_wait
-          done
+        while true; do
+          date_string=$(date "+%A, %B %d, %I:%M %p %Z %Y")
+          notify-send "Current Date and Time" "$date_string"
+          current_minute=$(date +%M)
+          current_second=$(date +%S)
+          seconds_to_wait=$((60 - current_minute))
+          seconds_to_wait=$((seconds_to_wait * 60))
+          seconds_to_wait=$((seconds_to_wait - current_second))
+          sleep $seconds_to_wait
+        done
       '')
     ];
   };

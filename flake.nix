@@ -14,6 +14,7 @@
   };
   outputs = inputs@{ ... }: let
     settings = {
+      timezone = "America/Chicago";
       driver = {
         graphics = "nvidia";
         intelBusID = "PCI:0:2:0";
@@ -31,7 +32,7 @@
         sshd = false;
       };
       account = {
-        name = "plasma";
+        name = "miyu";
         email = "miyu@atl.tools";
         password = "$6$4oIhgNCDy8qpD9k3$IjLevO4A8W40sPqTT4BzCa7LKrMOmCnbfey5L94K/tQpa48eely7BLJNJzlztHUzAvQQfhaFYiaGlKDJqgBGM1";
         terminal = "ghostty";
@@ -40,7 +41,7 @@
         browser = "google-chrome";
       };
       desktop = {
-        type = "plasma";
+        type = "hyprland/default";
         monitors = [ "eDP-1,1920x1080@60,0x0,1" "Virtual-1,1920x1080@60,0x0,1" ];
         wallpaperPath = "Media/Pictures/catppuccin-mocha";
         wallpaperName = "wheat.png";

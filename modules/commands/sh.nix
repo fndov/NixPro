@@ -40,47 +40,35 @@
       unstable.ripgrep
       unstable.fishPlugins.done
     ];
-    programs.fish = {
-      enable = true;
-      interactiveShellInit = ''
-        set fish_greeting ""
-        # bind \x7f backward-kill-word
-        bind \cF nixsw
-        bind \cT nixts
-        bind \cK ls
-        bind \cE e
-        bind \cW weechat
-        bind \cH backward-kill-word
-      '';
-      shellAliases = aliases;
-    };
-    programs.zsh = {
-      enable = false;
-    };
-    programs.bash = {
-      enable = true;
-      enableCompletion = true;
-    };
+    programs.fish.enable = true;
+    programs.fish.interactiveShellInit = ''
+      set fish_greeting ""
+      # bind \x7f backward-kill-word
+      bind \cF nixsw
+      bind \cT nixts
+      bind \cK ls
+      bind \cE e
+      bind \cW weechat
+      bind \cH backward-kill-word
+    '';
+    programs.fish.shellAliases = aliases;
+    programs.zsh.enable = false;
+    programs.bash.enable = true;
+    programs.bash.enableCompletion = true;
     programs.powerline-go.enable = true;
-    programs.atuin = {
-      enable = true;
-      enableFishIntegration = true;
-      enableBashIntegration = true;
-    };
-    programs.zoxide = {
-      enable = true;
-      enableFishIntegration = true;
-      enableBashIntegration = true;
-    };
+    programs.atuin.enable = true;
+    programs.atuin.enableFishIntegration = true;
+    programs.atuin.enableBashIntegration = true;
+    programs.zoxide.enable = true;
+    programs.zoxide.enableFishIntegration = true;
+    programs.zoxide.enableBashIntegration = true;
     programs.git.enable = true;
     programs.git.userName = settings.account.name;
     programs.git.userEmail = settings.account.email;
-    programs.git.extraConfig = {
-      core.editor = settings.account.editor;
-      safe.directory = [
-        ("/home/" + settings.account.name + "/." + settings.system.flakePath + "/")
-        ("/home/" + settings.account.name + "/." + settings.system.flakePath + "/.git")
-      ];
-    };
+    programs.git.extraConfig.core.editor = settings.account.editor;
+    programs.git.extraConfig.safe.directory = [
+      ("/home/" + settings.account.name + "/." + settings.system.flakePath + "/")
+      ("/home/" + settings.account.name + "/." + settings.system.flakePath + "/.git")
+    ];
   };
 }

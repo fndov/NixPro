@@ -17,21 +17,20 @@
     ];
     home.file.".config/rofi/config.rasi".text = ''
       configuration{
-          modi: "run,drun,window";
-          icon-theme: "Oranchelo";
-          show-icons: true;
-          terminal: "${settings.account.terminal}";
-          drun-display-format: "{icon} {name}";
-          location: 0;
-          disable-history: false;
-          hide-scrollbar: true;
-          display-drun: "  Apps ";
-          display-run: "  Run ";
-          display-window: "  Window ";
-          display-Network: "  Network ";
-          sidebar-mode: true;
+        modi: "run,drun,window";
+        icon-theme: "Oranchelo";
+        show-icons: true;
+        terminal: "${settings.account.terminal}";
+        drun-display-format: "{icon} {name}";
+        location: 0;
+        disable-history: false;
+        hide-scrollbar: true;
+        display-drun: "  Apps ";
+        display-run: "  Run ";
+        display-window: "  Window ";
+        display-Network: "  Network ";
+        sidebar-mode: true;
       }
-
       @theme "~/.config/rofi/catppuccin-mocha.rasi"
     '';
     home.file.".config/rofi/catppuccin-mocha.rasi".text = ''

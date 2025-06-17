@@ -8,7 +8,6 @@
   ../../modules/development/nix.nix
   ../../modules/apps/virtualize.nix
   ];
-  
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
   boot.kernelPatches = [ /*
     {patch = ../../kernel-patches/tkg-6.14/0001-bore.patch;}

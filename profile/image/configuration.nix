@@ -39,7 +39,6 @@
   boot.blacklistedKernelModules = [
     "nouveau"
   ];
-
   # users.groups.nixos = lib.mkForce {};
   documentation.man.enable = lib.mkForce false;
   nix.settings.keep-outputs = false;

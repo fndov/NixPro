@@ -4,8 +4,8 @@
   in {
     home.packages = with pkgs; [
       (writeShellScriptBin "screenshot" ''
-          FILE=~/Media/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png
-          grim "$FILE" && wl-copy < "$FILE" && notify-send "Saved to clipboard" "$FILE"
+        FILE=~/Media/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png
+        grim "$FILE" && wl-copy < "$FILE" && notify-send "Saved to clipboard" "$FILE"
       '')
       (writeShellScriptBin "screenshot-snippet" ''
         FILE=~/Media/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png

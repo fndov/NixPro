@@ -18,8 +18,6 @@
     ];
     wayland.windowManager.hyprland.settings.env = [
       "BROWSER,${settings.account.browser}"
-      # Chrome uses ozone for Wayland, so you can enable it if desired:
-      # "NIXOS_OZONE_WL,1"
     ];
   } else {});
 }

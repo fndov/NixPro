@@ -15,25 +15,29 @@
       else if settings.profile == "image"
       then "NixPro-Image"
       else "NixPro";
-      time.timeZone = "America/Chicago";
-      i18n.defaultLocale = "en_US.UTF-8";
-      i18n.extraLocaleSettings.LC_ADDRESS = "en_US.UTF-8";
-      i18n.extraLocaleSettings.LC_IDENTIFICATION = "en_US.UTF-8";
-      i18n.extraLocaleSettings.LC_MEASUREMENT = "en_US.UTF-8";
-      i18n.extraLocaleSettings.LC_MONETARY = "en_US.UTF-8";
-      i18n.extraLocaleSettings.LC_NAME = "en_US.UTF-8";
-      i18n.extraLocaleSettings.LC_NUMERIC = "en_US.UTF-8";
-      i18n.extraLocaleSettings.LC_PAPER = "en_US.UTF-8";
-      i18n.extraLocaleSettings.LC_TELEPHONE = "en_US.UTF-8";
-      i18n.extraLocaleSettings.LC_TIME = "en_US.UTF-8";
+
+      boot.loader.grub.configurationName =
+      if settings.profile == "darwin"
+      then "NixPro ARM"
+      else if settings.profile == "windows-subsystem"
+      then "NixPro WSL"
+      else if settings.profile == "server"
+      then "NixPro Server"
+      else if settings.profile == "workstation"
+      then "NixPro"
+      else if settings.profile == "virtual-machine"
+      then "NixPro VM"
+      else if settings.profile == "image"
+      then "NixPro Image"
+      else "NixPro";
+
+      time.timeZone = settings.timezone;
       documentation.enable = lib.mkForce false;
       documentation.doc.enable = lib.mkForce false;
       documentation.info.enable = lib.mkForce false;
       documentation.nixos.enable = lib.mkForce false;
-      environment.sessionVariables = {
-        NIX_AUTO_RUN = "1";
-        NIXPKGS_ALLOW_UNFREE = "1";
-      };
+      environment.sessionVariables.NIX_AUTO_RUN = "1";
+      environment.sessionVariables.NIXPKGS_ALLOW_UNFREE = "1";
       nix.extraOptions = "experimental-features = nix-command flakes";
       nix.settings.sandbox = true;
       nix.settings.trusted-users = [ "@wheel" ];
@@ -63,6 +67,7 @@
         networkmanagerapplet
         ifuse
       ] ++ (if settings.account.editor == "micro" then [ micro ] else [])
+        ++ (if settings.account.editor == "nano" then [ nano ] else [])
         ++ (if settings.account.editor == "flow" then [ unstable.flow-control ] else []);
       services.usbmuxd.enable = true;
       services.usbmuxd.package = pkgs.usbmuxd2;
@@ -183,45 +188,19 @@
       security.protectKernelImage = true;
       boot.kernelPackages = lib.mkForce pkgs.linuxPackages_hardened;
       boot.kernelParams = [
-        # The Magic SysRq key is a key combo that allows users connected to the
-        # system console of a Linux kernel to perform some low-level commands.
-        # Disable it, since we don't need it, and is a potential security concern.
         "kernel.sysrq=0"
-
-        # Hide kptrs even for processes with CAP_SYSLOG.
-        # Also prevents printing kernel pointers.
         "kernel.kptr_restrict=2"
-
-        # Disable bpf() JIT (to eliminate spray attacks).
         "net.core.bpf_jit_enable=0"
-
-        # Disable ftrace debugging.
         "kernel.ftrace_enabled=false"
-
-        # Avoid kernel memory address exposures via dmesg (this value can also be set by CONFIG_SECURITY_DMESG_RESTRICT).
         "kernel.dmesg_restrict=1"
-
-        # Prevent unintentional fifo writes.
         "fs.protected_fifos=2"
-
-        # Prevent unintended writes to already-created files.
         "fs.protected_regular=2"
-
-        # Disable SUID binary dump.
         "fs.suid_dumpable=0"
-
-        # Disallow profiling at all levels without CAP_SYS_ADMIN.
         "kernel.perf_event_paranoid=3"
-
-        # Require CAP_BPF to use bpf.
         "kernel.unprvileged_bpf_disabled=1"
-
         "slab_nomerge"
-
         "page_poison=1"
-
         "page_alloc.shuffle=1"
-
         "debugfs=off"
       ];
     })
