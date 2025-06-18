@@ -3,14 +3,17 @@
     unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
   in {
     home.packages = with pkgs; [
-      nwg-launcher
+      nwg-launchers
       gtk4-layer-shell
+      (writeShellScriptBin "overview-script" ''
+        nice -21 nwggrid -o 0.8 -b 0000001 -n 8 -s 96 -layer-shell-exclusive-zone -1 -c ~/.config/nwg/overview.css
+      '')
     ];
     wayland.windowManager.hyprland.settings.exec-once = [
       "nwggrid-server"
     ];
     wayland.windowManager.hyprland.settings.bind = [
-      "SUPER,exec,nice -21 -o 0.8 -b 0000001 -n 8 -s 96 -layer-shell-exclusive-zone -1 -c ~/.config/nwg/overview.css"
+      "SUPER,Space,exec,overview-script"
     ];
     home.file.".config/nwg/overview.css".text = ''
       window {
