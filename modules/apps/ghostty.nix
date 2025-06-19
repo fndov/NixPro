@@ -4,7 +4,7 @@
   in {
     home.packages = with pkgs; [
       unstable.ghostty
-      timg
+      chafa
     ];
     home.file."/home/${settings.account.name}/.config/ghostty/config".text = ''
       # --- Hyprland ---
@@ -26,7 +26,7 @@
       confirm-close-surface = false
 
       # --- Init ---
-      command = "date;${settings.account.shell}"
+      command = "${settings.account.shell}"
 
       # --- Shaders ---
       # custom-shader = crt.glsl

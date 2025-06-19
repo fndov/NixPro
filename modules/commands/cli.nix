@@ -26,6 +26,8 @@
       numbat
       /*
         kmon
+        timg
+        chafa
         loop
         toybox
         usbutils

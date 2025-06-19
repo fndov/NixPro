@@ -19,8 +19,6 @@
       easyeffects
       /*
         portmaster
-        kmon
-        cpufetch
         qbittorrent
         amberol
         unstable.godot_4

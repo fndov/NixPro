@@ -5,11 +5,13 @@
     home.packages = with pkgs; [
       (writeShellScriptBin "screenshot" ''
         FILE=~/Media/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png
-        grim "$FILE" && wl-copy < "$FILE" && notify-send "Saved to clipboard" "$FILE"
+        grim -c "$FILE" && wl-copy < "$FILE" && notify-send "Saved to clipboard" "$FILE"
       '')
       (writeShellScriptBin "screenshot-snippet" ''
         FILE=~/Media/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png
-        grim -g "$(slurp -b "#00000000" -c "#00000000" -s "#00000000")" "$FILE" && wl-copy < "$FILE" && notify-send "Saved to clipboard" "$FILE"
+        SELECTION=$(slurp -b "#00000000" -c "#00000000" -s "#00000000") || exit 1
+        sleep 1
+        grim -c -g "$SELECTION" "$FILE" && wl-copy < "$FILE" && notify-send "Saved to clipboard" "$FILE"
       '')
       unstable.grim
       unstable.slurp

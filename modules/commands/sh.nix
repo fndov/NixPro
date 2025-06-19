@@ -43,10 +43,10 @@
     programs.fish.enable = true;
     programs.fish.interactiveShellInit = ''
       set fish_greeting ""
-      # bind \x7f backward-kill-word
       bind \cF nixsw
       bind \cT nixts
-      bind \cK ls
+      bind \cS nixsw
+      bind \cK "up-or-search; commandline -f execute"
       bind \cE e
       bind \cW weechat
       bind \cH backward-kill-word
