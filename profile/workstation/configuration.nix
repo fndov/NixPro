@@ -6,7 +6,6 @@
   ../../modules/apps/spotify.nix
   ../../modules/apps/lutris.nix
   ../../modules/development/nix.nix
-  ../../modules/apps/prism.nix
   # ../../modules/apps/virtualize.nix
   ];
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
