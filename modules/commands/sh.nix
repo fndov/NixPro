@@ -29,6 +29,7 @@
       cattree = "find . -type f -exec grep -Iq . {} \\; -print | xargs cat";
       offload = "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia";
       gc = "git clone";
+      ultra = "zstd --ultra 22";
     };
   in {
     home.packages = with pkgs; [

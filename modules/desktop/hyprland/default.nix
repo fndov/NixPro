@@ -55,6 +55,7 @@
     ./notification.nix
     ./nwg-launcher.nix
     ./plugins.nix
+    ./rclone.nix
     ./rofi.nix
     ./rules.nix
     ./screenshot.nix
@@ -74,7 +75,7 @@
       ];
       wayland.windowManager.hyprland.enable = true;
       wayland.windowManager.hyprland.systemd.enable = false;
-      wayland.windowManager.hyprland.xwayland.enable = false;
+      wayland.windowManager.hyprland.xwayland.enable = true;
       wayland.windowManager.hyprland.settings.monitor = settings.desktop.monitors;
       wayland.windowManager.hyprland.settings.exec-once = [
         "powerprofilesctl set performance"

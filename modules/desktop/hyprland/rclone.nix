@@ -3,14 +3,10 @@
     unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
   in {
     home.packages = with pkgs; [
-      hyprsunset
-    ];
-    wayland.windowManager.hyprland.settings.bindl = [
-      "F1,XF86MonBrightnessDown, exec, hyprctl hyprsunset gamma -10"
-      "F1,XF86MonBrightnessUp, exec, hyprctl hyprsunset gamma +10"
+      rclone
     ];
     wayland.windowManager.hyprland.settings.exec-once = [
-      "systemctl --user enable --now hyprsunset"
+      "rclone mount --daemon home: /home/${settings.account.name}/Cloud/"
     ];
   };
 }

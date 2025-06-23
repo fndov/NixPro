@@ -16,21 +16,6 @@
       then "NixPro-Image"
       else "NixPro";
 
-      boot.loader.grub.configurationName =
-      if settings.profile == "darwin"
-      then "NixPro ARM"
-      else if settings.profile == "windows-subsystem"
-      then "NixPro WSL"
-      else if settings.profile == "server"
-      then "NixPro Server"
-      else if settings.profile == "workstation"
-      then "NixPro"
-      else if settings.profile == "virtual-machine"
-      then "NixPro VM"
-      else if settings.profile == "image"
-      then "NixPro Image"
-      else "NixPro";
-
       time.timeZone = settings.timezone;
       documentation.enable = lib.mkForce false;
       documentation.doc.enable = lib.mkForce false;
