@@ -1,13 +1,18 @@
-{ pkgs, ... }: { imports = [
-  ../../modules/commands/sh.nix
-  ../../modules/commands/cli.nix
-  ../../modules/commands/lib.nix
+{ pkgs, settings, ... }: { imports = [
   ../../modules/apps/common.nix
   ../../modules/apps/spotify.nix
   ../../modules/apps/lutris.nix
+  ../../modules/commands/sh.nix
+  ../../modules/commands/cli.nix
+  ../../modules/commands/lib.nix
   ../../modules/development/nix.nix
+  ../../modules/development/rs.nix
   # ../../modules/apps/virtualize.nix
+  ../../modules/commands/gemini-cli.nix
   ];
+  home-manager.users.${settings.account.name} = {
+    home.packages = [ pkgs. ];
+  };
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
   boot.kernelPatches = [ /*
     {patch = ../../kernel-patches/tkg-6.14/0001-bore.patch;}

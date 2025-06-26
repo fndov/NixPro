@@ -2,9 +2,9 @@
   unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
 in {
   environment.systemPackages = with pkgs; [
-    unstable.virt-manager
     /*
-      unstable.distrobox
+      distrobox
+      unstable.virt-manager
       unstable.qemu
       uefi-run
       lxc
@@ -16,9 +16,9 @@ in {
       lazydocker
     */
   ];
-  programs.virt-manager.enable = true;
-  virtualisation.libvirtd.enable = true;
-  virtualisation.spiceUSBRedirection.enable = true;
+  # programs.virt-manager.enable = true;
+  # virtualisation.libvirtd.enable = true;
+  # virtualisation.spiceUSBRedirection.enable = true;
 
   # virtualisation.podman.enable = true;
   # virtualisation.podman.dockerCompat = true;

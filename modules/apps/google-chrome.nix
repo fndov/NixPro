@@ -12,7 +12,7 @@
     home.sessionVariables = {
       DEFAULT_BROWSER = "${pkgs.google-chrome}/bin/google-chrome-stable";
     };
-  } // (if settings.desktop.type == "hyprland" then {
+  } // (if settings.desktop.type == "hyprland/default" then {
     wayland.windowManager.hyprland.settings.exec-once = [
       "${pkgs.google-chrome}/bin/google-chrome-stable"
     ];

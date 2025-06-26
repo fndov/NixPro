@@ -23,7 +23,9 @@
       unstable.gdu
       unstable.htop
       unstable.fastfetch
-      numbat
+      unstable.numbat
+      emacs
+      activitywatch
       /*
         kmon
         timg

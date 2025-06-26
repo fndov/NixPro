@@ -62,7 +62,7 @@
 
       label {
         monitor =
-        text = $TIME
+        text = cmd[update:1000:date +'%I:%M %p']
         font_size = 20
         font_family = Noto
         rotate = 0 # degrees, counter-clockwise

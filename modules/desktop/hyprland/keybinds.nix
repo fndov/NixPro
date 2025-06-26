@@ -11,7 +11,7 @@
           unstable.swayosd
           unstable.htop
           unstable.bottom
-          numbat
+          unstable.numbat
         ];
         home.file.".config/swayosd/style.css".text = ''
           window {
@@ -165,8 +165,6 @@
           "SUPER,9,workspace,9"
           "SUPER,0,workspace,0"
 
-          "SUPERSHIFT,left,movetoworkspace, e-1"
-          "SUPERSHIFT,right,movetoworkspace,e+1"
           "SUPERSHIFT,1,movetoworkspace,1"
           "SUPERSHIFT,2,movetoworkspace,2"
           "SUPERSHIFT,3,movetoworkspace,3"

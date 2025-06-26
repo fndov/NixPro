@@ -6,8 +6,9 @@
       hyprsunset
     ];
     wayland.windowManager.hyprland.settings.bindl = [
-      "F1,XF86MonBrightnessDown, exec, hyprctl hyprsunset gamma -10"
-      "F1,XF86MonBrightnessUp, exec, hyprctl hyprsunset gamma +10"
+      "SUPERSHIFT,left,exec, hyprctl hyprsunset temperature -250"
+      "SUPERSHIFT,right,exec, hyprctl hyprsunset temperature +250"
+      "SUPERSHIFT,down,exec, systemctl --user restart hyprsunset"
     ];
     wayland.windowManager.hyprland.settings.exec-once = [
       "systemctl --user enable --now hyprsunset"
