@@ -10,12 +10,9 @@
   # ../../modules/apps/virtualize.nix
   ];
   home-manager.users.${settings.account.name} = {
-    home.packages = with pkgs; [
-      # this will inject lib, buildNpmPackage, fetchFromGitHub, nix-update-script, etc.
-      (pkgs.callPackage ../../modules/commands/gemini-cli.nix {})
-    ];
+    # Waiting for upstream releases
+    home.packages = with pkgs; [ (pkgs.callPackage ../../modules/development/gemini-cli.nix {}) ];
   };
-
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
   boot.kernelPatches = [ /*
     {patch = ../../kernel-patches/tkg-6.14/0001-bore.patch;}
