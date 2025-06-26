@@ -8,11 +8,14 @@
   ../../modules/development/nix.nix
   ../../modules/development/rs.nix
   # ../../modules/apps/virtualize.nix
-  ../../modules/commands/gemini-cli.nix
   ];
   home-manager.users.${settings.account.name} = {
-    home.packages = [ pkgs. ];
+    home.packages = with pkgs; [
+      # this will inject lib, buildNpmPackage, fetchFromGitHub, nix-update-script, etc.
+      (pkgs.callPackage ../../modules/commands/gemini-cli.nix {})
+    ];
   };
+
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
   boot.kernelPatches = [ /*
     {patch = ../../kernel-patches/tkg-6.14/0001-bore.patch;}
