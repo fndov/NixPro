@@ -20,13 +20,13 @@ buildNpmPackage (finalAttrs: {
     owner = "google-gemini";
     repo = "gemini-cli";
     # Currently there's no release tag
-    rev = "121bba346411cce23e350b833dc5857ea2239f2f";
-    hash = "sha256-2w28N6Fhm6k3wdTYtKH4uLPBIOdELd/aRFDs8UMWMmU=";
+    rev = "6742a1b7f97033d1301f4159b67ef0d9587f65f2";
+    hash = "sha256-ikrzodJQyO861Uyz/Ud+b0N2aIwLkwCG/eHLXknX5Jc=";
   };
 
   npmDeps = fetchNpmDeps {
     inherit (finalAttrs) src;
-    hash = "sha256-yoUAOo8OwUWG0gyI5AdwfRFzSZvSCd3HYzzpJRvdbiM=";
+    hash = "sha256-qimhi2S8fnUbIq2MPU1tlvj5k9ZChY7kzxLrYqy9FXI=";
   };
 
   preConfigure = ''
