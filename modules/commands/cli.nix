@@ -17,6 +17,7 @@
       unstable.openssh
       unstable.yazi
       /* Extra */
+      gemini-cli
       alsa-utils
       unstable.bottom
       file

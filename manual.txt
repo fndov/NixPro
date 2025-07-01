@@ -28,7 +28,7 @@ Code for zswap over zram:
   zramSwap.memoryPercent = 100; # 30
   zramSwap.algorithm = "zstd -Xcompression-level 22";
   zramSwap.priority = 3;
-      
+
 Settings:
   profile = "standalone" Apple Image Microsoft Server Standalone Virtual-Machine
   Driver:
@@ -63,6 +63,7 @@ Settings:
     fontPkg = pkgs.noto-fonts     Name of font package
     wallpaperPath = "Picturescatppuccin" /home/${settings.account.name}/${settings.desktop.wallpaperPath}/
     wallpaperName = "background.png" /home/${settings.account.name}/${settings.desktop.wallpaperPath}/${settings.desktop.wallpaperName}
+
     animationSpeed = "medium"     Slow Medium Fast
 
 Import flow:
@@ -85,7 +86,7 @@ Trouble shooting, if you see: DBI connect('dbname=/nix/var/nix/profiles/per-user
 it means you don't have the channel data cached in '/root/.cache/nix' which is a problem of flakes,
 you can add the channel with `sudo nix-channel --add https://nixos.org/channels/nixos-24.05 nixos` `sudo nix-channel --update`
 
-If you collect all garbage : 
+If you collect all garbage :
   sudo nix-collect-garbage & nix-collect-garbage
 but still have generations left over :
   sudo nix-env --list-generations --profile /nix/var/nix/profiles/system | wc -l

@@ -9,10 +9,6 @@
   ../../modules/development/rs.nix
   # ../../modules/apps/virtualize.nix
   ];
-  home-manager.users.${settings.account.name} = {
-    # Waiting for upstream releases
-    home.packages = with pkgs; [ (pkgs.callPackage ../../modules/development/gemini-cli.nix {}) ];
-  };
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
   boot.kernelPatches = [ /*
     {patch = ../../kernel-patches/tkg-6.14/0001-bore.patch;}
