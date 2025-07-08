@@ -23,6 +23,7 @@
         "plugin:hyprbars:nobar, class:^(net.lutris.Lutris)$"
         "plugin:hyprbars:nobar, class:^(org.pipewire.Helvum)$"
         "plugin:hyprbars:nobar, class:^(com.belmoussaoui.Authenticator)$"
+        "plugin:hyprbars:nobar, class:^(de.schmidhuberj.tubefeeder)$"
       ];
 
       windowrule = [

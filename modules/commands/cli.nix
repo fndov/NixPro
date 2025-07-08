@@ -17,16 +17,11 @@
       unstable.openssh
       unstable.yazi
       /* Extra */
-      gemini-cli
-      alsa-utils
-      unstable.bottom
+      unstable.gemini-cli
       file
       unstable.gdu
-      unstable.htop
       unstable.fastfetch
       unstable.numbat
-      emacs
-      activitywatch
       /*
         kmon
         timg

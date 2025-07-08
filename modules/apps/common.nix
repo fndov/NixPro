@@ -5,6 +5,7 @@
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
       kdePackages.k3b # broken
+      gearlever
       unstable.zed-editor
       unstable.obsidian
       unstable.obs-studio

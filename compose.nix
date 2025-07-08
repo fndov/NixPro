@@ -62,6 +62,7 @@
       programs.nano.enable = false;
       programs.fish.enable = if settings.account.shell == "fish" then true else false;
       system.stateVersion = settings.system.version;
+      networking.firewall.enable = true;
       systemd.services.NetworkManager-wait-online.enable = false;
       systemd.coredump.extraConfig = ''
         [Coredump]
@@ -166,8 +167,8 @@
     })
     (lib.mkIf settings.system.security {
       security.tpm2.enable = true;
-      networking.firewall.enable = true;
       security.auditd.enable = true;
+      networking.firewall.enable = lib.mkForece true;
       security.audit.enable = true;
       security.lockKernelModules = true;
       security.protectKernelImage = true;

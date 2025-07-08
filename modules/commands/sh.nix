@@ -50,6 +50,7 @@
       bind \cK "up-or-search; commandline -f execute"
       bind \cE e
       bind \cW weechat
+      bind \cX "cargo run"
       bind \cH backward-kill-word
     '';
     programs.fish.shellAliases = aliases;
