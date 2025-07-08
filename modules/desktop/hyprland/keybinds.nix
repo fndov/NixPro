@@ -142,10 +142,10 @@
           ",XF86AudioPrev,exec,nice -1 playerctl previous"
 
           # Brightness Control.
-          ",XF86MonBrightnessUp,exec,nice -1 swayosd-client --brightness raise"
-          ",XF86MonBrightnessDown,exec,nice -1 swayosd-client --brightness lower"
-          "SUPER,XF86MonBrightnessUp,exec,nice -1 swayosd-client --brightness +1"
-          "SUPER,XF86MonBrightnessDown,exec,nice -1 swayosd-client --brightness -1"
+          ",XF86MonBrightnessUp,exec,brightnessctl set 5%+"
+          ",XF86MonBrightnessDown,exec,brightnessctl set 5%-"
+          "SUPER,XF86MonBrightnessUp,exec,brightnessctl set 1%+"
+          "SUPER,XF86MonBrightnessDown,exec,brightnessctl set 1%-"
 
           # Volume Control.
           ",XF86AudioRaiseVolume,exec,nice -1 pswayosd-client --output-volume raise"
