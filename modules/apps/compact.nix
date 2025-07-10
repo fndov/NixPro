@@ -10,6 +10,7 @@
       vlc
       kdePackages.ark
       authenticator
+      gearlever
       /*
         libreoffice
         unstable.gimp
@@ -20,7 +21,6 @@
         easyeffects
         baobab
         warehouse
-        gearlever
         portmaster
         qbittorrent
         amberol

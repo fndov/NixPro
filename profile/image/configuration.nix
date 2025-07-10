@@ -8,7 +8,7 @@
     # ../../modules/commands/extra.nix
     ../../modules/commands/library.nix
     # ../../modules/development/nix.nix
-    # ../../modules/development/rs.nix
+    ../../modules/development/rs.nix
     # ../../modules/apps/virtualize.nix
   ];
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
