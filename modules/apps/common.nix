@@ -18,10 +18,10 @@
       helvum
       easyeffects
       baobab
+      warehouse
+      gearlever
       /*
         gnome-disk-utility
-        warehouse
-        gearlever
         portmaster
         qbittorrent
         amberol

@@ -1,14 +1,14 @@
 { lib, pkgs, ... }: {
   imports = [
-    ../../modules/apps/portable.nix
-    ../../modules/apps/spotify.nix
-    ../../modules/apps/flatpak.nix
-    ../../modules/commands/base.nix
-    ../../modules/commands/shell.nix
+    # ../../modules/apps/compact.nix
+    # ../../modules/apps/spotify.nix
+    # ../../modules/apps/flatpak.nix
+    # ../../modules/commands/base.nix
+    # ../../modules/commands/shell.nix
     # ../../modules/commands/extra.nix
-    ../../modules/commands/library.nix
+    # ../../modules/commands/library.nix
     # ../../modules/development/nix.nix
-    ../../modules/development/rs.nix
+    # ../../modules/development/rs.nix
     # ../../modules/apps/virtualize.nix
   ];
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
@@ -20,20 +20,34 @@
     "udev.log_level=0"
     "rd.udev.log_level=0"
     "udev.log_priority=0"
+    "fastboot"
     "mitigations=off"
+    "noibrs"
+    "noibpb"
+    "nopti"
     "nospectre_v1"
     "nospectre_v2"
+    "l1tf=off"
     "nospec_store_bypass_disable"
     "no_stf_barrier"
+    "mds=off"
+    "tsx=on"
+    "tsx_async_abort=off"
     "nowatchdog"
     "panic=1"
     "boot.panic_on_fail"
+    "transparent_hugepage=always"
     "init_on_alloc=0"
     "init_on_free=0"
+    "idle=nomwait"
+    "ascpi_osi=Linux"
+    "preempt=full"
+    "uinput"
   ];
   boot.blacklistedKernelModules = [
     "nouveau"
   ];
+  nixpkgs.config.allowUnfree = true;
   # users.groups.nixos = lib.mkForce {};
   documentation.man.enable = lib.mkForce false;
   nix.settings.keep-outputs = false;
@@ -41,19 +55,7 @@
   # users.users.nixos = { _module = {}; };
   services.openssh.enable = lib.mkForce false;
   hardware.graphics.enable = true;
-  hardware.enableAllFirmware = true;
-  hardware.enableRedistributableFirmware = true;
+  # hardware.enableAllFirmware = true;
+  # hardware.enableRedistributableFirmware = true;
   boot.loader.timeout = lib.mkForce 3;
-
-  /*
-  # ISO Image Configuration
-  isoImage.makeEfiBootable = true;
-  isoImage.makeUsbBootable = true;
-  isoImage.appendToMenuLabel = " NixPro Live";
-  isoImage.volumeID = "NIXPRO";
-
-  # Ensure systemd-boot is enabled for UEFI
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot"; */
 }

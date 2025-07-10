@@ -28,7 +28,7 @@
         grubDevice = "/dev/sda";
         bootMountPath = "/boot";
         flakePath = ".nixpro";
-        automation = true;
+        automation = false;
         security = false;
         sshd = false;
       };
