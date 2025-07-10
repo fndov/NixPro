@@ -109,7 +109,7 @@
       services.earlyoom.freeSwapKillThreshold = 3;
       boot.readOnlyNixStore = true;
     }
-    (if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "workstation") then {
+    (if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "workstation" || settings.profile == "image") then {
       boot.consoleLogLevel = 0;
       boot.tmp.cleanOnBoot = true;
       boot.loader.systemd-boot.enable = if (settings.system.bootMode == "uefi") then true else false;

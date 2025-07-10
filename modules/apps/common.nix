@@ -19,6 +19,7 @@
       easyeffects
       baobab
       /*
+        gnome-disk-utility
         warehouse
         gearlever
         portmaster

@@ -17,7 +17,7 @@
     settings = {
       timezone = "America/Chicago";
       driver = {
-        graphics = "intel";
+        graphics = "nvidia";
         intelBusID = "PCI:0:2:0";
         nvidiaBusID = "PCI:9:0:0";
       };
@@ -42,7 +42,7 @@
         browser = "google-chrome";
       };
       desktop = {
-        type = null;
+        type = "hyprland/default";
         monitors = [ "eDP-1,1920x1080@60,0x0,1" "Virtual-1,1920x1080@60,0x0,1" ];
         wallpaperPath = "Media/Pictures/catppuccin-mocha";
         wallpaperName = "jupiter.png";

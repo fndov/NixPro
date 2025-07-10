@@ -44,4 +44,16 @@
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
   boot.loader.timeout = lib.mkForce 3;
+
+  /*
+  # ISO Image Configuration
+  isoImage.makeEfiBootable = true;
+  isoImage.makeUsbBootable = true;
+  isoImage.appendToMenuLabel = " NixPro Live";
+  isoImage.volumeID = "NIXPRO";
+
+  # Ensure systemd-boot is enabled for UEFI
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot"; */
 }
