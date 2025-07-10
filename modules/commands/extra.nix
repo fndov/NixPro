@@ -1,0 +1,75 @@
+{ inputs, pkgs, settings, ... }: {
+  home-manager.users.${settings.account.name} = { ... }: let
+    unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
+  in {
+    nixpkgs.config.allowUnfree = true;
+    home.packages = with pkgs; [
+      bat
+      weechat
+      unstable.gemini-cli
+      file
+      unstable.gdu
+      unstable.fastfetch
+      unstable.numbat
+      /*
+        kmon
+        timg
+        chafa
+        loop
+        toybox
+        usbutils
+        pciutils
+        hwinfo
+        exif
+        nixfmt-classic
+        syncthing
+        openssh
+        sshpass
+        glances
+        wget
+        ffmpeg
+        bottom
+        gamemode
+        aria2
+        cava
+        cowsay
+        fzf
+        p7zip
+        twitch-dl
+        unrar
+        yt-dlp
+        aircrack-ng
+        ascii-image-converter
+        carapace
+        corefonts
+        dialog
+        discordchatexporter-cli
+        dmidecode
+        egl-wayland
+        fastgame
+        gophish
+        hashcat
+        helix
+        helvum
+        icu
+        jre
+        lolcat
+        mat2
+        nethogs
+        nftables
+        nix-prefetch-github
+        nixfmt-classic
+        nixpkgs-review
+        raylib
+        scc
+        ssh-chat
+        sshs
+        streamlink
+        scc
+        tmux
+        gping
+        vulkan-tools
+      */
+    ];
+  };
+}

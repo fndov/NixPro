@@ -6,8 +6,6 @@
     home.packages = with pkgs; [
       /* Essential */
       inxi
-      weechat
-      bat
       zip
       unzip
       glib
@@ -16,13 +14,13 @@
       git
       unstable.openssh
       unstable.yazi
-      /* Extra */
-      unstable.gemini-cli
-      file
-      unstable.gdu
-      unstable.fastfetch
-      unstable.numbat
       /*
+        bat
+        unstable.gemini-cli
+        file
+        unstable.gdu
+        unstable.fastfetch
+        unstable.numbat
         kmon
         timg
         chafa

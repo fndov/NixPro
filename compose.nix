@@ -49,7 +49,7 @@
         home.stateVersion = settings.system.version;
       };
       environment.systemPackages = with pkgs; [
-        networkmanagerapplet
+        inputs.nix-software-center.packages.${system}.nix-software-center
         ifuse
       ] ++ (if settings.account.editor == "micro" then [ micro ] else [])
         ++ (if settings.account.editor == "nano" then [ nano ] else [])

@@ -1,12 +1,14 @@
-{ pkgs, settings, ... }: { imports = [
+{ pkgs, ... }: { imports = [
   ../../modules/apps/common.nix
   ../../modules/apps/spotify.nix
   ../../modules/apps/lutris.nix
-  ../../modules/commands/sh.nix
-  ../../modules/commands/cli.nix
-  ../../modules/commands/lib.nix
+  ../../modules/commands/base.nix
+  ../../modules/commands/shell.nix
+  ../../modules/commands/extra.nix
+  ../../modules/commands/library.nix
   ../../modules/development/nix.nix
   ../../modules/development/rs.nix
+  ../../modules/apps/flatpak.nix
   # ../../modules/apps/virtualize.nix
   ];
   boot.kernelPackages = pkgs.linuxPackages_xanmod;

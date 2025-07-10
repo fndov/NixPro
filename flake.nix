@@ -11,12 +11,13 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
+    nix-software-center.url = "github:snowfallorg/nix-software-center";
   };
   outputs = inputs@{ ... }: let
     settings = {
       timezone = "America/Chicago";
       driver = {
-        graphics = "nvidia";
+        graphics = "intel";
         intelBusID = "PCI:0:2:0";
         nvidiaBusID = "PCI:9:0:0";
       };
@@ -41,7 +42,7 @@
         browser = "google-chrome";
       };
       desktop = {
-        type = "hyprland/default";
+        type = null;
         monitors = [ "eDP-1,1920x1080@60,0x0,1" "Virtual-1,1920x1080@60,0x0,1" ];
         wallpaperPath = "Media/Pictures/catppuccin-mocha";
         wallpaperName = "jupiter.png";

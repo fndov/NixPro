@@ -4,21 +4,21 @@
   in {
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
-      kdePackages.k3b # broken
       unstable.zed-editor
       unstable.obsidian
       unstable.obs-studio
-      unstable.gimp
       vlc
-      libreoffice
       kdePackages.ark
-      video-trimmer
-      krita
       authenticator
-      helvum
-      easyeffects
-      baobab
       /*
+        libreoffice
+        unstable.gimp
+        kdePackages.k3b # broken
+        video-trimmer
+        krita
+        helvum
+        easyeffects
+        baobab
         warehouse
         gearlever
         portmaster
