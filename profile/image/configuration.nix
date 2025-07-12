@@ -1,12 +1,12 @@
 { lib, pkgs, ... }: {
   imports = [
-    # ../../modules/apps/compact.nix
-    # ../../modules/apps/spotify.nix
-    # ../../modules/apps/flatpak.nix
-    # ../../modules/commands/base.nix
-    # ../../modules/commands/shell.nix
+    ../../modules/apps/compact.nix
+    ../../modules/apps/spotify.nix
+    ../../modules/apps/flatpak.nix
+    ../../modules/commands/base.nix
+    ../../modules/commands/shell.nix
     # ../../modules/commands/extra.nix
-    # ../../modules/commands/library.nix
+    ../../modules/commands/library.nix
     # ../../modules/development/nix.nix
     # ../../modules/development/rs.nix
     # ../../modules/apps/virtualize.nix

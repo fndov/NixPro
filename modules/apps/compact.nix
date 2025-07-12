@@ -9,9 +9,9 @@
       unstable.obs-studio
       vlc
       kdePackages.ark
-      authenticator
       gearlever
       /*
+        authenticator
         libreoffice
         unstable.gimp
         kdePackages.k3b # broken

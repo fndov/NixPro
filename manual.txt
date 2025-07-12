@@ -98,3 +98,5 @@ to delete the unused generations and then run :
 cp -r /home/miyu/.steam/root/compatibilitytools.d/GE-Proton9-27 ~/.local/share/lutris/runners/wine/
 mv ~/.local/share/lutris/runners/wine/GE-Proton9-27/files/* ~/.local/share/lutris/runners/wine/GE-Proton9-27/
 rmdir ~/.local/share/lutris/runners/wine/GE-Proton9-27/files/
+
+use iso-installer instead of iso for building
