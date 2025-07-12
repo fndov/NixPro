@@ -24,23 +24,23 @@
           '')
 
           (writeShellScriptBin "nixsw" ''
-            echo '# sudo nice -1 nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation'
-            sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation
+            echo '# sudo nice -1 nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation'
+            sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation
           '')
 
           (writeShellScriptBin "nixbo" ''
-            echo '# sudo nice -1 nixos-rebuild --upgrade boot --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation'
-            sudo nixos-rebuild --upgrade boot --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation
+            echo '# sudo nice -1 nixos-rebuild boot --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation'
+            sudo nixos-rebuild boot --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation
           '')
 
           (writeShellScriptBin "nixts" ''
-            echo '# sudo nice -1 nixos-rebuild --upgrade test --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation'
-            sudo nixos-rebuild --upgrade test --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation
+            echo '# sudo nice -1 nixos-rebuild test --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation'
+            sudo nixos-rebuild test --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation
           '')
 
           (writeShellScriptBin "nixdr" ''
-            echo '# sudo nice -1 nixos-rebuild --upgrade dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation'
-            sudo nixos-rebuild --upgrade dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation
+            echo '# sudo nice -1 nixos-rebuild dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation'
+            sudo nixos-rebuild dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#workstation
           '')
 
           (writeShellScriptBin "nixrl" ''
@@ -64,8 +64,8 @@
           '')
 
           (writeShellScriptBin "nixim" ''
-            echo '# sudo nice -1 nixos-rebuild --upgrade build-image --flake /home/${settings.account.name}/${settings.system.flakePath}#image --image-variant iso'
-            sudo nice -1 nixos-rebuild --upgrade build-image --flake /home/${settings.account.name}/${settings.system.flakePath}#image --image-variant iso
+            echo '# sudo nice -1 nixos-rebuild build-image --flake /home/${settings.account.name}/${settings.system.flakePath}#image --image-variant iso'
+            sudo nice -1 nixos-rebuild build-image --flake /home/${settings.account.name}/${settings.system.flakePath}#image --image-variant iso
           '')
 
           (writeShellScriptBin "nixgc" ''
@@ -130,23 +130,23 @@
           '')
 
           (writeShellScriptBin "nixsw" ''
-            echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#image'
-            sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#image
+            echo '# sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#image'
+            sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#image
           '')
 
           (writeShellScriptBin "nixbo" ''
-            echo '# sudo nixos-rebuild --upgrade boot --flake /home/${settings.account.name}/${settings.system.flakePath}#image'
-            sudo nixos-rebuild --upgrade boot --flake /home/${settings.account.name}/${settings.system.flakePath}#image
+            echo '# sudo nixos-rebuild boot --flake /home/${settings.account.name}/${settings.system.flakePath}#image'
+            sudo nixos-rebuild boot --flake /home/${settings.account.name}/${settings.system.flakePath}#image
           '')
 
           (writeShellScriptBin "nixts" ''
-            echo '# sudo nixos-rebuild --upgrade test --flake /home/${settings.account.name}/${settings.system.flakePath}#image'
-            sudo nixos-rebuild --upgrade test --flake /home/${settings.account.name}/${settings.system.flakePath}#image
+            echo '# sudo nixos-rebuild test --flake /home/${settings.account.name}/${settings.system.flakePath}#image'
+            sudo nixos-rebuild test --flake /home/${settings.account.name}/${settings.system.flakePath}#image
           '')
 
           (writeShellScriptBin "nixdr" ''
-            echo '# sudo nixos-rebuild --upgrade dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#image'
-            sudo nixos-rebuild --upgrade dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#image
+            echo '# sudo nixos-rebuild dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#image'
+            sudo nixos-rebuild dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#image
           '')
 
           (writeShellScriptBin "nixrl" ''
@@ -228,23 +228,23 @@
           '')
 
           (writeShellScriptBin "nixsw" ''
-            echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem'
-            sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem
+            echo '# sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem'
+            sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem
           '')
 
           (writeShellScriptBin "nixbo" ''
-            echo '# sudo nixos-rebuild boot --upgrade --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem'
-            sudo nixos-rebuild boot --upgrade --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem
+            echo '# sudo nixos-rebuild boot --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem'
+            sudo nixos-rebuild boot --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem
           '')
 
           (writeShellScriptBin "nixts" ''
-            echo '# sudo nixos-rebuild test --upgrade --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem'
-            sudo nixos-rebuild test --upgrade --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem
+            echo '# sudo nixos-rebuild test --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem'
+            sudo nixos-rebuild test --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem
           '')
 
           (writeShellScriptBin "nixdr" ''
-            echo '# sudo nixos-rebuild --upgrade dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem'
-            sudo nixos-rebuild --upgrade dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem
+            echo '# sudo nixos-rebuild dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem'
+            sudo nixos-rebuild dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#windows-subsystem
           '')
 
           (writeShellScriptBin "nixrl" ''
@@ -268,8 +268,8 @@
           '')
 
           (writeShellScriptBin "nixim" ''
-            echo '# sudo nice -1 nixos-rebuild --upgrade build-image --flake /home/${settings.account.name}/${settings.system.flakePath}#image --image-variant iso'
-            sudo nice -1 nixos-rebuild --upgrade build-image --flake /home/${settings.account.name}/${settings.system.flakePath}#image --image-variant iso
+            echo '# sudo nice -1 nixos-rebuild  build-image --flake /home/${settings.account.name}/${settings.system.flakePath}#image --image-variant iso'
+            sudo nice -1 nixos-rebuild  build-image --flake /home/${settings.account.name}/${settings.system.flakePath}#image --image-variant iso
           '')
 
           (writeShellScriptBin "nixgc" ''
@@ -333,35 +333,35 @@
           '')
 
           (writeShellScriptBin "nixsw" ''
-            echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#server'
-            sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#server
+            echo '# sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#server'
+            sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#server
           '')
 
           (writeShellScriptBin "nixbo" ''
-            echo '# sudo nixos-rebuild --upgrade boot --flake /home/${settings.account.name}/${settings.system.flakePath}#server'
-            sudo nixos-rebuild --upgrade boot --flake /home/${settings.account.name}/${settings.system.flakePath}#server
+            echo '# sudo nixos-rebuild boot --flake /home/${settings.account.name}/${settings.system.flakePath}#server'
+            sudo nixos-rebuild boot --flake /home/${settings.account.name}/${settings.system.flakePath}#server
           '')
 
           (writeShellScriptBin "nixts" ''
-            echo '# sudo nixos-rebuild --upgrade test --flake /home/${settings.account.name}/${settings.system.flakePath}#server'
-            sudo nixos-rebuild --upgrade test --flake /home/${settings.account.name}/${settings.system.flakePath}#server
+            echo '# sudo nixos-rebuild test --flake /home/${settings.account.name}/${settings.system.flakePath}#server'
+            sudo nixos-rebuild test --flake /home/${settings.account.name}/${settings.system.flakePath}#server
           '')
 
           (writeShellScriptBin "nixdr" ''
-            echo '# sudo nixos-rebuild --upgrade dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#server'
-            sudo nixos-rebuild --upgrade dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#server
+            echo '# sudo nixos-rebuild dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#server'
+            sudo nixos-rebuild dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#server
           '')
 
           (writeShellScriptBin "nixrl" ''
-            echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#server --rollback'
-            sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#server --rollback
+            echo '# sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#server --rollback'
+            sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#server --rollback
           '')
 
           (writeShellScriptBin "nixup" ''
             echo '# sudo nix flake update --flake /home/${settings.account.name}/${settings.system.flakePath}'
             sudo nix flake update --flake /home/${settings.account.name}/${settings.system.flakePath}
-            echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#server'
-            sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#server
+            echo '# sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#server'
+            sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#server
           '')
 
           (writeShellScriptBin "nixar" ''
@@ -426,23 +426,23 @@
           '')
 
           (writeShellScriptBin "nixsw" ''
-            echo '# sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine'
-            sudo nixos-rebuild --upgrade switch --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine
+            echo '# sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine'
+            sudo nixos-rebuild switch --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine
           '')
 
           (writeShellScriptBin "nixbo" ''
-            echo '# sudo nixos-rebuild --upgrade boot --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine'
-            sudo nixos-rebuild --upgrade boot --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine
+            echo '# sudo nixos-rebuild boot --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine'
+            sudo nixos-rebuild boot --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine
           '')
 
           (writeShellScriptBin "nixts" ''
-            echo '# sudo nixos-rebuild --upgrade test --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine'
-            sudo nixos-rebuild --upgrade test --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine
+            echo '# sudo nixos-rebuild test --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine'
+            sudo nixos-rebuild test --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine
           '')
 
           (writeShellScriptBin "nixdr" ''
-            echo '# sudo nixos-rebuild dry-run --upgrade --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine'
-            sudo nixos-rebuild --upgrade dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine
+            echo '# sudo nixos-rebuild dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine'
+            sudo nixos-rebuild dry-run --flake /home/${settings.account.name}/${settings.system.flakePath}#virtual-machine
           '')
 
           (writeShellScriptBin "nixrl" ''
@@ -466,8 +466,8 @@
           '')
 
           (writeShellScriptBin "nixim" ''
-            echo '# sudo nice -1 nixos-rebuild --upgrade build-image --flake /home/${settings.account.name}/${settings.system.flakePath}#image --image-variant iso'
-            sudo nice -1 nixos-rebuild --upgrade build-image --flake /home/${settings.account.name}/${settings.system.flakePath}#image --image-variant iso
+            echo '# sudo nice -1 nixos-rebuild  build-image --flake /home/${settings.account.name}/${settings.system.flakePath}#image --image-variant iso'
+            sudo nice -1 nixos-rebuild  build-image --flake /home/${settings.account.name}/${settings.system.flakePath}#image --image-variant iso
           '')
 
           (writeShellScriptBin "nixgc" ''

@@ -23,10 +23,12 @@
       documentation.nixos.enable = lib.mkForce false;
       environment.sessionVariables.NIX_AUTO_RUN = "1";
       environment.sessionVariables.NIXPKGS_ALLOW_UNFREE = "1";
+
       nix.extraOptions = "experimental-features = nix-command flakes";
       nix.settings.sandbox = true;
       nix.settings.trusted-users = [ "@wheel" ];
       nix.settings.warn-dirty = false;
+      
       nix.settings.substituters = [
         # "https://cache.lix.systems"
         "https://hyprland.cachix.org"
@@ -35,6 +37,7 @@
         # "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       ];
+
       nix.settings.auto-optimise-store = true;
       nix.optimise.automatic = true;
       nix.optimise.dates = [ "weekly" ];
@@ -117,9 +120,9 @@
       boot.loader.systemd-boot.configurationLimit = 25;
       boot.loader.grub.enable = if (settings.system.bootMode == "uefi") then false else true;
       boot.loader.grub.useOSProber = true;
-      # boot.loader.grub.device = settings.system.grubDevice;
-      # boot.loader.grub.devices = [ settings.system.grubDevice ];
-      # boot.loader.efi.efiSysMountPoint = settings.system.bootMountPath;
+      boot.loader.grub.device = settings.system.grubDevice;
+      boot.loader.grub.devices = [ settings.system.grubDevice ];
+      boot.loader.efi.efiSysMountPoint = settings.system.bootMountPath;
       boot.loader.efi.canTouchEfiVariables = if (settings.system.bootMode == "uefi") then true else false;
       systemd.network.wait-online.enable = false;
     } else {})
