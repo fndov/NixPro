@@ -1,8 +1,8 @@
 { pkgs, inputs, ... }: let
   unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
 in {
-  environment.systemPackages = with pkgs; [
-    unstable.virt-manager
+  environment.systemPackages = with unstable; [
+    virt-manager
     /*
       distrobox
       unstable.qemu

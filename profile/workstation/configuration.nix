@@ -10,7 +10,9 @@
   ../../modules/development/rs.nix
   ../../modules/apps/flatpak.nix
   # ../../modules/apps/virtualize.nix
+  # ../../vps.nix
   ];
+
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
   boot.kernelPatches = [ /*
     {patch = ../../kernel-patches/tkg-6.14/0001-bore.patch;}

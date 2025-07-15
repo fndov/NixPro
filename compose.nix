@@ -28,7 +28,6 @@
       nix.settings.sandbox = true;
       nix.settings.trusted-users = [ "@wheel" ];
       nix.settings.warn-dirty = false;
-      
       nix.settings.substituters = [
         # "https://cache.lix.systems"
         "https://hyprland.cachix.org"

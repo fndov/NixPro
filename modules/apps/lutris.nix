@@ -4,18 +4,18 @@
   in {
     home.packages = with pkgs; [
       lutris
-      unstable.gamemode
-      unstable.gamescope
-      unstable.gvfs
-      unstable.mangohud
-      unstable.protonup
-      unstable.wine
-      unstable.vulkan-tools
-      unstable.vulkan-loader
+      gamemode
+      gamescope
+      gvfs
+      mangohud
+      protonup
+      wine
+      vulkan-tools
+      vulkan-loader
       /*
-        unstable.protontricks
-        unstable.protonplus
-        unstable.winetricks
+        protontricks
+        protonplus
+        winetricks
       */
     ];
   };

@@ -2,14 +2,14 @@
   home-manager.users.${settings.account.name} = { ... }: let
     unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; };
   in {
-    home.packages = with pkgs; [
-      unstable.steam
-      unstable.gamemode
-      unstable.gamescope
-      unstable.gvfs
-      unstable.mangohud
-      unstable.protonup
-      unstable.wine
+    home.packages = with unstable; [
+      steam
+      gamemode
+      gamescope
+      gvfs
+      mangohud
+      protonup
+      wine
       /*
         unstable.protontricks
         unstable.protonplus
