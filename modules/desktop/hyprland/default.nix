@@ -1,48 +1,64 @@
 { config, inputs, lib, pkgs, settings, ... }: {
   nix.settings.substituters = [ "https://hyprland.cachix.org" ];
   nix.settings.trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.systemPackages = with pkgs; [ libsecret cups-filters ];
+
   programs.hyprland.enable = true;
   programs.hyprland.withUWSM = true;
   programs.hyprland.xwayland.enable = true;
   programs.hyprland.package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   programs.hyprland.portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+
   xdg.portal.enable = true;
   xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal xdg-desktop-portal-gtk ];
-  services.blueman.enable = true;
+
   services.udisks2.enable = true;
   services.devmon.enable = true;
   services.gvfs.enable = true;
+
   services.gnome.gnome-keyring.enable = true;
+
+  security.rtkit.enable = true;
   services.pipewire.enable = true;
   services.pipewire.alsa.enable = true;
   services.pipewire.alsa.support32Bit = true;
   services.pipewire.pulse.enable = true;
   services.pipewire.jack.enable = true;
+
   services.greetd.enable = true;
   services.greetd.settings.default_session.command = "${pkgs.bash}/bin/bash -c 'clear; exec ${pkgs.hyprland}/bin/Hyprland &> /dev/null'";
   services.greetd.settings.default_session.user = settings.account.name;
+
   services.getty.autologinUser = lib.mkForce "${settings.account.name}";
   services.getty.helpLine = lib.mkForce "";
+
   services.thermald.enable = false;
-  security.pam.services.greetd = lib.mkIf config.services.greetd.enable { enableGnomeKeyring = true; };
-  security.rtkit.enable = true;
+
   services.printing.enable = true;
+  security.pam.services.greetd = lib.mkIf config.services.greetd.enable { enableGnomeKeyring = true; };
+
   services.avahi.enable = true;
   services.avahi.nssmdns4 = true;
   services.avahi.openFirewall = true;
+
   fonts.enableDefaultPackages = true;
   fonts.fontconfig.enable = true;
   fonts.packages = with pkgs; [ noto-fonts inter ];
   fonts.fontconfig.defaultFonts.monospace = [ "Noto Mono" ];
   fonts.fontconfig.defaultFonts.sansSerif = [ "Inter" "Noto Sans" ];
   fonts.fontconfig.defaultFonts.serif = [ "Noto Serif" ];
+
+  services.blueman.enable = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
+
   boot.plymouth.enable = true;
   boot.loader.timeout = 1;
+
   services.power-profiles-daemon.enable = true;
+
   imports = [
     ./animation.nix
     ./app-dock.nix
