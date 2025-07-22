@@ -134,7 +134,7 @@
       hardware.nvidia.powerManagement.enable = true;
       hardware.nvidia.powerManagement.finegrained = true;
       hardware.nvidia.modesetting.enable = true;
-      hardware.nvidia.nvidiaSettings = false;
+      hardware.nvidia.nvidiaSettings = true;
       hardware.nvidia.open = false;
       boot.blacklistedKernelModules = [ "nouveau" ];
       boot.kernelParams = [
@@ -193,11 +193,39 @@
       ];
     })
     (lib.mkIf settings.system.sshd {
-      services.openssh.enable = true;
-      services.openssh.ports = [ 22 ];
-      services.openssh.settings.PasswordAuthentication = true;
-      services.openssh.settings.UseDns = true;
-      services.openssh.permitRootLogin = "yes";
+      services.openssh = {
+        enable = true;
+        ports = [ 22 ];
+        settings.PasswordAuthentication = true;
+        settings.UseDns = true;
+        permitRootLogin = "yes";
+      };
+      services.fail2ban = {
+        enable = true;
+        maxretry = 6;
+        ignoreIP = [
+          "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16"
+        ];
+        bantime = "1h";
+        bantime-increment = {
+          enable = true;
+          formula = "ban.Time * math.exp(float(ban.Count+1)*banFactor)/math.exp(1*banFactor)";
+          multipliers = "1 2 4 8 16 32 64";
+          maxtime = "168h";
+          overalljails = true;
+        };
+        jails = {
+          apache-nohome-iptables.settings = {
+            filter = "apache-nohome";
+            action = ''iptables-multiport[name=HTTP, port="http,https"]'';
+            logpath = "/var/log/httpd/error_log*";
+            backend = "auto";
+            findtime = 600;
+            bantime  = 600;
+            maxretry = 5;
+          };
+        };
+      };
     })
     (lib.mkIf (settings.profile != "microsoft") {
       environment.systemPackages = [ pkgs.networkmanager ];

@@ -1,10 +1,5 @@
 { lib, pkgs, ... }:{
-  imports = [
-    ../../modules/commands/sh.nix
-    ../../modules/commands/cli.nix
-    ../../modules/commands/lib.nix
-    ../../modules/development/cc.nix
-  ];
+  imports = [ ];
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
   boot.kernelPatches = [ ];
   boot.kernelParams = [

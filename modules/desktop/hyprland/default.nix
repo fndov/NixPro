@@ -61,22 +61,22 @@
 
   imports = [
     ./animation.nix
-    ./app-dock.nix
     ./cursor.nix
     ./dependencies.nix
+    ./hypridle.nix
+    ./hyprlock.nix
     ./hyprpaper.nix
+    ./hyprsunset.nix
     ./keybinds.nix
-    ./lock-screen.nix
-    ./nightlight.nix
     ./notification.nix
-    ./nwg-launcher.nix
+    ./nwg-dock.nix
+    # ./nwg-launcher.nix
     ./plugins.nix
+    ./qt-gtk.nix
     ./rclone.nix
-    ./rofi.nix
+    ./rofi-launcher.nix
     ./rules.nix
     ./screenshot.nix
-    ./theme.nix
-    ./timeout.nix
     ./waybar.nix
   ] ++ lib.optional (settings.profile == "workstation") ./text-to-speach.nix;
   home-manager.users.${settings.account.name} = lib.mkMerge [

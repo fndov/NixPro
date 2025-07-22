@@ -4,7 +4,6 @@
   in {
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
-      kdePackages.k3b # broken
       unstable.zed-editor
       unstable.obsidian
       unstable.obs-studio
@@ -21,6 +20,7 @@
       warehouse
       gearlever
       /*
+        kdePackages.k3b # broken
         gnome-disk-utility
         portmaster
         qbittorrent
@@ -43,6 +43,7 @@
         upscayl
         discord
         foliate
+        monero-gui
         nextcloud-client
         lollypop
         xournalpp

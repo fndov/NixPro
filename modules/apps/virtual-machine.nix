@@ -3,6 +3,8 @@
 in {
   environment.systemPackages = with unstable; [
     virt-manager
+    OVMF
+    swtpm
     /*
       distrobox
       unstable.qemu

@@ -2,6 +2,9 @@
   home-manager.users.${settings.account.name} = { ... }: let
     unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
     aliases = {
+      vstart = "sudo virsh net-start default";
+      reboot = "echo '# Refusing to reboot'";
+      poweroff = "echo '# Refusing to poweroff'";
       cat = "bat --style=plain --pager=never";
       tree = "eza --color always --icons --hyperlink --group-directories-first --tree";
       l = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2";

@@ -1,7 +1,5 @@
-{ pkgs, settings, inputs, ... }: {
-  home-manager.users.${settings.account.name} = { ... }: let
-    unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
-  in {
+{ pkgs, settings, ... }: {
+  home-manager.users.${settings.account.name} = {
     home.packages = with pkgs; [
       nwg-launchers
       gtk4-layer-shell

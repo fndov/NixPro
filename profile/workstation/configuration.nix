@@ -1,26 +1,18 @@
 { pkgs, ... }: { imports = [
-  ../../modules/apps/common.nix
+  ../../modules/apps/collection.nix
   ../../modules/apps/spotify.nix
   ../../modules/apps/lutris.nix
+  # ../../modules/apps/flatpak.nix
+  # ../../modules/apps/virtualize.nix
   ../../modules/commands/base.nix
   ../../modules/commands/shell.nix
   ../../modules/commands/extra.nix
   ../../modules/commands/library.nix
   ../../modules/development/nix.nix
   ../../modules/development/rs.nix
-  ../../modules/apps/flatpak.nix
-  # ../../modules/apps/virtualize.nix
-  # ../../vps.nix
   ];
-
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
-  boot.kernelPatches = [ /*
-    {patch = ../../kernel-patches/tkg-6.14/0001-bore.patch;}
-    {patch = ../../kernel-patches/tkg-6.14/0009-glitched-bmq.patch;}
-    {patch = ../../kernel-patches/tkg-6.14/0012-misc-additions.patch;}
-    {patch = ../../kernel-patches/tkg-6.14/0013-optimize_harder_O3.patch;}
-    {patch = ../../kernel-patches/tkg-6.14/0014-OpenRGB.patch;} */
-   ];
+  boot.kernelPatches = [ ];
   boot.kernelParams = [
     "splash"
     "quiet"
@@ -53,7 +45,7 @@
     "uinput"
   ];
   boot.blacklistedKernelModules = [
-    "nouveau"
+    "nouveau"   # Conflict with Nvidia driver
     # Obscure network protocols.
     "af_802154" # IEEE 802.15.4
     "appletalk" # Appletalk

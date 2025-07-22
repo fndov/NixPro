@@ -44,8 +44,8 @@
       desktop = {
         type = "hyprland/default";
         monitors = [ "eDP-1,1920x1080@60,0x0,1" "Virtual-1,1920x1080@60,0x0,1" ];
-        wallpaperPath = "Media/Pictures/catppuccin-mocha";
-        wallpaperName = "jupiter.png";
+        wallpaperPath = "Media/Pictures/Wallpapers";
+        wallpaperName = "nix-wallpaper-dracula.png";
         wallpaperMonitor = "eDP-1";
         animationSpeed = "medium";
       };
