@@ -90,15 +90,6 @@
       services.zram-generator.settings.zram0.compression-algorithm = "zstd"; # "zstd lz4 (type=huge)";
       services.zram-generator.settings.zram0.fs-type = "swap";
       services.zram-generator.settings.zram0.swap-priority = 3;
-      boot.kernel.sysctl."vm.swappiness" = 180; # 60
-      boot.kernel.sysctl."vm.dirty_background_ratio" = 100; # 10
-      boot.kernel.sysctl."vm.dirty_ratio" = if settings.profile == "image" then 80 else 100; # 20
-      boot.kernel.sysctl."vm.vfs_cache_pressure" = 1; # 100
-      boot.kernel.sysctl."vm.min_free_kbytes" = 1000; # 1000
-      boot.kernel.sysctl."vm.compaction_proactiveness" = 100; # 20
-      boot.kernel.sysctl."vm.page-cluster" = 0;
-      boot.kernel.sysctl."vm.watermark_boost_factor" = 0;
-      boot.kernel.sysctl."vm.watermark_scale_factor" = 125;
       boot.tmp.useTmpfs = true;
       boot.initrd.compressor = "zstd";
       boot.initrd.compressorArgs = [ "-15" ];

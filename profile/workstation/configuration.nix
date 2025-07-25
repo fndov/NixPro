@@ -11,6 +11,22 @@
   ../../modules/development/nix.nix
   ../../modules/development/rs.nix
   ];
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "weekly";
+    fileSystems = [ "/" ];
+  };
+  boot.kernel.sysctl."vm.swappiness" = 1; # 60
+  boot.kernel.sysctl."vm.dirty_background_ratio" = 5; # 10
+  boot.kernel.sysctl."vm.dirty_ratio" = 10; # 20
+  boot.kernel.sysctl."vm.vfs_cache_pressure" = 10; # 100
+  boot.kernel.sysctl."vm.min_free_kbytes" = 1000; # 1000
+  boot.kernel.sysctl."vm.compaction_proactiveness" = 100; # 20
+  boot.kernel.sysctl."vm.page-cluster" = 3;
+  boot.kernel.sysctl."vm.watermark_boost_factor" = 0;
+  boot.kernel.sysctl."vm.watermark_scale_factor" = 125;
+  boot.kernel.sysctl."vm.dirty_expire_centisecs" = 6000;
+  boot.kernel.sysctl."vm.dirty_writeback_centisecs" = 1500;
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
   boot.kernelPatches = [ ];
   boot.kernelParams = [
@@ -45,7 +61,7 @@
     "uinput"
   ];
   boot.blacklistedKernelModules = [
-    "nouveau"   # Conflict with Nvidia driver
+    "nouveau"   # Conflicts with Nvidia driver
     # Obscure network protocols.
     "af_802154" # IEEE 802.15.4
     "appletalk" # Appletalk

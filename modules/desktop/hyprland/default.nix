@@ -69,7 +69,7 @@
     ./hyprsunset.nix
     ./keybinds.nix
     ./notification.nix
-    ./nwg-dock.nix
+    ./nwg-dock-hyprland.nix
     # ./nwg-launcher.nix
     ./plugins.nix
     ./qt-gtk.nix

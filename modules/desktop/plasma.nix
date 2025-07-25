@@ -1,8 +1,9 @@
 { pkgs, settings, ... }: {
   services.xserver.enable = true;
   services.desktopManager.plasma6.enable = true;
-	services.displayManager.defaultSession = "plasma";
+
 	services.displayManager.autoLogin.enable = true;
+	services.displayManager.defaultSession = "plasma";
 	services.displayManager.autoLogin.user = settings.account.name;
 
 	security.rtkit.enable = true;
