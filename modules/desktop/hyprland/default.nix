@@ -169,7 +169,6 @@
         misc.mouse_move_enables_dpms = "on";
         misc.key_press_enables_dpms = "on";
         misc.enable_anr_dialog = true;
-        misc.render_ahead_safezone = 1;
         ecosystem.no_update_news = true;
         ecosystem.no_donation_nag = true;
         ecosystem.enforce_permissions = false;

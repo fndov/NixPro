@@ -10,14 +10,14 @@
       "x-scheme-handler/unknown" = "google-chrome.desktop";
     };
     home.sessionVariables = {
-      DEFAULT_BROWSER = "${pkgs.google-chrome}/bin/google-chrome-stable";
+      DEFAULT_BROWSER = "google-chrome-stable";
     };
   } // (if settings.desktop.type == "hyprland/default" then {
     wayland.windowManager.hyprland.settings.exec-once = [
-      "${pkgs.google-chrome}/bin/google-chrome-stable"
+      "google-chrome-stable"
     ];
     wayland.windowManager.hyprland.settings.env = [
-      "BROWSER,${settings.account.browser}"
+      "BROWSER,google-chrome-stable"
     ];
   } else {});
 }

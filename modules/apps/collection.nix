@@ -4,6 +4,7 @@
   in {
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
+      open-webui
       unstable.zed-editor
       unstable.obsidian
       unstable.obs-studio
@@ -19,6 +20,7 @@
       baobab
       warehouse
       gearlever
+      discord
       /*
         kdePackages.k3b # broken
         gnome-disk-utility

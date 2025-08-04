@@ -3,7 +3,7 @@
   ../../modules/apps/spotify.nix
   ../../modules/apps/steam.nix
   # ../../modules/apps/flatpak.nix
-  # ../../modules/apps/virtualize.nix
+  # ../../modules/apps/virtual-machine.nix
   ../../modules/commands/base.nix
   ../../modules/commands/shell.nix
   ../../modules/commands/extra.nix

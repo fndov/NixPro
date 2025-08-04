@@ -65,7 +65,7 @@
       programs.fish.enable = if settings.account.shell == "fish" then true else false;
       system.stateVersion = settings.system.version;
       networking.firewall.enable = true;
-      systemd.services.NetworkManager-wait-online.enable = false;
+      services.journald.extraConfig = "SystemMaxUse=10M";
       systemd.coredump.extraConfig = ''
         [Coredump]
         Storage=none
@@ -115,6 +115,7 @@
       boot.loader.efi.efiSysMountPoint = settings.system.bootMountPath;
       boot.loader.efi.canTouchEfiVariables = if (settings.system.bootMode == "uefi") then true else false;
       systemd.network.wait-online.enable = false;
+      systemd.services.NetworkManager-wait-online.enable = false;
     } else {})
     (if settings.driver.graphics == "nvidia" then {
       nixpkgs.config.allowUnfree = true;

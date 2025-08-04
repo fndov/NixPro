@@ -34,7 +34,7 @@
       };
       account = {
         name = "miyu";
-        email = "miyu@atl.tools";
+        email = "miyu@allthingslinux.org";
         password = "$6$4oIhgNCDy8qpD9k3$IjLevO4A8W40sPqTT4BzCa7LKrMOmCnbfey5L94K/tQpa48eely7BLJNJzlztHUzAvQQfhaFYiaGlKDJqgBGM1";
         terminal = "ghostty";
         shell = "fish";

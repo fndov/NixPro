@@ -3,9 +3,9 @@
 in {
   environment.systemPackages = with unstable; [
     virt-manager
-    OVMF
-    swtpm
     /*
+      swtpm
+      OVMF
       distrobox
       unstable.qemu
       uefi-run

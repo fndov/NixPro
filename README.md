@@ -5,9 +5,9 @@
 ```
 ┌─ kernel-patches/
 ├─ modules/
-│  ├─ desktop/
 │  ├─ apps/
 │  ├─ commands/
+│  ├─ desktop/
 │  └─ development/
 ├─ profile/
 │  ├─ darwin/
