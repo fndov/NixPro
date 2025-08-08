@@ -1,9 +1,13 @@
-{ inputs, pkgs, settings, ... }: {
+{ inputs, lib, pkgs, settings, ... }: {
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "cuda_cudart"
+  ];
   home-manager.users.${settings.account.name} = { ... }: let
     unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
   in {
-    nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
+      unstable.ollama
       bat
       weechat
       unstable.gemini-cli

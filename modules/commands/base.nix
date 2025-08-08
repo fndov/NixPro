@@ -6,7 +6,6 @@
     home.packages = with pkgs; [
       /* Essential */
       inxi
-      unstable.quickshell
       zip
       unzip
       glib

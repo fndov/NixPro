@@ -1,9 +1,10 @@
-{ inputs, pkgs, settings, ... }: {
-  home-manager.users.${settings.account.name} = { ... }: let
-    unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; };
-  in {
+{ pkgs, settings, ... }: {
+  home-manager.users.${settings.account.name} = {
     nixpkgs.config.allowUnfree = true;
-    home.packages = with pkgs; [ ];
+    home.packages = with pkgs; [
+      python313Packages.python-lsp-server
+      python3Full
+    ];
   };
   /*
     python312Full

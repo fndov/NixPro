@@ -45,7 +45,7 @@
 
   fonts.enableDefaultPackages = true;
   fonts.fontconfig.enable = true;
-  fonts.packages = with pkgs; [ noto-fonts inter ];
+  fonts.packages = with pkgs; [ noto-fonts inter noto-fonts-cjk-sans ];
   fonts.fontconfig.defaultFonts.monospace = [ "Noto Mono" ];
   fonts.fontconfig.defaultFonts.sansSerif = [ "Inter" "Noto Sans" ];
   fonts.fontconfig.defaultFonts.serif = [ "Noto Serif" ];

@@ -10,6 +10,7 @@
   ../../modules/commands/library.nix
   ../../modules/development/nix.nix
   ../../modules/development/rs.nix
+  ../../modules/development/py.nix
   ];
   services.btrfs.autoScrub = {
     enable = true;
