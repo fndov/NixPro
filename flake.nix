@@ -16,39 +16,31 @@
   outputs = inputs@{ ... }: let
     settings = {
       timezone = "America/Chicago";
-      driver = {
-        graphics = "nvidia";
-        intelBusID = "PCI:0:2:0";
-        nvidiaBusID = "PCI:9:0:0";
-      };
-      system = {
-        version = "25.05";
-        architecture = "x86_64-linux";
-        bootMode = "uefi";
-        grubDevice = "/dev/sda";
-        bootMountPath = "/boot";
-        flakePath = ".nixpro";
-        automation = false;
-        security = false;
-        sshd = false;
-      };
-      account = {
-        name = "miyu";
-        email = "miyu@allthingslinux.org";
-        password = "$6$4oIhgNCDy8qpD9k3$IjLevO4A8W40sPqTT4BzCa7LKrMOmCnbfey5L94K/tQpa48eely7BLJNJzlztHUzAvQQfhaFYiaGlKDJqgBGM1";
-        terminal = "ghostty";
-        shell = "fish";
-        editor = "flow";
-        browser = "google-chrome";
-      };
-      desktop = {
-        type = "hyprland/default";
-        monitors = [ "eDP-1,1920x1080@60,0x0,1" "Virtual-1,1920x1080@60,0x0,1" ];
-        wallpaperPath = "Media/Pictures/Wallpapers";
-        wallpaperName = "nix-wallpaper-dracula.png";
-        wallpaperMonitor = "eDP-1";
-        animationSpeed = "medium";
-      };
+      driver.graphics = "nvidia";
+      driver.intelBusID = "PCI:0:2:0";
+      driver.nvidiaBusID = "PCI:9:0:0";
+      system.version = "25.05";
+      system.architecture = "x86_64-linux";
+      system.bootMode = "uefi";
+      system.grubDevice = "/dev/sda";
+      system.bootMountPath = "/boot";
+      system.flakePath = ".nixpro";
+      system.automation = false;
+      system.security = false;
+      system.sshd = false;
+      account.name = "miyu";
+      account.email = "miyu@allthingslinux.org";
+      account.password = "$6$4oIhgNCDy8qpD9k3$IjLevO4A8W40sPqTT4BzCa7LKrMOmCnbfey5L94K/tQpa48eely7BLJNJzlztHUzAvQQfhaFYiaGlKDJqgBGM1";
+      account.terminal = "ghostty";
+      account.shell = "fish";
+      account.editor = "flow";
+      account.browser = "google-chrome";
+      desktop.type = "hyprland/default";
+      desktop.monitors = [ "eDP-1,1920x1080@60,0x0,1" "Virtual-1,1920x1080@60,0x0,1" ];
+      desktop.wallpaperPath = "Media/Pictures/Wallpapers";
+      desktop.wallpaperName = "nix-wallpaper-dracula.png";
+      desktop.wallpaperMonitor = "eDP-1";
+      desktop.animationSpeed = "medium";
     };
     system = settings.system.architecture;
   in {

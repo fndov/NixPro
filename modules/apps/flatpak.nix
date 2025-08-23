@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   services.flatpak.enable = true;
-  environment.systemPackages = with pkgs; [
-    warehouse
+  environment.systemPackages = [
+    pkgs.warehouse
   ];
 }

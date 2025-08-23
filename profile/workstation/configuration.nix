@@ -1,16 +1,17 @@
 { pkgs, ... }: { imports = [
   ../../modules/apps/collection.nix
   ../../modules/apps/spotify.nix
-  ../../modules/apps/steam.nix
-  # ../../modules/apps/flatpak.nix
-  # ../../modules/apps/virtual-machine.nix
+  ../../modules/apps/virtual-machine.nix
+  ../../modules/apps/flatpak.nix
+  ../../modules/development/nix.nix
   ../../modules/commands/base.nix
   ../../modules/commands/shell.nix
-  ../../modules/commands/extra.nix
   ../../modules/commands/library.nix
-  ../../modules/development/nix.nix
-  ../../modules/development/rs.nix
+  ../../modules/commands/extra.nix
   ../../modules/development/py.nix
+  # ../../modules/apps/steam.nix
+  # ../../modules/development/rs.nix
+  # ../../modules/development/cc.nix
   ];
   services.btrfs.autoScrub = {
     enable = true;

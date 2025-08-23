@@ -18,10 +18,10 @@
       helvum
       easyeffects
       baobab
-      warehouse
       gearlever
       discord
       /*
+        unstable.code-cursor
         kdePackages.k3b # broken
         gnome-disk-utility
         portmaster

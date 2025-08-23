@@ -4,9 +4,9 @@ in {
   environment.systemPackages = with unstable; [
     virt-manager
     /*
+      distrobox
       swtpm
       OVMF
-      distrobox
       unstable.qemu
       uefi-run
       lxc

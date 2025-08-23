@@ -50,6 +50,8 @@
         programs.home-manager.enable = true;
         home.stateVersion = settings.system.version;
       };
+      programs.fish.enable = if settings.account.shell == "fish" then true else false;
+      programs.zsh.enable = if settings.account.shell == "zsh" then true else false;
       environment.systemPackages = with pkgs; [
         inputs.nix-software-center.packages.${system}.nix-software-center
         ifuse
@@ -62,7 +64,6 @@
       services.gpm.enable = true;
       programs.command-not-found.enable = if settings.profile == "image" then false else true;
       programs.nano.enable = false;
-      programs.fish.enable = if settings.account.shell == "fish" then true else false;
       system.stateVersion = settings.system.version;
       networking.firewall.enable = true;
       services.journald.extraConfig = "SystemMaxUse=10M";
@@ -81,9 +82,20 @@
         isNormalUser = true;
         hashedPassword = settings.account.password;
         description = settings.account.name;
-        extraGroups = [ "networkmanager" "wheel" "qemu-libvirtd" "libvirtd" "kvm" "docker" "cdrom" ];
+        extraGroups = [
+          "networkmanager"
+          "wheel"
+          "qemu-libvirtd"
+          "libvirtd"
+          "kvm"
+          "docker"
+          "cdrom"
+        ];
         uid = 1000;
-        shell = if settings.profile == "windows-subsystem" || settings.account.shell == "fish" then pkgs.fish else pkgs.bash;
+        shell = if settings.account.shell == "zsh" then pkgs.zsh
+          else if settings.account.shell == "fish" then pkgs.fish
+          else if settings.account.shell == "nushell" then pkgs.nushell
+          else pkgs.bash;
       };
       services.zram-generator.enable = builtins.elem settings.profile [ "image" "workstation" "virtual-machine" "server" ];
       services.zram-generator.settings.zram0.zram-size = "ram * 2";
@@ -191,32 +203,6 @@
         settings.PasswordAuthentication = true;
         settings.UseDns = true;
         permitRootLogin = "yes";
-      };
-      services.fail2ban = {
-        enable = true;
-        maxretry = 6;
-        ignoreIP = [
-          "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16"
-        ];
-        bantime = "1h";
-        bantime-increment = {
-          enable = true;
-          formula = "ban.Time * math.exp(float(ban.Count+1)*banFactor)/math.exp(1*banFactor)";
-          multipliers = "1 2 4 8 16 32 64";
-          maxtime = "168h";
-          overalljails = true;
-        };
-        jails = {
-          apache-nohome-iptables.settings = {
-            filter = "apache-nohome";
-            action = ''iptables-multiport[name=HTTP, port="http,https"]'';
-            logpath = "/var/log/httpd/error_log*";
-            backend = "auto";
-            findtime = 600;
-            bantime  = 600;
-            maxretry = 5;
-          };
-        };
       };
     })
     (lib.mkIf (settings.profile != "microsoft") {

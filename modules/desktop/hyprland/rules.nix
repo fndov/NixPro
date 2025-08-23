@@ -15,6 +15,7 @@
         "plugin:hyprbars:nobar, class:^(chromium)$"
         "plugin:hyprbars:nobar, class:^(google-chrome)$"
         "plugin:hyprbars:nobar, class:^(code)$"
+        "plugin:hyprbars:nobar, class:^(cursor)$"
         "plugin:hyprbars:nobar, class:^(discord)$"
         "plugin:hyprbars:nobar, class:^(pix)$"
         "plugin:hyprbars:nobar, class:^(steam)$"
@@ -25,6 +26,7 @@
         "plugin:hyprbars:nobar, class:^(com.belmoussaoui.Authenticator)$"
         "plugin:hyprbars:nobar, class:^(de.schmidhuberj.tubefeeder)$"
         "plugin:hyprbars:nobar, class:^(dev.zed.Zed)$"
+        "plugin:hyprbars:nobar, class:^(io.github.flattool.Warehouse)$"
       ];
 
       windowrule = [
@@ -54,6 +56,13 @@
         "float,title:^(Open video)"
         "float,title:^(Volume Control)"
         "float,title:^(Authenticator)"
+
+        # Mascot window rules
+        "float,class:^(com-group_finity-mascot-Main)$"
+        "noblur,class:^(com-group_finity-mascot-Main)$"
+        "nofocus,class:^(com-group_finity-mascot-Main)$"
+        "noshadow,class:^(com-group_finity-mascot-Main)$"
+        "noborder,class:^(com-group_finity-mascot-Main)$"
       ];
     };
   };

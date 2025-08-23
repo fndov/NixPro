@@ -2,8 +2,10 @@
   home-manager.users.${settings.account.name} = {
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
-      python313Packages.python-lsp-server
       python3Full
+      python313Packages.python-lsp-server
+      python313Packages.openai
+      python313Packages.rich
     ];
   };
   /*
