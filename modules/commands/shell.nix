@@ -26,10 +26,12 @@
       f = "yazi";
       trash = "gio trash";
       e = if settings.account.editor == "micro"
-        then "nice -1 ${settings.account.editor} --ruler false -colorscheme geany"
+          then "nice -1 ${settings.account.editor} --ruler false -colorscheme geany"
         else if settings.account.editor == "flow"
           then "nice -1 ${settings.account.editor}"
-          else "nice -1 ${settings.account.editor}";
+        else if settings.account.editor == "doom"
+          then "nice -1 ${settings.account.editor}"
+        else "nice -1 ${settings.account.editor}";
       cattree = "find . -type f -exec grep -Iq . {} \\; -print | xargs cat";
       offload = "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia";
       gc = "git clone";
@@ -37,6 +39,7 @@
       nixsh = "nix-shell -p";
       tmpd = "mkdir /tmp/d 2>/dev/null || true && cd /tmp/d 2>/dev/null || true";
       rmtmpd = "rm -rf /tmp/d/*";
+      scp = "scp -r";
     };
   in {
     config = lib.mkMerge [
@@ -69,42 +72,12 @@
         programs.atuin.enableBashIntegration = true;
       } else {})
       (if settings.account.shell == "zsh" then {
-        home.packages = with unstable; [
-          zsh-autosuggestions
-          zsh-syntax-highlighting
-          zsh-completions
-        ];
         programs.zsh = {
           enable = true;
-          enableCompletion = true;
+          enableCompletions = true;
+          autosuggestions.enable = true;
+          syntaxHighlighting.enable = true;
           shellAliases = aliases;
-          initContent = ''
-            # No greeting
-            unsetopt BEEP
-            PROMPT='%(?.%F{green}❯%f.%F{red}❯%f) '
-
-            # Bindings to mimic Fish
-            bindkey -s '^F' 'nixsw\n'
-            bindkey -s '^T' 'nixts\n'
-            bindkey -s '^K' 'up-line-or-search\n'
-            bindkey -s '^E' '${settings.account.editor}\n'
-            bindkey -s '^W' 'weechat\n'
-            bindkey -s '^X' 'cargo run\n'
-            bindkey -s '^N' 'nix-shell\n'
-
-            # Autocomplete settings like Fish
-            autoload -Uz compinit
-            compinit
-            zstyle ':completion:*' menu select
-            zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-            zstyle ':completion:*' accept-exact '*(N)'
-            zstyle ':completion:*' completer _expand _complete _ignored _approximate
-            zstyle ':completion:*:approximate:*' max-errors 1
-
-            # Plugins
-            source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-            source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-          '';
         };
         programs.atuin.enableZshIntegration = true;
       } else {})

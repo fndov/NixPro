@@ -15,6 +15,7 @@
       unstable.openssh
       unstable.yazi
       /*
+        sysz
         bat
         unstable.gemini-cli
         file

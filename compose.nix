@@ -1,28 +1,42 @@
-{ config, lib, inputs, pkgs, settings, ... }: let unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; }; in {
+{ config, lib, inputs, pkgs, settings, ... }: let
+  unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
+in {
   config = lib.mkMerge [
     {
       networking.hostName =
-      if settings.profile == "darwin"
-      then "NixPro-ARM"
-      else if settings.profile == "windows-subsystem"
-      then "NixPro-WSL"
-      else if settings.profile == "server"
-      then "NixPro-Server"
-      else if settings.profile == "workstation"
-      then "NixPro"
-      else if settings.profile == "virtual-machine"
-      then "NixPro-VM"
-      else if settings.profile == "image"
-      then "NixPro-Image"
-      else "NixPro";
+        if settings.profile == "darwin"
+          then "NixPro-ARM"
+        else if settings.profile == "windows-subsystem"
+          then "NixPro-WSL"
+        else if settings.profile == "server"
+          then "NixPro-Server"
+        else if settings.profile == "workstation"
+          then "NixPro"
+        else if settings.profile == "virtual-machine"
+          then "NixPro-VM"
+        else if settings.profile == "image"
+          then "NixPro-Image"
+        else "NixPro";
+
+      networking.firewall.enable = true;
 
       time.timeZone = settings.timezone;
+
       documentation.enable = lib.mkForce false;
       documentation.doc.enable = lib.mkForce false;
       documentation.info.enable = lib.mkForce false;
       documentation.nixos.enable = lib.mkForce false;
+
       environment.sessionVariables.NIX_AUTO_RUN = "1";
       environment.sessionVariables.NIXPKGS_ALLOW_UNFREE = "1";
+
+      environment.systemPackages = with pkgs; [
+        inputs.nix-software-center.packages.${system}.nix-software-center
+        ifuse
+      ] ++ (if settings.account.editor == "micro" then [ micro ] else [])
+        ++ (if settings.account.editor == "nano" then [ nano ] else [])
+        ++ (if settings.account.editor == "doom" then [ emacs ] else [])
+        ++ (if settings.account.editor == "flow" then [ unstable.flow-control ] else []);
 
       nix.extraOptions = "experimental-features = nix-command flakes";
       nix.settings.sandbox = true;
@@ -43,6 +57,7 @@
       nix.gc.automatic = true;
       nix.gc.dates = "weekly";
       nix.gc.options = "--delete-older-than 30d";
+
       home-manager.useUserPackages = false;
       home-manager.backupFileExtension = "hm-backup";
       home-manager.useGlobalPkgs = false;
@@ -50,31 +65,30 @@
         programs.home-manager.enable = true;
         home.stateVersion = settings.system.version;
       };
+
       programs.fish.enable = if settings.account.shell == "fish" then true else false;
       programs.zsh.enable = if settings.account.shell == "zsh" then true else false;
-      environment.systemPackages = with pkgs; [
-        inputs.nix-software-center.packages.${system}.nix-software-center
-        ifuse
-      ] ++ (if settings.account.editor == "micro" then [ micro ] else [])
-        ++ (if settings.account.editor == "nano" then [ nano ] else [])
-        ++ (if settings.account.editor == "flow" then [ unstable.flow-control ] else []);
+      programs.command-not-found.enable = if settings.profile == "image" then false else true;
+      programs.nano.enable = if settings.account.editor == "nano" then true else false;
+
       services.usbmuxd.enable = true;
       services.usbmuxd.package = pkgs.usbmuxd2;
       services.preload.enable = true;
       services.gpm.enable = true;
-      programs.command-not-found.enable = if settings.profile == "image" then false else true;
-      programs.nano.enable = false;
-      system.stateVersion = settings.system.version;
-      networking.firewall.enable = true;
+      services.emacs.enable = if settings.account.editor == "doom" then true else false;
       services.journald.extraConfig = "SystemMaxUse=10M";
+
       systemd.coredump.extraConfig = ''
         [Coredump]
         Storage=none
         ProcessSizeMax=0
       '';
+
       hardware.ksm.enable = true;
       hardware.ksm.sleep = 1;
+
       security.sudo.wheelNeedsPassword = false;
+
       users.mutableUsers = false;
       users.users.root.hashedPassword = lib.mkForce settings.account.password;
       users.users.root.isSystemUser = true;
@@ -97,22 +111,26 @@
           else if settings.account.shell == "nushell" then pkgs.nushell
           else pkgs.bash;
       };
+
       services.zram-generator.enable = builtins.elem settings.profile [ "image" "workstation" "virtual-machine" "server" ];
       services.zram-generator.settings.zram0.zram-size = "ram * 2";
       services.zram-generator.settings.zram0.compression-algorithm = "zstd"; # "zstd lz4 (type=huge)";
       services.zram-generator.settings.zram0.fs-type = "swap";
       services.zram-generator.settings.zram0.swap-priority = 3;
-      boot.tmp.useTmpfs = true;
-      boot.initrd.compressor = "zstd";
-      boot.initrd.compressorArgs = [ "-15" ];
-      boot.initrd.verbose = true;
       services.earlyoom.enable = builtins.elem settings.profile [ "image" ];
       services.earlyoom.enableNotifications = true;
       services.earlyoom.freeMemThreshold = 3;
       services.earlyoom.freeMemKillThreshold = 3;
       services.earlyoom.freeSwapThreshold = 3;
       services.earlyoom.freeSwapKillThreshold = 3;
+
       boot.readOnlyNixStore = true;
+      boot.tmp.useTmpfs = true;
+      boot.initrd.compressor = "zstd";
+      boot.initrd.compressorArgs = [ "-15" ];
+      boot.initrd.verbose = true;
+
+      system.stateVersion = settings.system.version;
     }
     (if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "workstation" || settings.profile == "image") then {
       boot.consoleLogLevel = 0;

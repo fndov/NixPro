@@ -92,6 +92,7 @@
         wayland.windowManager.hyprland.settings.bind = [
           # Apps.
           "SUPER,Return,exec, nice -1 ${settings.account.terminal}"
+          "SUPERSHIFT,Return,exec,hyprctl dispatch exec '[float] nice -1 ${settings.account.terminal}'"
           "SUPER,H,exec,hyprctl dispatch exec '[float] ${settings.account.terminal} -e htop'"
           "SUPER,C,exec,hyprctl dispatch exec '[float] ${settings.account.terminal} -e numbat'"
           "SUPER,B,exec,hyprctl dispatch exec '[float] ${settings.account.terminal} -e btm'"
