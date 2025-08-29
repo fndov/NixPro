@@ -33,7 +33,7 @@
       account.password = "$6$4oIhgNCDy8qpD9k3$IjLevO4A8W40sPqTT4BzCa7LKrMOmCnbfey5L94K/tQpa48eely7BLJNJzlztHUzAvQQfhaFYiaGlKDJqgBGM1";
       account.terminal = "ghostty";
       account.shell = "fish";
-      account.editor = "doom";
+      account.editor = "flow";
       account.browser = "google-chrome";
       desktop.type = "hyprland/default";
       desktop.monitors = [ "eDP-1,1920x1080@60,0x0,1" "Virtual-1,1920x1080@60,0x0,1" ];

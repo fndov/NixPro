@@ -6,13 +6,14 @@
     home.packages = with pkgs; [
       unstable.zed-editor
       unstable.obsidian
-      unstable.obs-studio
+      obs-studio
       vlc
-      kdePackages.ark
       gearlever
+      libreoffice
+      discord
       /*
+        kdePackages.ark
         authenticator
-        libreoffice
         unstable.gimp
         kdePackages.k3b # broken
         video-trimmer

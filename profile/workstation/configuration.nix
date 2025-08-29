@@ -9,7 +9,7 @@
   ../../modules/commands/library.nix
   ../../modules/commands/extra.nix
   ../../modules/development/py.nix
-  # ../../modules/apps/steam.nix
+  ../../modules/apps/steam.nix
   # ../../modules/development/rs.nix
   # ../../modules/development/cc.nix
   ];

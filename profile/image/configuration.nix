@@ -1,15 +1,19 @@
 { lib, pkgs, ... }: {
-  imports = [ /*
+  imports = [
+    # ../../modules/apps/collection.nix
     ../../modules/apps/compact.nix
     ../../modules/apps/spotify.nix
+    # ../../modules/apps/virtual-machine.nix
     ../../modules/apps/flatpak.nix
+    # ../../modules/development/nix.nix
     ../../modules/commands/base.nix
     ../../modules/commands/shell.nix
-    ../../modules/commands/extra.nix
     ../../modules/commands/library.nix
-    ../../modules/development/nix.nix
-    ../../modules/development/rs.nix
-    ../../modules/apps/virtualize.nix */
+    ../../modules/commands/extra.nix
+    # ../../modules/development/py.nix
+    # ../../modules/apps/steam.nix
+    # ../../modules/development/rs.nix
+    # ../../modules/development/cc.nix
   ];
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
   boot.kernelPatches = [ ];
@@ -55,7 +59,6 @@
   nix.settings.keep-derivations = false;
   # users.users.nixos = { _module = {}; };
   services.openssh.enable = lib.mkForce false;
-  hardware.graphics.enable = true;
   # hardware.enableAllFirmware = true;
   # hardware.enableRedistributableFirmware = true;
   boot.loader.timeout = lib.mkForce 3;
