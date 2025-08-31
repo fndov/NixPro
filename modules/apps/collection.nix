@@ -4,7 +4,7 @@
   in {
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
-      open-webui
+      unstable.upscayl
       unstable.zed-editor
       unstable.obsidian
       unstable.obs-studio
@@ -21,6 +21,7 @@
       gearlever
       discord
       /*
+        open-webui
         unstable.code-cursor
         kdePackages.k3b # broken
         gnome-disk-utility
@@ -42,7 +43,6 @@
         unstable.code-cursor
         unstable.alpaca
         protonvpn-gui
-        upscayl
         discord
         foliate
         monero-gui
