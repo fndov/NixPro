@@ -126,6 +126,8 @@ in {
 
       boot.readOnlyNixStore = true;
       boot.tmp.useTmpfs = true;
+      boot.tmp.tmpfsSize = "100%";
+      boot.runSize = "100%";
       boot.initrd.compressor = "zstd";
       boot.initrd.compressorArgs = [ "-15" ];
       boot.initrd.verbose = true;

@@ -3,8 +3,8 @@
     unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
   in {
     home.packages = with pkgs; [
-      unstable.clang-tools
-      unstable.clang
+      clang-tools
+      clang
       gnumake
       cmake
       autoconf
