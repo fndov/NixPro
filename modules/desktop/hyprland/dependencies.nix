@@ -4,6 +4,11 @@
       nautilus
       pix
       networkmanagerapplet
+      imv
+      zathura
+      dconf-editor
+      gnome-calendar
+      file-roller
       /*
         papirus-icon-theme
         fnott

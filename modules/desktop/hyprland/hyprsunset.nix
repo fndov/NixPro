@@ -8,6 +8,6 @@
     wayland.windowManager.hyprland.settings.exec-once = [
       "systemctl --user enable --now hyprsunset"
     ];
-    # services.hyprsunset.enable = true;
+    services.hyprsunset.enable = true;
   };
 }

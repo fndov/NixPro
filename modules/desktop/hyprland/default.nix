@@ -18,6 +18,9 @@
   services.devmon.enable = true;
   services.gvfs.enable = true;
 
+  services.usbmuxd.enable = true;
+  services.usbmuxd.package = pkgs.usbmuxd2;
+
   services.gnome.gnome-keyring.enable = true;
 
   security.rtkit.enable = true;
@@ -138,7 +141,7 @@
         decoration.active_opacity = 1;
         decoration.inactive_opacity = 1;
         decoration.fullscreen_opacity = 1;
-        decoration.dim_inactive = true;
+        decoration.dim_inactive = false;
         decoration.dim_strength = 0.2;
         decoration.dim_around = 0.6;
         decoration.blur.enabled = true;

@@ -38,10 +38,12 @@ in {
         ++ (if settings.account.editor == "doom" then [ emacs ] else [])
         ++ (if settings.account.editor == "flow" then [ unstable.flow-control ] else []);
 
-      nix.extraOptions = "experimental-features = nix-command flakes";
       nix.settings.sandbox = true;
-      nix.settings.trusted-users = [ "@wheel" ];
+      nix.extraOptions = "experimental-features = nix-command flakes";
+      nix.settings.download-buffer-size = 3221225472; # 256MB buffer to avoid "buffer full" warnings
       nix.settings.warn-dirty = false;
+      nix.settings.trusted-users = [ "@wheel" ];
+      nix.settings.allowed-users = [ "${settings.account.name}" ];
       nix.settings.substituters = [
         # "https://cache.lix.systems"
         "https://hyprland.cachix.org"
@@ -58,9 +60,9 @@ in {
       nix.gc.dates = "weekly";
       nix.gc.options = "--delete-older-than 30d";
 
-      home-manager.useUserPackages = false;
-      home-manager.backupFileExtension = "hm-backup";
+      home-manager.useUserPackages = true;
       home-manager.useGlobalPkgs = false;
+      home-manager.backupFileExtension = "hm-backup";
       home-manager.users.${settings.account.name} = {
         programs.home-manager.enable = true;
         home.stateVersion = settings.system.version;
@@ -68,24 +70,12 @@ in {
 
       programs.fish.enable = if settings.account.shell == "fish" then true else false;
       programs.zsh.enable = if settings.account.shell == "zsh" then true else false;
-      programs.command-not-found.enable = if settings.profile == "image" then false else true;
       programs.nano.enable = if settings.account.editor == "nano" then true else false;
-
-      services.usbmuxd.enable = true;
-      services.usbmuxd.package = pkgs.usbmuxd2;
-      services.preload.enable = true;
-      services.gpm.enable = true;
       services.emacs.enable = if settings.account.editor == "doom" then true else false;
-      services.journald.extraConfig = "SystemMaxUse=10M";
-
-      systemd.coredump.extraConfig = ''
-        [Coredump]
-        Storage=none
-        ProcessSizeMax=0
-      '';
+      programs.command-not-found.enable = if settings.profile == "image" then false else true;
 
       hardware.ksm.enable = true;
-      hardware.ksm.sleep = 1;
+      hardware.ksm.sleep = 60;
 
       security.sudo.wheelNeedsPassword = false;
 
@@ -117,6 +107,7 @@ in {
       services.zram-generator.settings.zram0.compression-algorithm = "zstd"; # "zstd lz4 (type=huge)";
       services.zram-generator.settings.zram0.fs-type = "swap";
       services.zram-generator.settings.zram0.swap-priority = 3;
+
       services.earlyoom.enable = builtins.elem settings.profile [ "image" ];
       services.earlyoom.enableNotifications = true;
       services.earlyoom.freeMemThreshold = 3;
@@ -124,19 +115,16 @@ in {
       services.earlyoom.freeSwapThreshold = 3;
       services.earlyoom.freeSwapKillThreshold = 3;
 
-      boot.readOnlyNixStore = true;
-      boot.tmp.useTmpfs = true;
-      boot.tmp.tmpfsSize = "100%";
-      boot.runSize = "100%";
-      boot.initrd.compressor = "zstd";
-      boot.initrd.compressorArgs = [ "-15" ];
-      boot.initrd.verbose = true;
-
       system.stateVersion = settings.system.version;
     }
     (if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "workstation" || settings.profile == "image") then {
+      boot.readOnlyNixStore = true;
       boot.consoleLogLevel = 0;
-      boot.tmp.cleanOnBoot = true;
+      boot.tmp.cleanOnBoot = false;
+      boot.tmp.useTmpfs = true;
+      boot.initrd.compressor = "zstd";
+      boot.initrd.compressorArgs = [ "-15" ];
+      boot.initrd.verbose = true;
       boot.loader.systemd-boot.enable = if (settings.system.bootMode == "uefi") then true else false;
       boot.loader.systemd-boot.editor = false;
       boot.loader.systemd-boot.configurationLimit = 25;
@@ -191,11 +179,19 @@ in {
       system.autoUpgrade.dates = "02:00";
       system.autoUpgrade.randomizedDelaySec = "45min";
     })
-    (lib.mkIf settings.system.security {
+    (if settings.system.security == true then {
+      services.fail2ban.enable = true;
+      security.apparmor.enable = true;
+      security.apparmor.packages = [ pkgs.apparmor-profiles pkgs.firejail ];
+      security.apparmor.enableCache = true;
+      security.apparmor.killUnconfinedConfinables = true;
+      environment.systemPackages = [ pkgs.clamav ];
+      services.clamav.scanner.enable = true;
+      services.clamav.scanner.interval = "Sat *-*-* 04:00:00";
       security.tpm2.enable = true;
       security.auditd.enable = true;
-      networking.firewall.enable = lib.mkForece true;
       security.audit.enable = true;
+      networking.firewall.enable = lib.mkForce true;
       security.lockKernelModules = true;
       security.protectKernelImage = true;
       boot.kernelPackages = lib.mkForce pkgs.linuxPackages_hardened;
@@ -215,6 +211,34 @@ in {
         "page_alloc.shuffle=1"
         "debugfs=off"
       ];
+      programs.firejail = {
+        enable = true;
+        wrappedBinaries = {
+          google-chrome-stable = {
+            executable = "${pkgs.google-chrome}/bin/google-chrome-stable";
+            profile = "${pkgs.firejail}/etc/firejail/google-chrome-stable.profile";
+          };
+          discord = {
+            executable = "${pkgs.discord}/bin/discord";
+            profile = "${pkgs.firejail}/etc/firejail/discord.profile";
+          };
+          nautilus = {
+            executable = "${pkgs.nautilus}/bin/nautilus";
+            profile = "${pkgs.firejail}/etc/firejail/nautilus.profile";
+          };
+          spotify = {
+            executable = "${pkgs.spotify}/bin/spotify";
+            profile = "${pkgs.firejail}/etc/firejail/spotify.profile";
+          };
+        };
+      };
+    } else {
+      services.journald.extraConfig = "SystemMaxUse=10M";
+      systemd.coredump.extraConfig = ''
+        [Coredump]
+        Storage=none
+        ProcessSizeMax=0
+      '';
     })
     (lib.mkIf settings.system.sshd {
       services.openssh = {

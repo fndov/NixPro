@@ -4,24 +4,26 @@
   in {
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
+      unstable.komikku
       unstable.upscayl
-      unstable.zed-editor
+      unstable.zed-editor-fhs
       unstable.obsidian
       unstable.obs-studio
       unstable.gimp
       vlc
       libreoffice
-      kdePackages.ark
       video-trimmer
       krita
       authenticator
-      helvum
       easyeffects
       baobab
       gearlever
       discord
       /*
+        helvum
         open-webui
+        slack
+        telegram-desktop
         unstable.code-cursor
         kdePackages.k3b # broken
         gnome-disk-utility

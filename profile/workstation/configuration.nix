@@ -1,5 +1,6 @@
 { pkgs, ... }: { imports = [
   ../../modules/apps/collection.nix
+  ../../modules/apps/virtual-machine.nix
   ../../modules/apps/spotify.nix
   ../../modules/development/nix.nix
   ../../modules/commands/base.nix
@@ -8,10 +9,9 @@
   ../../modules/commands/extra.nix
   ../../modules/development/cc.nix
   ../../modules/development/rs.nix
+  ../../modules/development/py.nix
   # ../../modules/apps/steam.nix
-  # ../../modules/apps/virtual-machine.nix
   # ../../modules/apps/flatpak.nix
-  # ../../modules/development/py.nix
   ];
   services.btrfs.autoScrub = {
     enable = true;
@@ -19,12 +19,12 @@
     fileSystems = [ "/" ];
   };
   boot.kernel.sysctl = {
-    "vm.swappiness" = 1; # 60
-    "vm.dirty_background_ratio" = 5; # 10
-    "vm.dirty_ratio" = 10; # 20
-    "vm.vfs_cache_pressure" = 10; # 100
-    "vm.min_free_kbytes" = 1000; # 1000
-    "vm.compaction_proactiveness" = 100; # 20
+    "vm.swappiness" = 1;
+    "vm.dirty_background_ratio" = 5;
+    "vm.dirty_ratio" = 10;
+    "vm.vfs_cache_pressure" = 10;
+    "vm.min_free_kbytes" = 1000;
+    "vm.compaction_proactiveness" = 100;
     "vm.page-cluster" = 3;
     "vm.watermark_boost_factor" = 0;
     "vm.watermark_scale_factor" = 125;
@@ -72,6 +72,9 @@
     "net.ipv4.tcp_ecn" = 0;
     "fs.inotify.max_user_watches" = 524288;
   };
+
+  hardware.cpu.intel.updateMicrocode = true;
+  environment.memoryAllocator.provider = "libc";
 
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
   boot.kernelPatches = [ ];
@@ -207,36 +210,5 @@
     "mousedev"
     "btusb"
     "tiny_power_button"
-    "acpi_pad"
-    /*
-
-      "psmouse"
-      "fan"
-      "button"
-      "thermal"
-      "intel_lpss_pci"
-      "intel_xhci_usb_role_switch"
-      "idma64"
-      "intel_pmc_core"
-      "wireless_hotkey"
-      "intel_pch_thermal"
-      "serio_raw"
-      "uinput"
-      "loop"
-      "bridge"
-      "kvm_intel"
-      "ip_tables"
-      "autofs4"
-      "cbc"
-      "hid_generic"
-      "sr_mod"
-      "usbhid"
-      "input_leds"
-      "atkbd"
-      "sha1_ssse3"
-      "xhci_pci"
-      "blake2b_generic"
-      "crc32c_generic"
-    */
   ];
 }

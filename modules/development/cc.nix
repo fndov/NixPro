@@ -4,7 +4,7 @@
   in {
     home.packages = with pkgs; [
       clang-tools
-      clang
+      # clang
       gnumake
       cmake
       autoconf

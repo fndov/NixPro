@@ -10,13 +10,15 @@
         "center, title:^(nwg-clipman)$"
 
         # Blacklist windows from waybar
+        "plugin:hyprbars:nobar, class:^(google-chrome)$"
+        "plugin:hyprbars:nobar, class:^(discord)$"
+        "plugin:hyprbars:nobar, class:^(dev.zed.Zed)$"
+        /*
         "plugin:hyprbars:nobar, class:^(obsidian)$"
         "plugin:hyprbars:nobar, class:^(firefox)$"
         "plugin:hyprbars:nobar, class:^(chromium)$"
-        "plugin:hyprbars:nobar, class:^(google-chrome)$"
         "plugin:hyprbars:nobar, class:^(code)$"
         "plugin:hyprbars:nobar, class:^(cursor)$"
-        "plugin:hyprbars:nobar, class:^(discord)$"
         "plugin:hyprbars:nobar, class:^(pix)$"
         "plugin:hyprbars:nobar, class:^(steam)$"
         "plugin:hyprbars:nobar, class:^(thunar)$"
@@ -25,8 +27,9 @@
         "plugin:hyprbars:nobar, class:^(org.pipewire.Helvum)$"
         "plugin:hyprbars:nobar, class:^(com.belmoussaoui.Authenticator)$"
         "plugin:hyprbars:nobar, class:^(de.schmidhuberj.tubefeeder)$"
-        "plugin:hyprbars:nobar, class:^(dev.zed.Zed)$"
         "plugin:hyprbars:nobar, class:^(io.github.flattool.Warehouse)$"
+        "plugin:hyprbars:nobar, class:^(info.febvre.Komikku)$"
+        "plugin:hyprbars:nobar, class:^(gnome-disks)$" */
       ];
 
       windowrule = [
