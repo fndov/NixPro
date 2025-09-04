@@ -210,5 +210,7 @@
     "mousedev"
     "btusb"
     "tiny_power_button"
+    /*
+    */
   ];
 }

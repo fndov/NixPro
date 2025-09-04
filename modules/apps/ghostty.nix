@@ -5,16 +5,16 @@
     home.packages = with pkgs; [
       unstable.ghostty
       chafa
-      nerd-fonts.zed-mono
-      ibm-plex
+      # nerd-fonts.zed-mono
+      # ibm-plex
     ];
     home.file."/home/${settings.account.name}/.config/ghostty/config".text = ''
       # --- Hyprland ---
-      window-decoration = false
+      # window-decoration = false
 
       # --- Appearance ---
       # theme = catppuccin-latte
-      theme = catppuccin-mocha
+      # theme = catppuccin-mocha
       # theme = xcodedarkhc
       # theme = Elegant
       # theme = Tomorrow Night

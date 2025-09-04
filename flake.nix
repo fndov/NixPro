@@ -35,7 +35,7 @@
       account.shell = "fish";
       account.editor = "flow";
       account.browser = "google-chrome";
-      desktop.type = "hyprland/default";
+      desktop.type = "gnome";
       desktop.monitors = [ "eDP-1,1920x1080@60,0x0,1" "Virtual-1,1920x1080@60,0x0,1" ];
       desktop.wallpaperPath = "Media/Pictures/Wallpapers";
       desktop.wallpaperName = "nix-wallpaper-dracula.png";

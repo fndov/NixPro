@@ -10,7 +10,7 @@
       hidePodcasts
       shuffle
     ];
-    programs.spicetify.theme = spicePkgs.themes.catppuccin;
-    programs.spicetify.colorScheme = "frappe";
+    # programs.spicetify.theme = spicePkgs.themes.catppuccin;
+    # programs.spicetify.colorScheme = "frappe";
   };
 }
