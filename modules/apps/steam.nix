@@ -4,12 +4,12 @@
   in {
     home.packages = with unstable; [
       steam
-      gamemode
-      gamescope
+      unstable.gamemode
+      unstable.gamescope
       gvfs
-      mangohud
-      protonup
-      wine
+      unstable.mangohud
+      unstable.protonup
+      unstable.wine
       /*
         unstable.protontricks
         unstable.protonplus

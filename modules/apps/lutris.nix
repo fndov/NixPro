@@ -8,8 +8,8 @@
       gamescope
       gvfs
       mangohud
-      protonup
-      wine
+      unstable.protonup
+      unstable.wine
       vulkan-tools
       vulkan-loader
       /*

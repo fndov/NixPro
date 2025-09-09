@@ -4,6 +4,7 @@ in {
   environment.systemPackages = with unstable; [
     virt-manager
     /*
+      gnome-boxes
       distrobox
       swtpm
       OVMF

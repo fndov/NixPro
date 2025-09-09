@@ -32,6 +32,12 @@
     gnome-browser-connector
   ];
 
+  qt = {
+    enable = true;
+    platformTheme = "gnome";
+    style = "adwaita-dark";
+  };
+
   home-manager.users.${settings.account.name} = {
     xdg.enable = true;
     xdg.mime.enable = true;
