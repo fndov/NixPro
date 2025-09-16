@@ -104,3 +104,7 @@ Use iso-installer instead of iso for building
 Using dconf-editor in hyprland
 org > gnome > desktop > wm > preferences > button-layout
 Under "custom value" remove everything except for "appmenu"
+
+Posy's improved cursors, black set.
+
+Cachey kernel binaries are available when the whole system is using the unstable channel.

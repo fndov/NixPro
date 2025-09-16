@@ -3,14 +3,15 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
-    hyprland-plugins.inputs.hyprland.follows = "hyprland";
-    nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    # hyprland.url = "github:hyprwm/Hyprland";
+    # hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
+    # hyprland-plugins.inputs.hyprland.follows = "hyprland";
+    # nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    # nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     nix-software-center.url = "github:snowfallorg/nix-software-center";
   };
   outputs = inputs@{ ... }: let
@@ -47,6 +48,9 @@
     nixosConfigurations.workstation = inputs.nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs system; settings = settings // { profile = "workstation"; }; };
       modules = [
+        inputs.chaotic.nixosModules.nyx-cache
+        inputs.chaotic.nixosModules.nyx-overlay
+        inputs.chaotic.nixosModules.nyx-registry
         inputs.home-manager.nixosModules.home-manager
         ./profile/workstation/hardware.nix
         ./profile/workstation/configuration.nix
@@ -64,6 +68,9 @@
     nixosConfigurations.virtual-machine = inputs.nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs system; settings = settings // { profile = "virtual-machine"; }; };
       modules = [
+        inputs.chaotic.nixosModules.nyx-cache
+        inputs.chaotic.nixosModules.nyx-overlay
+        inputs.chaotic.nixosModules.nyx-registry
         inputs.home-manager.nixosModules.home-manager
         ./profile/virtual-machine/hardware.nix
         ./profile/virtual-machine/configuration.nix
@@ -116,6 +123,9 @@
     nixosConfigurations.image = inputs.nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs system; settings = settings // { profile = "image"; }; };
       modules = [
+        inputs.chaotic.nixosModules.nyx-cache
+        inputs.chaotic.nixosModules.nyx-overlay
+        inputs.chaotic.nixosModules.nyx-registry
         inputs.home-manager.nixosModules.home-manager
         ./profile/image/hardware.nix
         ./profile/image/configuration.nix

@@ -1,7 +1,5 @@
 { inputs, pkgs, settings, ... }: {
-  imports = [
-    inputs.nixos-wsl.nixosModules.default
-  ];
+  imports = [ inputs.nixos-wsl.nixosModules.default ];
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
   boot.kernelPatches = [ ];
   boot.kernelParams = [ ];

@@ -82,7 +82,6 @@
     "sysv"     # implements all of Xenix FS, SystemV/386 FS and Coherent FS.
     "udf"      # https://docs.kernel.org/5.15/filesystems/udf.html
     "vivid"    # Virtual Video Test Driver (unnecessary)
-
     # Disable Thunderbolt and FireWire to prevent DMA attacks
     "firewire-core"
     "thunderbolt"

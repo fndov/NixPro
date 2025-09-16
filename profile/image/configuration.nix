@@ -1,20 +1,31 @@
 { lib, pkgs, ... }: {
   imports = [
-    # ../../modules/apps/collection.nix
     ../../modules/apps/compact.nix
     ../../modules/apps/spotify.nix
-    # ../../modules/apps/virtual-machine.nix
     ../../modules/apps/flatpak.nix
-    # ../../modules/development/nix.nix
     ../../modules/commands/base.nix
     ../../modules/commands/shell.nix
     ../../modules/commands/library.nix
     ../../modules/commands/extra.nix
+    # ../../modules/apps/collection.nix
+    # ../../modules/apps/virtual-machine.nix
+    # ../../modules/development/nix.nix
     # ../../modules/development/py.nix
     # ../../modules/apps/steam.nix
     # ../../modules/development/rs.nix
     # ../../modules/development/cc.nix
   ];
+  nixpkgs.config.allowUnfree = true;
+  documentation.man.enable = lib.mkForce false;
+  nix.settings.keep-outputs = false;
+  nix.settings.keep-derivations = false;
+  services.openssh.enable = lib.mkForce false;
+  boot.loader.timeout = lib.mkForce 3;
+  # users.groups.nixos = lib.mkForce {};
+  # users.users.nixos = { _module = {}; };
+  # hardware.enableAllFirmware = true;
+  # hardware.enableRedistributableFirmware = true;
+
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
   boot.kernelPatches = [ ];
   boot.kernelParams = [
@@ -51,15 +62,4 @@
   boot.blacklistedKernelModules = [
     "nouveau"
   ];
-
-  nixpkgs.config.allowUnfree = true;
-  # users.groups.nixos = lib.mkForce {};
-  documentation.man.enable = lib.mkForce false;
-  nix.settings.keep-outputs = false;
-  nix.settings.keep-derivations = false;
-  # users.users.nixos = { _module = {}; };
-  services.openssh.enable = lib.mkForce false;
-  # hardware.enableAllFirmware = true;
-  # hardware.enableRedistributableFirmware = true;
-  boot.loader.timeout = lib.mkForce 3;
 }

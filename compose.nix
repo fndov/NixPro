@@ -47,11 +47,18 @@ in {
       nix.settings.allowed-users = [ "${settings.account.name}" ];
       nix.settings.substituters = [
         # "https://cache.lix.systems"
-        "https://hyprland.cachix.org"
+        # "https://hyprland.cachix.org"
+        "https://nix-community.cachix.org"
+        "https://chaotic-nyx.cachix.org"
+        "https://cache.nixos.org"
+
       ];
       nix.settings.trusted-public-keys = [
         # "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        # "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8"
       ];
 
       nix.settings.auto-optimise-store = true;
