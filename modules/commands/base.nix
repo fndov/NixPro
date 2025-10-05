@@ -13,6 +13,7 @@
       glibc
       curl
       git
+      unstable.appimage-run
       unstable.openssh
       unstable.yazi
       /*

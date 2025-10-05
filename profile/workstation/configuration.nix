@@ -1,7 +1,7 @@
 { pkgs, ... }: { imports = [
   ../../modules/apps/collection.nix
   ../../modules/apps/spotify.nix
-  ../../modules/apps/steam.nix
+  ../../modules/apps/lutris.nix
   ../../modules/development/nix.nix
   ../../modules/commands/base.nix
   ../../modules/commands/shell.nix
@@ -10,7 +10,7 @@
   ../../modules/development/cc.nix
   ../../modules/development/rs.nix
   ../../modules/development/py.nix
-  # ../../modules/apps/virtual-machine.nix
+  ../../modules/apps/virtual-machine.nix
   # ../../modules/apps/flatpak.nix
   ];
   environment.memoryAllocator.provider = "libc";

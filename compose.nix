@@ -68,6 +68,8 @@ in {
       nix.gc.dates = "weekly";
       nix.gc.options = "--delete-older-than 30d";
 
+      system.nixos.tags = [ settings.system.tag ];
+
       home-manager.useUserPackages = true;
       home-manager.useGlobalPkgs = false;
       home-manager.backupFileExtension = "hm-backup";

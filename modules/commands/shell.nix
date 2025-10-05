@@ -45,7 +45,6 @@
     config = lib.mkMerge [
       {
         home.packages = with pkgs; [
-          unstable.appimage-run
           unstable.eza
           unstable.fd
           unstable.ripgrep
@@ -53,7 +52,6 @@
           glibc
         ];
         programs.powerline-go.enable = true;
-        # programs.powerline-go.settings."-theme" = "gruvbox";
         programs.atuin.enable = true;
         programs.zoxide.enable = true;
         programs.zoxide.enableZshIntegration = true;

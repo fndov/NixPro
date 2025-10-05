@@ -29,6 +29,7 @@
       system.automation = false;
       system.security = false;
       system.sshd = false;
+      system.tag = "tommy";
       account.name = "miyu";
       account.email = "miyu@allthingslinux.org";
       account.password = "$6$4oIhgNCDy8qpD9k3$IjLevO4A8W40sPqTT4BzCa7LKrMOmCnbfey5L94K/tQpa48eely7BLJNJzlztHUzAvQQfhaFYiaGlKDJqgBGM1";

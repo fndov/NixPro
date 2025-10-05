@@ -5,8 +5,6 @@
     home.packages = with pkgs; [
       unstable.ghostty
       chafa
-      # nerd-fonts.zed-mono
-      # ibm-plex
     ];
     home.file."/home/${settings.account.name}/.config/ghostty/config".text = ''
       # --- Hyprland ---
@@ -42,6 +40,7 @@
       # custom-shader = glitchy.glsl
       # custom-shader = mnoise.glsl # Not working.
       # custom-shader-animation = always
+      # custom-shader = synesthaxia.glsl
 
       # --- Perams ---
       clipboard-paste-protection = false
@@ -49,7 +48,6 @@
       quit-after-last-window-closed = false
       mouse-hide-while-typing = true
       focus-follows-mouse = true
-
     '';
   } // (if settings.desktop.type == "hyprland/default" then {
     wayland.windowManager.hyprland.settings.exec-once = [
