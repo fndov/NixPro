@@ -39,8 +39,8 @@ in {
         ++ (if settings.account.editor == "doom" then [ emacs ] else [])
         ++ (if settings.account.editor == "flow" then [ unstable.flow-control ] else []);
 
-      nix.settings.sandbox = true;
       nix.extraOptions = "experimental-features = nix-command flakes";
+      nix.settings.sandbox = true;
       nix.settings.download-buffer-size = 3221225472; # 256MB buffer to avoid "buffer full" warnings
       nix.settings.warn-dirty = false;
       nix.settings.trusted-users = [ "@wheel" ];
@@ -51,7 +51,6 @@ in {
         "https://nix-community.cachix.org"
         "https://chaotic-nyx.cachix.org"
         "https://cache.nixos.org"
-
       ];
       nix.settings.trusted-public-keys = [
         # "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
@@ -60,15 +59,12 @@ in {
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8"
       ];
-
       nix.settings.auto-optimise-store = true;
       nix.optimise.automatic = true;
       nix.optimise.dates = [ "weekly" ];
       nix.gc.automatic = true;
       nix.gc.dates = "weekly";
       nix.gc.options = "--delete-older-than 30d";
-
-      system.nixos.tags = [ settings.system.tag ];
 
       home-manager.useUserPackages = true;
       home-manager.useGlobalPkgs = false;
@@ -109,7 +105,7 @@ in {
         shell = if settings.account.shell == "zsh" then pkgs.zsh
           else if settings.account.shell == "fish" then pkgs.fish
           else if settings.account.shell == "nushell" then pkgs.nushell
-          else pkgs.bash;
+        else pkgs.bash;
       };
 
       services.zram-generator.enable = builtins.elem settings.profile [ "image" "workstation" "virtual-machine" "server" ];
@@ -126,8 +122,9 @@ in {
       services.earlyoom.freeSwapKillThreshold = 3;
 
       system.stateVersion = settings.system.version;
+      system.nixos.tags = [ settings.system.tag ];
     }
-    (if (settings.profile == "virtual-machine" || settings.profile == "server" || settings.profile == "workstation" || settings.profile == "image") then {
+    (if settings.system.init == "systemd-boot" then {
       boot.readOnlyNixStore = true;
       boot.consoleLogLevel = 0;
       boot.tmp.cleanOnBoot = false;
@@ -144,6 +141,32 @@ in {
       boot.loader.grub.devices = [ settings.system.grubDevice ];
       boot.loader.efi.efiSysMountPoint = settings.system.bootMountPath;
       boot.loader.efi.canTouchEfiVariables = if (settings.system.bootMode == "uefi") then true else false;
+      systemd.network.wait-online.enable = false;
+      systemd.services.NetworkManager-wait-online.enable = false;
+    } else {})
+    (if settings.system.init == "limine" then {
+      boot.loader.systemd-boot.enable = false;
+
+      boot.loader.limine.enable = true;
+      boot.loader.limine.efiSupport = if (settings.system.bootMode == "uefi") then true else false;
+      boot.loader.limine.style.wallpapers = [ ./boot-screen.jpg ];
+      boot.loader.limine.style.interface.resolution = "1920x1080";
+      boot.loader.limine.style.interface.branding = "NixPro";
+
+      boot.loader.grub.enable = false;
+      boot.loader.grub.device = settings.system.grubDevice;
+      boot.loader.grub.devices = [ settings.system.grubDevice ];
+      boot.loader.efi.efiSysMountPoint = settings.system.bootMountPath;
+      boot.loader.efi.canTouchEfiVariables = if (settings.system.bootMode == "uefi") then true else false;
+
+      boot.readOnlyNixStore = true;
+      boot.consoleLogLevel = 0;
+      boot.tmp.cleanOnBoot = false;
+      boot.tmp.useTmpfs = true;
+      boot.initrd.compressor = "zstd";
+      boot.initrd.compressorArgs = [ "-15" ];
+      boot.initrd.verbose = true;
+
       systemd.network.wait-online.enable = false;
       systemd.services.NetworkManager-wait-online.enable = false;
     } else {})

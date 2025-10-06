@@ -53,6 +53,7 @@
         ];
         programs.powerline-go.enable = true;
         programs.atuin.enable = true;
+        programs.atuin.enableBashIntegration = true;
         programs.zoxide.enable = true;
         programs.zoxide.enableZshIntegration = true;
 
@@ -65,10 +66,7 @@
           ("/home/" + settings.account.name + "/." + settings.system.flakePath + "/.git")
         ];
       }
-      (if settings.account.shell == "bash" then {
-        programs.bash.enable = true;
-        programs.atuin.enableBashIntegration = true;
-      } else {})
+      (if settings.account.shell == "bash" then {} else {})
       (if settings.account.shell == "zsh" then {
         programs.zsh = {
           enable = true;
@@ -80,9 +78,6 @@
         programs.atuin.enableZshIntegration = true;
       } else {})
       (if settings.account.shell == "fish" then {
-        home.packages = with pkgs; [
-          fishPlugins.done
-        ];
         programs.fish.enable = true;
         programs.fish.interactiveShellInit = ''
           set fish_greeting ""
@@ -97,6 +92,7 @@
           bind \cN "nix-shell"
         '';
         programs.fish.shellAliases = aliases;
+        home.packages = with pkgs; [ fishPlugins.done ];
         programs.atuin.enableFishIntegration = true;
       } else {})
       (if settings.account.shell == "nushell" then {

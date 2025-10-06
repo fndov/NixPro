@@ -22,6 +22,7 @@
       driver.nvidiaBusID = "PCI:9:0:0";
       system.version = "25.05";
       system.architecture = "x86_64-linux";
+      system.init = "systemd-boot";
       system.bootMode = "uefi";
       system.grubDevice = "/dev/sda";
       system.bootMountPath = "/boot";

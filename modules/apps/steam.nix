@@ -1,24 +1,28 @@
-{ inputs, settings, pkgs, ... }: {
-  home-manager.users.${settings.account.name} = { ... }: let
-    unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; };
-  in {
-    home.packages = with unstable; [
+{ pkgs, inputs, settings, ... }: let
+  unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
+in {
+  home-manager.users.${settings.account.name} = {
+    home.packages = with pkgs; [
       steam
-      unstable.gamemode
-      unstable.gamescope
+      steam-run
+      gamemode
+      gamescope
       gvfs
-      unstable.mangohud
-      unstable.protonup
-      unstable.wine
+      mangohud
+      protonplus
+      wine
       /*
-        unstable.protontricks
-        unstable.protonplus
-        unstable.winetricks
+        vulkan-tools
+        vulkan-loader
+        protonup
+        protontricks
+        winetricks
       */
     ];
   };
+  programs.steam.extraCompatPackages = with unstable; [ proton-ge-bin ];
+  programs.steam.enable = true;
   programs.gamemode.enable = true;
-  programs.gamemode.enableRenice = true;
   hardware.steam-hardware.enable = true;
   nixpkgs.config.allowUnfree = true;
 }

@@ -10,7 +10,8 @@
   ../../modules/development/cc.nix
   ../../modules/development/rs.nix
   ../../modules/development/py.nix
-  ../../modules/apps/virtual-machine.nix
+  ../../modules/development/nix.nix
+  # ../../modules/apps/virtual-machine.nix
   # ../../modules/apps/flatpak.nix
   ];
   environment.memoryAllocator.provider = "libc";
