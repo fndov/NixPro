@@ -1,8 +1,10 @@
 { lib, pkgs, ... }: {
+  # Desktop
   services.xserver.enable = true;
   services.xserver.desktopManager.cinnamon.enable = true;
   services.displayManager.ly.enable = true;
 
+  # Audio
   security.rtkit.enable = true;
   services.pipewire.enable = true;
   services.pipewire.alsa.enable = true;
@@ -11,7 +13,6 @@
   services.pipewire.jack.enable = true;
 
   services.printing.enable = true;
-  environment.systemPackages = [ pkgs.cups-filters ];
 
   services.avahi.enable = true;
   services.avahi.nssmdns4 = true;
@@ -19,6 +20,7 @@
 
   hardware.bluetooth.enable = true;
 
+  # Boot screen
   boot.plymouth.enable = true;
   boot.loader.timeout = lib.mkForce 1;
 }

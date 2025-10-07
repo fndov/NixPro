@@ -1,7 +1,4 @@
 { config, inputs, lib, pkgs, settings, ... }: {
-  nix.settings.substituters = [ "https://hyprland.cachix.org" ];
-  nix.settings.trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
-
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.systemPackages = with pkgs; [ libsecret cups-filters ];
 
@@ -73,7 +70,7 @@
     ./keybinds.nix
     ./notification.nix
     ./nwg-dock-hyprland.nix
-    # ./nwg-launcher.nix
+    ./nwg-launcher.nix
     ./plugins.nix
     ./qt-gtk.nix
     ./rclone.nix

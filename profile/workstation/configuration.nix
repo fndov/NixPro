@@ -15,9 +15,9 @@
   # ../../modules/apps/flatpak.nix
   ];
   environment.memoryAllocator.provider = "libc";
-  boot.kernelPackages = pkgs.linuxPackages_xanmod;
-  # boot.kernelPackages = pkgs.linuxPackages_cachyos;
-  # services.scx.enable = true;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod; /*
+  boot.kernelPackages = pkgs.linuxPackages_cachyos;
+  services.scx.enable = true; */
   services.btrfs.autoScrub = {
     enable = true;
     interval = "weekly";

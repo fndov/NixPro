@@ -22,12 +22,11 @@
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
-  services.blueman.enable = true;
 
   boot.plymouth.enable = true;
-  boot.loader.timeout = 1;
+  boot.loader.timeout = 1; /*
 
-  environment.plasma6.excludePackages = with pkgs.kdePackages; [ /*
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
     plasma-browser-integration
     kdepim-runtime
     konsole
@@ -39,6 +38,6 @@
     plasma-workspace-wallpapers
     breeze
     breeze-icons
-    breeze-gtk */
-  ];
+    breeze-gtk
+  ]; */
 }

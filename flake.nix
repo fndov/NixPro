@@ -47,100 +47,102 @@
     };
     system = settings.system.architecture;
   in {
-    nixosConfigurations.workstation = inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs system; settings = settings // { profile = "workstation"; }; };
-      modules = [
-        inputs.chaotic.nixosModules.nyx-cache
-        inputs.chaotic.nixosModules.nyx-overlay
-        inputs.chaotic.nixosModules.nyx-registry
-        inputs.home-manager.nixosModules.home-manager
-        ./profile/workstation/hardware.nix
-        ./profile/workstation/configuration.nix
-        ./compose.nix
-      ] ++ (if !builtins.isNull settings.desktop.type then [
-        ./modules/desktop/${settings.desktop.type}.nix
-      ] else [])
-      ++ (if !builtins.isNull settings.account.terminal then [
-        ./modules/apps/${settings.account.terminal}.nix
-      ] else [])
-      ++ (if !builtins.isNull settings.account.browser then [
-        ./modules/apps/${settings.account.browser}.nix
-      ] else []);
-    };
-    nixosConfigurations.virtual-machine = inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs system; settings = settings // { profile = "virtual-machine"; }; };
-      modules = [
-        inputs.chaotic.nixosModules.nyx-cache
-        inputs.chaotic.nixosModules.nyx-overlay
-        inputs.chaotic.nixosModules.nyx-registry
-        inputs.home-manager.nixosModules.home-manager
-        ./profile/virtual-machine/hardware.nix
-        ./profile/virtual-machine/configuration.nix
-        ./compose.nix
-      ] ++ (if !builtins.isNull settings.desktop.type then [
-        ./modules/desktop/${settings.desktop.type}.nix
-      ] else [])
-      ++ (if !builtins.isNull settings.account.terminal then [
-        ./modules/apps/${settings.account.terminal}.nix
-      ] else [])
-      ++ (if !builtins.isNull settings.account.browser then [
-        ./modules/apps/${settings.account.browser}.nix
-      ] else []);
-    };
-    nixosConfigurations.windows-subsystem = inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs system; settings = settings // { profile = "windows-subsystem"; }; };
-      modules = [
-        inputs.home-manager.nixosModules.home-manager
-        ./profile/windows-subsystem/hardware.nix
-        ./profile/windows-subsystem/configuration.nix
-        ./compose.nix
-      ] ++ (if !builtins.isNull settings.desktop.type then [
-        ./modules/desktop/${settings.desktop.type}.nix
-      ] else [])
-      ++ (if !builtins.isNull settings.account.terminal then [
-        ./modules/apps/${settings.account.terminal}.nix
-      ] else [])
-      ++ (if !builtins.isNull settings.account.browser then [
-        ./modules/apps/${settings.account.browser}.nix
-      ] else []);
-    };
-    nixosConfigurations.server = inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs system; settings = settings // { profile = "server"; }; };
-      modules = [
-        inputs.home-manager.nixosModules.home-manager
-         inputs.determinate.nixosModules.default
-        ./profile/server/hardware.nix
-        ./profile/server/configuration.nix
-        ./compose.nix
-      ] ++ (if !builtins.isNull settings.desktop.type then [
-        ./modules/desktop/${settings.desktop.type}.nix
-      ] else [])
-      ++ (if !builtins.isNull settings.account.terminal then [
-        ./modules/apps/${settings.account.terminal}.nix
-      ] else [])
-      ++ (if !builtins.isNull settings.account.browser then [
-        ./modules/apps/${settings.account.browser}.nix
-      ] else []);
-    };
-    nixosConfigurations.image = inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs system; settings = settings // { profile = "image"; }; };
-      modules = [
-        inputs.chaotic.nixosModules.nyx-cache
-        inputs.chaotic.nixosModules.nyx-overlay
-        inputs.chaotic.nixosModules.nyx-registry
-        inputs.home-manager.nixosModules.home-manager
-        ./profile/image/hardware.nix
-        ./profile/image/configuration.nix
-        ./compose.nix
-      ] ++ (if !builtins.isNull settings.desktop.type then [
-        ./modules/desktop/${settings.desktop.type}.nix
-      ] else [])
-      ++ (if !builtins.isNull settings.account.terminal then [
-        ./modules/apps/${settings.account.terminal}.nix
-      ] else [])
-      ++ (if !builtins.isNull settings.account.browser then [
-        ./modules/apps/${settings.account.browser}.nix
-      ] else []);
+    nixosConfigurations = {
+      workstation = inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs system; settings = settings // { profile = "workstation"; }; };
+        modules = [
+          inputs.chaotic.nixosModules.nyx-cache
+          inputs.chaotic.nixosModules.nyx-overlay
+          inputs.chaotic.nixosModules.nyx-registry
+          inputs.home-manager.nixosModules.home-manager
+          ./profile/workstation/hardware.nix
+          ./profile/workstation/configuration.nix
+          ./compose.nix
+        ] ++ (if !builtins.isNull settings.desktop.type then [
+          ./modules/desktop/${settings.desktop.type}.nix
+        ] else [])
+        ++ (if !builtins.isNull settings.account.terminal then [
+          ./modules/apps/${settings.account.terminal}.nix
+        ] else [])
+        ++ (if !builtins.isNull settings.account.browser then [
+          ./modules/apps/${settings.account.browser}.nix
+        ] else []);
+      };
+      virtual-machine = inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs system; settings = settings // { profile = "virtual-machine"; }; };
+        modules = [
+          inputs.chaotic.nixosModules.nyx-cache
+          inputs.chaotic.nixosModules.nyx-overlay
+          inputs.chaotic.nixosModules.nyx-registry
+          inputs.home-manager.nixosModules.home-manager
+          ./profile/virtual-machine/hardware.nix
+          ./profile/virtual-machine/configuration.nix
+          ./compose.nix
+        ] ++ (if !builtins.isNull settings.desktop.type then [
+          ./modules/desktop/${settings.desktop.type}.nix
+        ] else [])
+        ++ (if !builtins.isNull settings.account.terminal then [
+          ./modules/apps/${settings.account.terminal}.nix
+        ] else [])
+        ++ (if !builtins.isNull settings.account.browser then [
+          ./modules/apps/${settings.account.browser}.nix
+        ] else []);
+      };
+      windows-subsystem = inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs system; settings = settings // { profile = "windows-subsystem"; }; };
+        modules = [
+          inputs.home-manager.nixosModules.home-manager
+          ./profile/windows-subsystem/hardware.nix
+          ./profile/windows-subsystem/configuration.nix
+          ./compose.nix
+        ] ++ (if !builtins.isNull settings.desktop.type then [
+          ./modules/desktop/${settings.desktop.type}.nix
+        ] else [])
+        ++ (if !builtins.isNull settings.account.terminal then [
+          ./modules/apps/${settings.account.terminal}.nix
+        ] else [])
+        ++ (if !builtins.isNull settings.account.browser then [
+          ./modules/apps/${settings.account.browser}.nix
+        ] else []);
+      };
+      server = inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs system; settings = settings // { profile = "server"; }; };
+        modules = [
+          inputs.home-manager.nixosModules.home-manager
+          inputs.determinate.nixosModules.default
+          ./profile/server/hardware.nix
+          ./profile/server/configuration.nix
+          ./compose.nix
+        ] ++ (if !builtins.isNull settings.desktop.type then [
+          ./modules/desktop/${settings.desktop.type}.nix
+        ] else [])
+        ++ (if !builtins.isNull settings.account.terminal then [
+          ./modules/apps/${settings.account.terminal}.nix
+        ] else [])
+        ++ (if !builtins.isNull settings.account.browser then [
+          ./modules/apps/${settings.account.browser}.nix
+        ] else []);
+      };
+      image = inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs system; settings = settings // { profile = "image"; }; };
+        modules = [
+          inputs.chaotic.nixosModules.nyx-cache
+          inputs.chaotic.nixosModules.nyx-overlay
+          inputs.chaotic.nixosModules.nyx-registry
+          inputs.home-manager.nixosModules.home-manager
+          ./profile/image/hardware.nix
+          ./profile/image/configuration.nix
+          ./compose.nix
+        ] ++ (if !builtins.isNull settings.desktop.type then [
+          ./modules/desktop/${settings.desktop.type}.nix
+        ] else [])
+        ++ (if !builtins.isNull settings.account.terminal then [
+          ./modules/apps/${settings.account.terminal}.nix
+        ] else [])
+        ++ (if !builtins.isNull settings.account.browser then [
+          ./modules/apps/${settings.account.browser}.nix
+        ] else []);
+      };
     };
     darwinSystem.darwin = inputs.nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs system; settings = settings // { profile = "darwin"; }; };

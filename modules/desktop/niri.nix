@@ -1,6 +1,8 @@
-{ pkgs, ... }: {
+{ lib, pkgs, ... }: {
+  # Window Manager
   programs.niri.enable = true;
 
+  # Audio
   security.rtkit.enable = true;
   services.pipewire.enable = true;
   services.pipewire.alsa.enable = true;
@@ -9,10 +11,13 @@
   services.pipewire.jack.enable = true;
 
   services.printing.enable = true;
+  environment.systemPackages = [ pkgs.cups-filters ];
 
   services.avahi.enable = true;
   services.avahi.nssmdns4 = true;
   services.avahi.openFirewall = true;
 
-  environment.systemPackages = [ pkgs.cups-filters ];
+  # Boot screen
+  boot.plymouth.enable = true;
+  boot.loader.timeout = lib.mkForce 1;
 }

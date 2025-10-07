@@ -45,6 +45,7 @@ in {
       nix.settings.warn-dirty = false;
       nix.settings.trusted-users = [ "@wheel" ];
       nix.settings.allowed-users = [ "${settings.account.name}" ];
+
       nix.settings.substituters = [
         # "https://cache.lix.systems"
         # "https://hyprland.cachix.org"

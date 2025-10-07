@@ -1,8 +1,10 @@
 { lib, pkgs, settings, ... }: {
+  # Desktop
   services.xserver.enable = true;
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+  # Audio
   security.rtkit.enable = true;
   services.pipewire.enable = true;
   services.pipewire.alsa.enable = true;
@@ -32,11 +34,9 @@
     gnome-browser-connector
   ];
 
-  qt = {
-    enable = true;
-    platformTheme = "gnome";
-    style = "adwaita-dark";
-  };
+  qt.enable = true;
+  qt.platformTheme = "gnome";
+  qt.style = "adwaita-dark";
 
   home-manager.users.${settings.account.name} = {
     xdg.enable = true;
@@ -60,6 +60,7 @@
       extraConfig.XDG_BOOK_DIR = "/home/${settings.account.name}/Media/Books";
     };
   };
+  # Boot screen
   boot.plymouth.enable = true;
   boot.loader.timeout = lib.mkForce 1;
 }

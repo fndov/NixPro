@@ -7,13 +7,6 @@
     ../../modules/commands/shell.nix
     ../../modules/commands/library.nix
     ../../modules/commands/extra.nix
-    # ../../modules/apps/collection.nix
-    # ../../modules/apps/virtual-machine.nix
-    # ../../modules/development/nix.nix
-    # ../../modules/development/py.nix
-    # ../../modules/apps/steam.nix
-    # ../../modules/development/rs.nix
-    # ../../modules/development/cc.nix
   ];
   nixpkgs.config.allowUnfree = true;
   documentation.man.enable = lib.mkForce false;
