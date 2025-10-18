@@ -2,6 +2,7 @@
   ../../modules/apps/collection.nix
   ../../modules/apps/spotify.nix
   ../../modules/apps/lutris.nix
+  ../../modules/apps/steam.nix
   ../../modules/development/nix.nix
   ../../modules/commands/base.nix
   ../../modules/commands/shell.nix

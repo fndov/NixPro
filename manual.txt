@@ -110,3 +110,19 @@ Posy's improved cursors, black set.
 Cachey kernel binaries are available when the whole system is using the unstable channel.
 
 https://github.com/Crackerfracks/Synesthaxia.glsl
+
+GNOME Keyring / Chrome auto-login fix
+
+mkdir -p ~/keyring-backups
+cp -a ~/.local/share/keyrings/default.keyring ~/keyring-backups/default.keyring.$(date +%F-%T)
+
+mv ~/.local/share/keyrings/default.keyring ~/.local/share/keyrings/default.keyring.corrupt.$(date +%F-%T)
+
+ln -s ~/.local/share/keyrings/login.keyring ~/.local/share/keyrings/default
+
+pkill -9 -f gnome-keyring
+ps -e | grep gnome-keyring   # should show nothing
+
+Verify:
+ps -e | grep gnome-keyring   # should show one daemon running
+journalctl --user -b | grep gnome-keyring | tail -n 10

@@ -36,7 +36,7 @@
       offload = "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia";
       gc = "git clone";
       ultra = "zstd --ultra 22";
-      nixsh = "nix-shell -p";
+      nixsh = "nix-shell --command ${settings.account.shell} -p";
       tmpd = "mkdir /tmp/d 2>/dev/null || true && cd /tmp/d 2>/dev/null || true";
       rmtmpd = "rm -rf /tmp/d/*";
       scp = "scp -r";

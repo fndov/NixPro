@@ -12,6 +12,7 @@
       unstable.numbat
       sysz
       unstable.gemini-cli
+      nix-output-monitor
       /*
         unstable.ollama
         kmon

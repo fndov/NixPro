@@ -6,11 +6,10 @@
     home.packages = with pkgs; [
       unstable.komikku
       unstable.upscayl
-      unstable.zed-editor-fhs
+      unstable.zed-editor
       unstable.obsidian
       unstable.obs-studio
       unstable.gimp
-      vlc
       libreoffice
       video-trimmer
       krita
@@ -18,8 +17,9 @@
       easyeffects
       baobab
       gearlever
-      discord
+      unstable.vesktop
       /*
+        vlc
         helvum
         open-webui
         slack
@@ -102,6 +102,7 @@
         zen-browser
         tor-browser-bundle-bin
         isoimagewriter
+        discord
       */
     ];
   };

@@ -15,7 +15,7 @@
   services.printing.enable = true;
 
   services.usbmuxd.enable = true;
-  services.usbmuxd.package = pkgs.usbmuxd2;
+  # services.usbmuxd.package = pkgs.usbmuxd2;
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
@@ -27,11 +27,24 @@
   services.avahi.nssmdns4 = true;
   services.avahi.openFirewall = true;
 
+  programs.seahorse.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+
   environment.systemPackages = with pkgs; [
     gnomeExtensions.blur-my-shell
-    cups-filters
     gnome-extension-manager
     gnome-browser-connector
+    gnome-control-center
+    gnome-tweaks
+    cups-filters
+  ];
+
+  environment.gnome.excludePackages = with pkgs; [
+    gnome-console
+    geary
+    gnome-tour
+    epiphany
+    xterm
   ];
 
   qt.enable = true;
