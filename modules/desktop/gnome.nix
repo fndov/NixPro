@@ -15,7 +15,7 @@
   services.printing.enable = true;
 
   services.usbmuxd.enable = true;
-  # services.usbmuxd.package = pkgs.usbmuxd2;
+  services.usbmuxd.package = pkgs.usbmuxd2;
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
