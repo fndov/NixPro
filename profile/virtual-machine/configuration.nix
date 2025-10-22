@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   imports = [ ];
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
-  boot.kernelPatches = [ ];
   boot.kernelParams = [
     "splash"
     "quiet"

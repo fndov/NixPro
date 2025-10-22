@@ -4,6 +4,7 @@
     unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
   in {
     home.packages = with pkgs; [
+      /* Non-essential */
       bat
       weechat
       file

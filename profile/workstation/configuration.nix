@@ -1,4 +1,4 @@
-{ pkgs, ... }: { imports = [
+{ pkgs, settings, ... }: { imports = [
   ../../modules/apps/collection.nix
   ../../modules/apps/spotify.nix
   ../../modules/apps/lutris.nix
@@ -12,18 +12,8 @@
   ../../modules/development/rs.nix
   ../../modules/development/py.nix
   ../../modules/development/nix.nix
-  # ../../modules/apps/virtual-machine.nix
-  # ../../modules/apps/flatpak.nix
   ];
-  environment.memoryAllocator.provider = "libc";
-  boot.kernelPackages = pkgs.linuxPackages_xanmod; /*
-  boot.kernelPackages = pkgs.linuxPackages_cachyos;
-  services.scx.enable = true; */
-  services.btrfs.autoScrub = {
-    enable = true;
-    interval = "weekly";
-    fileSystems = [ "/" ];
-  };
+  boot.kernelPackages = pkgs.linuxPackages_xanmod;
   boot.kernel.sysctl = {
     "vm.swappiness" = 1;
     "vm.dirty_background_ratio" = 5;
@@ -36,7 +26,6 @@
     "vm.watermark_scale_factor" = 125;
     "vm.dirty_expire_centisecs" = 6000;
     "vm.dirty_writeback_centisecs" = 1500;
-
     "kernel.unprivileged_userns_clone" = 1;
     "net.core.default_qdisc" = "cake";
     "net.ipv4.tcp_congestion_control" = "bbr";
@@ -78,7 +67,6 @@
     "net.ipv4.tcp_ecn" = 0;
     "fs.inotify.max_user_watches" = 524288;
   };
-  boot.kernelPatches = [ ];
   boot.kernelParams = [
     "splash"
     "quiet"
@@ -165,51 +153,18 @@
     "vivid"    # Virtual Video Test Driver (unnecessary)
     # Disable Thunderbolt and FireWire to prevent DMA attacks
     "firewire-core"
-
-    # YOLO
-    "rtsx_pci_sdmmc"
-    "macvlan"
-    "efi_pstore"
-    "dmi_sysfs"
-    "int3403_thermal"
-    "int3400_thermal"
-    "mac_hid"
-    "i2c_hid_acpi"
-    "hp_accel"
-    "processor_thermal_device_pci_legacy"
-    "i2c_i801"
-    "battery"
-    "tpm_tis"
-    "mei_pxp"
-    "hp_wmi"
-    "wmi_bmof"
-    "rapl"
-    "intel_cstate"
-    "intel_uncore"
-    "tpm_crb"
-    "hid_multitouch"
-    "crc32_pclmul"
-    "polyval_clmulni"
-    "ghash_clmulni_intel"
-    "mei_hdcp"
-    "ee1004"
-    "intel_wmi_thunderbolt"
-    "intel_rapl_msr"
-    "vhost_net"
-    "snd_seq_dummy"
-    "nvidia_uvm"
-    "snd_sof_pci_intel_skl"
-    "iwlmvm"
-    "snd_soc_avs"
-    "iTCO_wdt"
-    "r8169"
-    "intel_tcc_cooling"
-    "x86_pkg_temp_thermal"
-    "intel_powerclamp"
-    "coretemp"
-    "ac"
-    "mousedev"
-    "btusb"
-    "tiny_power_button"
   ];
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "weekly";
+    fileSystems = [ "/" ];
+  };
+  home-manager.users.${settings.account.name}.xdg.desktopEntries."launch-minecraft" = {
+    name = "launch minecraft";
+    comment = "start prism launcher appimage";
+    type = "Application";
+    exec = "appimage-run /home/miyu/Archive/AppImages/PrismLauncher-Linux-x86_64.AppImage";
+    terminal = false;
+    categories = [ "Game" ];
+  };
 }

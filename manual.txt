@@ -126,3 +126,19 @@ ps -e | grep gnome-keyring   # should show nothing
 Verify:
 ps -e | grep gnome-keyring   # should show one daemon running
 journalctl --user -b | grep gnome-keyring | tail -n 10
+
+To use the CachyOS kernel, add this to your profile:
+  boot.kernelPackages = pkgs.linuxPackages_cachyos;
+  services.scx.enable = true;
+
+To change the main memory allocator of the system use:
+  environment.memoryAllocator.provider = "libc";
+
+To use kernel patches just add this to any profile:
+  boot.kernelPatches = [ /path/to/kernelpatch.patch ];
+
+Archived code from the image profile:
+  users.groups.nixos = lib.mkForce {};
+  users.users.nixos = { _module = {}; };
+  hardware.enableAllFirmware = true;
+  hardware.enableRedistributableFirmware = true;

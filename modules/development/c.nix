@@ -13,9 +13,7 @@
       ltrace
       cppcheck
       ninja
-      /*
-        gcov
-      */
+      # gcov
     ];
   };
 }

@@ -1,6 +1,6 @@
 { lib, pkgs, ... }: {
   imports = [
-    ../../modules/apps/compact.nix
+    ../../modules/apps/bundle.nix
     ../../modules/apps/spotify.nix
     ../../modules/apps/flatpak.nix
     ../../modules/commands/base.nix
@@ -14,13 +14,8 @@
   nix.settings.keep-derivations = false;
   services.openssh.enable = lib.mkForce false;
   boot.loader.timeout = lib.mkForce 3;
-  # users.groups.nixos = lib.mkForce {};
-  # users.users.nixos = { _module = {}; };
-  # hardware.enableAllFirmware = true;
-  # hardware.enableRedistributableFirmware = true;
 
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
-  boot.kernelPatches = [ ];
   boot.kernelParams = [
     "splash"
     "quiet"

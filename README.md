@@ -3,46 +3,33 @@
 ---
 #### File structure & composition
 ```
-┌─ kernel-patches/
-├─ modules/
+┌─ kernel-patches/       | Customizations.
+├─ modules/              | Reuseable code.
 │  ├─ apps/
 │  ├─ commands/
 │  ├─ desktop/
 │  └─ development/
-├─ profile/
+├─ profile/              | Each device that shares this flake.
 │  ├─ darwin/
 │  ├─ image/
 │  ├─ server/
 │  ├─ virtual-machine/
 │  ├─ windows-subsystem/
 │  └─ workstation/
-├─ flake.nix
-└─ compose.nix
+├─ flake.nix             | Start
+└─ compose.nix           | Common code for all profiles.
 ```
-#### Profiles
-NixPro employs a profile-driven architecture to support seamless adaptation across environments. The configuration dynamically adjusts settings and imports environment-specific modules based on the profile you specify in the build command.
 
-| Profile             | Target Environment       | Hostname         | Use Case                                                                 |
+| Profile             | Target Environment       | Hostname         | Use Case                                                                |
 |---------------------|--------------------------|------------------|-------------------------------------------------------------------------|
-| `workstation`       | Bare-metal Installation  | NixPro           | Default setup for physical workstations/laptops                         |
-| `darwin`            | ARM Apple Machines       | NixPro-ARM       | Apple Silicon optimizations (M1/M2 Macs)                                |
+| `image`             | ISO Generation           | NixPro-Image     | nixos-rebuild build-image (see 25.05 release notes)                     |
+| `server`            | Headless Servers         | NixPro-Server    | Server-oriented or VPS configuration                                    |
+| `virtual-machine`   | Virtualization Platforms | NixPro-VM        | Optimized for QEMU/containerized workloads                              |
 | `windows-subsystem` | WSL Environment          | NixPro-WSL       | Windows Subsystem for Linux integration                                 |
-| `server`            | Headless Servers         | NixPro-Server    | Server-oriented configuration without GUI components                    |
-| `virtual-machine`   | Virtualization Platforms | NixPro-VM        | Optimized for QEMU/VirtualBox/VMware workloads                          |
-| `image`             | ISO Generation           | NixPro-Image     | Building live/installation media (see ISO building section below)       |
-#### Building an ISO
-![Screenshot 2025-02-19 at 12-39-48 Wed 11 36 AM](https://github.com/user-attachments/assets/8056f514-e651-4cf8-97f6-b439d39f0a01)
----
-- Choose the profile you want to build an ISO for.
-- Run `nix build .#nixosConfigurations.<profile-name>.config.system.build.isoImage` to build the ISO image.
+| `workstation`       | Bare-metal Installation  | NixPro           | Default setup for physical workstations/laptops                         |
 
-| Version | Desktop  | Architecture  | Features                           |
-| :------ | :------: | :-----------: | :---------------------------------: |
-| 24.11   | hyprland | x86_64-linux  | GPU acceleration, tiling WM          |
-| 22.05   | plasma   | x86_64-linux  | Full KDE desktop, productivity apps  |
-| 23.11   | sway     | x86_64-linux  | Wayland compositor, minimal footprint|
-#### Windows Subsystem for Linux
-- Select the Microsoft-specific profile when building.
-- This will automatically import the essential utilities for WSL.
----
-This structure allows the system to be dynamically composed from universal, profile-specific, and desktop-specific modules, making it highly modular and easy to extend or maintain.
+If more than one device uses the same profile, a copy can be created. Ex workstation-B. Instead of separating arbitrary device specific code out to another directory.
+
+Another goal of this flake is to support multiple devices using the same profile without overlap or conflict, and to support multiple users both locally and online. However, whoever reads the README should know I haven't yet refactored the flake to avoid hard-coding my preferences, take the `apps.nix` file for example.
+
+One of the many benefits of NixOS is the store architecture, you don't need to use exclusively stable or unstable channels, this flake mixes both.

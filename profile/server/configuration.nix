@@ -1,7 +1,6 @@
 { lib, pkgs, ... }:{
   imports = [ ];
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
-  boot.kernelPatches = [ ];
   boot.kernelParams = [
     "vga=0x317"
     "splash"
@@ -86,7 +85,6 @@
     "firewire-core"
     "thunderbolt"
   ];
-
   systemd.services."serial-getty@ttyS0".enable = lib.mkDefault false;
   systemd.services."serial-getty@hvc0".enable = false;
   systemd.services."getty@tty1".enable = false;
