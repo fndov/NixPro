@@ -160,10 +160,10 @@
     fileSystems = [ "/" ];
   };
   home-manager.users.${settings.account.name}.xdg.desktopEntries."launch-minecraft" = {
-    name = "launch minecraft";
-    comment = "start prism launcher appimage";
+    name = "launch Minecraft";
+    comment = "Start Prism Launcher appimage";
     type = "Application";
-    exec = "appimage-run /home/miyu/Archive/AppImages/PrismLauncher-Linux-x86_64.AppImage";
+    exec = "export __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia appimage-run /home/miyu/Archive/AppImages/PrismLauncher-Linux-x86_64.AppImage";
     terminal = false;
     categories = [ "Game" ];
   };

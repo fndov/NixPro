@@ -10,7 +10,6 @@
 │  ├─ desktop/
 │  └─ development/
 ├─ profile/              | Each device that shares this flake.
-│  ├─ darwin/
 │  ├─ image/
 │  ├─ server/
 │  ├─ virtual-machine/

@@ -142,3 +142,8 @@ Archived code from the image profile:
   users.users.nixos = { _module = {}; };
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
+
+journalctl
+systemctl
+sysctl
+bootctl

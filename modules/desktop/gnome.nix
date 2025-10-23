@@ -61,16 +61,19 @@
       music = "/home/${settings.account.name}/Media/Music";
       videos = "/home/${settings.account.name}/Media/Videos";
       pictures = "/home/${settings.account.name}/Media/Pictures";
-      templates = "/home/${settings.account.name}/Templates";
+      templates = "/home/${settings.account.name}/Documents/Templates";
       download = "/home/${settings.account.name}/Downloads";
       documents = "/home/${settings.account.name}/Documents";
-      desktop = null;
+      desktop = "/home/${settings.account.name}/Desktop";
       publicShare = null;
       extraConfig.XDG_ARCHIVE_DIR = "/home/${settings.account.name}/Archive";
       extraConfig.XDG_VM_DIR = "/home/${settings.account.name}/Machines";
       extraConfig.XDG_ORG_DIR = "/home/${settings.account.name}/Org";
+      extraConfig.XDG_INC_DIR = "/home/${settings.account.name}/Inc";
+      extraConfig.XDG_EDU_DIR = "/home/${settings.account.name}/Edu";
       extraConfig.XDG_PODCAST_DIR = "/home/${settings.account.name}/Media/Podcasts";
       extraConfig.XDG_BOOK_DIR = "/home/${settings.account.name}/Media/Books";
+      extraConfig.XDG_DEVELOPMENT = "/home/${settings.account.name}/Development";
     };
   };
   # Boot screen
