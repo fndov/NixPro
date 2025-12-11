@@ -32,7 +32,7 @@ in {
       environment.sessionVariables.NIXPKGS_ALLOW_UNFREE = "1";
 
       environment.systemPackages = with pkgs; [
-        inputs.nix-software-center.packages.${system}.nix-software-center
+        # inputs.nix-software-center.packages.${system}.nix-software-center
         ifuse
       ] ++ (if settings.account.editor == "micro" then [ micro ] else [])
         ++ (if settings.account.editor == "nano" then [ nano ] else [])
@@ -47,18 +47,18 @@ in {
       nix.settings.allowed-users = [ "${settings.account.name}" ];
 
       nix.settings.substituters = [
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org"
         # "https://cache.lix.systems"
         # "https://hyprland.cachix.org"
-        "https://nix-community.cachix.org"
-        "https://chaotic-nyx.cachix.org"
-        "https://cache.nixos.org"
+        # "https://chaotic-nyx.cachix.org"
       ];
       nix.settings.trusted-public-keys = [
-        # "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
-        # "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8"
+        # "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
+        # "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        # "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8"
       ];
       nix.settings.auto-optimise-store = true;
       nix.optimise.automatic = true;
@@ -126,7 +126,6 @@ in {
       system.nixos.tags = [ settings.system.tag ];
     }
     (if settings.system.init == "systemd-boot" then {
-      boot.readOnlyNixStore = true;
       boot.consoleLogLevel = 0;
       boot.tmp.cleanOnBoot = false;
       boot.tmp.useTmpfs = true;
@@ -252,17 +251,13 @@ in {
             executable = "${pkgs.google-chrome}/bin/google-chrome-stable";
             profile = "${pkgs.firejail}/etc/firejail/google-chrome-stable.profile";
           };
-          discord = {
-            executable = "${pkgs.discord}/bin/discord";
-            profile = "${pkgs.firejail}/etc/firejail/discord.profile";
-          };
           nautilus = {
             executable = "${pkgs.nautilus}/bin/nautilus";
             profile = "${pkgs.firejail}/etc/firejail/nautilus.profile";
           };
-          spotify = {
-            executable = "${pkgs.spotify}/bin/spotify";
-            profile = "${pkgs.firejail}/etc/firejail/spotify.profile";
+          discord = {
+            executable = "${pkgs.discord}/bin/discord";
+            profile = "${pkgs.firejail}/etc/firejail/discord.profile";
           };
         };
       };

@@ -5,6 +5,7 @@
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
       /* Essential */
+      yt-dlp
       htop
       inxi
       zip

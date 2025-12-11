@@ -1,13 +1,13 @@
-{ pkgs, settings, ... }: { imports = [
+{ pkgs, ... }: { imports = [
   ../../modules/apps/collection.nix
   ../../modules/apps/spotify.nix
   ../../modules/apps/lutris.nix
   ../../modules/apps/steam.nix
-  ../../modules/development/nix.nix
   ../../modules/commands/base.nix
   ../../modules/commands/shell.nix
   ../../modules/commands/library.nix
   ../../modules/commands/extra.nix
+  ../../modules/development/nix.nix
   ../../modules/development/cc.nix
   ../../modules/development/rs.nix
   ../../modules/development/py.nix
@@ -100,71 +100,5 @@
   ];
   boot.blacklistedKernelModules = [
     "nouveau"   # Conflicts with Nvidia driver
-    # Obscure network protocols.
-    "af_802154" # IEEE 802.15.4
-    "appletalk" # Appletalk
-    "atm"       # ATM
-    "ax25"      # Amatuer X.25
-    "can"       # Controller Area Network
-    "dccp"      # Datagram Congestion Control Protocol
-    "decnet"    # DECnet
-    "econet"    # Econet
-    "ipx"       # Internetwork Packet Exchange
-    "n-hdlc"    # High-level Data Link Control
-    "netrom"    # NetRom
-    "p8022"     # IEEE 802.3
-    "p8023"     # Novell raw IEEE 802.3
-    "psnap"     # SubnetworkAccess Protocol
-    "rds"       # Reliable Datagram Sockets
-    "rose"      # ROSE
-    "sctp"      # Stream Control Transmission Protocol
-    "tipc"      # Transparent Inter-Process Communication
-    "x25"       # X.25
-    # Old or rare or insufficiently audited filesystems.
-    "adfs"     # Active Directory Federation Services
-    "affs"     # Amiga Fast File System
-    "befs"     # "Be File System"
-    "bfs"      # BFS, used by SCO UnixWare OS for the /stand slice
-    "cifs"     # Common Internet File System
-    "cramfs"   # compressed ROM/RAM file system
-    "efs"      # Extent File System
-    "erofs"    # Enhanced Read-Only File System
-    "exofs"    # EXtended Object File System
-    "f2fs"     # Flash-Friendly File System
-    "freevxfs" # Veritas filesystem driver
-    "gfs2"     # Global File System 2
-    "hfs"      # Hierarchical File System (Macintosh)
-    "hfsplus"  # Same as above, but with extended attributes.
-    "hpfs"     # High Performance File System (used by OS/2)
-    "jffs2"    # Journalling Flash File System (v2)
-    "jfs"      # Journaled File System - only useful for VMWare sessions
-    "ksmbd"    # SMB3 Kernel Server
-    "minix"    # minix fs - used by the minix OS
-    "nfs"      # Network File System
-    "nfsv3"    # Network File System (v3)
-    "nfsv4"    # Network File System (v4)
-    "nilfs2"   # New Implementation of a Log-structured File System
-    "omfs"     # Optimized MPEG Filesystem
-    "qnx4"     # Extent-based file system used by the QNX4 OS.
-    "qnx6"     # Extent-based file system used by the QNX6 OS.
-    "squashfs" # compressed read-only file system (used by live CDs)
-    "sysv"     # implements all of Xenix FS, SystemV/386 FS and Coherent FS.
-    "udf"      # https://docs.kernel.org/5.15/filesystems/udf.html
-    "vivid"    # Virtual Video Test Driver (unnecessary)
-    # Disable Thunderbolt and FireWire to prevent DMA attacks
-    "firewire-core"
   ];
-  services.btrfs.autoScrub = {
-    enable = true;
-    interval = "weekly";
-    fileSystems = [ "/" ];
-  };
-  home-manager.users.${settings.account.name}.xdg.desktopEntries."launch-minecraft" = {
-    name = "launch Minecraft";
-    comment = "Start Prism Launcher appimage";
-    type = "Application";
-    exec = "export __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia appimage-run /home/miyu/Archive/AppImages/PrismLauncher-Linux-x86_64.AppImage";
-    terminal = false;
-    categories = [ "Game" ];
-  };
 }
