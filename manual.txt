@@ -75,8 +75,6 @@ flake.nix
 - modules/apps/<terminal>.nix
 - modules/apps/<browser>.nix
 
-Every directory contains a `system.nix` & `home.nix` for easy separation between the system settings and home manager
-
 Compose.nix contains universal modules for common & dynamic options imported by every build
 Modules/ is for extra features
 Profiles/ are for different PC types (standard install or server etc)
@@ -147,3 +145,5 @@ journalctl
 systemctl
 sysctl
 bootctl
+
+There's no need to disable a service if it's not enabled by default.

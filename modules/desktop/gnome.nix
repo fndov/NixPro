@@ -38,6 +38,7 @@
     gnome-control-center
     gnome-tweaks
     cups-filters
+    noto-fonts-cjk-sans
   ];
 
   environment.gnome.excludePackages = with pkgs; [
@@ -59,22 +60,28 @@
     xdg.userDirs = {
       enable = true;
       createDirectories = true;
-      music = "/home/${settings.account.name}/Media/Music";
-      videos = "/home/${settings.account.name}/Media/Videos";
-      pictures = "/home/${settings.account.name}/Media/Pictures";
-      templates = "/home/${settings.account.name}/Documents/Templates";
-      download = "/home/${settings.account.name}/Downloads";
-      documents = "/home/${settings.account.name}/Documents";
-      desktop = "/home/${settings.account.name}/Desktop";
       publicShare = null;
+      desktop = "/home/${settings.account.name}/Desktop";
+      documents = "/home/${settings.account.name}/Documents";
+      download = "/home/${settings.account.name}/Downloads";
+      templates = "/home/${settings.account.name}/Documents/Templates";
+      music = "/home/${settings.account.name}/Media/Music";
+      pictures = "/home/${settings.account.name}/Media/Pictures";
+      extraConfig.XDG_WALLPAPER_DIR = "/home/${settings.account.name}/Media/Pictures/Wallpapers";
+      extraConfig.XDG_ARTWORK_DIR = "/home/${settings.account.name}/Media/Pictures/Artwork";
+      extraConfig.XDG_GALLERY_DIR = "/home/${settings.account.name}/Media/Pictures/Gallery";
+      extraConfig.XDG_MEMES_DIR = "/home/${settings.account.name}/Media/Pictures/Memes";
+      extraConfig.XDG_PRIVATE_PICTURES_DIR = "/home/${settings.account.name}/Media/Pictures/Private";
+      videos = "/home/${settings.account.name}/Media/Videos";
+      extraConfig.XDG_BOOK_DIR = "/home/${settings.account.name}/Media/Books";
+      extraConfig.XDG_PODCAST_DIR = "/home/${settings.account.name}/Media/Podcasts";
       extraConfig.XDG_ARCHIVE_DIR = "/home/${settings.account.name}/Archive";
+      extraConfig.XDG_APPIMAGES_DIR = "/home/${settings.account.name}/Archive/Appimages";
+      extraConfig.XDG_DEVELOPMENT = "/home/${settings.account.name}/Development";
       extraConfig.XDG_VM_DIR = "/home/${settings.account.name}/Machines";
       extraConfig.XDG_ORG_DIR = "/home/${settings.account.name}/Org";
       extraConfig.XDG_INC_DIR = "/home/${settings.account.name}/Inc";
       extraConfig.XDG_EDU_DIR = "/home/${settings.account.name}/Edu";
-      extraConfig.XDG_PODCAST_DIR = "/home/${settings.account.name}/Media/Podcasts";
-      extraConfig.XDG_BOOK_DIR = "/home/${settings.account.name}/Media/Books";
-      extraConfig.XDG_DEVELOPMENT = "/home/${settings.account.name}/Development";
     };
   };
   # Boot screen

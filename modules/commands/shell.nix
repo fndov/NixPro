@@ -36,7 +36,7 @@
         "nice -1 ${settings.account.editor}";
       # cattree = "find . -type f -exec grep -Iq . {} \\; -print | xargs cat"; # Broken
       offload = "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia";
-      gc = "git clone";
+      gc = "git clone --dep 1";
       ultra = "zstd --ultra 22";
       nixsh = "nix-shell --command ${settings.account.shell} -p";
       tmpd = "mkdir /tmp/d 2>/dev/null || true && cd /tmp/d 2>/dev/null || true";
@@ -51,6 +51,11 @@
         unstable.ripgrep
         glib
         glibc
+        (writeShellScriptBin "mc" ''
+          export __NV_PRIME_RENDER_OFFLOAD=1
+          export __GLX_VENDOR_LIBRARY_NAME=nvidia
+          appimage-run Archive/Appimages/PrismLauncher-Linux-x86_64.AppImage
+        '')
       ];
       programs.powerline-go.enable = true;
       programs.atuin.enable = true;
@@ -87,7 +92,6 @@
         bind \cS nixsw
         bind \cK "up-or-search; commandline -f execute"
         bind \cE e
-        bind \cW weechat
         bind \cX "cargo run"
         bind \cH backward-kill-word
         bind \cN "nix-shell"

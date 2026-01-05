@@ -17,13 +17,13 @@
       easyeffects
       baobab
       gearlever
-      unstable.vesktop
+      vesktop
+      chatterino2
       /*
         vlc
         helvum
         open-webui
         slack
-        telegram-desktop
         unstable.code-cursor
         kdePackages.k3b # broken
         gnome-disk-utility
@@ -34,7 +34,6 @@
         unstable.blender
         unstable.telegram-desktop
         swayimg
-        chatterino2
         kdenlive
         kdePackages.elisa
         gnome-calendar
@@ -61,6 +60,7 @@
         ventoy
         remmina
         tenacity
+        telegram-desktop
         rosegarden
         ardour
         audio-recorder
@@ -106,4 +106,5 @@
       */
     ];
   };
+  services.lact.enable = true;
 }

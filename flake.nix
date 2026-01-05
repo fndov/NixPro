@@ -20,7 +20,7 @@
       driver.graphics = "nvidia";
       driver.intelBusID = "PCI:0:2:0";
       driver.nvidiaBusID = "PCI:9:0:0";
-      system.version = "25.05";
+      system.version = "25.11";
       system.architecture = "x86_64-linux";
       system.init = "systemd-boot";
       system.bootMode = "uefi";

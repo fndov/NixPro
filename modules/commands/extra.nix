@@ -5,18 +5,28 @@
   in {
     home.packages = with pkgs; [
       /* Non-essential */
-      bat
+      yt-dlp
+      bat # Better cat
       weechat
       file
       unstable.gdu
       unstable.fastfetch
       unstable.numbat
-      sysz
-      unstable.gemini-cli
+      sysz # Systemd service viewer
+      gemini-cli
       unstable.codex
       nix-output-monitor
+      discordchatexporter-cli
+      discordchatexporter-desktop
+      lazygit # Git tui
+      dust # Better `du`
+      gping # Better `ping`
+      lolcat
+      hyperfine # Better `time`
+      broot # Interactive directory tree navigator
+      unstable.ollama
+      wget
       /*
-        unstable.ollama
         kmon
         timg
         chafa

@@ -2,10 +2,10 @@
   home-manager.users.${settings.account.name} = { ... }: let
     unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; };
   in {
-    home.packages = with unstable; [
+    home.packages = with pkgs; [
       heroic
       gamemode
-      protonup
+      protonup-ng
       mangohud
       wine
       gamescope
