@@ -1,6 +1,6 @@
 { pkgs, inputs, settings, ... }: {
   home-manager.users.${settings.account.name} = { ... }: let
-    spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
+    spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
   in {
     nixpkgs.config.allowUnfree = true;
     imports = [ inputs.spicetify-nix.homeManagerModules.default ];

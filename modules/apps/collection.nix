@@ -4,21 +4,22 @@
   in {
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
-      unstable.komikku
-      unstable.upscayl
-      unstable.zed-editor
-      unstable.obsidian
-      unstable.obs-studio
-      unstable.gimp
-      libreoffice
+      ghex                 # hexeditor
+      unstable.komikku     # manga
+      unstable.upscayl     # image upscale
+      zed-editor           # my beloved IDE
+      unstable.obsidian    # notes
+      unstable.obs-studio  # screenrecording
+      unstable.gimp        # the worst image editor
+      libreoffice          # word
       video-trimmer
-      krita
-      authenticator
-      easyeffects
-      baobab
-      gearlever
-      vesktop
-      chatterino2
+      krita                # art
+      authenticator        # auth
+      easyeffects          # audio stuff
+      baobab               # disk usage app
+      gearlever            # app image utility
+      vesktop              # modded discord
+      chatterino2          # twitch chat
       /*
         vlc
         helvum
@@ -39,7 +40,7 @@
         gnome-calendar
         kwrited
         veracrypt
-        k3b # Broken Wed Apr  2 04:27:23 PM CDT 2025
+        k3b # Broken Wed Apr 2 04:27:23 PM CDT 2025
         vscode
         unstable.code-cursor
         unstable.alpaca
