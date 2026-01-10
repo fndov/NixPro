@@ -20,6 +20,7 @@
       gearlever            # app image utility
       vesktop              # modded discord
       chatterino2          # twitch chat
+      mgba                 # gameboy emulator
       /*
         vlc
         helvum

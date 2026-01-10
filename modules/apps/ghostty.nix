@@ -45,7 +45,7 @@
       # --- Perams ---
       clipboard-paste-protection = false
       gtk-single-instance = true
-      quit-after-last-window-closed = false
+      quit-after-last-window-closed = true
       mouse-hide-while-typing = true
       focus-follows-mouse = true
     '';
