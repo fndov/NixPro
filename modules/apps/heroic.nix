@@ -1,6 +1,6 @@
 { pkgs, inputs, settings, ... }: {
   home-manager.users.${settings.account.name} = { ... }: let
-    unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; };
+    unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.hostPlatform.system; config.allowUnfree = true; };
   in {
     home.packages = with pkgs; [
       heroic

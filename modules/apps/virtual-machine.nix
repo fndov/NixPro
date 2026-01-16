@@ -1,5 +1,5 @@
 { pkgs, inputs, ... }: let
-  unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
+  unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.hostPlatform.system; };
 in {
   environment.systemPackages = with unstable; [
     virt-manager

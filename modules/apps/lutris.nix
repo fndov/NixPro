@@ -1,5 +1,5 @@
 { pkgs, inputs, settings, ... }: let
-  unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
+  unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.hostPlatform.system; };
 in {
   home-manager.users.${settings.account.name} = {
     home.packages = with pkgs; [
