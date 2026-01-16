@@ -4,23 +4,24 @@
   in {
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
-      ghex                 # hexeditor
-      unstable.komikku     # manga
-      unstable.upscayl     # image upscale
-      zed-editor           # my beloved IDE
-      unstable.obsidian    # notes
-      unstable.obs-studio  # screenrecording
-      unstable.gimp        # the worst image editor
-      libreoffice          # word
+      ghex                    # hexeditor
+      unstable.komikku        # manga
+      unstable.upscayl        # image upscale
+      zed-editor              # my beloved IDE
+      unstable.obsidian       # notes
+      gpu-screen-recorder-gtk # screen recording
+      unstable.obs-studio     # complicated media
+      unstable.gimp           # the worst image editor
+      libreoffice             # word
       video-trimmer
-      krita                # art
-      authenticator        # auth
-      easyeffects          # audio stuff
-      baobab               # disk usage app
-      gearlever            # app image utility
-      vesktop              # modded discord
-      chatterino2          # twitch chat
-      mgba                 # gameboy emulator
+      krita                   # art
+      authenticator           # auth
+      easyeffects             # audio stuff
+      baobab                  # disk usage app
+      gearlever               # app image utility
+      vesktop                 # modded discord
+      chatterino2             # twitch chat
+      mgba                    # gameboy emulator
       /*
         vlc
         helvum

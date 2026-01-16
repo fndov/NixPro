@@ -42,6 +42,8 @@
       tmpd = "mkdir /tmp/d 2>/dev/null || true && cd /tmp/d 2>/dev/null || true";
       rmtmpd = "rm -rf /tmp/d/*";
       scp = "scp -r";
+      throttle = "taskset -c 0-5";
+      dustt = "dust --depth 1";
     };
   in { config = lib.mkMerge [
     {

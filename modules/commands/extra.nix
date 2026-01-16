@@ -6,24 +6,24 @@
     home.packages = with pkgs; [
       /* Non-essential */
       yt-dlp
-      bat # Better cat
+      bat                         # Better cat
       weechat
       file
       unstable.gdu
       unstable.fastfetch
       unstable.numbat
-      sysz # Systemd service viewer
+      sysz                        # Systemd service viewer
       gemini-cli
       unstable.codex
       nix-output-monitor
       discordchatexporter-cli
       discordchatexporter-desktop
-      lazygit # Git tui
-      dust # Better `du`
-      gping # Better `ping`
+      lazygit                     # Git tui
+      dust                        # Better `du`
+      gping                       # Better `ping`
       lolcat
-      hyperfine # Better `time`
-      broot # Interactive directory tree navigator
+      hyperfine                   # Better `time`
+      broot                       # Interactive directory tree navigator
       unstable.ollama
       wget
       /*
