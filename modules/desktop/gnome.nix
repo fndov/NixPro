@@ -61,7 +61,7 @@
       enable = true;
       createDirectories = true;
       publicShare = null;
-      desktop = "/home/${settings.account.name}/Desktop";
+      desktop = "/home/${settings.account.name}/Documents/Desktop";
       documents = "/home/${settings.account.name}/Documents";
       download = "/home/${settings.account.name}/Downloads";
       templates = "/home/${settings.account.name}/Documents/Templates";

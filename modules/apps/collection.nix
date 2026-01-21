@@ -22,6 +22,7 @@
       vesktop                 # modded discord
       chatterino2             # twitch chat
       mgba                    # gameboy emulator
+      unityhub
       /*
         vlc
         helvum

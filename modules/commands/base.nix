@@ -39,7 +39,6 @@
         sshpass
         glances
         wget
-        ffmpeg
         bottom
         gamemode
         aria2

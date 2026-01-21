@@ -80,6 +80,10 @@
             sudo nix-collect-garbage
             echo '# nix-collect-garbage'
             nix-collect-garbage
+            echo '# sudo nix-collect-garbage -d
+            sudo nix-collect-garbage -d
+            echo '# nix-collect-garbage -d'
+            nix-collect-garbage -d
           '')
 
           (writeShellScriptBin "nixop" ''

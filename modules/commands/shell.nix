@@ -6,7 +6,6 @@
       vstart = "sudo virsh net-start default";
       reboot = "echo '# Refusing to reboot'";
       poweroff = "echo '# Refusing to poweroff'";
-      cat = "bat --style=plain --pager=never";
       tree = "eza --color always --icons --hyperlink --group-directories-first --tree";
       l = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2";
       ll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2 --long --header --inode --links";
@@ -15,7 +14,11 @@
       c = "clear";
       cc = "clear;cd";
       ccc = "clear;cd /mnt/c/Users/miyu/";
+      cat = "bat --style=plain --pager=never";
+      ccat = "clear;bat --style=plain --pager=never";
+      cs = "clear;ls";
       cp = "cp -r";
+      x = "codex";
       grep = "rg";
       n = if settings.account.editor == "micro" then
         "${settings.account.editor} --ruler false -colorscheme geany ~/Documents/note.txt"
@@ -34,7 +37,6 @@
         "nice -1 ${settings.account.editor}"
       else
         "nice -1 ${settings.account.editor}";
-      # cattree = "find . -type f -exec grep -Iq . {} \\; -print | xargs cat"; # Broken
       offload = "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia";
       gc = "git clone --dep 1";
       ultra = "zstd --ultra 22";
@@ -51,6 +53,7 @@
         unstable.eza
         unstable.fd
         unstable.ripgrep
+        unstable.fzf
         glib
         glibc
         (writeShellScriptBin "mc" ''
@@ -64,6 +67,13 @@
       programs.atuin.enableBashIntegration = true;
       programs.zoxide.enable = true;
       programs.zoxide.enableZshIntegration = true;
+
+      programs.direnv.enable = true;
+      programs.direnv.nix-direnv.enable = true;
+      home.file.".config/direnv/direnv.toml".text = ''
+        [global]
+        hide_env_diff = true
+      '';
 
       programs.git.enable = true;
       programs.git.settings.user.name = settings.account.name;
@@ -89,14 +99,36 @@
       programs.fish.enable = true;
       programs.fish.interactiveShellInit = ''
         set fish_greeting ""
+
         bind \cF nixsw
         bind \cT nixts
         bind \cS nixsw
         bind \cK "up-or-search; commandline -f execute"
         bind \cE e
-        bind \cX "cargo run"
-        bind \cH backward-kill-word
+        bind \cX codex
+        bind \cH htop
         bind \cN "nix-shell"
+
+        function ef --description "Edit file, fuzzy-pick a filename to open in editor"
+          # List files (respects .gitignore by default) and pick one with preview.
+          set -l file (rg --files | fzf --prompt="ef> " --height=80% --preview 'bat --style=plain --color=always {}' --preview-window='right,60%,wrap')
+          test -n "$file"; or return
+          ${settings.account.editor} "$file"
+        end
+
+        function rge --description "Ripgrep edit, enter text you're looking for and open that file in editor"
+          set -l hit (rg --line-number --no-heading $argv | fzf --preview 'echo {} | cut -d: -f1 | xargs -I{} bat --style=plain --color=always {}')
+          test -n "$hit"; or return
+          set -l f (echo $hit | cut -d: -f1)
+          set -l l (echo $hit | cut -d: -f2)
+          set -l editor ${settings.account.editor}
+          switch $editor
+            case vi vim nvim
+              $editor +$l "$f"
+            case '*'
+              $editor "$f"
+          end
+        end
       '';
       programs.fish.shellAliases = aliases;
       home.packages = with pkgs; [ fishPlugins.done ];

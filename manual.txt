@@ -147,3 +147,5 @@ sysctl
 bootctl
 
 There's no need to disable a service if it's not enabled by default.
+
+tar -cvf - ./Directory | zstd -T0 -21 -o Directory.tar.zst
