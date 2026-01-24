@@ -138,7 +138,7 @@ in {
       boot.loader.grub.enable = if (settings.system.bootMode == "uefi") then false else true;
       boot.loader.grub.useOSProber = true;
       boot.loader.grub.device = settings.system.grubDevice;
-      boot.loader.grub.devices = [ settings.system.grubDevice ];
+      # boot.loader.grub.devices = [ settings.system.grubDevice ];
       boot.loader.efi.efiSysMountPoint = settings.system.bootMountPath;
       boot.loader.efi.canTouchEfiVariables = if (settings.system.bootMode == "uefi") then true else false;
       systemd.network.wait-online.enable = false;

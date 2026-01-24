@@ -1,6 +1,5 @@
 { pkgs, ... }: { imports = [
   ../../modules/apps/collection.nix
-  ../../modules/apps/virtual-machine.nix
   ../../modules/apps/spotify.nix
   ../../modules/apps/steam.nix
   ../../modules/apps/heroic.nix
