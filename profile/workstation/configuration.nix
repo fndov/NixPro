@@ -1,6 +1,7 @@
 { pkgs, ... }: { imports = [
   ../../modules/apps/collection.nix
   ../../modules/apps/spotify.nix
+  ../../modules/apps/flatpak.nix
   ../../modules/apps/steam.nix
   ../../modules/apps/heroic.nix
   ../../modules/commands/base.nix

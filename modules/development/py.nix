@@ -13,6 +13,7 @@
       python313Packages.matplotlib
       package-version-server
       ruff
+      basedpyright
     /*
       python312Full
       python312Packages.python-lsp-server

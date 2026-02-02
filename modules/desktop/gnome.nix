@@ -13,6 +13,7 @@
   services.pipewire.pulse.enable = true;
   services.pipewire.jack.enable = true;
 
+  # Other
   services.printing.enable = true;
 
   services.usbmuxd.enable = true;
@@ -32,11 +33,14 @@
   services.gnome.gnome-keyring.enable = true;
 
   environment.systemPackages = with pkgs; [
+    gnomeExtensions.clipboard-history
+    gnomeExtensions.coverflow-alt-tab
+    gnomeExtensions.rounded-window-corners-reborn
     gnomeExtensions.blur-my-shell
     gnome-extension-manager
     gnome-browser-connector
     gnome-control-center
-    gnome-tweaks
+    gnome-tweaks # Use it to autostart things like the browser.
     cups-filters
     noto-fonts-cjk-sans
   ];
@@ -53,6 +57,7 @@
   qt.platformTheme = "gnome";
   qt.style = "adwaita-dark";
 
+  # Directory stuff
   home-manager.users.${settings.account.name} = {
     xdg.enable = true;
     xdg.mime.enable = true;

@@ -8,7 +8,14 @@
       poweroff = "echo '# Refusing to poweroff'";
       tree = "eza --color always --icons --hyperlink --group-directories-first --tree";
       l = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2";
-      ll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2 --long --header --inode --links";
+      ll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=3"; 
+      lll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=4"; 
+      llll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=5"; 
+      lllll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=6"; 
+      llllll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=7"; 
+      lllllll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=8"; 
+      llllllll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=9"; 
+      li = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2 --long --header --inode --links";
       la = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2 --long --header --inode --links --all";
       ls = "eza --icons";
       c = "clear";
@@ -39,13 +46,14 @@
         "nice -1 ${settings.account.editor}";
       offload = "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia";
       gc = "git clone --dep 1";
-      ultra = "zstd --ultra 22";
+      ultra = "zstd --ultra -22";
       nixsh = "nix-shell --command ${settings.account.shell} -p";
       tmpd = "mkdir /tmp/d 2>/dev/null || true && cd /tmp/d 2>/dev/null || true";
       rmtmpd = "rm -rf /tmp/d/*";
       scp = "scp -r";
       throttle = "taskset -c 0-5";
       dustt = "dust --depth 1";
+      py = "python";
     };
   in { config = lib.mkMerge [
     {
