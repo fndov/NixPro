@@ -25,6 +25,8 @@
       ccat = "clear;bat --style=plain --pager=never";
       cs = "clear;ls";
       cp = "cp -r";
+      scp = "scp -r";
+      mkdir = "mkdir -p";
       x = "codex";
       grep = "rg";
       n = if settings.account.editor == "micro" then
@@ -50,7 +52,6 @@
       nixsh = "nix-shell --command ${settings.account.shell} -p";
       tmpd = "mkdir /tmp/d 2>/dev/null || true && cd /tmp/d 2>/dev/null || true";
       rmtmpd = "rm -rf /tmp/d/*";
-      scp = "scp -r";
       throttle = "taskset -c 0-5";
       dustt = "dust --depth 1";
       py = "python";
