@@ -26,6 +26,7 @@
       broot                       # Interactive directory tree navigator
       unstable.ollama
       wget
+      vt-cli                      # Virus total cli, wish they had a gui for nixos.
       /*
         ffmpeg
         kmon

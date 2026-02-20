@@ -3,14 +3,11 @@
   ../../modules/apps/spotify.nix
   ../../modules/apps/flatpak.nix
   ../../modules/apps/steam.nix
-  ../../modules/apps/heroic.nix
   ../../modules/commands/base.nix
   ../../modules/commands/shell.nix
   ../../modules/commands/library.nix
   ../../modules/commands/extra.nix
   ../../modules/development/nix.nix
-  ../../modules/development/cc.nix
-  ../../modules/development/rs.nix
   ../../modules/development/py.nix
   ../../modules/development/nix.nix
   ];

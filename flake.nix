@@ -6,7 +6,6 @@
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    # chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     # hyprland.url = "github:hyprwm/Hyprland";
     # hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
     # hyprland-plugins.inputs.hyprland.follows = "hyprland";
@@ -27,7 +26,7 @@
       system.grubDevice = "/dev/sda";
       system.bootMountPath = "/boot";
       system.flakePath = ".nixpro";
-      system.automation = false;
+      system.automation = true;
       system.security = false;
       system.sshd = false;
       system.tag = "tommy";
@@ -103,7 +102,6 @@
         specialArgs = { inherit inputs system; settings = settings // { profile = "server"; }; };
         modules = [
           inputs.home-manager.nixosModules.home-manager
-          inputs.determinate.nixosModules.default
           ./profile/server/hardware.nix
           ./profile/server/configuration.nix
           ./compose.nix

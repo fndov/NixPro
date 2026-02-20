@@ -84,6 +84,8 @@
       extraConfig.XDG_APPIMAGES_DIR = "/home/${settings.account.name}/Archive/Appimages";
       extraConfig.XDG_DEVELOPMENT = "/home/${settings.account.name}/Development";
       extraConfig.XDG_VM_DIR = "/home/${settings.account.name}/Machines";
+      extraConfig.XDG_VM_STORAGE_DIR = "/home/${settings.account.name}/Machines/Storage";
+      extraConfig.XDG_VM_ISO_DIR = "/home/${settings.account.name}/Machines/ISO";
       extraConfig.XDG_ORG_DIR = "/home/${settings.account.name}/Org";
       extraConfig.XDG_INC_DIR = "/home/${settings.account.name}/Inc";
       extraConfig.XDG_EDU_DIR = "/home/${settings.account.name}/Edu";

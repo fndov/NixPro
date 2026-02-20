@@ -1,17 +1,15 @@
 { inputs, pkgs, settings, ... }: {
   home-manager.users.${settings.account.name} = { ... }: let
-    unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.hostPlatform.system; config.allowUnfree = true; };
+    unstable = import inputs.nixpkgs-unstable {
+      system = pkgs.stdenv.hostPlatform.system;
+      config.allowUnfree = true;
+    };
   in {
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
       ghex                    # hexeditor
-      unstable.komikku        # manga
-      unstable.upscayl        # image upscale
       zed-editor              # my beloved IDE
-      unstable.obsidian       # notes
       gpu-screen-recorder-gtk # screen recording
-      unstable.obs-studio     # complicated media
-      unstable.gimp           # the worst image editor
       libreoffice             # word
       video-trimmer
       krita                   # art
@@ -22,7 +20,12 @@
       vesktop                 # modded discord
       chatterino2             # twitch chat
       mgba                    # gameboy emulator
-      unityhub
+      unityhub                # Game maker
+      unstable.gimp           # the worst image editor
+      unstable.upscayl        # image upscale
+      unstable.obsidian       # notes
+      unstable.komikku        # manga
+      unstable.obs-studio     # complicated media
       /*
         vlc
         helvum
@@ -110,5 +113,5 @@
       */
     ];
   };
-  services.lact.enable = true;
+  services.lact.enable = true; # GPU overclocking and monitor tool
 }
