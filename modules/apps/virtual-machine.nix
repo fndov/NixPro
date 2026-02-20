@@ -8,7 +8,7 @@ in {
       distrobox
       swtpm
       OVMF
-      unstable.qemu
+      qemu
       uefi-run
       lxc
       swtpm

@@ -8,13 +8,13 @@
       poweroff = "echo '# Refusing to poweroff'";
       tree = "eza --color always --icons --hyperlink --group-directories-first --tree";
       l = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2";
-      ll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=3"; 
-      lll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=4"; 
-      llll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=5"; 
-      lllll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=6"; 
-      llllll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=7"; 
-      lllllll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=8"; 
-      llllllll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=9"; 
+      ll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=3";
+      lll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=4";
+      llll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=5";
+      lllll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=6";
+      llllll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=7";
+      lllllll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=8";
+      llllllll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=9";
       li = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2 --long --header --inode --links";
       la = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2 --long --header --inode --links --all";
       ls = "eza --icons";
@@ -62,7 +62,8 @@
         unstable.eza
         unstable.fd
         unstable.ripgrep
-        unstable.fzf
+        fzf
+        dust
         glib
         glibc
         (writeShellScriptBin "mc" ''

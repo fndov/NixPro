@@ -5,13 +5,13 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    # hyprland.url = "github:hyprwm/Hyprland";
-    # hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
-    # hyprland-plugins.inputs.hyprland.follows = "hyprland";
-    # nixos-wsl.url = "github:nix-community/NixOS-WSL";
-    # nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
-    # nix-software-center.url = "github:snowfallorg/nix-software-center";
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix"; /*
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
+    hyprland-plugins.inputs.hyprland.follows = "hyprland";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
+    nix-software-center.url = "github:snowfallorg/nix-software-center"; */
   };
   outputs = inputs@{ ... }: let
     settings = {
@@ -132,22 +132,6 @@
           ./modules/apps/${settings.account.browser}.nix
         ] else []);
       };
-    };
-    darwinSystem.darwin = inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs system; settings = settings // { profile = "darwin"; }; };
-      modules = [
-        inputs.home-manager.nixosModules.home-manager
-        ./profile/darwin/configuration.nix
-        ./compose.nix
-      ] ++ (if !builtins.isNull settings.desktop.type then [
-        ./modules/desktop/${settings.desktop.type}.nix
-      ] else [])
-      ++ (if !builtins.isNull settings.account.terminal then [
-        ./modules/apps/${settings.account.terminal}.nix
-      ] else [])
-      ++ (if !builtins.isNull settings.account.browser then [
-        ./modules/apps/${settings.account.browser}.nix
-      ] else []);
     };
   };
 }

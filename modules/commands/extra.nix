@@ -9,24 +9,23 @@
       bat                         # Better cat
       weechat
       file
-      unstable.gdu
-      unstable.fastfetch
-      unstable.numbat
       sysz                        # Systemd service viewer
-      gemini-cli
-      unstable.codex
       nix-output-monitor
       discordchatexporter-cli
       discordchatexporter-desktop
       lazygit                     # Git tui
-      dust                        # Better `du`
       gping                       # Better `ping`
       lolcat
       hyperfine                   # Better `time`
       broot                       # Interactive directory tree navigator
-      unstable.ollama
       wget
       vt-cli                      # Virus total cli, wish they had a gui for nixos.
+      gdu
+      fastfetch
+      numbat
+      unstable.gemini-cli
+      unstable.codex
+      unstable.ollama
       /*
         ffmpeg
         kmon
