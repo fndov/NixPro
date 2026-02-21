@@ -32,7 +32,6 @@ in {
       environment.sessionVariables.NIXPKGS_ALLOW_UNFREE = "1";
 
       environment.systemPackages = with pkgs; [
-        # inputs.nix-software-center.packages.${system}.nix-software-center
         ifuse
       ] ++ (if settings.account.editor == "micro" then [ micro ] else [])
         ++ (if settings.account.editor == "nano" then [ nano ] else [])

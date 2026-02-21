@@ -3,6 +3,7 @@
 in {
   environment.systemPackages = with unstable; [
     virt-manager
+    swtpm # Can't emulate tmp 2.0 without it.
     /*
       gnome-boxes
       distrobox
@@ -11,7 +12,6 @@ in {
       qemu
       uefi-run
       lxc
-      swtpm
       dosfstools
       kubectl
       docker

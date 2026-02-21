@@ -54,8 +54,8 @@
   ];
 
   qt.enable = true;
-  qt.platformTheme = "gnome";
-  qt.style = "adwaita-dark";
+  # qt.platformTheme = "gnome";
+  # qt.style = "adwaita-dark";
 
   # Directory stuff
   home-manager.users.${settings.account.name} = {
