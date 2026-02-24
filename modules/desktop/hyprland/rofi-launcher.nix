@@ -3,7 +3,7 @@
     unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.hostPlatform.system; };
   in {
     home.packages = [
-      unstable.rofi-wayland
+      unstable.rofi
       pkgs.cliphist
       pkgs.wl-clipboard
       unstable.nwg-clipman

@@ -135,7 +135,7 @@ in {
       boot.loader.systemd-boot.editor = false;
       boot.loader.systemd-boot.configurationLimit = 25;
       boot.loader.grub.enable = if (settings.system.bootMode == "uefi") then false else true;
-      boot.loader.grub.useOSProber = true;
+      boot.loader.grub.useOSProber = false; # Add windows to the list if dualbooting.
       boot.loader.grub.device = settings.system.grubDevice;
       # boot.loader.grub.devices = [ settings.system.grubDevice ];
       boot.loader.efi.efiSysMountPoint = settings.system.bootMountPath;

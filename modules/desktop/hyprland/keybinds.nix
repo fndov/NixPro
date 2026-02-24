@@ -4,14 +4,14 @@
   in {
     config = lib.mkMerge [
       {
-        home.packages = with unstable; [
-          unstable.pamixer
-          unstable.playerctl
+        home.packages = with pkgs; [
+          pamixer
+          playerctl
           brightnessctl
+          htop
+          bottom
+          numbat
           unstable.swayosd
-          unstable.htop
-          unstable.bottom
-          unstable.numbat
         ];
         home.file.".config/swayosd/style.css".text = ''
           window {

@@ -1,25 +1,43 @@
 { config, inputs, lib, pkgs, settings, ... }: {
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  environment.systemPackages = with pkgs; [ libsecret cups-filters ];
 
+  # TTY.
+  services.getty.autologinUser = lib.mkForce "${settings.account.name}";
+  services.getty.helpLine = lib.mkForce "";
+
+  # Basic enable hyprland.
   programs.hyprland.enable = true;
   programs.hyprland.withUWSM = true;
   programs.hyprland.xwayland.enable = true;
   programs.hyprland.package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   programs.hyprland.portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 
+  # Bootscreen.
+  boot.plymouth.enable = true;
+  boot.loader.timeout = 1;
+
+  # Start hyprland.
+  services.greetd.enable = true;
+  services.greetd.settings.default_session.command = "${pkgs.bash}/bin/bash -c 'clear; exec ${pkgs.hyprland}/bin/Hyprland &> /dev/null'";
+  services.greetd.settings.default_session.user = settings.account.name;
+
+  # Portal.
   xdg.portal.enable = true;
   xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal xdg-desktop-portal-gtk ];
 
+  # Keyring.
+  services.gnome.gnome-keyring.enable = true;
+
+  # Things.
   services.udisks2.enable = true;
   services.devmon.enable = true;
   services.gvfs.enable = true;
 
-  services.usbmuxd.enable = true;
-  services.usbmuxd.package = pkgs.usbmuxd2;
+  services.avahi.enable = true;
+  services.avahi.nssmdns4 = true;
+  services.avahi.openFirewall = true;
 
-  services.gnome.gnome-keyring.enable = true;
-
+  # Audio.
   security.rtkit.enable = true;
   services.pipewire.enable = true;
   services.pipewire.alsa.enable = true;
@@ -27,37 +45,30 @@
   services.pipewire.pulse.enable = true;
   services.pipewire.jack.enable = true;
 
-  services.greetd.enable = true;
-  services.greetd.settings.default_session.command = "${pkgs.bash}/bin/bash -c 'clear; exec ${pkgs.hyprland}/bin/Hyprland &> /dev/null'";
-  services.greetd.settings.default_session.user = settings.account.name;
-
-  services.getty.autologinUser = lib.mkForce "${settings.account.name}";
-  services.getty.helpLine = lib.mkForce "";
-
-  services.thermald.enable = false;
-
+  # Printing support.
   services.printing.enable = true;
   security.pam.services.greetd = lib.mkIf config.services.greetd.enable { enableGnomeKeyring = true; };
 
-  services.avahi.enable = true;
-  services.avahi.nssmdns4 = true;
-  services.avahi.openFirewall = true;
+  # Bluetooth.
+  services.blueman.enable = true;
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
 
+  # IOS to Linux driver.
+  services.usbmuxd.enable = true;
+  services.usbmuxd.package = pkgs.usbmuxd2;
+
+  # CPU.
+  services.thermald.enable = false;
+  services.power-profiles-daemon.enable = true;
+
+  # Installed fonts.
   fonts.enableDefaultPackages = true;
   fonts.fontconfig.enable = true;
   fonts.packages = with pkgs; [ noto-fonts inter noto-fonts-cjk-sans ];
   fonts.fontconfig.defaultFonts.monospace = [ "Noto Mono" ];
   fonts.fontconfig.defaultFonts.sansSerif = [ "Inter" "Noto Sans" ];
   fonts.fontconfig.defaultFonts.serif = [ "Noto Serif" ];
-
-  services.blueman.enable = true;
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
-
-  boot.plymouth.enable = true;
-  boot.loader.timeout = 1;
-
-  services.power-profiles-daemon.enable = true;
 
   imports = [
     ./animation.nix
@@ -88,6 +99,8 @@
         hyprpolkitagent
         libnotify
         mako
+        # Printing
+        libsecret cups-filters
       ];
       wayland.windowManager.hyprland.enable = true;
       wayland.windowManager.hyprland.systemd.enable = false;
@@ -116,9 +129,9 @@
       wayland.windowManager.hyprland.settings = {
         input.natural_scroll = false;
         input.touchpad.natural_scroll = true;
-        gestures.workspace_swipe = true;
+        # gestures.workspace_swipe = true; # Deprecated?
         gestures.workspace_swipe_distance = 170;
-        gestures.workspace_swipe_fingers = 3;
+        # gestures.workspace_swipe_fingers = 3; # Deprecated?
         gestures.workspace_swipe_cancel_ratio = 0.2;
         gestures.workspace_swipe_direction_lock = true;
         gestures.workspace_swipe_direction_lock_threshold = 100;
