@@ -1,5 +1,6 @@
 { pkgs, ... }: { imports = [
   ../../modules/apps/collection.nix
+  ../../modules/apps/virtual-machine.nix
   ../../modules/apps/spotify.nix
   ../../modules/apps/flatpak.nix
   ../../modules/apps/steam.nix
@@ -9,6 +10,7 @@
   ../../modules/commands/extra.nix
   ../../modules/development/nix.nix
   ../../modules/development/py.nix
+  ../../modules/development/qml.nix
   ];
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
   boot.kernel.sysctl = {

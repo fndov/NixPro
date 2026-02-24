@@ -274,7 +274,7 @@ in {
         ports = [ 22 ];
         settings.PasswordAuthentication = true;
         settings.UseDns = true;
-        permitRootLogin = "yes";
+        settings.PermitRootLogin = "yes";
       };
     })
     (lib.mkIf (settings.profile != "microsoft") {
