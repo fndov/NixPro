@@ -32,12 +32,15 @@
   programs.seahorse.enable = true;
   services.gnome.gnome-keyring.enable = true;
 
+  programs.xwayland.enable = true;
+
   environment.systemPackages = with pkgs; [
+    gnome-extension-manager
     gnomeExtensions.clipboard-history
     gnomeExtensions.coverflow-alt-tab
     gnomeExtensions.rounded-window-corners-reborn
     gnomeExtensions.blur-my-shell
-    gnome-extension-manager
+    gnomeExtensions.dash-to-panel
     gnome-browser-connector
     gnome-control-center
     gnome-tweaks # Use it to autostart things like the browser.

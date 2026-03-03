@@ -10,6 +10,8 @@
   ../../modules/commands/extra.nix
   ../../modules/development/nix.nix
   ../../modules/development/py.nix
+  ../../modules/development/rs.nix
+  ../../modules/development/cc.nix
   ];
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
   boot.kernel.sysctl = {

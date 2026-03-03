@@ -151,3 +151,8 @@ There's no need to disable a service if it's not enabled by default.
 tar -cvf - ./Directory | zstd -T0 -21 -o Directory.tar.zst
 
 Make sure you have the appropreate software inside the input of the flake, hyprland was failing to build until I uncommneted the channels for hyprland & plugins in the flake.
+
+Sometimes wine might not be able to run a windows programs, when that happens it might be because you downloaded the wrong wine version. These steps helped me:
+nix shell nixpkgs#wineWowPackages.stable
+trash ~/.wine
+wine64 App.exe

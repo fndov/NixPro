@@ -2,8 +2,9 @@
   home-manager.users.${settings.account.name} = {
     home.packages = with pkgs; [
       rustup
-      gcc
       # cargo
+      # rust-analyzer
+      gcc # for some reason I might need it
     ];
   };
 }
