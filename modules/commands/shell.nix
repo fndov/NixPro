@@ -27,7 +27,6 @@
       cp = "cp -r";
       scp = "scp -r";
       mkdir = "mkdir -p";
-      x = "codex";
       grep = "rg";
       n = if settings.account.editor == "micro" then
         "${settings.account.editor} --ruler false -colorscheme geany ~/Documents/note.txt"
@@ -115,7 +114,6 @@
         bind \cS nixsw
         bind \cK "up-or-search; commandline -f execute"
         bind \cE e
-        bind \cX codex
         bind \cH htop
         bind \cN "nix-shell"
 

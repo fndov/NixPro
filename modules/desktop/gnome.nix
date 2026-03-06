@@ -54,6 +54,7 @@
     gnome-tour
     epiphany
     xterm
+    file-roller
   ];
 
   qt.enable = true;

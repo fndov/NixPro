@@ -26,7 +26,7 @@
       system.grubDevice = "/dev/sda"; # sda on hdd, vda on vm.
       system.bootMountPath = "/boot";
       system.flakePath = ".nixpro";
-      system.automation = true; # update upgrade automatically, turn off when *making* changes.
+      system.automation = true; # upgrade automatically, turn off when *making* changes.
       system.security = false;
       system.sshd = false; # allow outside ssh connections in.
       system.tag = "tommy";
