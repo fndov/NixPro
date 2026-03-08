@@ -94,7 +94,7 @@
     "init_on_alloc=0"
     "init_on_free=0"
     "idle=nomwait"
-    "ascpi_osi=Linux"
+    "acpi_osi=Linux"
     "preempt=full"
     "uinput"
   ];

@@ -16,7 +16,6 @@
       authenticator           # auth
       easyeffects             # audio stuff
       baobab                  # disk usage app
-      gearlever               # app image utility
       vesktop                 # modded discord
       chatterino2             # twitch chat
       mgba                    # gameboy emulator
@@ -25,13 +24,14 @@
       unstable.upscayl        # image upscale
       unstable.obsidian       # notes
       unstable.komikku        # manga
-      unstable.obs-studio     # complicated media
+      obs-studio              # complicated media
+      unstable.code-cursor    # Lame AI code editor
       /*
+        gearlever               # app image utility
         vlc
         helvum
         open-webui
         slack
-        unstable.code-cursor
         kdePackages.k3b # broken
         gnome-disk-utility
         portmaster
@@ -48,7 +48,6 @@
         veracrypt
         k3b # Broken Wed Apr 2 04:27:23 PM CDT 2025
         vscode
-        unstable.code-cursor
         unstable.alpaca
         protonvpn-gui
         discord

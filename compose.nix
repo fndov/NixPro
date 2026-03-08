@@ -36,7 +36,7 @@ in {
       ] ++ (if settings.account.editor == "micro" then [ micro ] else [])
         ++ (if settings.account.editor == "nano" then [ nano ] else [])
         ++ (if settings.account.editor == "doom" then [ emacs ] else [])
-        ++ (if settings.account.editor == "flow" then [ unstable.flow-control ] else []);
+        ++ (if settings.account.editor == "flow" then [ flow-control ] else []);
 
       nix.extraOptions = "experimental-features = nix-command flakes";
       nix.settings.sandbox = true;

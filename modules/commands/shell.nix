@@ -139,7 +139,7 @@
         end
       '';
       programs.fish.shellAliases = aliases;
-      home.packages = with pkgs; [ fishPlugins.done ];
+      home.packages = [ pkgs.fishPlugins.done ];
       programs.atuin.enableFishIntegration = true;
     } else { })
     (if settings.account.shell == "nushell" then {
