@@ -25,7 +25,6 @@
       unstable.obsidian       # notes
       unstable.komikku        # manga
       obs-studio              # complicated media
-      unstable.code-cursor    # Lame AI code editor
       /*
         gearlever               # app image utility
         vlc
@@ -99,6 +98,7 @@
         jetbrains.ruby-mine
         jetbrains.rust-rover
         jetbrains.webstorm
+        unstable.code-cursor    # Lame AI code editor
         k3b
         kaddressbook
         kontact

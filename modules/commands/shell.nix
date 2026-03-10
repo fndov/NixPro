@@ -16,7 +16,7 @@
       lllllll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=8";
       llllllll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=9";
       li = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2 --long --header --inode --links";
-      la = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2 --long --header --inode --links --all";
+      # la = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2 --long --header --inode --links --all";
       ls = "eza --icons";
       c = "clear";
       cc = "clear;cd";
@@ -54,6 +54,7 @@
       throttle = "taskset -c 0-5";
       dustt = "dust --depth 1";
       py = "python";
+      la = "lazygit";
     };
   in { config = lib.mkMerge [
     {
