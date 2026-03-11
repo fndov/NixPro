@@ -8,7 +8,6 @@
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
       ghex                    # hexeditor
-      zed-editor              # my beloved IDE
       gpu-screen-recorder-gtk # screen recording
       libreoffice             # word
       video-trimmer
@@ -20,6 +19,7 @@
       chatterino2             # twitch chat
       mgba                    # gameboy emulator
       unityhub                # Game maker
+      unstable.zed-editor     # my beloved IDE
       unstable.gimp           # the worst image editor
       unstable.upscayl        # image upscale
       unstable.obsidian       # notes

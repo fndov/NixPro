@@ -13,6 +13,8 @@
       glibc
       curl
       git
+      gittyup  # Git app
+      git-igitt# git commit graph
       unstable.appimage-run
       unstable.openssh
       unstable.yazi

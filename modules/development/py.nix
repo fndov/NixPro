@@ -12,6 +12,7 @@
       python313Packages.numpy
       python313Packages.matplotlib
       package-version-server
+      ty
       ruff
       basedpyright
     /*
