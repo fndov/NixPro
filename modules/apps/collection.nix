@@ -18,17 +18,17 @@
       vesktop                 # modded discord
       chatterino2             # twitch chat
       mgba                    # gameboy emulator
+      obs-studio              # complicated media
+      helvum
       unityhub                # Game maker
       unstable.zed-editor     # my beloved IDE
       unstable.gimp           # the worst image editor
       unstable.upscayl        # image upscale
       unstable.obsidian       # notes
       unstable.komikku        # manga
-      obs-studio              # complicated media
       /*
         gearlever               # app image utility
         vlc
-        helvum
         open-webui
         slack
         kdePackages.k3b # broken
