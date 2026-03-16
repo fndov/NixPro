@@ -11,8 +11,6 @@
       file
       sysz                        # Systemd service viewer
       nix-output-monitor
-      discordchatexporter-cli
-      discordchatexporter-desktop
       lazygit                     # Git tui
       gping                       # Better `ping`
       lolcat
@@ -23,6 +21,7 @@
       gdu
       fastfetch
       numbat
+      unstable.discordchatexporter-cli
       unstable.gemini-cli
       unstable.codex
       unstable.ollama

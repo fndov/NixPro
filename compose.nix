@@ -66,6 +66,11 @@ in {
       nix.gc.dates = "weekly";
       nix.gc.options = "--delete-older-than 30d";
 
+      services.kmscon.enable = true; # Replaced TTY with userspace one.
+      services.kmscon.autologinUser = "${settings.account.name}";
+      services.kmscon.hwRender = true;
+      services.kmscon.package = unstable.kmscon; # As of right now the stable version is "unstable" and unstable is not called unstable.
+
       home-manager.useUserPackages = true;
       home-manager.useGlobalPkgs = false;
       home-manager.backupFileExtension = "hm-backup";
