@@ -46,6 +46,7 @@
     gnome-tweaks # Use it to autostart things like the browser.
     cups-filters
     noto-fonts-cjk-sans
+    file-roller
   ];
 
   environment.gnome.excludePackages = with pkgs; [
@@ -54,7 +55,6 @@
     gnome-tour
     epiphany
     xterm
-    file-roller
   ];
 
   qt.enable = true;
