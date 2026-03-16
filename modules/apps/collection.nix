@@ -1,10 +1,5 @@
-{ inputs, pkgs, settings, ... }: {
-  home-manager.users.${settings.account.name} = { ... }: let
-    unstable = import inputs.nixpkgs-unstable {
-      system = pkgs.stdenv.hostPlatform.system;
-      config.allowUnfree = true;
-    };
-  in {
+{ pkgs, unstable, settings, ... }: {
+  home-manager.users.${settings.account.name} = {
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
       ghex                    # hexeditor

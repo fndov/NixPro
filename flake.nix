@@ -45,10 +45,14 @@
       desktop.animationSpeed = "medium";
     };
     system = settings.system.architecture;
-  in {
+    unstable = import inputs.nixpkgs-unstable {
+      inherit system;
+      config.allowUnfree = true;
+    };
+    in {
     nixosConfigurations = {
       workstation = inputs.nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system; settings = settings // { profile = "workstation"; }; };
+        specialArgs = { inherit inputs unstable system; settings = settings // { profile = "workstation"; }; };
         modules = [
           inputs.home-manager.nixosModules.home-manager
           ./profile/workstation/hardware.nix
@@ -65,7 +69,7 @@
         ] else []);
       };
       virtual-machine = inputs.nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system; settings = settings // { profile = "virtual-machine"; }; };
+        specialArgs = { inherit inputs unstable system; settings = settings // { profile = "virtual-machine"; }; };
         modules = [
           inputs.home-manager.nixosModules.home-manager
           ./profile/virtual-machine/hardware.nix
@@ -82,7 +86,7 @@
         ] else []);
       };
       windows-subsystem = inputs.nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system; settings = settings // { profile = "windows-subsystem"; }; };
+        specialArgs = { inherit inputs unstable system; settings = settings // { profile = "windows-subsystem"; }; };
         modules = [
           inputs.home-manager.nixosModules.home-manager
           ./profile/windows-subsystem/hardware.nix
@@ -99,7 +103,7 @@
         ] else []);
       };
       server = inputs.nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system; settings = settings // { profile = "server"; }; };
+        specialArgs = { inherit inputs unstable system; settings = settings // { profile = "server"; }; };
         modules = [
           inputs.home-manager.nixosModules.home-manager
           ./profile/server/hardware.nix
@@ -116,7 +120,7 @@
         ] else []);
       };
       image = inputs.nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system; settings = settings // { profile = "image"; }; };
+        specialArgs = { inherit inputs unstable system; settings = settings // { profile = "image"; }; };
         modules = [
           inputs.home-manager.nixosModules.home-manager
           ./profile/image/hardware.nix

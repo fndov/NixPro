@@ -1,7 +1,5 @@
-{ lib, pkgs, settings, inputs, ... }: {
-  home-manager.users.${settings.account.name} = { ... }: let
-    unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.hostPlatform.system; };
-  in {
+{ lib, pkgs, unstable, settings, ... }: {
+  home-manager.users.${settings.account.name} = {
     config = lib.mkMerge [
       {
         home.packages = with pkgs; [

@@ -1,6 +1,4 @@
-{ pkgs, inputs, settings, ... }: let
-  unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.hostPlatform.system; };
-in {
+{ pkgs, unstable, settings, ... }: {
   home-manager.users.${settings.account.name} = {
     home.packages = with pkgs; [
       steam

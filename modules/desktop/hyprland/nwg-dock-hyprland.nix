@@ -1,7 +1,5 @@
-{ pkgs, settings, inputs, ... }: {
-  home-manager.users.${settings.account.name} = { ... }: let
-    unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.hostPlatform.system; };
-  in {
+{ pkgs, settings, ... }: {
+  home-manager.users.${settings.account.name} = {
     home.packages = [
       pkgs.nwg-dock-hyprland
     ];

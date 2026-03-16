@@ -1,6 +1,4 @@
-{ pkgs, inputs, ... }: let
-  unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.hostPlatform.system; };
-in {
+{ unstable, ... }: {
   environment.systemPackages = with unstable; [
     distrobox
     /*

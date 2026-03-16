@@ -1,8 +1,5 @@
-{ inputs, pkgs, settings, ... }: {
-  home-manager.users.${settings.account.name} = { ... }: let
-    unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.hostPlatform.system; };
-  in {
-    nixpkgs.config.allowUnfree = true;
+{ pkgs, unstable, settings, ... }: {
+  home-manager.users.${settings.account.name} = {
     home.packages = with pkgs; [
       /* Essential */
       htop

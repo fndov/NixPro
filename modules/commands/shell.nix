@@ -1,6 +1,5 @@
-{ lib, inputs, pkgs, settings, ... }: {
+{ lib, pkgs, unstable, settings, ... }: {
   home-manager.users.${settings.account.name} = { ... }: let
-    unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.hostPlatform.system; };
     aliases = {
       shell = "nix-shell";
       vstart = "sudo virsh net-start default";

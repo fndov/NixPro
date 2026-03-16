@@ -1,6 +1,4 @@
-{ config, lib, inputs, pkgs, settings, ... }: let
-  unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.hostPlatform.system; };
-in {
+{ config, lib, inputs, pkgs, unstable, settings, ... }: {
   config = lib.mkMerge [
     {
       networking.hostName =
@@ -65,6 +63,7 @@ in {
       nix.gc.automatic = true;
       nix.gc.dates = "weekly";
       nix.gc.options = "--delete-older-than 30d";
+      nixpkgs.config.allowUnfree = true;
 
       services.kmscon.enable = true; # Replaced TTY with userspace one.
       services.kmscon.autologinUser = "${settings.account.name}";
@@ -175,7 +174,6 @@ in {
       systemd.services.NetworkManager-wait-online.enable = false;
     } else {})
     (if settings.driver.graphics == "nvidia" then {
-      nixpkgs.config.allowUnfree = true;
       environment.systemPackages = [ pkgs.nvtopPackages.full ];
       services.xserver.videoDrivers = [ "nvidia" ];
       hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production; /* production or latest */
