@@ -116,7 +116,7 @@
         bind \cE e
         bind \cH htop
         bind \cN "nix-shell"
-        bind \cX "distrobox enter arch -- codex --sandbox read-only"
+        bind \cX "codex"
 
         function ef --description "Edit file, fuzzy-pick a filename to open in editor"
           # List files (respects .gitignore by default) and pick one with preview.
