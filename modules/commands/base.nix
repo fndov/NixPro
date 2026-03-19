@@ -10,10 +10,10 @@
       glibc
       curl
       git
-      git-igitt# git commit graph
+      git-igitt # git commit graph
       unstable.appimage-run
       unstable.openssh
-      unstable.yazi
+      yazi
       /*
         sysz
         bat
