@@ -156,3 +156,5 @@ Sometimes wine might not be able to run a windows programs, when that happens it
 nix shell nixpkgs#wineWowPackages.stable
 trash ~/.wine
 wine64 App.exe
+
+If you have a shell.nix file of packages for running your project, and you activate it but for some reason the packages aren't in the env and you're thinking what's up with nix, even when you enter the nix shell after entering it from direv and there's no packages, it's likely because there's a version breakage, if all your packages are python313Packages.something and you have one python312Packages.something; that one package with the mismatched version will cause the whole shell to activate but not work.

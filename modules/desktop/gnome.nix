@@ -46,7 +46,7 @@
     cups-filters
     noto-fonts-cjk-sans
     file-roller
-    gnoem.gvfs
+    gnome.gvfs
     gvfs
   ];
 
