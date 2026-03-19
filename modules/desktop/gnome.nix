@@ -1,5 +1,4 @@
-{ lib, pkgs, settings, ... }:
-{
+{ lib, pkgs, settings, ... }: {
   # Desktop
   services.xserver.enable = true;
   services.displayManager.gdm.enable = true;
@@ -47,6 +46,8 @@
     cups-filters
     noto-fonts-cjk-sans
     file-roller
+    gnoem.gvfs
+    gvfs
   ];
 
   environment.gnome.excludePackages = with pkgs; [
