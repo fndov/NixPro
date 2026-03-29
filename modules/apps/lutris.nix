@@ -1,4 +1,4 @@
-{ pkgs, settings, ... }: {
+{ pkgs, unstable, settings, ... }: {
   home-manager.users.${settings.account.name} = {
     home.packages = with pkgs; [
       lutris
@@ -9,7 +9,7 @@
       vulkan-loader
       mangohud
       protonplus
-      wine
+      unstable.wine
       /*
         protontricks
         protonplus

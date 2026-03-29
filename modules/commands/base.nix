@@ -11,6 +11,7 @@
       curl
       git
       git-igitt # git commit graph
+      unstable.par2cmdline-turbo
       unstable.appimage-run
       unstable.openssh
       yazi

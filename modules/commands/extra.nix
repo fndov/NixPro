@@ -19,10 +19,11 @@
       fastfetch
       numbat
       unstable.discordchatexporter-cli
-      unstable.gemini-cli
       unstable.codex
-      unstable.ollama
+      bubblewrap
       /*
+        unstable.ollama
+        unstable.gemini-cli
         ffmpeg
         kmon
         timg

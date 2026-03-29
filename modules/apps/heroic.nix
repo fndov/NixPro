@@ -1,12 +1,12 @@
-{ pkgs, settings, ... }: {
+{ pkgs, unstable, settings, ... }: {
   home-manager.users.${settings.account.name} = { ... }: {
     home.packages = with pkgs; [
       heroic
       gamemode
       protonup-ng
       mangohud
-      wine
       gamescope
+      unstable.wine
       /*
         protontricks
         protonplus

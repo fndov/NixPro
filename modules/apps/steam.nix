@@ -8,7 +8,7 @@
       gvfs
       mangohud
       protonplus
-      wine
+      unstable.wine
       /*
         vulkan-tools
         vulkan-loader

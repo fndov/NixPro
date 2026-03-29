@@ -2,19 +2,12 @@
   home-manager.users.${settings.account.name} = {
     home.packages = with pkgs; [
       python313
-      # python313Packages.torchWithCuda
-      python313Packages.torch
-      python313Packages.torchvision
-      python313Packages.torchaudio
-      python313Packages.huggingface-hub
-      python313Packages.pandas
-      python313Packages.numpy
-      python313Packages.matplotlib
       package-version-server
       ty
       ruff
       basedpyright
     /*
+      python313Packages.torchWithCuda
       python312Full
       python312Packages.python-lsp-server
       unstable.python312Packages.ollama

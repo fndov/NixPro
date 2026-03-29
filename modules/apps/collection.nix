@@ -16,7 +16,7 @@
       obs-studio              # complicated media
       helvum
       unityhub                # Game maker
-      unstable.zed-editor     # my beloved IDE
+      unstable.zed-editor     # My beloved IDE
       unstable.gimp           # the worst image editor
       unstable.upscayl        # image upscale
       unstable.obsidian       # notes

@@ -36,7 +36,6 @@
   environment.systemPackages = with pkgs; [
     gnome-extension-manager
     gnomeExtensions.clipboard-history
-    gnomeExtensions.coverflow-alt-tab
     gnomeExtensions.rounded-window-corners-reborn
     gnomeExtensions.blur-my-shell
     gnomeExtensions.dash-to-panel

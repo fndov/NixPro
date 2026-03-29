@@ -50,7 +50,7 @@
       nixsh = "nix-shell --command ${settings.account.shell} -p";
       tmpd = "mkdir /tmp/d 2>/dev/null || true && cd /tmp/d 2>/dev/null || true";
       rmtmpd = "rm -rf /tmp/d/*";
-      throttle = "taskset -c 0-5";
+      throttle = "taskset -c 0-15";
       dustt = "dust --depth 1";
       py = "python";
       la = "lazygit";
