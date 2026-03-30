@@ -10,6 +10,7 @@
       glibc
       curl
       git
+      gh
       git-igitt # git commit graph
       unstable.par2cmdline-turbo
       unstable.appimage-run
