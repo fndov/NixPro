@@ -21,6 +21,7 @@
       unstable.upscayl        # image upscale
       unstable.obsidian       # notes
       unstable.komikku        # manga
+      unstable.prismlauncher       # ma craf java launcher plus mod manager
       /*
         gearlever               # app image utility
         vlc

@@ -158,3 +158,5 @@ trash ~/.wine
 wine64 App.exe
 
 If you have a shell.nix file of packages for running your project, and you activate it but for some reason the packages aren't in the env and you're thinking what's up with nix, even when you enter the nix shell after entering it from direv and there's no packages, it's likely because there's a version breakage, if all your packages are python313Packages.something and you have one python312Packages.something; that one package with the mismatched version will cause the whole shell to activate but not work.
+
+There can be a lot of data in the nix store that is not needed anymore and won't get deleted but will get deleted when you finally change your kernel enough to the point you have to rebuild the gpu driver into the new one, that will remove more in the next gc; up to from what I've seen: multiple tens of gigabytes of uneeded data that was kept for no reason.

@@ -1,8 +1,8 @@
 { unstable, ... }: {
   environment.systemPackages = with unstable; [
+    virt-manager
     distrobox
     /*
-      virt-manager
       swtpm # Can't emulate tmp 2.0 without it.
       gnome-boxes
       swtpm
@@ -17,10 +17,12 @@
       lazydocker
     */
   ];
-  # programs.virt-manager.enable = true;
-  # virtualisation.libvirtd.enable = true;
-  # virtualisation.spiceUSBRedirection.enable = true;
+  # Virt-manager
+  programs.virt-manager.enable = true;
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
 
+  # Distrobox
   virtualisation.podman.enable = true;
   virtualisation.podman.dockerCompat = true;
 

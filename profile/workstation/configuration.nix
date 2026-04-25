@@ -12,6 +12,7 @@
   ../../modules/development/py.nix
   ../../modules/development/rs.nix
   ../../modules/development/cc.nix
+  ../../modules/projects/xantusia.nix
   ];
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
   boot.kernel.sysctl = {
@@ -95,7 +96,7 @@
     "init_on_free=0"
     "idle=nomwait"
     "acpi_osi=Linux"
-    "preempt=full"
+    "preempt=full" # was 'full', setting this will do nothing if the preempt mode isn't build into the kernel; else it will be the default, just like if you didn't set anything. full is for throughput plus low latancy & lazy is more throughput and worse latancy than full and rt is the lowest latency and the least throughput. 
     "uinput"
   ];
   boot.blacklistedKernelModules = [

@@ -1,6 +1,6 @@
-{ pkgs, settings, ... }: {
+{ pkgs, unstable, settings, ... }: {
   home-manager.users.${settings.account.name} = {
-    home.packages = with pkgs; [
+    home.packages = with unstable; [
       # rustup
       # # cargo
       # # rust-analyzer
@@ -13,7 +13,7 @@
       rust-analyzer
       gcc
 
-      rustlings # needed for working on rustlings
+      # rustlings # needed for working on rustlings
     ];
     home.sessionVariables = {
       RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
