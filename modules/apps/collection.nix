@@ -14,15 +14,16 @@
       chatterino2             # twitch chat
       mgba                    # gameboy emulator
       obs-studio              # complicated media
-      helvum
+      crosspipe
       unityhub                # Game maker
       unstable.zed-editor     # My beloved IDE
-      unstable.gimp           # the worst image editor
       unstable.upscayl        # image upscale
       unstable.obsidian       # notes
       unstable.komikku        # manga
       unstable.prismlauncher       # ma craf java launcher plus mod manager
       /*
+        unstable.gimp           # instead; install gimp from flathub and then google search "PhotoGimp"
+        unstable.telegram-desktop
         gearlever               # app image utility
         vlc
         open-webui
@@ -32,9 +33,9 @@
         portmaster
         qbittorrent
         amberol
+        helvum                  # Unmaintained. DEAD.
         unstable.godot_4
         unstable.blender
-        unstable.telegram-desktop
         swayimg
         kdenlive
         kdePackages.elisa

@@ -4,7 +4,6 @@
       /* Non-essential */
       yt-dlp
       bat                         # Better cat
-      weechat
       file
       sysz                        # Systemd service viewer
       nix-output-monitor
@@ -22,6 +21,7 @@
       unstable.codex
       bubblewrap
       /*
+        weechat
         unstable.ollama
         unstable.gemini-cli
         ffmpeg

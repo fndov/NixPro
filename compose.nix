@@ -66,7 +66,7 @@
       nixpkgs.config.allowUnfree = true;
 
       services.kmscon.enable = true; # Replaced TTY with userspace one.
-      services.kmscon.autologinUser = "${settings.account.name}";
+      services.getty.autologinUser = "${settings.account.name}";
       services.kmscon.hwRender = true;
       services.kmscon.package = unstable.kmscon; # As of right now the stable version is "unstable" and unstable is not called unstable.
 
@@ -176,7 +176,7 @@
     (if settings.driver.graphics == "nvidia" then {
       environment.systemPackages = [ pkgs.nvtopPackages.full ];
       services.xserver.videoDrivers = [ "nvidia" ];
-      hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production; /* production or latest */
+      hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580; /* production or latest */
       # ^ Works best with boot.kernelPackages = pkgs.linuxPackages;
       hardware.nvidia.powerManagement.enable = true;
       hardware.nvidia.powerManagement.finegrained = true;
@@ -265,11 +265,6 @@
       };
     } else {
       services.journald.extraConfig = "SystemMaxUse=10M";
-      systemd.coredump.extraConfig = ''
-        [Coredump]
-        Storage=none
-        ProcessSizeMax=0
-      '';
     })
     (lib.mkIf settings.system.sshd {
       services.openssh = {
@@ -280,10 +275,9 @@
         settings.PermitRootLogin = "yes";
       };
     })
-    (lib.mkIf (settings.profile != "microsoft") {
+    (lib.mkIf (settings.profile != "windows-subsystem") {
       environment.systemPackages = [ pkgs.networkmanager ];
       networking.networkmanager.enable = true;
-      networking.wireless.enable = if settings.profile == "image" then lib.mkForce false else false;
       services.udev.packages = [ pkgs.networkmanager ];
       services.dbus.enable = true;
       services.resolved.enable = true;

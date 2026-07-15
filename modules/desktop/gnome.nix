@@ -61,8 +61,12 @@
   # qt.platformTheme = "gnome";
   # qt.style = "adwaita-dark";
 
+
   # Directory stuff
   home-manager.users.${settings.account.name} = {
+    # Keeping legacy behaviour
+    xdg.userDirs.setSessionVariables = true;
+
     xdg.enable = true;
     xdg.mime.enable = true;
     xdg.mimeApps.enable = true;
@@ -76,23 +80,23 @@
       templates = "/home/${settings.account.name}/Documents/Templates";
       music = "/home/${settings.account.name}/Media/Music";
       pictures = "/home/${settings.account.name}/Media/Pictures";
-      extraConfig.XDG_WALLPAPER_DIR = "/home/${settings.account.name}/Media/Pictures/Wallpapers";
-      extraConfig.XDG_ARTWORK_DIR = "/home/${settings.account.name}/Media/Pictures/Artwork";
-      extraConfig.XDG_GALLERY_DIR = "/home/${settings.account.name}/Media/Pictures/Gallery";
-      extraConfig.XDG_MEMES_DIR = "/home/${settings.account.name}/Media/Pictures/Memes";
-      extraConfig.XDG_PRIVATE_PICTURES_DIR = "/home/${settings.account.name}/Media/Pictures/Private";
+      extraConfig.WALLPAPER = "/home/${settings.account.name}/Media/Pictures/Wallpapers";
+      extraConfig.ARTWORK = "/home/${settings.account.name}/Media/Pictures/Artwork";
+      extraConfig.GALLERY = "/home/${settings.account.name}/Media/Pictures/Gallery";
+      extraConfig.MEMES = "/home/${settings.account.name}/Media/Pictures/Memes";
+      extraConfig.PRIVATE_PICTURES = "/home/${settings.account.name}/Media/Pictures/Private";
       videos = "/home/${settings.account.name}/Media/Videos";
-      extraConfig.XDG_BOOK_DIR = "/home/${settings.account.name}/Media/Books";
-      extraConfig.XDG_PODCAST_DIR = "/home/${settings.account.name}/Media/Podcasts";
-      extraConfig.XDG_ARCHIVE_DIR = "/home/${settings.account.name}/Archive";
-      extraConfig.XDG_APPIMAGES_DIR = "/home/${settings.account.name}/Archive/Appimages";
-      extraConfig.XDG_DEVELOPMENT = "/home/${settings.account.name}/Development";
-      extraConfig.XDG_VM_DIR = "/home/${settings.account.name}/Machines";
-      extraConfig.XDG_VM_STORAGE_DIR = "/home/${settings.account.name}/Machines/Storage";
-      extraConfig.XDG_VM_ISO_DIR = "/home/${settings.account.name}/Machines/ISO";
-      extraConfig.XDG_ORG_DIR = "/home/${settings.account.name}/Org";
-      extraConfig.XDG_INC_DIR = "/home/${settings.account.name}/Inc";
-      extraConfig.XDG_EDU_DIR = "/home/${settings.account.name}/Edu";
+      extraConfig.BOOK = "/home/${settings.account.name}/Media/Books";
+      extraConfig.PODCAST = "/home/${settings.account.name}/Media/Podcasts";
+      extraConfig.ARCHIVE = "/home/${settings.account.name}/Archive";
+      extraConfig.APPIMAGES = "/home/${settings.account.name}/Archive/Appimages";
+      extraConfig.DEVELOP = "/home/${settings.account.name}/Development";
+      extraConfig.VM = "/home/${settings.account.name}/Machines";
+      extraConfig.VM_STORAGE = "/home/${settings.account.name}/Machines/Storage";
+      extraConfig.VM_ISO = "/home/${settings.account.name}/Machines/ISO";
+      extraConfig.ORG = "/home/${settings.account.name}/Org";
+      extraConfig.INC = "/home/${settings.account.name}/Inc";
+      extraConfig.EDU = "/home/${settings.account.name}/Edu";
     };
   };
   # Boot screen

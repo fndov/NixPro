@@ -50,10 +50,11 @@
       nixsh = "nix-shell --command ${settings.account.shell} -p";
       tmpd = "mkdir /tmp/d 2>/dev/null || true && cd /tmp/d 2>/dev/null || true";
       rmtmpd = "rm -rf /tmp/d/*";
-      throttle = "taskset -c 0-15";
+      throttle = "taskset -c 0-15"; # Limit threads to the Ryzen 3D cores which have more cache.
       dustt = "dust --depth 1";
       py = "python";
       la = "lazygit";
+      log = "git log --oneline --decorate --graph --all --max-count=50";
     };
   in { config = lib.mkMerge [
     {
@@ -116,7 +117,8 @@
         bind \cE e
         bind \cH htop
         bind \cN "nix-shell"
-        bind \cX "codex"
+        bind \cX "codex --dangerously-bypass-approvals-and-sandbox"
+        bind \cB "codex resume --dangerously-bypass-approvals-and-sandbox"
 
         function ef --description "Edit file, fuzzy-pick a filename to open in editor"
           # List files (respects .gitignore by default) and pick one with preview.

@@ -1,6 +1,6 @@
 { pkgs, ... }: { imports = [
   ../../modules/apps/collection.nix
-  ../../modules/apps/virtual-machine.nix
+  # ../../modules/apps/virtual-machine.nix
   ../../modules/apps/spotify.nix
   ../../modules/apps/flatpak.nix
   ../../modules/apps/steam.nix
@@ -96,7 +96,7 @@
     "init_on_free=0"
     "idle=nomwait"
     "acpi_osi=Linux"
-    "preempt=full" # was 'full', setting this will do nothing if the preempt mode isn't build into the kernel; else it will be the default, just like if you didn't set anything. full is for throughput plus low latancy & lazy is more throughput and worse latancy than full and rt is the lowest latency and the least throughput. 
+    "preempt=full" # was 'full', setting this will do nothing if the preempt mode isn't build into the kernel; else it will be the default, just like if you didn't set anything. full is for throughput plus low latancy & lazy is more throughput and worse latancy than full and rt is the lowest latency and the least throughput.
     "uinput"
   ];
   boot.blacklistedKernelModules = [
