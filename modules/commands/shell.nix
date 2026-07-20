@@ -16,7 +16,7 @@
       llllllll = "eza --color always --icons --hyperlink --group-directories-first --tree --level=9";
       li = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2 --long --header --inode --links";
       # la = "eza --color always --icons --hyperlink --group-directories-first --tree --level=2 --long --header --inode --links --all";
-      ls = "eza --icons";
+      ls = "eza --icons=always";
       c = "clear";
       cc = "clear;cd";
       ccc = "clear;cd /mnt/c/Users/miyu/";

@@ -178,9 +178,6 @@
       services.xserver.videoDrivers = [ "nvidia" ];
       hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580; /* production or latest */
       # ^ Works best with boot.kernelPackages = pkgs.linuxPackages;
-      hardware.nvidia.powerManagement.enable = true;
-      hardware.nvidia.powerManagement.finegrained = true;
-      hardware.nvidia.modesetting.enable = true;
       hardware.nvidia.nvidiaSettings = true;
       hardware.nvidia.open = false;
       boot.blacklistedKernelModules = [ "nouveau" ];
@@ -193,15 +190,18 @@
       ];
       hardware.graphics.enable = true;
       hardware.graphics.enable32Bit = true;
+      hardware.nvidia.prime.sync.enable = true;
       hardware.nvidia.prime.intelBusId = settings.driver.intelBusID;
       hardware.nvidia.prime.nvidiaBusId = settings.driver.nvidiaBusID;
-      hardware.nvidia.prime.offload.enable = true;
-      hardware.nvidia.prime.offload.enableOffloadCmd = true;
+      hardware.nvidia.modesetting.enable = true;
+      hardware.nvidia.powerManagement.enable = true;
+      hardware.nvidia.powerManagement.finegrained = false;
+      hardware.nvidia.prime.offload.enable = false;
+      hardware.nvidia.prime.offload.enableOffloadCmd = false;
     } else {})
     (if settings.driver.graphics == "amd" then {
     } else {})
     (if settings.driver.graphics == "intel" then {
-      services.xserver.videoDrivers = [ "i915" ];
       boot.initrd.kernelModules = [ "i915" ];
       hardware.graphics.enable = true;
       hardware.graphics.enable32Bit = true;
